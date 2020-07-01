@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1 align="center">snack king</h1>
+
+	<%@ include file="views/common/menubar.jsp" %>
+	
 </body>
 </html>
