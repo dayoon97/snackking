@@ -690,8 +690,6 @@ p.typing-txt{
     </div>
   </div>
 </div>
-
-
 	</div>
 	<div class="main main5-1">
 		<img src="../image/main_service.png" style="width:100%;">
