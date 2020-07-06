@@ -464,7 +464,7 @@ p.typing-txt{
 <body>
 	<script> AOS.init(); </script>
 	<div class="wrapper">
-		<%@include file="menu.jsp" %>
+		<%@include file="../views/common/index-menu.jsp" %>
 		<div class="main main1-1">
 			<div class="main1-2">
 			<img src="../image/main1.jpg" width="1580px;"height="842px;" style="overflow:hidden;">
@@ -716,7 +716,7 @@ p.typing-txt{
 		</div>
 	</div>
 	<div class="main main9-1">
-	<%@ include file="footer.jsp" %>
+	<%@ include file="../views/common/footer.jsp" %>
 	</div>
 		</div>
 	<script>
