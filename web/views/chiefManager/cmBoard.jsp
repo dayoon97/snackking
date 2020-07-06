@@ -162,7 +162,7 @@ position: absolute;
 width: 90px;
 height: 30px;
 left: 40px;
-top: 280px;
+top: 150px;
 font-family: NanumSquare_ac;
 font-style: normal;
 font-weight: bold;
@@ -176,14 +176,14 @@ color: #000000;
 /*적용 버튼*/
 #apply{
 position:absolute;	
-top:300px;
+top:180px;
 right:90px;
 }
 
 #listTable{
 border-collapse:collapse;
 position: absolute;
-top:330px;
+top:200px;
 left:45px;
 text-align:center;
 }
@@ -350,24 +350,24 @@ span.choose {
 				<div id="line1"></div>
 				<div id="subTitle">문의 게시판</div>
 			</div>	<!--title-area end -->
-			
-			<!-- search-area start -->
+<!-- 			
+			search-area start
 			<div id="searchArea">
-				<!-- 조회 제목 -->
+				조회 제목
 				<div id="subSubTitle1">탈퇴 회원 검색</div>
-					<!-- searchBox start -->
+					searchBox start
 					<div id="searchBox">
 						<form id="searchForm">
 							<table class="memberTable">
 								<tr>
-									<!-- 검색 내용 타이핑하는 부분 -->
+									검색 내용 타이핑하는 부분
 									<td>구분 :</td>
 									<td>
-										<!-- <select id="searchCondition" name="searchCondition">
+										<select id="searchCondition" name="searchCondition">
 											<option value="none">==선택==</option>
 											<option value="requestDelete">탈퇴요청</option>
 											<option value="deleteMember">탈퇴완료</option>
-										</select> -->
+										</select>
 										<div class="dropdown">
 											<div class="select">
 												<span>선택</span>
@@ -395,9 +395,10 @@ span.choose {
 								</tr>
 							</table>
 						</form>
-					</div> <!-- searchBox end -->
-			</div>	<!-- search-area end -->
-			
+					</div> searchBox end
+			</div>	search-area end
+ -->			
+			<!-- test -->
 			<!-- 조회 결과 리스트 부분 -->
 				<div id="listArea">
 					<!-- 조회 결과 리스트 제목 -->
@@ -407,16 +408,16 @@ span.choose {
 					<span id="apply">조회 결과 수 :</span>
 					
 					<!-- 조회 리스트 테이블 -->
-					<table id="listTable">
+					<table id="listTable" border="1">
 						<!-- 테이블 헤드 -->
 						<tr id="listHead">
 							<th width="30px">번호</th>
-							<th width="100px">아이디</th>
-							<th width="100px">신청시각</th>
-							<th width="100px">승인시각</th>
-							<th width="80px">신청구분</th>
-							<th width="200px">사유</th>
-							<th width="80px">처리</th>
+							<th width="50px">구분</th>
+							<th width="300px">제목</th>
+							<th width="80px">작성자</th>
+							<th width="80px">작성일</th>
+							<th width="50px">상태</th>
+							<th width="30px">조회수</th>
 						</tr>
 						
 						<!-- 리스트 바디  -->
