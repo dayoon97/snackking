@@ -15,7 +15,7 @@
 <body>
 	<div>
 	<!-- 메뉴바 가져오기 -->
-	<%@ include file="../views/commom/menubar.jsp" %>
+
 
 	
 	
