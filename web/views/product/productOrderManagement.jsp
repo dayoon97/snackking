@@ -6,13 +6,6 @@
 <style>
 
 
-/*버튼*/
-#btnMore{
-position:absolute;
-top:280px;
-right:90px;
-width:70px;		
-}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -21,14 +14,9 @@ width:70px;
 </head>
 <body>
 	<!-- 메뉴바 가져오기 -->
-	<%@ include file="../views/commom/menubar.jsp" %>
+
 
 	
-	<!-- 메뉴바 부분 찌그러지지 않게 공간만 잡아두기 -->
-	<div id="wrapper1"></div>
-	
-	<!-- 본문 영역 부분 찌그러지지 않게 공간만 잡아두기 -->
-	<div id="wrapper2">
 		<!-- 본문 영역 내용 들어가는 흰색 큰 박스 -->
 		<div id="background-box">
 		
@@ -39,7 +27,7 @@ width:70px;
 				<!-- 본문 영역 제목 밑에있는 선 -->
 				<div id="line1"></div>
 				<!-- 본문 영역 소제목 -->
-				<div id="subTitle">상품 재고 확인</div>
+				<div id="subTitle">발주 조회</div>
 			</div>
 			<!-- 본문영역 상단부 끝 -->
 			
@@ -48,84 +36,92 @@ width:70px;
 				<!-- 조회 정보 입력 부분 -->
 				<div id="searchArea">
 						<!-- 조회 제목 -->
-						<div id="subSubTitle1">재고 조회</div>
+						<div id="subSubTitle1">발주 조회</div>
 						<!-- 조회 상자 테두리-->
-						<div id="searchBox" style="height:60px !important;">
+						<div id="searchBox">
 							<form id="searchForm">
 								<table>
 									<tr>
 										<!-- 검색 내용 타이핑하는 부분 -->
-			
-										<td style="width:130px">매입처  :
-										<input type="text" class="searchTextBox" size="6" name=""></td>
-								
 										
-										<td style="width:150px">상품종류  :
+										<td style="width:140px" name="">발주구분 :
 											<select>
-					                           <option>선택</option>
-					                           <option>과자</option>
-					                           <option>캔디</option>
-					                           <option>껌</option>
-					                           <option>초콜릿</option>
-					                           <option>커피</option>					                         
-					                           <option>차</option>
-					                           <option>음료</option>
-					                           <option>컵라면</option>
-					                           <option>컵밥</option>
-					                           <option>케이크</option>                           
+											   <option>선택</option>
+					                           <option>정량</option>
+					                           <option>정기</option>                        
                         					</select>
 										</td>
-										<td style="width:150px">상품명  :
-											<input type="text" class="searchTextBox" size="6" name=""></td>
 										
-										<td style="width:170px">상품코드  :
+										<td style="width:160px">발주코드  :
+											<input type="text" class="searchTextBox" size="10" name=""></td>
+										
+										<td style="width:130px">상품명  :
 											<input type="text" class="searchTextBox" size="7" name=""></td>
 										
-										<td style="width:250px">
-											<select>
-											   <option>재고기준 조회</option>
-					                           <option>총수량</option>
-					                           <option>출고가능수량</option>
-					                           <option>입고진행수량</option>
-					                           <option>출고진행수량</option>
-					                           <option>교환예정수량</option>                         
-                        					</select>&nbsp;&nbsp;
-                        					<input type="text" class="searchTextBox" size="2" name="">&nbsp;&nbsp;~&nbsp;&nbsp;
-                        					<input type="text" class="searchTextBox" size="2" name="">
+										<td style="width:150px">상품코드  :
+											<input type="text" class="searchTextBox" size="7" name=""></td>
+										
+										<td style="width:150px">매입처  :
+										<input type="text" class="searchTextBox" size="7" name=""></td>
+																										
+										<td>승인  :
+										<input type="text" class="searchTextBox" size="1" name="">
+										</td>			
+										<td rowspan="2"><input type="submit" class="btn" value="검색" id="submit"></td>
+										
+									</tr>
+									<tr>
+										
+										<td colspan="3" style="width:400px">발주일  :
+										<input type="date" class="searchTextBox" name="">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
+										<input type="date" class="searchTextBox" name="">
 										</td>
-										<td><input type="submit" class="btn" value="검색" id="submit"></td>
-									
-									
+										
+										<td>신청자  :
+										<input type="text" class="searchTextBox" size="4" name="">
+										</td>
+										
+										<td colspan="2">입고예정  :
+										<input type="date" class="searchTextBox" style="width:130px;" name="">
+										</td>
+								
+										
+										
+										
+					
 									</tr>
 								</table>
 							</form>
 						</div>
 				</div>
-
-
+				
+				
+					
 				<!-- 조회 결과 리스트 부분 -->
 				<div id="listArea">
 					<!-- 조회 결과 리스트 제목 -->
-					<div id="subSubTitle2">재고 리스트</div>
+					<div id="subSubTitle2">발주 리스트</div>
 					<!-- 적용 버튼 -->
 					<button onclick="" class="btn" id="btnMore">상세</button>
+					<button onclick="" class="btn" id="btnOk">승인</button>
+					<button onclick="" class="btn" id="btnNo">거부</button>
 					<!-- 조회 리스트 테이블 -->
-					<table id="listTable12" align="center">
+					<table id="listTable10">
 						<thead>
 							<!-- 테이블 헤드 -->
-							<tr id="listHead" >
+							<tr>
 								<th>선택</th>
-								<th>상품코드</th>
-								<th>상품종류</th>
+								<th>발주구분</th>
+								<th>발주코드</th>
 								<th>상품명</th>
+								<th>상품코드</th>
 								<th>매입처</th>
-								<th>최근입고</th>
-								<th>최근출고</th>
-								<th>총수량</th>
-								<th>출고가능</th>
-								<th>입고진행</th>
-								<th>출고진행</th>
-								<th>교환예정</th>
+								<th>발주일</th>
+								<th>신청자</th>
+								<th>입고예정</th>
+								<th>승인여부</th>
+
+								
 							</tr>
 						</thead>
 						<tbody>
@@ -141,6 +137,16 @@ width:70px;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
+							</tr>
+							<tr>
+								<td><input type="radio" name="ok"></td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
 							</tr>
@@ -155,6 +161,16 @@ width:70px;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
+							</tr>
+							<tr>
+								<td><input type="radio" name="ok"></td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
 							</tr>
@@ -169,8 +185,6 @@ width:70px;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>								
 							</tr>
 							<tr>
 								<td><input type="radio" name="ok"></td>
@@ -183,22 +197,6 @@ width:70px;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>								
-							</tr>
-							<tr>
-								<td><input type="radio" name="ok"></td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>	
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>								
 							</tr>
 							<tr>
 								<td><input type="radio" name="ok"></td>
@@ -210,23 +208,7 @@ width:70px;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>								
-							</tr>
-							<tr>
-								<td><input type="radio" name="ok"></td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>								
+								<td>승인</td>
 							</tr>
 						</tbody>
 					</table>
@@ -236,7 +218,6 @@ width:70px;
 			</div>
 			<!-- 본문영역 중앙부 끝 -->
 			
-		</div>
 	</div>
 	
 	
