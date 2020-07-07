@@ -98,7 +98,7 @@ ul li {
 <header>
   <div class="inner">
       	<ul>
-      		<li><div class="menu-logo"><img src="../image/logo.png" style="width:100px;"></div></li>
+      		<li><div class="menu-logo"><img src="/resources/image/logo5.png" style="width:100px;"></div></li>
       		<li>회사소개</li>
       <li class="loginArea">
       	<button class="login" id="login">로그인</button>
