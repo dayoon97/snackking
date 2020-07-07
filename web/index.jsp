@@ -467,7 +467,7 @@ p.typing-txt{
 		<%@include file="../views/common/index-menu.jsp" %>
 		<div class="main main1-1">
 			<div class="main1-2">
-			<img src="../image/main1.jpg" width="1580px;"height="842px;" style="overflow:hidden;">
+			<img src="../../resources/image/main1.jpg" width="1580px;"height="842px;" style="overflow:hidden;">
 			</div>
 		<div class="page-start"></div>
 		</div>
@@ -692,11 +692,11 @@ p.typing-txt{
 </div>
 	</div>
 	<div class="main main5-1">
-		<img src="../image/main_service.png" style="width:100%;">
+		<img src="../../resources/image/main_service.png" style="width:100%;">
 	</div>
 	<div class="main main6-1">
 		<div class="main6-2" align="center">
-		<img src="../image/main_service2.png" style="width:800px;">
+		<img src="../../resources/image/main_service2.png" style="width:800px;">
 		</div>
 	</div>
 	<div class="main main7-1">
@@ -704,7 +704,7 @@ p.typing-txt{
 			<p>기업의 예산 등 상황에 따라 변동 될 수 있습니다.</p>
 		</div>
 		<div class="main7-3">
-			<img src="../image/service_table.jpg" style="width:500px;">
+			<img src="../../resources/image/service_table.jpg" style="width:500px;">
 		</div>
 	</div>
 	<div class="main main8-1">
