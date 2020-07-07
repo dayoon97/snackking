@@ -175,42 +175,48 @@ color: #000000;
 /*적용 버튼*/
 #btnMore{
 position:absolute;	
-top:280px;
+top:310px;
 right:90px;
 width:70px;	
 }
 #btnOk{
 position:absolute;	
-top:280px;
+top:310px;
 right:170px;
 width:70px;	
 }
 #btnNo{
 position:absolute;
-top:280px;
+top:310px;
 right:250px;
 width:70px;		
 }
 
 #btnAdd{
 position:absolute;	
-top:280px;
+top:310px;
 right:250px;
 width:70px;	
 }
 #btnUpdate{
 position:absolute;	
-top:280px;
+top:310px;
 right:170px;
 width:70px;	
 }
 #btnDelete{
 position:absolute;
-top:280px;
+top:310px;
 right:90px;
 width:70px;		
 }
 
+
+/* 검색창 두줄일 때 검색 박스 커지게 하기 */
+.productManagement-line,.productOrderManagement-line{
+height: 90px !important;
+	
+}
 
 /*--------하단 리스트 테이블 시작-----------*/
 /*리스트 테이블 위치 및 설정*/
@@ -218,7 +224,7 @@ width:70px;
 width: 1000px;
 border-collapse:collapse;
 position: absolute;
-top:310px;
+top:350px;
 left:40px;
 text-align:center;
 overflow-x: hidden !important;
@@ -229,7 +235,7 @@ display: block;
 /*리스트 테이블 바디 기본 높이*/
 #listTable10 tbody, #listTable12 tbody{
 display: block;
-height: 250px;
+height: 200px;
 overflow-y: scroll;	
 }
 /*리스트 테이블 바디 선 스타일*/
@@ -321,3 +327,14 @@ line-height:17px;
   cursor: pointer;
 }
 /*--------모달 CSS 끝 ------------------*/
+
+
+
+/*-------------addTable ----------------*/
+#addTable{
+font-size:15px;
+line-height:17px;
+border:1px solid black;
+margin-left: 40px;
+
+}
