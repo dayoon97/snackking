@@ -152,6 +152,23 @@ text-align: center;
 color: #FFFFFF;
 }
 
+/*넓은 노란 버튼 공통 스타일*/
+.btn-wide{
+border:0;
+outline:0;
+width: 120px;
+height: 32px;
+background: #F0BB00;
+display:inline-block;
+font-family: NanumSquare_ac;
+font-style: normal;
+font-weight: 300;
+font-size: 17px;
+line-height: 19px;
+text-align: center;
+color: #FFFFFF;
+}
+
 #submit{
 margin-right:20px !important;
 }
@@ -288,7 +305,7 @@ line-height:17px;
 
 
 
-/*--------모달 CSS ------------------*/
+/*--------모달 CSS 부트스트랩 코드------------------*/
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -331,10 +348,41 @@ line-height:17px;
 
 
 /*-------------addTable ----------------*/
+/*등록 테이블 서식은 이걸로*/
 #addTable{
 font-size:15px;
 line-height:17px;
 border:1px solid black;
 margin-left: 40px;
 
+/*겉에 테두리 만들어줌.. 회색 테두리*/
+border: 1px solid rgba(75, 75, 75, 0.23);
+border-radius: 33.5px;
+
+
+}
+/*10칸짜리 마지막행 높이 제거*/
+#addTable :nth-child(13) td{
+font-size: 0;
+height: 0;
+padding: 0;
+border-bottom-style: none;
+border-right-style: none;
+border-left-style: none;
+}
+
+/*체크박스랑 테이블 안에 글자 높이 미묘하게 안맞음*/
+input[class="a"] {
+  position: relative;
+  top: 2px;
+}
+input[class="b"] {
+  position: relative;
+  top: -1.5px;
+}
+/*사진 박스*/
+.picture{
+border: 1px solid rgba(75, 75, 75, 0.23);
+border-radius: 33.5px;
+background:lightgray;
 }
