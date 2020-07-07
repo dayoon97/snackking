@@ -127,7 +127,7 @@
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-	<%@ include file="cmMain.jsp" %>
+	<%@ include file="../common/cmMain.jsp" %>
 	
 	<!-- outer start -->
 	<div id="outer">
