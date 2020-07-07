@@ -127,8 +127,7 @@
 		padding-top:5px;
 		padding-left:0;	
 	}
-	 
-	
+
 	
 	/*검색 내용 타이핑하는 부분, input 태그*/
  	.searchTextBox{
