@@ -32,9 +32,12 @@
 			
 			<!-- 폼시작 -->
 			<form id="addForm">
-				<table border="1px" id="addTable">		<!--  -->		
+				<table id="addTable">		<!--  border="1px"  -->		
 					<tr>
-						<td rowspan="5" colspan="2" style="width:10%;" class="picture"></td>
+						<td rowspan="5" colspan="2" style="width:10%;" class="picture">
+						<img id="productImg" width="" height="">
+						
+						</td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
@@ -45,14 +48,14 @@
 						<td style="width:10%;"></td>
 					</tr>
 					<tr>
-						<td colspan="3" style="width:10%;">상품명: <input type="text"></td>
+						<td colspan="3" style="width:10%;">&nbsp;&nbsp;상품명: &nbsp;&nbsp;<input type="text" class="searchTextBox" size="15"></td>
 						<td colspan="3" style="width:10%;">카테고리 선택</td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 					</tr>
 					<tr>
-						<td colspan="3" style="width:10%;">가격: <input type="text"></td>
-						<td colspan="3" style="width:10%;">기본 유통기한: <input type="text"></td>
+						<td colspan="3" style="width:10%;">&nbsp;&nbsp;&nbsp;&nbsp;가격: &nbsp;&nbsp;<input type="text" class="searchTextBox" size="16.5"></td>
+						<td colspan="3" style="width:10%;">기본 유통기한: &nbsp;&nbsp;<input type="text" class="searchTextBox"></td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 					</tr>
@@ -77,7 +80,11 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" style="width:10%;">파일찾기</td>
+						<td colspan="2" style="width:10%;">
+							<div id="fileArea">
+								<input type="file" id="productImgFile" name="productImgFile" onchange="loadImg(this);">
+							</div>
+						</td>
 						<td colspan="2" style="width:10%;"></td>
 						<td colspan="2" style="width:10%;"></td>
 						<td colspan="2" style="width:10%;"></td>
@@ -158,11 +165,27 @@
 														
 				</table>
 			</form>
-			
-			
-			
-			
-			
+			<script>
+			$(function() {
+				
+				$("#fileArea").hide();
+				
+				$("#productImg").click(function(){
+					$("#productImgFile").click();
+				});
+			});
+				
+				function loadImg(value) {
+					if(value.files) {
+						var reader = new FileReader();
+						reader.onload = function(e) {
+						$("#productImg").attr("src", e.target.result);
+						reader.readAsDataURL(value);
+						}
+					}
+				}
+					
+			</script>
 		</div>	
 	</div>	
 		
