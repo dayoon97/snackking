@@ -133,7 +133,7 @@
 		<!-- aside div start -->
 		<div id="aside" class="aside">
 			<div class="aside-header" align="center">
-				<a href="cmMain.jsp">
+				<a href="cmMainPage.jsp">
 					<img alt="logoImage" src="../../resources/image/logo3.png" width="150px;">
 				</a>
 			</div>	<!-- aisde-header end -->
