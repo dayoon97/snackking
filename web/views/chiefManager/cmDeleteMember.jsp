@@ -30,7 +30,6 @@
 	#titleArea {
 		position: relative;
 		height: 20%;
-	
 	}
 	/*본문 영역 제목*/
 	#mainTitle {
