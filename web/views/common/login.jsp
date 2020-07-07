@@ -41,7 +41,7 @@
 	background: rgba(249, 249, 249, 0.66);
 	border-radius: 40px;
 }
-#admin-login-btn{
+#login-btn{
 
       width: 332px;
       height: 39px;
@@ -53,11 +53,27 @@
       color: rgba(255, 168, 0, 0.42);
        
 }
-#admin-login-btn:hover{
+#login-btn:hover{
       background: #ff9100;
       border: 1px solid rgba(255, 168, 0, 0.42);
       color: white;
       border: 0;
+      outline: 0;
+}
+#find-btn, #insert-btn{
+	  width: 332px;
+      height: 39px;
+      left: 38%;
+      top: 30%;
+      background: #ff9100;
+      border: 1px solid rgba(255, 168, 0, 0.42);
+      box-sizing: border-box;
+      color:white;
+}
+#find-btn:hover, #insert-btn:hover{
+	  background: #FFFFFF;
+      border: 1px solid rgba(255, 168, 0, 0.42);
+      color: rgba(255, 168, 0, 0.42);
       outline: 0;
 }
 input[type=text]:focus {
@@ -78,19 +94,24 @@ table{
 	padding-top: 12px;
 	padding-left: 10px;
 }
+
+.login-btn, .find-btn, .insert-btn{
+	margin: 0 auto;
+}
+
 </style>
 </head>
 <body>
 	<div class="wrapper">
 		<div class="nav">
 			<div class="snack-nav">
-				<div class="snack-logo"><img src="../image/logo.png"></div>
+				<div class="snack-logo"><img src="../resources/image/logo5.png"></div>
 			</div>
 		</div>
 		<div class="loginArea">
 			<div class="login-titleArea">
 				<div class="login-title">
-					<h1 align="center">관리자 로그인 페이지</h1>
+					<h1 align="center">로그인</h1>
 				</div>
 			</div>
 			<div class="middle"></div>
@@ -103,18 +124,22 @@ table{
 									<td id="admin-id">아이디</td>
 								</tr>
 								<tr>
-									<td><input type="text" id="admin-id" size="45" placeholder="아이디를 입력해주세요"></td>
+									<td><input type="text" id="admin-id" size="50" placeholder="아이디를 입력해주세요"></td>
 								</tr>
 								<tr>
 									<td id="admin-pwd">비밀번호</td>
 								</tr>
 								<tr>
-									<td><input type="password" id="admin-password" size="45" placeholder="비밀번호를 입력해주세요"></td>
+									<td><input type="password" id="admin-password" size="50" placeholder="비밀번호를 입력해주세요"></td>
 								</tr>
-								<tr>
-									<td><input type="submit" value="로그인" id="admin-login-btn"></td>
-								</tr>
+								
+								
 							</table>
+							<div class="btn-div" align="center">
+								<div class="login-btn"><input type="submit" value="로그인" id="login-btn"></div><br>
+								<div class="find-btn"><input type="submit" value="아이디/비밀번호 찾기" id="find-btn"></div><br>
+								<div class="insert-btn"><input type="submit" value="회원가입" id="insert-btn"></div>
+							</div>
 						</form>
 					</div>
 				</div>
