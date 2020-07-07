@@ -24,6 +24,7 @@
 		border-radius: 12px;
 		margin-left: auto;
 		margin-right: auto;
+		
 	}
 			
 	/*본문영역 상단부*/
