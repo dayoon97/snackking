@@ -402,13 +402,13 @@ span.choose {
 			<!-- 조회 결과 리스트 부분 -->
 				<div id="listArea">
 					<!-- 조회 결과 리스트 제목 -->
-					<div id="subSubTitle2">회원 리스트</div>
+					<div id="subSubTitle2">문의 게시판</div>
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
-					<span id="apply">조회 결과 수 :</span>
+					<!-- <span id="apply">조회 결과 수 :</span> -->
 					
 					<!-- 조회 리스트 테이블 -->
-					<table id="listTable" border="1">
+					<table id="listTable">
 						<!-- 테이블 헤드 -->
 						<tr id="listHead">
 							<th width="30px">번호</th>
@@ -422,16 +422,31 @@ span.choose {
 						
 						<!-- 리스트 바디  -->
 						<tr class="listBody">
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>
-								<div class="delBtn okBtn" onclick="">> 탈퇴승인</div>
-								<div class="delBtn cancleBtn" onclick="">> 탈퇴취소</div>
-							</td>
+							<td>10</td>
+							<td>기타문의</td>
+							<td>궁금한게 있습니다요</td>
+							<td>박빡빡</td>
+							<td>2020-06-29</td>
+							<td>답변대기</td>
+							<td>0</td>
+						</tr>
+						<tr class="listBody">
+							<td>9</td>
+							<td>교환문의</td>
+							<td>교환할게 있습니다요</td>
+							<td>벅뻑뿍</td>
+							<td>2020-06-25</td>
+							<td>답변완료</td>
+							<td>2</td>
+						</tr>
+						<tr class="listBody">
+							<td>8</td>
+							<td>피드백문의</td>
+							<td>큐레이팅 내용 변경할게 있습니다요</td>
+							<td>복뽁뿍</td>
+							<td>2020-06-21</td>
+							<td>답변완료</td>
+							<td>5</td>
 						</tr>
 						<tr class="listBody">
 							<td>내용</td>
@@ -516,7 +531,7 @@ span.choose {
 								<div class="delBtn okBtn" onclick="">> 탈퇴승인</div>
 								<div class="delBtn cancleBtn" onclick="">> 탈퇴취소</div>
 							</td>
-						</tr>
+						</tr>	
 					</table>
 				</div>
 		

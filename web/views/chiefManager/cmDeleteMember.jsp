@@ -24,6 +24,7 @@
 		border-radius: 12px;
 		margin-left: auto;
 		margin-right: auto;
+		
 	}
 			
 	/*본문영역 상단부*/
@@ -125,8 +126,7 @@
 		padding-top:5px;
 		padding-left:0;	
 	}
-	 
-	
+
 	
 	/*검색 내용 타이핑하는 부분, input 태그*/
  	.searchTextBox{
