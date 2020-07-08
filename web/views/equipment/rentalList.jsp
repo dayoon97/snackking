@@ -373,7 +373,7 @@ height: 25px;
 						</tr>
 						
 						<!-- 리스트 바디  -->
-						<tr class="listBody">
+						<tr class="listBody" onclick="location.href='rentalDetail.jsp';">
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>

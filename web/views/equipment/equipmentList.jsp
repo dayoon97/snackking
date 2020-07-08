@@ -387,7 +387,7 @@ height: 25px;
 						</tr>
 						
 						<!-- 리스트 바디  -->
-						<tr class="listBody">
+						<tr class="listBody" onclick="location.href='equipmentDetail.jsp';">
 							<td><input type="checkbox"></td>
 							<td>내용</td>
 							<td>내용</td>
@@ -493,6 +493,7 @@ height: 25px;
 											.find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
 							$('.msg').html(msg + input + '</span>');
 						});
+		
 	</script>	
 	
 </body>
