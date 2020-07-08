@@ -331,8 +331,48 @@ span.choose {
 	margin-right: auto;
 	display: table;
 }
-
 /*-----------------------추가한 CSS-----------------------------------------------------*/
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+td {
+	text-align: center;
+}
 
 
 
@@ -394,7 +434,64 @@ border-spacing: 15px 0;
 .productSearchListTable td{
 height: 80px;
 }
+.approval-btn, .detail-btn{
+	  width: 80px;
+      height: 100%;
+      background: #ff9100;
+      border: 1px solid rgba(255, 168, 0, 0.42);
+      color:white;
+}
+
+.approval-btn:hover, .detail-btn:hover{
+	  background: #FFFFFF;
+      border: 1px solid rgba(255, 168, 0, 0.42);
+      color: rgba(255, 168, 0, 0.42);
+      outline: 0;
+}
+.approval-btn{
+      margin-right: 10px;
+}
+.detail-btn{
+	margin-left: 2px;
+}
+
+
 /*---------하단 listTableN 시작----------------------------------------------------------------*/
+/*열 5개짜리 테이블*/
+
+#listTable5 th:nth-of-type(1), #listTable5 td:nth-of-type(1){width:200px; important!}
+#listTable5 th:nth-of-type(2), #listTable5 td:nth-of-type(2){width:200px; important!}
+#listTable5 th:nth-of-type(3), #listTable5 td:nth-of-type(3){width:200px; important!}
+#listTable5 th:nth-of-type(4), #listTable5 td:nth-of-type(4){width:200px; important!}
+#listTable5 th:nth-of-type(5){width:200px; important!}
+#listTable5 td:nth-of-type(5){width:180px; important!}
+
+/*열 6개짜리 테이블*/
+
+#listTable6 th:nth-of-type(1), #listTable6 td:nth-of-type(1){width:166px; important!}
+#listTable6 th:nth-of-type(2), #listTable6 td:nth-of-type(2){width:166px; important!}
+#listTable6 th:nth-of-type(3), #listTable6 td:nth-of-type(3){width:166px; important!}
+#listTable6 th:nth-of-type(4), #listTable6 td:nth-of-type(4){width:166px; important!}
+#listTable6 th:nth-of-type(5), #listTable6 td:nth-of-type(5){width:166px; important!}
+#listTable6 th:nth-of-type(6){width:166px; important!}
+#listTable6 td:nth-of-type(6){width:146px; important!}
+
+/*열 13개짜리 테이블*/
+#listTable13 th:nth-of-type(1), #listTable13 td:nth-of-type(1){width:40px; important!}
+#listTable13 th:nth-of-type(2), #listTable13 td:nth-of-type(2){width:80px; important!}
+#listTable13 th:nth-of-type(3), #listTable13 td:nth-of-type(3){width:80px; important!}
+#listTable13 th:nth-of-type(4), #listTable13 td:nth-of-type(4){width:80px; important!}
+#listTable13 th:nth-of-type(5), #listTable13 td:nth-of-type(5){width:80px; important!}
+#listTable13 th:nth-of-type(6), #listTable13 td:nth-of-type(6){width:80px; important!}
+#listTable13 th:nth-of-type(7), #listTable13 td:nth-of-type(7){width:80px; important!}
+#listTable13 th:nth-of-type(8), #listTable13 td:nth-of-type(8){width:80px; important!}
+#listTable13 th:nth-of-type(9), #listTable13 td:nth-of-type(9){width:80px; important!}
+#listTable13 th:nth-of-type(10), #listTable13 td:nth-of-type(10){width:80px; important!}
+#listTable13 th:nth-of-type(11), #listTable13 td:nth-of-type(11){width:80px; important!}
+#listTable13 th:nth-of-type(12), #listTable13 td:nth-of-type(12){width:80px; important!}
+#listTable13 th:nth-of-type(13){width:80px; important!}
+#listTable13 td:nth-of-type(13){width:60px; important!}
+
 /*열 10개짜리 테이블*/
 
 #listTable10 th:nth-of-type(1), #listTable10 td:nth-of-type(1){width:60px; important!}
@@ -439,13 +536,13 @@ height: 80px;
 #listTable12 td:nth-of-type(12){width:80px; important!}
 
 /*리스트 컬럼 10,11,12개 짜리  테이블 바디 선 스타일*/
-#listTable10 tbody tr, #listTable11 tbody tr, #listTable12 tbody tr{
+#listTable5 tbody tr, #listTable6 tbody tr, #listTable10 tbody tr, #listTable11 tbody tr, #listTable12 tbody tr, #listTable13 tbody tr{
 border-bottom:3px solid #EBEAEA;
 height: 36px;
 }
 
 /*리스트 컬럼 10,11, 12개 짜리  테이블  헤더 기본 높이 및 폰트 스타일*/
-#listTable10 thead tr, #listTable11 thead tr, #listTable12 thead tr{
+#listTable5 thead tr, #listTable6 thead tr, #listTable10 thead tr, #listTable11 thead tr, #listTable12 thead tr, #listTable13 thead tr{
 width: 1000px;
 height: 32px;
 padding-left:20px;
@@ -457,7 +554,7 @@ line-height:17px;
 }
 
 /*리스트 테이블 컬럼 10,11,12개 짜리  위치 및 설정*/
-#listTable10, #listTable11, #listTable12{
+#listTable5, #listTable6, #listTable10, #listTable11, #listTable12, #listTable13{
 width: 1000px;
 border-collapse:collapse;
 position: absolute;
@@ -469,7 +566,7 @@ display: block;
 }
 
 /*리스트 테이블 컬럼 10,11, 12개 짜리  바디 기본 높이*/
-#listTable10 tbody, #listTable11 tbody, #listTable12 tbody{
+#listTable5 tbody,#listTable6 tbody, #listTable10 tbody, #listTable11 tbody, #listTable12 tbody, #listTable13 tbody{
 display: block;
 height: 280px;
 overflow-y: auto !important;
@@ -477,7 +574,9 @@ overflow-y: auto !important;
 
 /*--------하단 listTableN 끝----------------------------------------------------------------*/
 
+
 </style>
+
 </head>
 <body>
 <!-- mainWrapper start -->
@@ -489,181 +588,171 @@ overflow-y: auto !important;
 	<div id="outer">
 		<!-- background-box start -->
 		<div id="background-box">
-			<!-- title-area start -->
-				<div id="titleArea">
-					<div id="mainTitle">상품 관리</div>
-					<div id="line1"></div>
-					<div id="subTitle">상품 추가</div>
-				</div>	<!--title-area end -->
+		
+			<!-- title-area start ---------------------------------------------------------------------------->
+			<div id="titleArea">
+				<div id="mainTitle">정산 관리</div>
+				<div id="line1"></div>
+				<div id="subTitle">정산내역 관리</div>
+			</div>	<!--title-area end ---------------------------------------------------------------------------->
 			
-			<!-- 폼시작 -->
-			<form id="addForm">
-				<table id="addProductTable" border="1">	
-					<tr>
-						<td rowspan="5" colspan="2" style="width:10%;" class="picture"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-					</tr>
-					<tr>
-						<td style="width:10%;"></td>
-						<td colspan="3" style="width:10%;">상품명 : <input type="text" class="searchTextBox" style="font-weight: bold;" size="13"></td>
-						<td colspan="3" style="width:10%;">상품종류 :
-							<div class="dropdown" style="width:170px; text-align:center;">
-     							<div class="select">
-       								<span>선택</span>
-							          <i class="fa fa-chevron-left"></i>
-							        </div>
-							        <input type="hidden" name="productKinds">
-							        <ul class="dropdown-menu">
-				                           <li id="선택">선택</li>
-				                           <li id="과자">과자</li>
-				                           <li id="캔디">캔디</li>
-				                           <li id="껌">껌</li>
-				                           <li id="초콜릿">초콜릿</li>
-				                           <li id="커피">커피</li>					                         
-				                           <li id="차">차</li>
-				                           <li id="음료">음료</li>
-				                           <li id="컵라면">컵라면</li>
-				                           <li id="컵밥">컵밥</li>
-				                           <li id="케이크">케이크</li>  
-							        </ul>
-							      </div>
-						</td>
-						
-						
-						
-						
-						<td style="width:10%;"></td>
+			<!-- search-area start ---------------------------------------------------------------------------->
+			<div id="searchArea">
+				<!-- 조회 제목 -->
+				<div id="subSubTitle1">정산내역 조회</div>
+					<!-- searchBox start -->
+						<div id="searchBox" style="display: table;">
+							<form id="searchForm" style="display:table-cell; vertical-align:middle">
+								<div >
+								<table id="searchStock" style="align:center;">
+									<tr>
+										<!-- 검색 내용 타이핑하는 부분 -->	
+										<td style="width:200px !important;">회사명  :
+										<input type="text" class="searchTextBox" size="6" name=""></td>
+								
+	
+										<td style="width:240px">정산월  :
+											<input type="month" class="searchTextBox" size="6" name=""></td>
+										
+                       					
+										<td style="width:220px">결제여부  :
+										<div class="dropdown">
+        										<div class="select">
+          											<span>선택</span>
+										          <i class="fa fa-chevron-left"></i>
+										        </div>
+										        <input type="hidden" name="">
+										        <ul class="dropdown-menu">
+							                           <li id="선택">선택</li>
+							                           <li id="미지급">미지급</li>
+							                           <li id="지급">지급</li>
+										        </ul>
+										      </div>
+                        				</td>
 
-					</tr>
-					<tr>
-						<td style="width:10%;"></td>
-						<td colspan="3" style="width:10%;">가격 : <input type="text" class="searchTextBox" style="font-weight: bold;" size="15">&nbsp;원</td>
-						<td colspan="3" style="width:10%;">기본 유통기한 : <input type="text" class="searchTextBox" style="font-weight: bold;" size="12">&nbsp;개월</td>
-						<td style="width:10%;"></td>
-					</tr>
+										<td><input type="submit" class="searchBtn" value="검색하기" id="searchBtn" style="float: right;"></td>
+									</tr>
+								</table>
+								</div>
+							</form>
+						</div>
+				</div><!-- search-area end ---------------------------------------------------------------------------->
 
-					<tr>
-						<td colspan="3" style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-					</tr>
-					<tr>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-					</tr>
 
-					<tr>
-						<td colspan="2" style="width:10%;">파일찾기</td>
-						<td colspan="2" style="width:10%;"></td>
-						<td colspan="2" style="width:10%;"></td>
-						<td colspan="2" style="width:10%;"></td>
-						<td colspan="2" style="width:10%;"></td>
-					</tr>
+
+			
+			<!-- 조회 결과 리스트 부분 -->
+				<div id="listArea">
+					<!-- 조회 결과 리스트 제목 -->
 					
-					<tr>
-						<td colspan="2" style="width:10%; text-align:center;">맛 선택<br>(중복 가능)</td>
-						<td style="width:10%;"><input type="checkbox" class="a">달콤</td>
-						<td style="width:10%;"><input type="checkbox" class="a">짭짤</td>
-						<td style="width:10%;"><input type="checkbox" class="a">고소</td>
-						<td style="width:10%;"><input type="checkbox" class="a">담백</td>
-						<td style="width:10%;"><input type="checkbox" class="a">새콤</td>
-						<td style="width:10%;"><input type="checkbox" class="a">매콤</td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-					</tr>
+					<div id="subSubTitle2" style="top:310px !important; width: 120px;">정산내역 리스트</div>
+					<!-- 적용 버튼 -->
+					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
+					<span id="apply" style="top:310px !important;">조회 결과 수 :</span>
+						<!-- 테이블 시작 -->
+						<!-- 조회 리스트 테이블 -->
+					<table id="listTable6" align="center">
+						<thead>
+							<!-- 테이블 헤드 -->
+							<tr id="listHead" >
+								<th>회사명</th>
+								<th>날짜</th>
+								<th>입금일</th>
+								<th>결제여부</th>
+								<th>지급완료처리</th>
+								<th>상세내역확인</th>
+							</tr>
+						</thead>
+						<tbody>
+						<!-- 리스트 바디  -->
+							<tr>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td><button onclick="" class="approval-btn">변경</button></td>
+								<td><button onclick="" class="detail-btn">상세</button></td>
+							</tr>
+							<tr>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td><button onclick="text();" class="approval-btn">변경</button></td>
+								<td><button onclick="" class="detail-btn">상세</button></td>
 
-					<tr>
-						<td colspan="2" rowspan="2" style="width:10%; text-align:center;">향 선택<br>(중복 가능)</td>
-						<td style="width:10%;"><input type="checkbox" class="a">초코</td>
-						<td style="width:10%;"><input type="checkbox" class="a">딸기</td>
-						<td style="width:10%;"><input type="checkbox" class="a">바닐라</td>
-						<td style="width:10%;"><input type="checkbox" class="a">민트</td>
-						<td style="width:10%;"><input type="checkbox" class="a">청포도</td>
-						<td style="width:10%;"><input type="checkbox" class="a">바나나</td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-					</tr>
-					
-					<tr>
-						<td style="width:10%;"><input type="checkbox" class="a">땅콩</td>
-						<td style="width:10%;"><input type="checkbox" class="a">커피</td>
-						<td style="width:10%;"><input type="checkbox" class="a">소다</td>
-						<td style="width:10%;"><input type="checkbox" class="a">시나몬</td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-					</tr>	
-					<tr>
-						<td colspan="2" rowspan="2" style="width:10%; text-align:center;">알레르기 성분 선택<br>(중복 가능)</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">밀</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">계란</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">대두</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">갑각류</td>
-					</tr>	
-					<tr>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">메밀</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">유제품</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">땅콩</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">해당없음</td>
-					</tr>	
-					<tr>
-						<td colspan="2" style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td colspan="2" style="width:10%;"><input type="submit" class="searchBtn" value="등록"></td>
-						<td colspan="2" style="width:10%;"><input type="reset" class="searchBtn" value="취소"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
+								
+								
+								</td>
 
-					</tr>	
-					<tr>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;">k</td>
-					</tr>
-					
-					
-														
-				</table>
-			</form>
+							</tr>							
+						
+						</tbody>
+					</table>
+					<!-- 테이블 끝 -->
+			
+			
+			
+				</div>
 		
-		
-		
-			</div>	
-		</div>	
-	</div>	
+		</div>	<!-- background-box end -->
+	</div>	<!-- outer end -->
+</div>	<!-- mainWrapper end -->
+
+<button onclick="" class="btn" id="apply">권한변경</button>
+						<!-- Trigger/Open The Modal -->
+
+
+						<!-- The Modal -->
+						<div id="myModal" class="modal">
+						  <!-- Modal content -->
+						  <div class="modal-content">
+						    <span class="close">&times;</span>
+						    <table align="center">
+						    	<tr>
+						    		<th>사원</th>
+						    		<th>직급코드</th>
+						    		<th>이름</th>
+						    		<th>주소</th>
+						    		<th>연락처</th>
+						    		<th>입사일</th>
+						    		<th>근무상태</th>
+						    	</tr>
+						    	<tr>
+						    		<td>D1</td>
+									<td><div class="dropdown">
+        										<div class="select">
+          											<span>선택</span>
+										          <i class="fa fa-chevron-left"></i>
+										        </div>
+										        <input type="hidden" name="Job-code">
+										        <ul class="dropdown-menu">
+										          <li id="J1">J1</li>
+										          <li id="J2">J2</li>
+										          <li id="J3">J3</li>
+										        </ul>
+										      </div></td>
+									<td>심다윤</td>
+									<td>서울시 송파구</td>
+									<td>010-1234-1234</td>
+									<td>20-07-05</td>
+									<td>근무중</td>
+						    	</tr>
+						    	
+						    </table>
+						    <button onclick="" class="btn" id="chCodeBtn">변경하기</button>
+						  </div>
+						
+						</div>
+
+
+
 </body>
 
 
 
 <script>
-
-
-/* 옵션 선택 드롭 다운 */
+/* 옵션 선택 드롭 다운--------------------------------------------- */
 $('.dropdown').click(function () {
     $(this).attr('tabindex', 1).focus();
     $(this).toggleClass('active');
@@ -685,6 +774,36 @@ $('.dropdown-menu li').click(function () {
       msg = '<span class="msg">Hidden input value: ';
   $('.msg').html(msg + input + '</span>');
 }); 
-</script>
 
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("apply");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
+
+</script>
 </html>
