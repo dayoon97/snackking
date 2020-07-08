@@ -175,6 +175,7 @@ body {
 }
 .main1-2{
 	width:1500px;
+	position: relative;
 }
 .main2-1 {
 	width:800px;
@@ -297,7 +298,7 @@ body {
   transition: all 0.5s ease-in-out;
 }
 .arrow{
-  border: solid black;
+    border: solid black;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 12px;
@@ -312,9 +313,9 @@ body {
  
 .arrow-next{
     right:-30px;
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%) rotate(-45deg);
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%) rotate(-45deg);
   }
 
 .light{
@@ -459,6 +460,15 @@ p.typing-txt{
 	margin-top:-18px;
 	margin-left:475px;
  }
+ 
+ 
+ .solution-snacking{
+ 	position: absolute;
+ 	top:60%;
+ 	left:10%;
+ 	font-size: 40px;
+ 	color: white;
+ }
 </style>
 </head>
 <body>
@@ -467,8 +477,10 @@ p.typing-txt{
 		<%@include file="views/common/index-menu.jsp" %>
 		<div class="main main1-1">
 			<div class="main1-2">
-			<img src="resources/image/main1.jpg" width="1580px;"height="842px;" style="overflow:hidden;">
+			<img src="resources/image/main1.jpg" width="1580px;"height="842px;" style="overflow:hidden; border-radius:50px;">
 			</div>
+			<div class="solution-snacking">처리할 일도 많은데 간식까지 준비하는 번거로움<br>
+			일할 맛 나는 기업 스낵킹으로 해결하세요!</div>
 		<div class="page-start"></div>
 		</div>
 		<div class="main main2-1">
@@ -522,92 +534,6 @@ p.typing-txt{
 			<div class="main4-3">
 				<p class="cl yellow">"</p>
 			</div>
-<!-- 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
-  Indicators
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
-    <li data-target="#myCarousel" data-slide-to="4"></li>
-  </ol>
-
-  Wrapper for slides
-  <div class="carousel-inner">
-    <div class="item active">
-       <div class="review"><h2 class="" align="center">저 같은 막내직원에게는 <br>편해지는 길이에요</h2></div>
-         <div class="client-text"><p class="client" align="center">스마일킴 담당자</p></div>
-    </div>
-
-    <div class="item">
-      <div class="review"><h2 class="" align="center">스낵 킹은 믿고 맡길 수 있는 <br>업체인 것 같습니다</h2></div>
-       <div class="client-text"><p class="client" align="center">요밋 담당자</p></div>
-    </div>
-
-    <div class="item">
-      <div class="review"><h2 class="" align="center">저희 요청사항에 대해 <br>열심히 관리 해주세요</h2></div>
-	    <div class="client-text"><p class="client" align="center">오마이짐 직원</p></div>
-    </div>
-    
-    
-    <div class="item">
-     <div class="review"><h2 class="" align="center">간식은 무조건 스낵킹!</h2></div>
-	    <div class="client-text"><p class="client" align="center">쏘이지 막내직원</p></div>
-    </div>
-    
-    <div class="item">
-     <div class="review"><h2 class="" align="center">스낵킹 직원분들 너무 친절하고<br> 서비스도 최고~!</h2></div>
-	    <div class="client-text"><p class="client" align="center">그루모아 관계자</p></div>
-    </div>
-  </div>
-
-  Left and right controls
-  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div> -->
-<!-- 			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="review"><h2 class="" align="center">저 같은 막내직원에게는 <br>편해지는 길이에요</h2></div>
-         <div class="client-text"><p class="client" align="center">스마일킴 담당자</p></div>
-    </div>
-    <div class="carousel-item">
-      <div class="review"><h2 class="" align="center">스낵 킹은 믿고 맡길 수 있는 <br>업체인 것 같습니다</h2></div>
-       <div class="client-text"><p class="client" align="center">요밋 담당자</p></div>
-    </div>
-    <div class="carousel-item">
-           <div class="review"><h2 class="" align="center">저희 요청사항에 대해 <br>열심히 관리 해주세요</h2></div>
-	    <div class="client-text"><p class="client" align="center">오마이짐 직원</p></div>
-    </div>
-    <div class="carousel-item">
-            <div class="review"><h2 class="" align="center">간식은 무조건 스낵킹!</h2></div>
-	    <div class="client-text"><p class="client" align="center">쏘이지 막내직원</p></div>
-    </div>
-    <div class="carousel-item">
-           <div class="review"><h2 class="" align="center">스낵킹 직원분들 너무 친절하고<br> 서비스도 최고~!</h2></div>
-	    <div class="client-text"><p class="client" align="center">그루모아 관계자</p></div>
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div> -->
 
 
 <!--          카루셀 예시                                    -->

@@ -308,7 +308,7 @@ td {
 						</tr>
 						<tr class="listBody">
 							
-							<td>2</td>
+							<td>3</td>
 							<td>심다윤</td>
 							<td>최우아</td>
 							<td>쏘이지</td>
@@ -318,13 +318,13 @@ td {
 						</tr>
 						<tr class="listBody">
 							
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
+							<td>4</td>
+							<td>심다윤</td>
+							<td>최우아</td>
+							<td>쏘이지</td>
+							<td>20-07-16</td>
+							<td>목</td>
+							<td>10:00AM</td>
 						</tr>
 						<tr class="listBody">
 							
