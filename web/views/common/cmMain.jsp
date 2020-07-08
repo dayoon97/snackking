@@ -158,7 +158,7 @@
 							<p class="title">회원 관리</p>
 								<ul class="con">
 									<li><a href="../chiefManager/cmMemberSelect.jsp">회원 리스트</a></li>
-									<li><a href="../chiefManager/cmBoard.jsp">문의 게시판 관리</a></li>
+									<li><a href="../question/cmquestion.jsp">문의 게시판 관리</a></li>
 									<li><a href="../chiefManager/cmContractMember.jsp">계약 회원 관리</a></li>
 									<li><a href="../chiefManager/cmDeleteMember.jsp">회원 탈퇴 승인</a></li>
 								</ul>
@@ -182,10 +182,10 @@
 						<li>
 							<p class="title">주문 관리</p>
 								<ul class="con">
-									<li>선호도 조사 내역</li>
-									<li>큐레이팅 관리</li>
+									<li><a href="../order/cmOrderfavorite.jsp">선호도 조사 내역</a></li>
+									<li><a href="../order/cmOrderCurating.jsp">큐레이팅 관리</a></li>
 									<li>피드백 관리</li>
-									<li>출고 관리</li>
+									<li><a href="../order/cmOrderRelease.jsp">출고 관리</a></li>
 								</ul>
 						</li>
 						<li>
