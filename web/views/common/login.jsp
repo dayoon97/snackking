@@ -44,13 +44,14 @@
 #login-btn{
 
       width: 332px;
-      height: 39px;
+      height: 40px;
       left: 38%;
       top: 30%;
       background: #FFFFFF;
       border: 1px solid rgba(255, 168, 0, 0.42);
       box-sizing: border-box;
       color: rgba(255, 168, 0, 0.42);
+      margin: 0 auto;
        
 }
 #login-btn:hover{
@@ -59,22 +60,26 @@
       color: white;
       border: 0;
       outline: 0;
+      cursor: pointer;
 }
 #find-btn, #insert-btn{
 	  width: 332px;
-      height: 39px;
-      left: 38%;
-      top: 30%;
+      height: 40px;
+      padding-top: 10px;
+      font-size: 15px;
       background: #ff9100;
       border: 1px solid rgba(255, 168, 0, 0.42);
       box-sizing: border-box;
       color:white;
+      outline: 0;
+      margin: 0 auto;
 }
 #find-btn:hover, #insert-btn:hover{
 	  background: #FFFFFF;
       border: 1px solid rgba(255, 168, 0, 0.42);
       color: rgba(255, 168, 0, 0.42);
       outline: 0;
+      cursor: pointer;
 }
 input[type=text]:focus {
   border: 1px solid #F0BB00;
@@ -95,9 +100,9 @@ table{
 	padding-left: 10px;
 }
 
-.login-btn, .find-btn, .insert-btn{
+/* .login-btn, .find-btn, .insert-btn{
 	margin: 0 auto;
-}
+} */
 
 </style>
 </head>
@@ -105,7 +110,7 @@ table{
 	<div class="wrapper">
 		<div class="nav">
 			<div class="snack-nav">
-				<div class="snack-logo"><img src="../resources/image/logo5.png"></div>
+				<div class="snack-logo"><img src="../../resources/image/logo5.png"></div>
 			</div>
 		</div>
 		<div class="loginArea">
@@ -137,8 +142,10 @@ table{
 							</table>
 							<div class="btn-div" align="center">
 								<div class="login-btn"><input type="submit" value="로그인" id="login-btn"></div><br>
-								<div class="find-btn"><input type="submit" value="아이디/비밀번호 찾기" id="find-btn"></div><br>
-								<div class="insert-btn"><input type="submit" value="회원가입" id="insert-btn"></div>
+								<!-- <div class="find-btn"><input type="button" value="아이디/비밀번호 찾기" id="find-btn"></div><br> -->
+								<div class="find-btn" id="find-btn" onclick="location.href='';">아이디/비밀번호 찾기</div><br>
+								<!-- <div class="insert-btn"><input type="button" value="회원가입" id="insert-btn"></div> -->
+								<div class="insert-btn" id="insert-btn" onclick="location.href='join.jsp';">회원가입</div>
 							</div>
 						</form>
 					</div>
