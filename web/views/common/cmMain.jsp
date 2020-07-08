@@ -18,7 +18,7 @@
 		background-color: #F0BB00;
 		position: fixed;
 		width:230px;
-		z-index: 99999;
+		z-index: 1;
 		border-radius: 20px;
 		overflow: hidden;
 	}
