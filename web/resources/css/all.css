@@ -1,36 +1,25 @@
 @charset "UTF-8";
 /*body 기본 세팅*/
-body{
-	  margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      width:1440px;
-      height: 735px;
-      background: #EFEEEE !important;
+#mainWrapper {
+margin-left: auto;
+margin-right: auto;
+display: table;
 }
-
-/* 메뉴바 부분 찌그러지지 않게 공간만 잡아두기 */
-#wrapper1{
-width: 735px;
-display: inline-block;
-float: left;
+#outer {
+	margin-left: 265px;
+	margin-right: 35px;
+	height: 100vh;
+	position: relative;
 }
-/*본문 영역 부분 찌그러지지 않게 공간만 잡아두기 */
-#wrapper2{
-width:auto;
-position: relative;
-float: right;
-}
-
-/*본문 영역 내용 들어가는 흰색 큰 박스*/
-#background-box{
-position: absolute;
-width: 1092px;
-height: 650px;
-right: 0;
-top: 15px;
-background: #FFFFFF;
-border-radius: 12px;
+#background-box {
+	position: relative;
+	width: 1092px;
+	height: 700px;
+	top: 15px;
+	background: white;
+	border-radius: 12px;
+	margin-left: auto;
+	margin-right: auto;
 }
 /*본문영역 상단부*/
 #titleArea{

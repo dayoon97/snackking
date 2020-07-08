@@ -6,16 +6,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
-
 <style>
-	* {
-  outline: 0;
-  font-family: sans-serif
-}
+
 body {
   background-color: #fafafa
 }
+span.msg,
+span.choose {
+  color: #555;
+  padding: 5px 0 10px;
+  display: inherit
+}
+.container {
+  width: 500px;
+  margin: 50px auto 0;
+  text-align: center
+}
+
 /*Styling Selectbox*/
 .dropdown {
   width: 90px;
@@ -125,196 +132,24 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
-td{
+td {
 	text-align: center;
 }
-.date-picker {
-    margin:auto;
-}
 
-.date-picker {
-    width: 260px;
-    height: auto;
-    max-height: 50px;
-    background: white;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s 0s ease-in-out;
-}
-
-.date-picker .input {
-    width: 100%;
-    height: 50px;
-    font-size: 0;
-    cursor: pointer;
-}
-
-.date-picker .input .result, .date-picker .input button {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.date-picker .input .result {
-    width: calc(100% - 50px);
-    height: 50px;
-    line-height: 50px;
-    font-size: 16px;
-    padding: 0 10px;
-    color: grey;
-    box-sizing: border-box;
-}
-
-.date-picker .input button {
-    width: 50px;
-    height: 50px;
-    background-color: #8392A7;
-    color: white;
-    line-height: 50px;
-    border: 0;
-    font-size: 18px;
-    padding: 0;
-}
-
-.date-picker .input button:hover {
-    background-color: #68768A;
-}
-
-.date-picker .input button:focus {
-    outline: 0;
-}
-
-.date-picker .calendar {
-    position: relative;
-    width: 100%;
-    background: #fff;
-    border-radius: 0px;
-    overflow: hidden;
-}
-
-.date-picker .ui-datepicker-inline {
-    position: relative;
-    width: 100%;
-}
-
-.date-picker .ui-datepicker-header {
-    height: 100%;
-    line-height: 50px;
-    background: #8392A7;
-    color: #fff;
-    margin-bottom: 10px;
-}
-
-.date-picker .ui-datepicker-prev, .date-picker .ui-datepicker-next {
-    width: 20px;
-    height: 20px;
-    text-indent: 9999px;
-    border: 2px solid #fff;
-    border-radius: 100%;
-    cursor: pointer;
-    overflow: hidden;
-    margin-top: 12px;
-}
-
-.date-picker .ui-datepicker-prev {
-    float: left;
-    margin-left: 12px;
-}
-
-.date-picker .ui-datepicker-prev:after {
-    transform: rotate(45deg);
-    margin: -43px 0px 0px 8px;
-}
-
-.date-picker .ui-datepicker-next {
-    float: right;
-    margin-right: 12px;
-}
-
-.date-picker .ui-datepicker-next:after {
-    transform: rotate(-135deg);
-    margin: -43px 0px 0px 6px;
-}
-
-.date-picker .ui-datepicker-prev:after, .date-picker .ui-datepicker-next:after {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 4px;
-    height: 4px;
-    border-left: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-}
-
-.date-picker .ui-datepicker-prev:hover, .date-picker .ui-datepicker-next:hover, .date-picker .ui-datepicker-prev:hover:after, .date-picker .ui-datepicker-next:hover:after {
-    border-color: #68768A;
-}
-
-.date-picker .ui-datepicker-title {
-    text-align: center;
-}
-
-.date-picker .ui-datepicker-calendar {
-    width: 100%;
-    text-align: center;
-}
-
-.date-picker .ui-datepicker-calendar thead tr th span {
-    display: block;
-    width: 100%;
-    color: #8392A7;
-    margin-bottom: 5px;
-    font-size: 13px;
-}
-
-.date-picker .ui-state-default {
-    display: block;
-    text-decoration: none;
-    color: #b5b5b5;
-    line-height: 40px;
-    font-size: 12px;
-}
-
-.date-picker .ui-state-default:hover {
-    background: rgba(0, 0, 0, 0.02);
-}
-
-.date-picker .ui-state-highlight {
-    color: #68768A;
-}
-
-.date-picker .ui-state-active {
-    color: #68768A;
-    background-color: rgba(131, 146, 167, 0.12);
-    font-weight: 600;
-}
-
-.date-picker .ui-datepicker-unselectable .ui-state-default {
-    color: #eee;
-    border: 2px solid transparent;
-}
-
-.date-picker.open {
-    max-height: 400px;
-}
-
-.date-picker.open .input button {
-    background: #68768A;
-}
 </style>
-
+<link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/>
 </head>
 <body>
-	<!-- 메뉴바 가져오기 -->
+<!-- mainWrapper start -->
+<div id="mainWrapper">
+
+	<%@ include file="../common/cmMain.jsp" %>
 	
-	
-	<!-- 메뉴바 부분 찌그러지지 않게 공간만 잡아두기 -->
-	<div id="wrapper1"><%@ include file="../common/menubar.jsp" %></div>
-	
-	<!-- 본문 영역 부분 찌그러지지 않게 공간만 잡아두기 -->
-	<div id="wrapper2">
-		<!-- 본문 영역 내용 들어가는 흰색 큰 박스 -->
+	<!-- outer start -->
+	<div id="outer">
+		<!-- background-box start -->
 		<div id="background-box">
-		
+			
 			<!-- 본문영역 상단부 -->
 			<div id="titleArea">
 				<!-- 본문 영역 제목 -->
@@ -509,10 +344,12 @@ td{
 			
 			</div>
 			<!-- 본문영역 중앙부 끝 -->
-			
-		</div>
-	</div>
-	<script>
+		
+		</div>	<!-- background-box end -->
+	</div>	<!-- outer end -->
+</div>	<!-- mainWrapper end -->
+
+<script>
 	$('.dropdown').click(function () {
         $(this).attr('tabindex', 1).focus();
         $(this).toggleClass('active');
@@ -582,6 +419,7 @@ td{
 		});
 
 
-	</script>
+</script>
+	
 </body>
 </html>

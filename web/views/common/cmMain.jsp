@@ -133,20 +133,21 @@
 		<!-- aside div start -->
 		<div id="aside" class="aside">
 			<div class="aside-header" align="center">
-				<a href="cmMainPage.jsp">
+				<a href="../chiefManager/cmMainPage.jsp">
 					<img alt="logoImage" src="../../resources/image/logo3.png" width="150px;">
 				</a>
 			</div>	<!-- aisde-header end -->
 			<div class="aside-body">
 				<div class="aside-body-header">
 					<div class="login-info" align="center">
-					<table>
+					<!-- <table>
 						<tr>
 							<td class="login-name">김미소</td>
 							<td class="bell">&nbsp;&nbsp;<img alt="bell"
 								src="../../resources/image/bell.png"></td>
 						</tr>
-					</table>
+					</table> -->
+						<div class="login-name">김미소</div>
 						<div id="line" style="border:1px solid #AA8400; width:60%; background-color: #AA8400"></div>
 						<div class="login-jobname">최고 관리자</div>
 					</div>	<!-- login-info end -->
@@ -156,26 +157,26 @@
 						<li>
 							<p class="title">회원 관리</p>
 								<ul class="con">
-									<li><a href="cmMemberSelect.jsp">회원 리스트</a></li>
-									<li><a href="cmBoard.jsp">문의 게시판 관리</a></li>
-									<li><a href="cmContractMember.jsp">계약 회원 관리</a></li>
-									<li><a href="cmDeleteMember.jsp">회원 탈퇴 승인</a></li>
+									<li><a href="../chiefManager/cmMemberSelect.jsp">회원 리스트</a></li>
+									<li><a href="../chiefManager/cmBoard.jsp">문의 게시판 관리</a></li>
+									<li><a href="../chiefManager/cmContractMember.jsp">계약 회원 관리</a></li>
+									<li><a href="../chiefManager/cmDeleteMember.jsp">회원 탈퇴 승인</a></li>
 								</ul>
 						</li>
 						<li>
 							<p class="title">직원 관리</p>
 								<ul class="con">
-									<li>스케줄 확인</li>
-									<li>직원 정보 관리</li>
-									<li>고객-큐레이터<br>매칭 관리</li>
+									<li><a href="../employee/employeeSchedule.jsp">스케줄 확인</a></li>
+									<li><a href="../employee/employeeList.jsp">직원 정보 관리</a></li>
+									<li><a href="../employee/employeeMatching.jsp">고객-큐레이터<br>매칭 관리</a></li>
 								</ul>
 						</li>
 						<li>
 							<p class="title">상품 관리</p>
 								<ul class="con">
-									<li>상품 정보 확인</li>
-									<li>상품 재고 확인</li>
-									<li>발주 관리</li>
+									<li><a href="../product/productManagement.jsp">상품 정보 확인</a></li>
+									<li><a href="../product/productStockManagement.jsp">상품 재고 확인</a></li>
+									<li><a href="../product/productOrderManagement.jsp">발주 관리</a></li>
 								</ul>
 						</li>
 						<li>
@@ -198,8 +199,8 @@
 						<li>
 							<p class="title">설비 관리</p>
 								<ul class="con">
-									<li>보유 설비 관리</li>
-									<li>설비 대여 관리</li>
+									<li><a href="../equipment/equipmentList.jsp">보유 설비 관리</a></li>
+									<li><a href="../equipment/rentalList.jsp">설비 대여 관리</a></li>
 								</ul>
 						</li>
 						<li>

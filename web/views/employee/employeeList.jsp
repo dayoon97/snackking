@@ -7,10 +7,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
-	* {
-  outline: 0;
-  font-family: sans-serif
-}
+
 body {
   background-color: #fafafa
 }
@@ -140,20 +137,18 @@ td {
 }
 
 </style>
-<link rel="stylesheet" type="text/css" href="../../css/all.css"/>
+<link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/>
 </head>
 <body>
-	<!-- 메뉴바 가져오기 -->
+<!-- mainWrapper start -->
+<div id="mainWrapper">
+
+	<%@ include file="../common/cmMain.jsp" %>
 	
-	
-	<!-- 메뉴바 부분 찌그러지지 않게 공간만 잡아두기 -->
-	<div id="wrapper1"><%@ include file="../common/menubar.jsp" %></div>
-	
-	<!-- 본문 영역 부분 찌그러지지 않게 공간만 잡아두기 -->
-	<div id="wrapper2">
-		<!-- 본문 영역 내용 들어가는 흰색 큰 박스 -->
+	<!-- outer start -->
+	<div id="outer">
+		<!-- background-box start -->
 		<div id="background-box">
-		
 			<!-- 본문영역 상단부 -->
 			<div id="titleArea">
 				<!-- 본문 영역 제목 -->
@@ -341,10 +336,12 @@ td {
 			
 			</div>
 			<!-- 본문영역 중앙부 끝 -->
-			
-		</div>
-	</div>
-	<script>
+		
+		</div>	<!-- background-box end -->
+	</div>	<!-- outer end -->
+</div>	<!-- mainWrapper end -->
+
+<script>
 	$('.dropdown').click(function () {
         $(this).attr('tabindex', 1).focus();
         $(this).toggleClass('active');
@@ -392,5 +389,6 @@ td {
 	  }
 	}
 	</script>
+	
 </body>
 </html>
