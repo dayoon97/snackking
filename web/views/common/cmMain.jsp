@@ -158,7 +158,7 @@
 							<p class="title">회원 관리</p>
 								<ul class="con">
 									<li><a href="../chiefManager/cmMemberSelect.jsp">회원 리스트</a></li>
-									<li><a href="../chiefManager/cmBoard.jsp">문의 게시판 관리</a></li>
+									<li><a href="../question/cmquestion.jsp">문의 게시판 관리</a></li>
 									<li><a href="../chiefManager/cmContractMember.jsp">계약 회원 관리</a></li>
 									<li><a href="../chiefManager/cmDeleteMember.jsp">회원 탈퇴 승인</a></li>
 								</ul>

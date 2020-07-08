@@ -300,23 +300,6 @@ height: 25px;
 
 </script>
    
-   <!-- check박스 전체선택 -->
-   <script>
-   $(document).ready(function(){
-	    //최상단 체크박스 클릭
-	    $("#checkall").click(function(){
-	        //클릭되었으면
-	        if($("#checkall").prop("checked")){
-	            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-	            $("input[name=chk]").prop("checked",true);
-	            //클릭이 안되있으면
-	        }else{
-	            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-	            $("input[name=chk]").prop("checked",false);
-	        }
-	    })
-	})
-   </script>
 
 </style>
 </head>
@@ -397,7 +380,7 @@ height: 25px;
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
-                     <th width="20px"><input type="checkbox"></th>
+                     <th width="20px"><input type="checkbox" id="checkall"></th>
                      <th width="30px">상호명</th>
                      <th width="60px">계약코드</th>
                      <th width="80px">계약일시</th>
@@ -410,7 +393,7 @@ height: 25px;
                   
                   <!-- 리스트 바디  -->
                   <tr class="listBody">
-                     <td><input type="checkbox"></td>
+                     <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -421,7 +404,7 @@ height: 25px;
                      <td>내용</td>
                   </tr>
                   <tr class="listBody">
-                     <td><input type="checkbox"></td>
+                     <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -432,7 +415,7 @@ height: 25px;
                      <td>내용</td>
                   </tr>
                   <tr class="listBody">
-                     <td><input type="checkbox"></td>
+                     <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -443,7 +426,7 @@ height: 25px;
                      <td>내용</td>
                   </tr>
                   <tr class="listBody">
-                     <td><input type="checkbox"></td>
+                     <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -454,7 +437,7 @@ height: 25px;
                      <td>내용</td>
                   </tr>
                   <tr class="listBody">
-                     <td><input type="checkbox"></td>
+                     <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -465,7 +448,7 @@ height: 25px;
                      <td>내용</td>
                   </tr>
                   <tr class="listBody">
-                     <td><input type="checkbox"></td>
+                     <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -476,7 +459,7 @@ height: 25px;
                      <td>내용</td>
                   </tr>
                   <tr class="listBody">
-                     <td><input type="checkbox"></td>
+                     <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -487,7 +470,7 @@ height: 25px;
                      <td>내용</td>
                   </tr>
                   <tr class="listBody">
-                     <td><input type="checkbox"></td>
+                     <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -531,6 +514,24 @@ height: 25px;
                                  .find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
                      $('.msg').html(msg + input + '</span>');
                   });
+      
+      <!-- check박스 전체선택 -->
+      
+      $(document).ready(function(){
+   	   /*  //최상단 체크박스 클릭 */
+   	    $("#checkall").click(function(){
+   	        /* //클릭되었으면 */
+   	        if($("#checkall").prop("checked")){
+   	            //* /input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의 */
+   	            $("input[name=chk]").prop("checked",true);
+   	            /* //클릭이 안되있으면 */
+   	        }else{
+   	            /* //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의 */
+   	            $("input[name=chk]").prop("checked",false);
+   	        }
+   	    })
+   	})
+      
    </script>   
    
 </body>

@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style type="text/css">
    #outer {
       margin-left: 265px;
@@ -298,15 +299,17 @@ height: 25px;
    display: table;
 }
 
+
+
 </script>
-   
+
 </style>
 </head>
 <body>
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-<%@ include file="../common/cmMain.jsp" %>  
+<%@ include file="../common/cmMain.jsp" %>
    <!-- outer start -->
    <div id="outer">
       <!-- background-box start -->
@@ -314,9 +317,10 @@ height: 25px;
       
          <!-- title-area start -->
          <div id="titleArea">
-            <div id="mainTitle">주문 관리</div>
+            <div id="mainTitle">회원관리
+            </div>
             <div id="line1"></div>
-            <div id="subTitle">큐레이팅 관리</div>
+            <div id="subTitle">문의 게시판 관리</div>
          </div>   <!--title-area end -->
          
          <!-- search-area start -->
@@ -329,12 +333,14 @@ height: 25px;
                      <table class="memberTable">
                         <tr>
                            <!-- 검색 내용 타이핑하는 부분 -->
+                           
+                          <!--  <td><input type="text" class="searchTextBox" size="7">
+                           </td> -->
+                           
                            <td>회원 ID</td>
-                           <td><input type="text" class="searchTextBox" size="7">
-                           </td>
-                                                    
-                           <td>진행상태</td>  
-                           <td width="200px">
+                           <td><input type="text" name="회원아이디" size="5"></td>
+                           <td>문의타입</td>                     
+                           <td width="100px">
                               <!-- <select id="searchCondition" name="searchCondition">
                                  <option value="none">==선택==</option>
                                  <option value="continue">진행중</option>
@@ -342,13 +348,14 @@ height: 25px;
                               </select> -->
                               <div class="dropdown">
                                  <div class="select">
-                                    <span>선택</span>
+                                    <span>전체</span>
                                     <i class="fa fa-chevron-left"></i>
                                  </div>
                                  <input type="hidden" name="Job-code">
                                  <ul class="dropdown-menu">
-                                    <li id="payment">진행완료</li>
-                                    <li id="wait payment">진행중</li>
+                                    <li id="change-que">교환문의</li>
+                                    <li id="feedback-que">피드백문의</li>
+                                    <li id="one-que">1:1문의</li>
                                  </ul>
                               </div>
                            </td>
@@ -356,9 +363,28 @@ height: 25px;
                            
                                                        
                            <td><input type="date" class="searchTextBox" size="7"></td>
-                           <td width="70px">~</td>  
-                           <td><input type="date" class="searchTextBox" size="7"></td>
+                          
+                          
                            
+                           <td>답변상태</td>
+                           <td width="100px">
+                              <!-- <select id="searchCondition" name="searchCondition">
+                                 <option value="none">==선택==</option>
+                                 <option value="continue">진행중</option>
+                                 <option value="endContract">종료</option>
+                              </select> -->
+                              <div class="dropdown">
+                                 <div class="select">
+                                    <span>전체</span>
+                                    <i class="fa fa-chevron-left"></i>
+                                 </div>
+                                 <input type="hidden" name="Job-code">
+                                 <ul class="dropdown-menu">
+                                    <li id="change-que">답변대기</li>
+                                    <li id="feedback-que">답변완료</li>
+                                 </ul>
+                              </div>
+                           </td>
                            <td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
                         
                         </tr>
@@ -373,21 +399,19 @@ height: 25px;
                <div id="subSubTitle2">조회 내역</div>
                <!-- 적용 버튼 -->
                <!-- <button onclick="" class="btn" id="apply">적용</button> -->
-               <span id="apply">조회 결과 수 :</span>
+               <span id="apply"><td><input type="submit" class="searchBtn" value="삭제" id="submit"></td></span>
                
                <!-- 조회 리스트 테이블 -->
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
                      <th width="20px"><input type="checkbox" id="checkall"></th>
-                     <th width="30px">회원 ID</th>
-                     <th width="60px">선호도 조사 ID</th>
-                     <th width="80px">큐레이팅 결과(list)</th>
-                     <th width="80px">피드백 내역 조회</th>
-                     <th width="50px">최종리스트</th>
-                     <th width="70px">수정</th>
-                     <th width="50px">전송</th>
-                     <th width="50px">진행상태</th>
+                     <th width="60px">번호</th>
+                     <th width="60px">회원ID</th>
+                     <th width="80px">제목</th>
+                     <th width="50px">문의타입</th>
+                     <th width="80px">답변상태</th>               
+                     <th width="80px">날짜</th>               
                   </tr>
                   
                   <!-- 리스트 바디  -->
@@ -397,26 +421,11 @@ height: 25px;
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
+                     <td>내용</td>                
+                     <td>내용</td>                
                   </tr>
                   <tr class="listBody">
                      <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -432,24 +441,9 @@ height: 25px;
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
                   </tr>
                   <tr class="listBody">
                      <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -465,6 +459,13 @@ height: 25px;
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
                   </tr>
@@ -472,6 +473,13 @@ height: 25px;
                      <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
                      <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
@@ -514,8 +522,8 @@ height: 25px;
                      $('.msg').html(msg + input + '</span>');
                   });
       
-      
       <!-- check박스 전체선택 -->
+      
       $(document).ready(function(){
    	   /*  //최상단 체크박스 클릭 */
    	    $("#checkall").click(function(){
