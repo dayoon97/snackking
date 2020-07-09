@@ -135,7 +135,29 @@ span.choose {
 td {
 	text-align: center;
 }
-
+.list-wrap {
+		margin-top: 50px;
+		/* margin-right: 15px; */
+		width: 492px;
+		height: 110px;
+		overflow: auto;
+		overflow-x: hidden;
+}
+.list-wrap::-webkit-scrollbar {
+		width: 5px;
+		padding-top: 10px;
+}
+.list-wrap::-webkit-scrollbar-thumb {
+		background-color: #D9D9D9;
+		border-radius: 3px;
+}
+.list-wrap .list {
+		width: 470px;
+		margin: 0 10px;
+		font-family: 'Inter', sans-serif;
+		font-weight: bold;
+		color: #26DE81;
+}
 </style>
 <link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/>
 </head>
@@ -279,7 +301,8 @@ td {
 
 					
 					<!-- 조회 리스트 테이블 -->
-					<table id="listTable">
+					<div class="list-wrap">
+						<table id="listTable">
 						<!-- 테이블 헤드 -->
 						<tr id="listHead">
 							<th><input type="checkbox" id="checkall"></th>
@@ -321,8 +344,17 @@ td {
 						</tr>
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
+							<td>4</td>
+							<td>이재형</td>
+							<td>장소이</td>
+							<td>오마이짐</td>
+							<td>010-1234-5678</td>
+							<td>서울시 강남구 역삼동</td>
+						</tr>
+						<tr class="listBody">
+							<td><input type="checkbox" name="chk"></td>
+							<td>5</td>
+							<td>이재형</td>
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
@@ -330,15 +362,51 @@ td {
 						</tr>
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
+							<td>6</td>
+							<td>이재형</td>
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
 						</tr>
-						
+						<tr class="listBody">
+							<td><input type="checkbox" name="chk"></td>
+							<td>7</td>
+							<td>이재형</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+						</tr>
+						<tr class="listBody">
+							<td><input type="checkbox" name="chk"></td>
+							<td>8</td>
+							<td>이재형</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+						</tr>
+						<tr class="listBody">
+							<td><input type="checkbox" name="chk"></td>
+							<td>9</td>
+							<td>이재형</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+						</tr>
+						<tr class="listBody">
+							<td><input type="checkbox" name="chk"></td>
+							<td>10</td>
+							<td>이재형</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+						</tr>
 					</table>
+					</div>
 				</div>
 				
 			
