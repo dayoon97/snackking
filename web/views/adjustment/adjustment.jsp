@@ -350,10 +350,11 @@ span.choose {
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 8% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 50%; /* Could be more or less, depending on screen size */
+  height: 60%;
 }
 
 /* The Close Button */
@@ -671,7 +672,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td><button onclick="" class="approval-btn">변경</button></td>
-								<td><button onclick="" class="detail-btn">상세</button></td>
+								<td><button onclick="" class="btn detail-btn" id="detail">상세</button></td>
 							</tr>
 							<tr>
 								<td>내용</td>
@@ -679,7 +680,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td><button onclick="text();" class="approval-btn">변경</button></td>
-								<td><button onclick="" class="detail-btn">상세</button></td>
+								<td><button onclick="" class="btn detail-btn" id="detail">상세</button></td>
 
 								
 								
@@ -699,7 +700,9 @@ overflow-y: auto !important;
 	</div>	<!-- outer end -->
 </div>	<!-- mainWrapper end -->
 
-<button onclick="" class="btn" id="apply">권한변경</button>
+
+
+
 						<!-- Trigger/Open The Modal -->
 
 
@@ -708,42 +711,49 @@ overflow-y: auto !important;
 						  <!-- Modal content -->
 						  <div class="modal-content">
 						    <span class="close">&times;</span>
-						    <table align="center">
-						    	<tr>
-						    		<th>사원</th>
-						    		<th>직급코드</th>
-						    		<th>이름</th>
-						    		<th>주소</th>
-						    		<th>연락처</th>
-						    		<th>입사일</th>
-						    		<th>근무상태</th>
-						    	</tr>
-						    	<tr>
-						    		<td>D1</td>
-									<td><div class="dropdown">
-        										<div class="select">
-          											<span>선택</span>
-										          <i class="fa fa-chevron-left"></i>
-										        </div>
-										        <input type="hidden" name="Job-code">
-										        <ul class="dropdown-menu">
-										          <li id="J1">J1</li>
-										          <li id="J2">J2</li>
-										          <li id="J3">J3</li>
-										        </ul>
-										      </div></td>
-									<td>심다윤</td>
-									<td>서울시 송파구</td>
-									<td>010-1234-1234</td>
-									<td>20-07-05</td>
-									<td>근무중</td>
-						    	</tr>
-						    	
+						    <h1 align="center">물품대금 정산서</h1><br>
+						    <table align="center" border="1" style="width: 600px; height: 180px;">
+								
+								
+								<tr>
+									<td rowspan="3" style="width: 30%;">
+										<h7>2020년 8월 1일</h7>
+										<h1>(주)그루모아</h1><h5>貴中</h5>
+									
+									</td>
+									<td>사업자번호</td>
+									<td colspan="3">123-45-67899</td>
+								</tr>
+								<tr>
+									<td>상호</td>
+									<td>스낵킹</td>
+									<td>대표자 성명</td>
+									<td>이재형</td>
+								</tr>
+								<tr>
+									<td>주소</td>
+									<td colspan="3">서울시 강남구 테헤란로 14길 6 남도빌딩 2F</td>
+								</tr>								
+								<tr>
+									<td rowspan="2">아래와 같이 계산합니다.</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>전화</td>
+									<td>02-1234-5678</td>
+									<td>팩스</td>
+									<td>02-2020-8888</td>
+								</tr>
+								
+								
+						   
 						    </table>
-						    <button onclick="" class="btn" id="chCodeBtn">변경하기</button>
 						  </div>
-						
 						</div>
+
 
 
 
@@ -776,31 +786,33 @@ $('.dropdown-menu li').click(function () {
 }); 
 
 
+//모달 시작
 // Get the modal
-var modal = document.getElementById("myModal");
+   var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("apply");
+   // Get the button that opens the modal
+   var btn = document.getElementById("detail");
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+   // Get the <span> element that closes the modal
+   var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
+   // When the user clicks on the button, open the modal
+   btn.onclick = function() {
+     modal.style.display = "block";
+   }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+   // When the user clicks on <span> (x), close the modal
+   span.onclick = function() {
+     modal.style.display = "none";
+   }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+   // When the user clicks anywhere outside of the modal, close it
+   window.onclick = function(event) {
+     if (event.target == modal) {
+       modal.style.display = "none";
+     }
+   }
+
 
 
 
