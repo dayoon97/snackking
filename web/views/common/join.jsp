@@ -79,7 +79,9 @@ table{
 	padding-top: 12px;
 	padding-left: 10px;
 }
-
+strong {
+	color: red;
+}
 /* .login-btn, .find-btn, .insert-btn{
 	margin: 0 auto;
 } */
@@ -102,11 +104,12 @@ table{
 			<div class="middle"></div>
 			<div class="loginFormArea">
 				<div class="loginForm-box">
+					
 					<div class="loginForm">
 						<form action="" method="post">
 							<table align="center" border="1">
 								<tr>
-									<td id="admin-id">아이디</td>
+									<td id="admin-id">아이디 <strong>*</strong></td>
 								</tr>
 								<tr>
 									<td><input type="text" id="admin-id" size="50" placeholder="아이디를 입력해주세요"></td>
@@ -139,9 +142,10 @@ table{
 								<div class="cancel-btn" id="insert-btn" onclick="">회원가입</div>
 							</div>
 						</form>
-					</div>
-				</div>
-			</div>
+					</div>	<!-- loginForm end -->
+					
+				</div>	<!-- loginForm-box end -->
+			</div>	<!-- loginFormArea end -->
 		</div>
 	</div>
 </body>
