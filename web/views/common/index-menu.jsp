@@ -93,6 +93,10 @@ ul li {
 	margin-left: 800px;
 	margin-top: 8px;
 }
+ a:link { color: black; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover {text-decoration: none;}
+
 </style>
 </head>
 <body>
@@ -100,7 +104,7 @@ ul li {
   <div class="inner">
       	<ul>
       		<li><div class="menu-logo"><img src="/snackking/resources/image/logo5.png" style="width:100px;"></div></li>
-      		<li>회사소개</li>
+      		<li><a href="./views/comInfo/comInfo.jsp">회사소개</a></li>
       <li class="loginArea">
       	<button class="login" id="login" onclick="location.href='/snackking/views/common/login.jsp'">로그인</button>
       </li>
