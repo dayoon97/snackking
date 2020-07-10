@@ -182,7 +182,7 @@
 						<li>
 							<p class="title">주문 관리</p>
 								<ul class="con">
-									<li><a href="../order/cmOrderfavortie.jsp">선호도 조사 내역</a></li>
+									<li><a href="../order/cmOrderfavorite.jsp">선호도 조사 내역</a></li>
 									<li><a href="../order/cmOrderCurating.jsp">큐레이팅 관리</a></li>
 									<li>피드백 관리</li>
 									<li><a href="../order/cmOrderRelease.jsp">출고 관리</a></li>
@@ -206,7 +206,7 @@
 						<li>
 							<p class="title">정산 관리</p>
 								<ul class="con">
-									<li>정산 내역 관리</li>
+									<li><a href="../adjustment/adjustment.jsp">정산 내역 관리</a></li>
 								</ul>
 						</li>
 						<li>
