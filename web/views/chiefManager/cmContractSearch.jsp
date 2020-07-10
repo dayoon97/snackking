@@ -473,7 +473,7 @@ display: block;
 display: block;
 height: 280px;
 overflow-y: auto !important;
-}
+} 
 
 /*--------하단 listTableN 끝----------------------------------------------------------------*/
 
