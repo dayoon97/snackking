@@ -135,6 +135,9 @@ span.choose {
 td {
 	text-align: center;
 }
+.btn:hover {
+	cursor:pointer;
+}
 
 </style>
 <link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/>
@@ -173,20 +176,19 @@ td {
 								<table>
 									<tr>
 										<!-- 검색 내용 타이핑하는 부분 -->
-										<td>매칭코드 :</td>
+										<td>담당자명 :</td>
 										<td><input type="text" class="searchTextBox" size="7"></td>
 																			
-										<td>직원아이디  :</td>
+										<td>상태  :</td>
 										<td><div class="dropdown">
         										<div class="select">
-          											<span>선택</span>
+          											<span>전체</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
 										        <input type="hidden" name="Job-code">
 										        <ul class="dropdown-menu">
-										          <li id="">내용</li>
-										          <li id="">내용</li>
-										          <li id="">내용</li>
+										          <li id="">승인요청</li>
+										          <li id="">확정</li>
 										        </ul>
 										      </div>
                         				</td>
@@ -194,8 +196,8 @@ td {
 										<td>날짜  :</td>
 										<td><input type="date"></td>
 										
-										<td>전화번호  :</td>
-										<td><input type="text" class="searchTextBox" size="10"></td>
+										<td width="200px" ></td>
+										<!-- <td><input type="text" class="searchTextBox" size="10"></td> -->
 										
 										<td><input type="submit" class="btn" value="검색하기" id="submit"></td>
 									
@@ -270,6 +272,7 @@ td {
 						  </div>
 						
 						</div>-->
+						<button onclick="" class="btn" id="apply">수정</button>
 					
 					<!-- 조회 리스트 테이블 -->
 					<table id="listTable">
@@ -281,8 +284,9 @@ td {
 							<th width="80px">담당자명 </th>
 							<th width="100px">회사명</th>
 							<th width="100px">배송일자</th>
-							<th width="250px">배송요일</th>
-							<th width="250px">배송시간</th>
+							<th width="100px">배송요일</th>
+							<th width="100px">배송시간</th>
+							<th width="100px">상태</th>
 						</tr>
 						
 						<!-- 리스트 바디  -->
@@ -295,6 +299,7 @@ td {
 							<td>20-07-07</td>
 							<td>화</td>
 							<td>10:00AM</td>
+							<td>승인요청</td>
 						</tr>
 						<tr class="listBody">
 							
@@ -305,6 +310,7 @@ td {
 							<td>20-07-09</td>
 							<td>목</td>
 							<td>10:00AM</td>
+							<td>확정</td>
 						</tr>
 						<tr class="listBody">
 							
@@ -315,6 +321,7 @@ td {
 							<td>20-07-14</td>
 							<td>화</td>
 							<td>10:00AM</td>
+							<td>확정</td>
 						</tr>
 						<tr class="listBody">
 							
@@ -325,9 +332,11 @@ td {
 							<td>20-07-16</td>
 							<td>목</td>
 							<td>10:00AM</td>
+							<td>확정</td>
 						</tr>
 						<tr class="listBody">
 							
+							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
