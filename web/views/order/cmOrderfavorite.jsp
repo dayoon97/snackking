@@ -328,7 +328,7 @@ height: 25px;
                      <table class="memberTable">
                         <tr>
                            <!-- 검색 내용 타이핑하는 부분 -->
-                           <td>계약여부 : </td>
+                           <td style="width:100px;">계약여부 : </td>
                           <!--  <td><input type="text" class="searchTextBox" size="7">
                            </td> -->
                                                       
@@ -355,8 +355,8 @@ height: 25px;
                            <td width="60px">상호명  :</td>                              
                            <td><input type="text" class="searchTextBox" size="7"></td>
                            
-                           <td style="width: 110px;">대여가능수량  :</td>
-                           <td><input type="text" class="searchTextBox" size="7"></td>
+                           <!-- <td style="width: 110px;">대여가능수량  :</td>
+                           <td><input type="text" class="searchTextBox" size="7"></td> -->
                            
                            <td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
                         
@@ -369,7 +369,7 @@ height: 25px;
          <!-- 조회 결과 리스트 부분 -->
             <div id="listArea">
                <!-- 조회 결과 리스트 제목 -->
-               <div id="subSubTitle2">재고 리스트</div>
+               <div id="subSubTitle2">선호도 리스트</div>
                <!-- 적용 버튼 -->
                <!-- <button onclick="" class="btn" id="apply">적용</button> -->
                <span id="apply">조회 결과 수 :</span>

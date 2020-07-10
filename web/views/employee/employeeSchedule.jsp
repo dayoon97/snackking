@@ -135,6 +135,9 @@ span.choose {
 td {
 	text-align: center;
 }
+.btn:hover {
+	cursor:pointer;
+}
 
 </style>
 <link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/>
@@ -269,6 +272,7 @@ td {
 						  </div>
 						
 						</div>-->
+						<button onclick="" class="btn" id="apply">수정</button>
 					
 					<!-- 조회 리스트 테이블 -->
 					<table id="listTable">
