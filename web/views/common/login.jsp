@@ -143,7 +143,7 @@ table{
 							<div class="btn-div" align="center">
 								<div class="login-btn"><input type="submit" value="로그인" id="login-btn"></div><br>
 								<!-- <div class="find-btn"><input type="button" value="아이디/비밀번호 찾기" id="find-btn"></div><br> -->
-								<div class="find-btn" id="find-btn" onclick="location.href='';">아이디/비밀번호 찾기</div><br>
+								<div class="find-btn" id="find-btn" onclick="location.href='findUserInfo.jsp';">아이디/비밀번호 찾기</div><br>
 								<!-- <div class="insert-btn"><input type="button" value="회원가입" id="insert-btn"></div> -->
 								<div class="insert-btn" id="insert-btn" onclick="location.href='join.jsp';">회원가입</div>
 							</div>
