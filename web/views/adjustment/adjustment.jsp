@@ -354,7 +354,7 @@ span.choose {
   padding: 20px;
   border: 1px solid #888;
   width: 50%; /* Could be more or less, depending on screen size */
-  height: 60%;
+  height: 130%;
 }
 
 /* The Close Button */
@@ -455,8 +455,15 @@ height: 80px;
 .detail-btn{
 	margin-left: 2px;
 }
-
-
+#listTable-adjustment{
+width: 600px;
+}
+#listTable-adjustment th{
+height: 40px;
+}
+#listTable-adjustment td{
+height: 25px;
+}
 /*---------하단 listTableN 시작----------------------------------------------------------------*/
 /*열 5개짜리 테이블*/
 
@@ -476,6 +483,16 @@ height: 80px;
 #listTable6 th:nth-of-type(5), #listTable6 td:nth-of-type(5){width:166px; important!}
 #listTable6 th:nth-of-type(6){width:166px; important!}
 #listTable6 td:nth-of-type(6){width:146px; important!}
+
+/*열 8개짜리 정산서 테이블*/
+#listTable-adjustment th:nth-of-type(1), #listTable-adjustment td:nth-of-type(1){width:75px; important!}
+#listTable-adjustment th:nth-of-type(2), #listTable-adjustment td:nth-of-type(2){width:75px; important!}
+#listTable-adjustment th:nth-of-type(3), #listTable-adjustment td:nth-of-type(3){width:75px; important!}
+#listTable-adjustment th:nth-of-type(4), #listTable-adjustment td:nth-of-type(4){width:75px; important!}
+#listTable-adjustment th:nth-of-type(5), #listTable-adjustment td:nth-of-type(5){width:75px; important!}
+#listTable-adjustment th:nth-of-type(6), #listTable-adjustment td:nth-of-type(6){width:75px; important!}
+#listTable-adjustment th:nth-of-type(7), #listTable-adjustment td:nth-of-type(7){width:75px; important!}
+#listTable-adjustment th:nth-of-type(8), #listTable-adjustment td:nth-of-type(8){width:75px; important!}
 
 /*열 13개짜리 테이블*/
 #listTable13 th:nth-of-type(1), #listTable13 td:nth-of-type(1){width:40px; important!}
@@ -581,178 +598,315 @@ overflow-y: auto !important;
 </head>
 <body>
 <!-- mainWrapper start -->
-<div id="mainWrapper">
-
-	<%@ include file="../common/cmMain.jsp" %>
+	<div id="mainWrapper">
 	
-	<!-- outer start -->
-	<div id="outer">
-		<!-- background-box start -->
-		<div id="background-box">
+		<%@ include file="../common/cmMain.jsp" %>
 		
-			<!-- title-area start ---------------------------------------------------------------------------->
-			<div id="titleArea">
-				<div id="mainTitle">정산 관리</div>
-				<div id="line1"></div>
-				<div id="subTitle">정산내역 관리</div>
-			</div>	<!--title-area end ---------------------------------------------------------------------------->
+		<!-- outer start -->
+		<div id="outer">
+			<!-- background-box start -->
+			<div id="background-box">
 			
-			<!-- search-area start ---------------------------------------------------------------------------->
-			<div id="searchArea">
-				<!-- 조회 제목 -->
-				<div id="subSubTitle1">정산내역 조회</div>
-					<!-- searchBox start -->
-						<div id="searchBox" style="display: table;">
-							<form id="searchForm" style="display:table-cell; vertical-align:middle">
-								<div >
-								<table id="searchStock" style="align:center;">
-									<tr>
-										<!-- 검색 내용 타이핑하는 부분 -->	
-										<td style="width:200px !important;">회사명  :
-										<input type="text" class="searchTextBox" size="6" name=""></td>
-								
-	
-										<td style="width:240px">정산월  :
-											<input type="month" class="searchTextBox" size="6" name=""></td>
-										
-                       					
-										<td style="width:220px">결제여부  :
-										<div class="dropdown">
-        										<div class="select">
-          											<span>선택</span>
-										          <i class="fa fa-chevron-left"></i>
-										        </div>
-										        <input type="hidden" name="">
-										        <ul class="dropdown-menu">
-							                           <li id="선택">선택</li>
-							                           <li id="미지급">미지급</li>
-							                           <li id="지급">지급</li>
-										        </ul>
-										      </div>
-                        				</td>
-
-										<td><input type="submit" class="searchBtn" value="검색하기" id="searchBtn" style="float: right;"></td>
-									</tr>
-								</table>
-								</div>
-							</form>
-						</div>
-				</div><!-- search-area end ---------------------------------------------------------------------------->
-
-
-
-			
-			<!-- 조회 결과 리스트 부분 -->
-				<div id="listArea">
-					<!-- 조회 결과 리스트 제목 -->
-					
-					<div id="subSubTitle2" style="top:310px !important; width: 120px;">정산내역 리스트</div>
-					<!-- 적용 버튼 -->
-					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
-					<span id="apply" style="top:310px !important;">조회 결과 수 :</span>
-						<!-- 테이블 시작 -->
-						<!-- 조회 리스트 테이블 -->
-					<table id="listTable6" align="center">
-						<thead>
-							<!-- 테이블 헤드 -->
-							<tr id="listHead" >
-								<th>회사명</th>
-								<th>날짜</th>
-								<th>입금일</th>
-								<th>결제여부</th>
-								<th>지급완료처리</th>
-								<th>상세내역확인</th>
-							</tr>
-						</thead>
-						<tbody>
-						<!-- 리스트 바디  -->
-							<tr>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td><button onclick="" class="approval-btn">변경</button></td>
-								<td><button onclick="" class="btn detail-btn" id="detail">상세</button></td>
-							</tr>
-							<tr>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td><button onclick="text();" class="approval-btn">변경</button></td>
-								<td><button onclick="" class="btn detail-btn" id="detail">상세</button></td>
-
-								
-								
-								</td>
-
-							</tr>							
-						
-						</tbody>
-					</table>
-					<!-- 테이블 끝 -->
-			
-			
-			
-				</div>
-		
-		</div>	<!-- background-box end -->
-	</div>	<!-- outer end -->
-</div>	<!-- mainWrapper end -->
-
-
-
-
-						<!-- Trigger/Open The Modal -->
-
-
-						<!-- The Modal -->
-						<div id="myModal" class="modal">
-						  <!-- Modal content -->
-						  <div class="modal-content">
-						    <span class="close">&times;</span>
-						    <h1 align="center">물품대금 정산서</h1><br>
-						    <table align="center" border="1" style="width: 600px; height: 180px;">
-								
-								
-								<tr>
-									<td rowspan="3" style="width: 30%;">
-										<h7>2020년 8월 1일</h7>
-										<h1>(주)그루모아</h1><h5>貴中</h5>
+				<!-- title-area start ---------------------------------------------------------------------------->
+				<div id="titleArea">
+					<div id="mainTitle">정산 관리</div>
+					<div id="line1"></div>
+					<div id="subTitle">정산내역 관리</div>
+				</div>	<!--title-area end ---------------------------------------------------------------------------->
+				
+				<!-- search-area start ---------------------------------------------------------------------------->
+				<div id="searchArea">
+					<!-- 조회 제목 -->
+					<div id="subSubTitle1">정산내역 조회</div>
+						<!-- searchBox start -->
+							<div id="searchBox" style="display: table;">
+								<form id="searchForm" style="display:table-cell; vertical-align:middle">
+									<div >
+									<table id="searchStock" style="align:center;">
+										<tr>
+											<!-- 검색 내용 타이핑하는 부분 -->	
+											<td style="width:200px !important;">회사명  :
+											<input type="text" class="searchTextBox" size="6" name=""></td>
 									
-									</td>
-									<td>사업자번호</td>
-									<td colspan="3">123-45-67899</td>
+		
+											<td style="width:240px">정산월  :
+												<input type="month" class="searchTextBox" size="6" name=""></td>
+											
+	                       					
+											<td style="width:220px">결제여부  :
+											<div class="dropdown">
+	        										<div class="select">
+	          											<span>선택</span>
+											          <i class="fa fa-chevron-left"></i>
+											        </div>
+											        <input type="hidden" name="">
+											        <ul class="dropdown-menu">
+								                           <li id="선택">선택</li>
+								                           <li id="미지급">미지급</li>
+								                           <li id="지급">지급</li>
+											        </ul>
+											      </div>
+	                        				</td>
+	
+											<td><input type="submit" class="searchBtn" value="검색하기" id="searchBtn" style="float: right;"></td>
+										</tr>
+									</table>
+									</div>
+								</form>
+							</div>
+					</div><!-- search-area end ---------------------------------------------------------------------------->
+	
+	
+	
+				
+				<!-- 조회 결과 리스트 부분 -->
+					<div id="listArea">
+						<!-- 조회 결과 리스트 제목 -->
+						
+						<div id="subSubTitle2" style="top:310px !important; width: 120px;">정산내역 리스트</div>
+						<!-- 적용 버튼 -->
+						<!-- <button onclick="" class="btn" id="apply">적용</button> -->
+						<span id="apply" style="top:310px !important;">조회 결과 수 :</span>
+							<!-- 테이블 시작 -->
+							<!-- 조회 리스트 테이블 -->
+						<table id="listTable6" align="center">
+							<thead>
+								<!-- 테이블 헤드 -->
+								<tr id="listHead" >
+									<th>회사명</th>
+									<th>날짜</th>
+									<th>입금일</th>
+									<th>결제여부</th>
+									<th>지급완료처리</th>
+									<th>상세내역확인</th>
+								</tr>
+							</thead>
+							<tbody>
+							<!-- 리스트 바디  -->
+								<tr>
+									<td>내용</td>
+									<td>내용</td>
+									<td>내용</td>
+									<td>내용</td>
+									<td><button onclick="" class="approval-btn">변경</button></td>
+									<td><button onclick="" class="btn detail-btn" id="detail">상세</button></td>
 								</tr>
 								<tr>
-									<td>상호</td>
-									<td>스낵킹</td>
-									<td>대표자 성명</td>
-									<td>이재형</td>
-								</tr>
-								<tr>
-									<td>주소</td>
-									<td colspan="3">서울시 강남구 테헤란로 14길 6 남도빌딩 2F</td>
-								</tr>								
-								<tr>
-									<td rowspan="2">아래와 같이 계산합니다.</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>전화</td>
-									<td>02-1234-5678</td>
-									<td>팩스</td>
-									<td>02-2020-8888</td>
-								</tr>
-								
-								
-						   
-						    </table>
-						  </div>
-						</div>
+									<td>내용</td>
+									<td>내용</td>
+									<td>내용</td>
+									<td>내용</td>
+									<td><button onclick="text();" class="approval-btn">변경</button></td>
+									<td><button onclick="" class="btn detail-btn" id="detail">상세</button></td>
+							</tr>							
+						</tbody>
+					</table><!-- 테이블 끝 -->
+				</div>
+			</div>	<!-- background-box end -->
+		</div>	<!-- outer end -->
+	</div>	<!-- mainWrapper end -->
+
+	<!-- Trigger/Open The Modal -->
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <span class="close">&times;</span>
+		    <h1 align="center">물품대금 정산서</h1><br>
+	   
+	   			<div id="wrapper" style="width:600px; margin-left: auto; margin-right: auto;">
+	    <!-- 상단 정보 테이블 시작 -->
+	  	 		 <table align="center" border="1" style="width: 600px; height: 180px;">
+					<tr>
+						<td rowspan="3" style="width: 30%;">
+							<h7>2020년 8월 1일</h7>
+							<h2>(주)그루모아</h2><h5>貴中</h5>
+				
+						</td>
+						<td>사업자번호</td>
+						<td colspan="3">123-45-67899</td>
+					</tr>
+					<tr>
+						<td>상호</td>
+						<td>스낵킹</td>
+						<td>대표자 성명</td>
+						<td>이재형</td>
+					</tr>
+					<tr>
+						<td>주소</td>
+						<td colspan="3">서울시 강남구 테헤란로 14길 6 남도빌딩 2F</td>
+					</tr>								
+					<tr>
+						<td rowspan="2">아래와 같이 계산합니다.</td>
+						<td>업태</td>
+						<td>도소매</td>
+						<td>종목</td>
+						<td>전자상거래</td>
+					</tr>
+					<tr>
+						<td>전화</td>
+						<td>02-1234-5678</td>
+						<td>팩스</td>
+						<td>02-2020-8888</td>
+					</tr>
+			    </table><!-- 상단 정보 테이블 끝 -->
+				<table border="1" align="center"><!-- 중간 테이블 시작 -->
+					<tr style="width: 100%; height: 45px;"><td></td><td></td><td></td></tr>
+					
+					<tr>
+						<td style="width: 170px; height: 15px;">&nbsp;청구내역</div>
+					</tr>
+					<tr>	
+						<td colspan="3" style="height: 15px;"></td>
+					</tr>
+					<tr>
+						<td style="width: 170px;; height: 30px;"><h3>합계금액</h3></td>
+						<td style="width: 50px; height: 30px;"><h3>일금</h3></td>
+						<td style="width: 200px; height: 30px;"><h3>백육십오만 원정</h3></td>
+						<!-- &#8361; 이거 원화기호임 -->
+						<td style="width: 120px; height: 30px; text-align: left;">&nbsp;&nbsp;&nbsp;&#8361;</td>
+						<td style="width: 160px; height: 30px; text-align: right;">1,650,000&nbsp;&nbsp;</td>
+					</tr>	
+					<tr style="width: 600px; height: 20px;">
+						<td colspan="4"></td>
+						<td style="text-align: right;">(단위 : 원)</td>
+					</tr>
+				</table><!-- 중간 테이블 끝 -->
+				<table id="listTable-adjustment" border="1">
+					<tr>
+						<th>회차</th>
+						<th>배송일</th>
+						<th>거래품목</th>
+						<th>총수량</th>
+						<th>공급가액</th>
+						<th>세액</th>
+						<th>합계금액</th>
+						<th>비고</th>
+					</tr>
+					<tr>
+						<td>1회차</td>
+						<td>2020.07.01</td>
+						<td>칸쵸 외</td>
+						<td>80개</td>
+						<td>500,000</td>
+						<td>50,000</td>
+						<td>550,000</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>2회차</td>
+						<td>2020.07.11</td>
+						<td>칸쵸 외</td>
+						<td>80개</td>
+						<td>500,000</td>
+						<td>50,000</td>
+						<td>550,000</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>3회차</td>
+						<td>2020.07.21</td>
+						<td>칸쵸 외</td>
+						<td>80개</td>
+						<td>500,000</td>
+						<td>50,000</td>
+						<td>550,000</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>-</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>-</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>-</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>-</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>-</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>-</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>-</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>-</td>
+						<td></td>
+					</tr>
+					<tr><td style="width: 600px; height: 20px;"></td></tr>
+					<tr>
+						<td></td>
+						<td colspan="2"></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				
+			</div><!-- wrapper 끝 -->
+		</div>
+	</div>
 
 
 
