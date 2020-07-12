@@ -157,7 +157,7 @@
 	}
 
 /*조회 결과 리스트 제목 스타일*/
-#subSubTitle2{
+/* #subSubTitle2{
 position: absolute;
 width: 90px;
 height: 30px;
@@ -171,7 +171,7 @@ line-height: 20px;
 display: flex;
 align-items: center;
 color: #000000;
-}
+} */
 
 /*적용 버튼*/
 #apply{
@@ -333,7 +333,24 @@ span.choose {
 }
 
 /*-----------------------추가한 CSS-----------------------------------------------------*/
-
+/* 유효한 계약내뎍, 종료된 계약내역 버튼 스타일*/
+.btn {
+	border:0;
+	outline:0;
+	width: 92px;
+	height: 32px;
+	background: #F0BB00;
+	display:inline-block;
+	font-family: NanumSquare_ac;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 17px;
+	line-height: 19px;
+	text-align: center;
+	color: #FFFFFF;
+	
+	
+}
 
 
 
@@ -473,7 +490,7 @@ display: block;
 display: block;
 height: 280px;
 overflow-y: auto !important;
-} 
+}
 
 /*--------하단 listTableN 끝----------------------------------------------------------------*/
 
@@ -514,7 +531,8 @@ overflow-y: auto !important;
 										<td></td>
 										<td style="width:200px"></td>
 										<td style="width:200px"></td>			
-										<td rowspan="3" align="center"><input type="submit" class="btn" value="검색" id="submit"></td>
+										<td rowspan="3" align="center">
+										<input type="submit" class="searchBtn" value="검색" id="submit" style="width:85px;"></td>
 										
 									</tr>
 									<tr>
@@ -549,8 +567,16 @@ overflow-y: auto !important;
 			<!-- 조회 결과 리스트 부분 -->
 				<div id="listArea">
 					<!-- 조회 결과 리스트 제목 -->
+					<!-- <div id="subSubTitle2" style="top:325px !important;">조회 리스트</div> -->
 					
-					<div id="subSubTitle2" style="top:325px !important;">발주 리스트</div>
+					<div style="margin-top:185px; padding-left:40px;">
+						<button onclick="" class="btn" id="btnValidContract" style="width:130px; top:310px; left:40px;">유효한 계약내역</button>
+ 						<button onclick="" class="btn" id="btnFinishContract" style="width:130px; top:310px; left:200px">종료된 계약내역</button>
+				
+					
+					</div>
+					
+					
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
 					<span id="apply" style="top:330px !important;">조회 결과 수 :</span>
@@ -560,16 +586,20 @@ overflow-y: auto !important;
 						<thead>
 							<!-- 테이블 헤드 -->
 							<tr>
-								<th>발주구분</th>
-								<th>발주코드</th>
-								<th>상품명</th>
-								<th>상품코드</th>
-								<th>발주회사명</th>
-								<th>발주일</th>
-								<th>신청자</th>
-								<th>입고예정</th>
-								<th>승인상태</th>
-								<th>승인버튼</th>
+								<th>순번</th>
+								<th>계약번호</th>
+								<th>거래처명</th>
+								<th>계약일자</th>
+								<th>계약시작일</th>
+								<th>계약종료일</th>
+								<th>배송횟수(월)</th>
+								<th>회차당 금액</th>
+								<th>월 계약금액</th>
+								<th>배송 주</th>
+								<th>요일</th>
+								<th>배송지 보기</th>
+								<th>수정</th>
+								
 
 								
 							</tr>
