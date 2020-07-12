@@ -1,11 +1,15 @@
 package com.kh.snackking.user.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.snackking.user.model.service.UserService;
+import com.kh.snackking.user.model.vo.User;
 
 /**
  * Servlet implementation class UserInsertServlet
@@ -33,17 +37,37 @@ public class UserInsertServlet extends HttpServlet {
 		String company = request.getParameter("company");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
-		String zipNo = request.getParameter("zipNo");
+		int zipNo = Integer.parseInt(request.getParameter("zipNo"));
 		String address = request.getParameter("address");
 		
-		System.out.println("userId : " + userId);
-		System.out.println("password : " + userPwd);
-		System.out.println("name : " + userName);
-		System.out.println("company : " + company);
-		System.out.println("phone : " + phone);
-		System.out.println("email : " + email);
-		System.out.println("zipno : " + zipNo);
-		System.out.println("address : " + address);
+//		System.out.println("userId : " + userId);
+//		System.out.println("password : " + userPwd);
+//		System.out.println("name : " + userName);
+//		System.out.println("company : " + company);
+//		System.out.println("phone : " + phone);
+//		System.out.println("email : " + email);
+//		System.out.println("zipno : " + zipNo);
+//		System.out.println("address : " + address);
+		
+		User reqUser = new User();
+		reqUser.setUserId(userId);
+		reqUser.setUserPwd(userPwd);
+		reqUser.setUserName(userName);
+		reqUser.setCompany(company);
+		reqUser.setPhone(phone);
+		reqUser.setEmail(email);
+		reqUser.setZipNo(zipNo);
+		reqUser.setAddress(address);
+		
+//		System.out.println("reqUser : " + reqUser);
+		
+		int result = new UserService().insertUser(reqUser);
+		
+		if(result > 0) {
+//			System.out.println("성공");
+		} else {
+//			System.out.println("실패");
+		}
 		
 		
 	}
