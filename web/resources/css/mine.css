@@ -20,6 +20,11 @@
 	/*정산 등록 테이블*/
 	#adjustmentAddTable{
 	width: 1000px;
+	border-spacing: 6px;
+	}
+	#adjustmentAddTable tr{
+		margin-bottom: 30px;
+		height: 30px;
 	}
 	#adjustmentAddTable td{
 	width: 100px;
@@ -94,6 +99,24 @@
 		align-items: center;
 		/* color: #000000; */
 	}
+	
+	/*조회 결과 리스트 제목 스타일 : 좁은 것*/
+	#subSubTitle2{
+	position: absolute;
+	width: 90px;
+	height: 30px;
+	left: 40px;
+	top: 280px;
+	font-family: NanumSquare_ac;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 20px;
+	display: flex;
+	align-items: center;
+	color: #000000;
+	}
+	
 	/*조회 상자 테두리*/
 	#searchBox{
 		position: absolute;
@@ -107,6 +130,10 @@
 		box-sizing: border-box;
 		border-radius: 33.5px;
 	}
+	
+	
+	
+	
 	/*폼 기본 서식*/
 	#searchForm{
 		height:100%;
@@ -147,9 +174,40 @@
 		border:0;
 		outline:0;
 		height: 20px;
+		width:155px;
 		padding:0;
 		margin:0;
 		background: #F6F1F1;
+	}
+	
+	.InputBox2{
+		border:0;
+		outline:0;
+		width:155px;
+		height: 20px;
+		padding:0;
+		margin:0;
+		background: #F6F1F1;
+	}
+	.InputBox3{
+		border:0;
+		outline:0;
+		width:185px;
+		height: 20px;
+		padding:0;
+		margin:0;
+		background: #F6F1F1;
+	}
+	
+	.left{
+		float: left;
+	}
+	
+	.right{
+		float: right;
+	}
+	.vertical-align{
+		vertical-align: middle;
 	}
 	
 	/*노란 버튼 공통 스타일*/
@@ -168,23 +226,24 @@
 		text-align: center;
 		color: #FFFFFF;
 	}
+	/*긴 노란 버튼*/
+	.btn1{
+		border:0;
+		outline:0;
+		width: 122px;
+		height: 32px;
+		background: #F0BB00;
+		display:inline-block;
+		font-family: NanumSquare_ac;
+		font-style: normal;
+		font-weight: 300;
+		font-size: 17px;
+		line-height: 19px;
+		text-align: center;
+		color: #FFFFFF;
+	}
 
-/*조회 결과 리스트 제목 스타일*/
-#subSubTitle2{
-position: absolute;
-width: 90px;
-height: 30px;
-left: 40px;
-top: 280px;
-font-family: NanumSquare_ac;
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 20px;
-display: flex;
-align-items: center;
-color: #000000;
-}
+
 
 /*적용 버튼*/
 .btn-position{
@@ -200,7 +259,12 @@ top:330px;
 left:45px;
 text-align:center;
 }
+/* 테이블 셀간격 조정 (가로세로 및 위아래) */
+#searchStock{
 
+border-spacing: 50px 0;
+
+}
 
 /*조회 리스트 테이블 listHead*/
 #listHead{
@@ -443,11 +507,10 @@ background:lightgray;
 	cursor:pointer;
 	background: #F0BB00;
 }
-#searchStock{	
-margin-left: auto;
-margin-right: auto;
-border-spacing: 70px 0;
-}	
+
+
+
+
 #searchProduct{
 margin-left: auto;
 margin-right: auto;
@@ -462,18 +525,28 @@ height: 80px;
       background: #ff9100;
       border: 1px solid rgba(255, 168, 0, 0.42);
       color:white;
+    
+}
+.nameSearch-btn, .amountSearch-btn{
+	width: 70px;
+    height: 23px;
+    background: #ff9100;
+    border: 1px solid rgba(255, 168, 0, 0.42);
+    color:white;
 }
 
-.approval-btn:hover, .detail-btn:hover{
+
+
+.approval-btn:hover, .detail-btn:hover, .nameSearch-btn:hover, .amountSearch-btn:hover{
 	  background: #FFFFFF;
       border: 1px solid rgba(255, 168, 0, 0.42);
       color: rgba(255, 168, 0, 0.42);
       outline: 0;
 }
 .approval-btn{
-      margin-right: 10px;
+      margin-right: 1px;
 }
-.detail-btn{
+.detail-btn, .nameSearch-btn, .amountSearch-btn{
 	margin-left: 2px;
 }
 #listTable-adjustment, #bottom-info-table, #adjustment-upper-table, #adjustment-total-table{
@@ -670,7 +743,6 @@ height: 280px;
 overflow-y: auto !important;
 }
 
-/*등록 모달 CSS*/
 /* The Modal (background) */
 .modal2 {
   display: none; /* Hidden by default */
@@ -688,11 +760,11 @@ overflow-y: auto !important;
 /* Modal Content/Box */
 .modal-content2 {
   background-color: #fefefe;
-  margin: 9% auto; /* 15% from the top and centered */
-  padding: 30px;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
   border: 1px solid #888;
-  width: 50%; /* Could be more or less, depending on screen size */
-  height: 50%;	
+  width: 35%; /* Could be more or less, depending on screen size */
+  height: 35%;
 }
 
 /* The Close Button */
@@ -708,4 +780,149 @@ overflow-y: auto !important;
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.prductStockDetail{
+	display: block;
+	width: 980px;
+	top:370px;
+	left:45px;
+	border-collapse:collapse;
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	border-spacing: 0;
+	box-sizing: border-box;
+}
+.prductStockDetail thead tr{
+	height: 50px;
+	width: 980px;
+	background: #FBFAFA;
+	box-sizing:border-box;
+	border-radius: 300px 0 0 300px;
+	font-size:15px;
+	line-height:17px;	
+}
+.prductStockDetail tbody tr{
+	height: 40px;
+	width: 980px;	
+}
+.prductStockDetail th:nth-of-type(1){width:400px; important!}
+.prductStockDetail th:nth-of-type(2){width:170px; important!}
+.prductStockDetail th:nth-of-type(3){width:400px; important!}
+
+
+.expGrayBox1{
+	width: 70px;
+	height:30px;
+	background: #E0E0E0;
+	padding: 0;
+	margin-left: 5px;
+	margin-right: 0;
+	margin-bottom:0;
+	margin-top:0;
+	border-size:border-box;
+	display: inline-block;
+	
+}
+
+.expGrayBox2{
+	width: 30px;
+	height:30px;
+	margin:0;
+	border-size:border-box;
+	background: #C4C4C4;
+	display: inline-block;
+
+}
+
+.expRedBox1{
+	width: 70px;
+	height:30px;
+	background: #FF8B8B;
+	padding: 0;
+	margin-left: 5px;
+	margin-right: 0;
+	margin-bottom:0;
+	margin-top:0;
+	border-size:border-box;
+	display: inline-block;	
+	
+	
+}
+.expRedBox2{
+	width: 30px;
+	height:30px;
+	margin:0;
+	border-size:border-box;
+	background: #ED4343;
+	display: inline-block;
+	
+	
+}
+.expYellowBox1{
+	width: 70px;
+	height:30px;
+	background: #FBF3AA;
+	padding: 0;
+	margin-left: 5px;
+	margin-right: 0;
+	margin-bottom:0;
+	margin-top:0;
+	border-size:border-box;
+	display: inline-block;
+}
+.expYellowBox2{
+	width: 30px;
+	height:30px;
+	margin:0;
+	border-size:border-box;
+	background: #EEDA27;
+	display: inline-block;
+}
+.text-align{
+	text-align: center;
+	height: 30px; 
+	 display: flex;
+	
+}
+.red{
+	color:red;
+	font-weight: bold;
+	font-size: 35px;
+	margin-right: 40px;
+	
+}
+.pName{
+	font-family: NanumSquare_ac;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 30px;
+	line-height: 33px;
+	display: flex;
+	align-items: center;
+	color: #000000;
+	margin-left:40px;
+
+}
+
+
+.line1{
+width: 256px;
+height: 0px;
+margin-left:40px;
+border: 1px solid #000000;
+}
+
+.pCode{
+margin-left:40px;	
+}
+
+.padding1{
+	padding-top: 3px;
+	
+}
+.padding2{
+	padding-left: 30px;
+	
 }

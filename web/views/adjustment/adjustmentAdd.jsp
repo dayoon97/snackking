@@ -5,248 +5,162 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../../resources/css/mine.css">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <!-- mainWrapper start -->
-	<div id="mainWrapper">
-	
-		<%@ include file="../common/cmMain.jsp" %>
-		
-		<!-- outer start -->
-		<div id="outer">
-			<!-- background-box start -->
-			<div id="background-box">
-			
-				<!-- title-area start ---------------------------------------------------------------------------->
-				<div id="titleArea">
-					<div id="mainTitle">정산 관리</div>
-					<div id="line1"></div>
-					<div id="subTitle">정산내역 등록</div>
-				</div>	<!--title-area end ---------------------------------------------------------------------------->
-				
-				<!-- search-area start ---------------------------------------------------------------------------->
-				<div id="searchArea">
-					
-						<!-- searchBox start -->
-							<div id="searchBox" style="display: table; height: 500px; width:1000px; top:150px;">
-								<form id="adjustmentAddForm" style="display:table-cell; vertical-align:middle">
-			   						<table id="adjustmentAddTable" border="1" style="text-align:left !important;">
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td>회사명 : </td>
-			   								<td><input type="text" class="InputBox1" size="6" name=""></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   							<tr>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   								<td></td>
-			   							</tr>
-			   						
-			   						</table>
-								</form>
-							</div>
-					</div><!-- search-area end ---------------------------------------------------------------------------->
-			</div>	<!-- background-box end -->
-		</div>	<!-- outer end -->
-	</div>	<!-- mainWrapper end -->
+   <div id="mainWrapper">
+   
+      <%@ include file="../common/cmMain.jsp" %>
+      
+      <!-- outer start -->
+      <div id="outer">
+         <!-- background-box start -->
+         <div id="background-box">
+         
+            <!-- title-area start ---------------------------------------------------------------------------->
+            <div id="titleArea">
+               <div id="mainTitle">정산 관리</div>
+               <div id="line1"></div>
+               <div id="subTitle">정산내역 등록</div>
+            </div>   <!--title-area end ---------------------------------------------------------------------------->
+            
+            <!-- search-area start ---------------------------------------------------------------------------->
+            <div id="searchArea">
+               
+                  <!-- searchBox start -->
+                     <div id="searchBox" style="display: table; height: 250px; width:1000px; top:150px;">
+                        <form id="adjustmentAddForm" style="display:table-cell; vertical-align:middle">
+                              <table id="adjustmentAddTable">
+                                 <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                 </tr>
+                               
+                                <tr>
+                                    <td></td>
+                                    <td>정산월 :</td>
+                                    <td><input type="month" class="InputBox2"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                 </tr>
+                                  <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                 </tr>
+                                 <tr>
+                                    <td></td>
+                                    <td>회사명 : </td>
+                                    <td><input type="text" class="InputBox1"></td>
+                                    <td>
+                                    <div class="dropdown">
+                                         <div class="select">
+                                              <span>선택</span>
+                                           <i class="fa fa-chevron-left"></i>
+                                         </div>
+                                         <input type="hidden" name="">
+                                         <ul class="dropdown-menu">
+                                                   <li id="선택">선택</li>
+                                                   <li id="">여기다가</li>
+                                                   <li id="">검색한거</li>
+                                                   <li id="">불러오기</li>
+                                         </ul>
+                                       </div>
+                                    </td>
+                                    <td><button onclick="" class="nameSearch-btn">검색</button></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                 </tr>
+                                  <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                 </tr>
+                                 <tr>
+                                    <td></td>
+                                    <td>정산금액 : </td>
+                                    <td><input type="text" class="InputBox1"></td>
+                                    <td><button onclick="" class="amountSearch-btn" id="detail">조회</button></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td colspan="2"><button class="addBtn btn" id="addBtn">등록하기</button></td>
+                                    <td></td>
+                                 </tr>
+                                 <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                 </tr>
+                              </table>
+                        </form>
+                     </div>
+<!-- 금액 조회  모달 시작 --------------------------------------------------------------------------->
+                  <!-- The Modal -->
+                  <div id="myModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                      <span class="close">&times;</span>
+                      ssd
+					</div>
+					</div>
+<!-- 금액 조회 모달 끝 --------------------------------------------------------------------------->                           
+                         
+               </div><!-- search-area end ---------------------------------------------------------------------------->
+         </div>   <!-- background-box end -->
+      </div>   <!-- outer end -->
+   </div>   <!-- mainWrapper end -->
+                                
 
-
-	
-									<table id="searchStock" style="align:center;">
-										<tr>
-											<!-- 검색 내용 타이핑하는 부분 -->	
-											<td style="width:200px !important;">회사명  :
-											</td>
-									
-		
-											<td style="width:240px">정산월  :
-												<input type="month" class="searchTextBox" size="6" name=""></td>
-											
-	                       					
-											<td style="width:220px">결제여부  :
-											<div class="dropdown">
-	        										<div class="select">
-	          											<span>선택</span>
-											          <i class="fa fa-chevron-left"></i>
-											        </div>
-											        <input type="hidden" name="">
-											        <ul class="dropdown-menu">
-								                           <li id="선택">선택</li>
-								                           <li id="미지급">미지급</li>
-								                           <li id="지급">지급</li>
-											        </ul>
-											      </div>
-	                        				</td>
-	
-											<td><input type="submit" class="searchBtn" value="검색하기" id="searchBtn" style="float: right;"></td>
-										</tr>
-									</table>   
+   
 
 
 </body>
-
 
 
 <script>
@@ -274,64 +188,6 @@ $('.dropdown-menu li').click(function () {
 }); 
 
 
-//등록 모달
-// Get the modal
-   var modal = document.getElementById("myModal");
-   
-   // Get the button that opens the modal
-   var btn = document.getElementById("detail");
-
-   // Get the <span> element that closes the modal
-   var span = document.getElementsByClassName("close")[0];
-
-   // When the user clicks on the button, open the modal
-   btn.onclick = function() {
-     modal.style.display = "block";
-   }
-
-   // When the user clicks on <span> (x), close the modal
-   span.onclick = function() {
-     modal.style.display = "none";
-   }
-
-   // When the user clicks anywhere outside of the modal, close it
-   window.onclick = function(event) {
-     if (event.target == modal) {
-       modal.style.display = "none";
-     }
-   }
-
-
- //모달 시작
-// Get the modal
-   var modal2 = document.getElementById("addModal");
-   
-   // Get the button that opens the modal
-   var btn2 = document.getElementById("addModalBtn");
-
-   // Get the <span> element that closes the modal
-   var span2 = document.getElementsByClassName("close2")[0];
-
-   // When the user clicks on the button, open the modal
-   btn2.onclick = function() {
-     modal2.style.display = "block";
-   }
-
-   // When the user clicks on <span> (x), close the modal
-   span2.onclick = function() {
-     modal2.style.display = "none";
-   }
-
-   // When the user clicks anywhere outside of the modal, close it
-   window.onclick = function(event) {
-     if (event.target == modal2) {
-       modal2.style.display = "none";
-     }
-   }   
-   
-   
-   
-   
 
 
 </script>

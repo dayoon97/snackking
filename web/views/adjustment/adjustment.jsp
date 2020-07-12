@@ -86,7 +86,7 @@
 						<!-- 적용 버튼 -->
 						<span id="apply">조회 결과 수 :</span>
 						
-						<button class="addBtn btn-position" id="addModalBtn">추가</button>
+						<button class="addBtn btn-position" id="addBtn">추가</button>
 							<!-- 테이블 시작 -->
 							<!-- 조회 리스트 테이블 -->
 						<table id="listTable7" align="center">
@@ -348,21 +348,6 @@
 	</div>
 <!--정산서 조회 모달 끝---------------------------------------------------------------------------------->
 
-
-<!-- 정산서 등록 모달 시작 -->
-	<!-- Trigger/Open The Modal -->
-	<!-- The Modal -->
-	<div id="addModal" class="modal2">
-	  <!-- Modal content -->
-	  <div class="modal-content2">
-	    <span class="close2" style="float: right;">&times;</span>
-	   			<div id="wrapper" style="width:600px; margin-left: auto; margin-right: auto;">	
-			</div><!-- wrapper 끝 -->
-		</div>
-	</div>
-<!-- 정산서 등록 모달 끝 -->
-
-
 </body>
 
 
@@ -419,37 +404,12 @@ $('.dropdown-menu li').click(function () {
      }
    }
 
-
- //모달 시작
-// Get the modal
-   var modal2 = document.getElementById("addModal");
    
-   // Get the button that opens the modal
-   var btn2 = document.getElementById("addModalBtn");
+ //정산 내역 추가하기 버튼 누르면 등록 페이지로 이동
+   $("#addBtn").click(function() {
+   	location.href="adjustmentAdd.jsp";
+   });
 
-   // Get the <span> element that closes the modal
-   var span2 = document.getElementsByClassName("close2")[0];
-
-   // When the user clicks on the button, open the modal
-   btn2.onclick = function() {
-     modal2.style.display = "block";
-   }
-
-   // When the user clicks on <span> (x), close the modal
-   span2.onclick = function() {
-     modal2.style.display = "none";
-   }
-
-   // When the user clicks anywhere outside of the modal, close it
-   window.onclick = function(event) {
-     if (event.target == modal2) {
-       modal2.style.display = "none";
-     }
-   }   
-   
-   
-   
-    
 
 
 </script>
