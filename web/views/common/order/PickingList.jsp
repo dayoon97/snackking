@@ -145,12 +145,12 @@ td {
 	margin-top: 10px;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="../../resources/css/PickingListCss.css"/>
+<link rel="stylesheet" type="text/css" href="../../../resources/css/PickingListCss.css"/>
 </head>
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-	<%@ include file="../common/cmMain.jsp" %>
+	<%@ include file="../menu/cmMain.jsp" %> 
 	
 	<!-- outer start -->
 	<div id="outer">

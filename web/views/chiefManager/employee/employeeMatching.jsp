@@ -159,13 +159,13 @@ td {
 		color: #26DE81;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/>
+<link rel="stylesheet" type="text/css" href="../../../resources/css/all.css"/>
 </head>
 <body>
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-	<%@ include file="../common/cmMain.jsp" %>
+	<%@ include file="../../common/menu/cmMain.jsp" %>
 	
 	<!-- outer start -->
 	<div id="outer">

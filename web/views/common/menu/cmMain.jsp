@@ -133,8 +133,8 @@
 		<!-- aside div start -->
 		<div id="aside" class="aside">
 			<div class="aside-header" align="center">
-				<a href="../chiefManager/cmMainPage.jsp">
-					<img alt="logoImage" src="../../resources/image/logo3.png" width="150px;">
+				<a href="../../chiefManager/cmMainPage.jsp">
+					<img alt="logoImage" src="../../../resources/image/logo3.png" width="150px;">
 				</a>
 			</div>	<!-- aisde-header end -->
 			<div class="aside-body">
@@ -157,18 +157,18 @@
 						<li>
 							<p class="title">회원 관리</p>
 								<ul class="con">
-									<li><a href="../chiefManager/cmMemberSelect.jsp">회원 리스트</a></li>
-									<li><a href="../question/cmquestion.jsp">문의 게시판 관리</a></li>
-									<li><a href="../chiefManager/cmContractMember.jsp">계약 회원 관리</a></li>
-									<li><a href="../chiefManager/cmDeleteMember.jsp">회원 탈퇴 승인</a></li>
+									<li><a href="../../chiefManager/user/cmMemberSelect.jsp">회원 리스트</a></li>
+									<li><a href="../../question/cmquestion.jsp">문의 게시판 관리</a></li>
+									<li><a href="../../chiefManager/user/cmContractMember.jsp">계약 회원 관리</a></li>
+									<li><a href="../../chiefManager/user/cmDeleteMember.jsp">회원 탈퇴 승인</a></li>
 								</ul>
 						</li>
 						<li>
 							<p class="title">직원 관리</p>
 								<ul class="con">
-									<li><a href="../employee/employeeSchedule.jsp">스케줄 확인</a></li>
-									<li><a href="../employee/employeeList.jsp">직원 정보 관리</a></li>
-									<li><a href="../employee/employeeMatching.jsp">고객-큐레이터<br>매칭 관리</a></li>
+									<li><a href="../../chiefManager/employee/employeeSchedule.jsp">스케줄 확인</a></li>
+									<li><a href="../../chiefManager/employee/employeeList.jsp">직원 정보 관리</a></li>
+									<li><a href="../../chiefManager/employee/employeeMatching.jsp">고객-큐레이터<br>매칭 관리</a></li>
 								</ul>
 						</li>
 						<li>
@@ -199,14 +199,14 @@
 						<li>
 							<p class="title">설비 관리</p>
 								<ul class="con">
-									<li><a href="../equipment/equipmentList.jsp">보유 설비 관리</a></li>
-									<li><a href="../equipment/rentalList.jsp">설비 대여 관리</a></li>
+									<li><a href="../../chiefManager/equipment/equipmentList.jsp">보유 설비 관리</a></li>
+									<li><a href="../../chiefManager/equipment/rentalList.jsp">설비 대여 관리</a></li>
 								</ul>
 						</li>
 						<li>
 							<p class="title">정산 관리</p>
 								<ul class="con">
-									<li><a href="../adjustment/adjustment.jsp">정산 내역 관리</a></li>
+									<li><a href="../../curator/adjustment/adjustment.jsp">정산 내역 관리</a></li>
 								</ul>
 						</li>
 						<li>
