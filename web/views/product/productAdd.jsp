@@ -27,7 +27,7 @@
 			
 			<!-- 폼시작 -->
 			<form id="addForm">
-				<table id="addProductTable" border="1">	
+				<table id="addProductTable">	
 					<tr style="height: 80px;">
 						<td rowspan="5" colspan="2" class="pictureTd" ><div id="picture"></div></td>
 						<td style="width:10%;"></td>
@@ -215,6 +215,11 @@ $('.dropdown-menu li').click(function () {
       msg = '<span class="msg">Hidden input value: ';
   $('.msg').html(msg + input + '</span>');
 }); 
+
+
+
+
+
 </script>
 
 </html>

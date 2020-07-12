@@ -114,134 +114,65 @@
 			<!-- 조회 결과 리스트 부분 -->
 				<div id="listArea">
 					<!-- 조회 결과 리스트 제목 -->
-					
-					<div id="subSubTitle2" style="top:310px !important;">재고 리스트</div>
+					<div id="subSubTitle1" style="top:310px !important;">재고 상세 정보</div>
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
 					<span id="apply" style="top:310px !important;">조회 결과 수 :</span>
-					<input type="button" class="addBtn btn-position" id="addModalBtn" value="추가요청">
-					
-						<!-- The Modal -->
-						<div id="myModal2" class="modal2">
-						  <!-- Modal content -->
-						  <div class="modal-content2">
-						    <span class="close2">&times;</span>
-						    <table align="center">
-						    	<caption><h2>재고 발주 요청</h2></caption>
-						    	<tr style="height: 20px;"></tr>
-						    	<tr>
-						    		<td class="right">상품명 : </td>
-                                    <td><input type="text" class="InputBox3"></td>
-                                    <td>
-                                    <div class="dropdown">
-                                         <div class="select">
-                                              <span>선택</span>
-                                           <i class="fa fa-chevron-left"></i>
-                                         </div>
-                                         <input type="hidden" name="">
-                                         <ul class="dropdown-menu">
-                                                   <li id="선택">선택</li>
-                                                   <li id="">여기다가</li>
-                                                   <li id="">상품명</li>
-                                                   <li id="">검색한거</li>
-                                                   <li id="">불러오기</li>
-                                         </ul>
-                                       </div>
-                                    </td>
-                                    <td><button onclick="" class="nameSearch-btn">검색</button></td>
-						    	</tr>
-						    	
-						    	<tr style="height: 30px;"></tr>
+					<div>
+						<table class="prductStockDetail" border="1" style="vertical-align:middle">
+							<thead>
 								<tr>
-									<td>요청 수량 :</td>
-									<td><input type="text" class="InputBox1" style="margin-right: 15px;">개</td>
-									<td colspan="2"></td>
+									<th>상품정보</th><th>재고상태</th><th colspan="3">유통기한</th>
 								</tr>
-								
-								<tr style="height: 30px;"></tr>
+							</thead>
+							<tbody>
 								<tr>
-									<td colspan="4">
-										<input type="button" class="btn1" id="amountRequestBtn" value="수량 요청하기">
+									<td rowspan="5" class="padding1">
+										<div><span  class="pCode left">00700</span><span class="red right">111</span><span class="right padding">총재고</span></div>
+										<br><br>
+										<div class="pName">초코송이</div>
+										<div class="line1"></div>
+										<br><br>
+										<div class="left padding2"><span>상품종류 : </span><span>과자</span></div>
+										<br>
+										<div class="left padding2"><span>업체명 : </span><span>(주)오리온</span></div>
+									
+									
+									
 									</td>
-								
+									<td>입고진행 수량</td>
+									<td colspan="3">
+										<div class="text-align"><div class="expGrayBox1 left">정보없음</div><div class="expGrayBox2 left">2</div></div>
+									</td>
 								</tr>
-						    </table>
-						  </div>
-						</div>
-					
-					
-					
-						<!-- 테이블 시작 -->
-						<!-- 조회 리스트 테이블 -->
-					<table id="listTable11" align="center">
-						<thead>
-							<!-- 테이블 헤드 -->
-							<tr id="listHead" >
-								<th>상품코드</th>
-								<th>상품종류</th>
-								<th>상품명</th>
-								<th>매입처</th>
-								<th>최근입고</th>
-								<th>최근출고</th>
-								<th>총수량</th>
-								<th>출고가능</th>
-								<th>입고진행</th>
-								<th>출고진행</th>
-								<th>교환예정</th>
-							</tr>
-						</thead>
-						<tbody>
-						<!-- 리스트 바디  -->
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>							
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-						</tbody>
-					</table>
-					<!-- 테이블 끝 -->
-			
-			
-			
+								<tr>
+									<td rowspan="2">출고가능 수량</td>
+									<td><div class="text-align"><div class="expGrayBox1 left">정보없음</div><div class="expGrayBox2 left">2</div></div></td>
+									<td><div class="text-align"><div class="expGrayBox1 left">정보없음</div><div class="expGrayBox2 left">2</div></div></td>
+									<td><div class="text-align"><div class="expGrayBox1 left">정보없음</div><div class="expGrayBox2 left">2</div></div></td>
+								</tr>
+								<tr>
+									<td><div class="text-align"><div class="expRedBox1 left">정보없음</div><div class="expRedBox2 left">2</div></div></td>
+									<td><div class="text-align"><div class="expYellowBox1 left">정보없음</div><div class="expYellowBox2 left">2</div></div></td>
+									<td><div class="text-align"><div class="expGrayBox1 left">정보없음</div><div class="expGrayBox2 left">2</div></div></td>
+								</tr>
+								<tr>
+									<td>출고진행 수량</td>
+									<td colspan="3"><div class="text-align"><div class="expGrayBox1 left">정보없음</div><div class="expGrayBox2 left">2</div></div></td>
+
+								</tr>
+								<tr>
+									<td>교환예정 수량</td>
+									<td colspan="3"><div class="text-align"><div class="expGrayBox1 left">정보없음</div><div class="expGrayBox2 left">2</div></div></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-		
-		</div>	<!-- background-box end -->
-	</div>	<!-- outer end -->
-</div>	<!-- mainWrapper end -->
+			</div>	<!-- background-box end -->
+		</div>	<!-- outer end -->
+	</div>	<!-- mainWrapper end -->
 
 </body>
 
