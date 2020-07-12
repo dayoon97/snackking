@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../../resources/css/mine.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/css/mine.css">
 <style type="text/css">
 #apply{
 	position:absolute;	
@@ -21,7 +21,7 @@
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-	<%@ include file="../common/cmMain.jsp" %>
+	<%@ include file="../menu/cmMain.jsp" %> 
 	
 	<!-- outer start -->
 	<div id="outer">

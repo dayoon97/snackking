@@ -85,7 +85,7 @@ color: #FFFFFF;
 <title>Insert title here</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../../css/misoCSS.css">
+<link rel="stylesheet" type="text/css" href="../../../resources/css/misoCSS.css">
 </head>
 <body>
 	<!-- 메뉴바 가져오기 -->

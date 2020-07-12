@@ -121,7 +121,7 @@ span {
 	<div class="wrapper">
 		<div class="nav">
 			<div class="snack-nav">
-				<div class="snack-logo"><img src="../../resources/image/logo5.png"></div>
+				<div class="snack-logo"><img src="../../../resources/image/logo5.png"></div>
 			</div>
 		</div>
 		<div class="loginArea">
@@ -482,7 +482,7 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 	</div>
 	<script type="text/javascript">
  		function goPopup(){
-			var pop = window.open("/snackking/views/common/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+			var pop = window.open("/snackking/views/common//user/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 		}
 		
 		function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){

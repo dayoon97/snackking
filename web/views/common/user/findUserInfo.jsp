@@ -88,7 +88,7 @@ th {
 	<div class="wrapper">
 		<div class="nav">
 			<div class="snack-nav">
-				<div class="snack-logo"><img src="../../resources/image/logo5.png"></div>
+				<div class="snack-logo"><img src="../../../resources/image/logo5.png"></div>
 			</div>
 		</div>
 		<div class="loginArea">

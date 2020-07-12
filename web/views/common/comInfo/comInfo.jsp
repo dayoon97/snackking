@@ -161,10 +161,10 @@ p.title{
 <body>
 <script> AOS.init(); </script>
 	<div class="wrapper">
-		<%@include file="../common/index-menu.jsp" %>
+		<%@include file="../index-menu.jsp" %>
 		<div class="main1-1">
 			<div class="main1-2">
-				<img src="../../resources/image/main2.jpeg" width=1580px; height=850px; style="border-radius:50px;">
+				<img src="../../../resources/image/main2.jpeg" width=1580px; height=850px; style="border-radius:50px;">
 			<div class="page-start"></div>
 			</div>
 		</div>
@@ -256,7 +256,7 @@ p.title{
 			</div>
 		</div>
 		<div class="main4-1">
-		<%@ include file="../common/footer.jsp" %>
+		<%@ include file="../footer.jsp" %>
 		</div>
 	</div>
 	<script>

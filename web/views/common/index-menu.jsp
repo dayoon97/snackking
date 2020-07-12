@@ -106,7 +106,7 @@ ul li {
       		<li><div class="menu-logo"><img src="/snackking/resources/image/logo5.png" style="width:100px;"></div></li>
       		<li><a href="./views/comInfo/comInfo.jsp">회사소개</a></li>
       <li class="loginArea">
-      	<button class="login" id="login" onclick="location.href='/snackking/views/common/login.jsp'">로그인</button>
+      	<button class="login" id="login" onclick="location.href='/snackking/views/common/user/login.jsp'">로그인</button>
       </li>
       	</ul>
   </div>
