@@ -309,7 +309,7 @@ height: 25px;
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-<%@ include file="../../common/user/cmMain.jsp" %>
+<%@ include file="../common/menu/cmMain.jsp" %>
    <!-- outer start -->
    <div id="outer">
       <!-- background-box start -->
