@@ -6,6 +6,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script type="text/javascript">
+function goPopup(){
+	var pop = window.open("/snackking/views/common/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+}
+
+function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+	var addr = roadFullAddr;
+	var zipNo = zipNo;
+	
+	$("#zipNo").val(zipNo);
+	$("#address").val(addr);
+}
+</script> -->
 <style>
 *{
 	font-family: NanumSquare_ac;
@@ -122,22 +135,22 @@ span {
 				<div class="loginForm-box">
 					
 					<div class="loginForm">
-						<form action="" method="post">
+						<form id="joinForm" action="<%= request.getContextPath() %>/insertUser.us" method="post">
 							<table align="center">
 								<tr>
-									<td>아이디 <strong>*</strong><span id="result-id-msg">ㅎㅇ</span></td>
+									<td>아이디 <strong>*</strong><span id="result-id-msg"></span></td>
 								</tr>
 								<tr>
 									<td><input type="text" id="userId" name="userId" size="50" placeholder="영문소문자/숫자, 4~16자"></td>
 								</tr>
 								<tr>
-									<td>비밀번호<strong>*</strong></td>
+									<td>비밀번호<strong>*</strong><span id="result-pwd1-msg"></span></td>
 								</tr>
 								<tr>
 									<td><input type="password" id="password1" name="password1" size="50" placeholder="영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8~16자"></td>
 								</tr>
 								<tr>
-									<td>비밀번호 확인<strong>*</strong></td>
+									<td>비밀번호 확인<strong>*</strong><span id="result-pwd2-msg"></span></td>
 								</tr>
 								<tr>
 									<td><input type="password" id="password2" name="password2" size="50" placeholder="비밀번호 확인"></td>
@@ -158,13 +171,13 @@ span {
 									<td>전화번호<strong>*</strong></td>
 								</tr>
 								<tr>
-									<td><input type="text" id="phone" name="phone" size="50" placeholder="전화번호"></td>
+									<td><input type="text" id="phone" name="phone" size="50" placeholder="ex) 01012341234"></td>
 								</tr>
 								<tr>
 									<td>이메일<strong>*</strong></td>
 								</tr>
 								<tr>
-									<td><input type="text" id="email" name="email" size="50" placeholder="이메일"></td>
+									<td><input type="text" id="email" name="email" size="50" placeholder="ex) snackking@snackking.com"></td>
 								</tr>
 								<tr>
 									<td>주소<strong>*</strong></td>
@@ -172,7 +185,8 @@ span {
 								<tr style="vertical-align: middle;">
 									<td>
 									<input type="text" id="zipNo" name="zipNo" size="20" placeholder="우편번호">
-									<button id="juso-btn" style="float: right;" onclick="goPopup();">주소검색</button>
+									<!-- <button id="juso-btn" style="float: right;" onclick="goPopup();">주소검색</button> -->
+									<input id="juso-btn" style="float: right;" type="button" onClick="goPopup();" value="주소검색"/>
 									<br><br>
 									<input type="text" id="address" name="address" size="50" placeholder="주소 입력">
 									</td>
@@ -456,7 +470,7 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 								</tr>
 							</table>
 							<div class="btn-div" align="center">
-								<div class="join-btn" id="join-btn" onclick="">회원가입</div><br>
+								<div class="join-btn" id="join-btn" onclick="joinCheck();">회원가입</div><br>
 								<div class="cancel-btn" id="cancel-btn" onclick="location.href='login.jsp'">취소하기</div>
 							</div>
 						</form>
@@ -467,7 +481,7 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 		</div>
 	</div>
 	<script type="text/javascript">
-		function goPopup(){
+ 		function goPopup(){
 			var pop = window.open("/snackking/views/common/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 		}
 		
@@ -479,12 +493,12 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 			$("#address").val(addr);
 		}
 		
-		function allCheckFunc( obj ) {
+		function allCheckFunc(obj) {
 			$("[name=checkOne]").prop("checked", $(obj).prop("checked") );
 		}
 	
 		/* 체크박스 체크시 전체선택 체크 여부 */
-		function oneCheckFunc( obj ) {
+		function oneCheckFunc(obj) {
 			var allObj = $("[name=checkAll]");
 			var objName = $(obj).attr("name");
 	
@@ -513,6 +527,160 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 			});
 		});
 		
+		var idCheck = false;
+		var pwCheck1 = false;
+		var pwCheck2 = false;
+		var phoneCheck = false;
+		var emailCheck = false;
+		
+		$(function() {
+			$("#userId").keyup(function() {
+				var userId = $("#userId").val();
+				var regExp = /^[a-z0-9]{4,16}$/g;
+				
+				if(regExp.test(userId)) {
+					$("#result-id-msg").html("사용 가능한 아이디입니다.");
+					idCheck = true;
+				} else {
+					$("#result-id-msg").html("사용 불가능한 아이디입니다.");
+					idCheck = false;
+				}
+				
+				if(userId === "") {
+					$("#result-id-msg").html("");
+					idCheck = false;
+				}
+			}); /* userId check keyup end */
+			
+			$("#password1").keyup(function() {
+				var password1 = $("#password1").val();
+				var regExp = /^(?=.*[a-zA-Z])(?=.*[`~!@#$%^&*+-?])(?=.*[0-9])*.{8,16}$/g;
+				
+				if(regExp.test(password1)) {
+					$("#result-pwd1-msg").html("사용 가능한 비밀번호입니다.");
+					pwCheck1 = true;
+				} else {
+					$("#result-pwd1-msg").html("사용 불가능한 비밀번호입니다.");
+					pwCheck1 = false;
+				}
+				
+				if(password1 === "") {
+					$("#result-pwd1-msg").html("");
+					pwCheck1 = false;
+				}
+			});	/* password1 check keyup end */
+			
+			$("#password2").blur(function() {
+				var password1 = $("#password1").val();
+				var password2 = $("#password2").val();
+				
+				if(password2 === password1) {
+					$("#result-pwd2-msg").html("비밀번호와 일치합니다.");
+					pwCheck2 = true;
+				} else {
+					$("#result-pwd2-msg").html("비밀번호와 확인이 일치하지 않습니다.");
+					pwCheck2 = false;
+				}
+				
+				if(password2 === "") {
+					$("#result-pwd2-msg").html("");
+					pwCheck2 = false;
+				}
+			});	/* password2 check keyup end */
+			
+			$("#phone").keyup(function() {
+				var phone = $("#phone").val();
+				var regExp = /^[\d\d\d\d\d\d\d\d\d\d\d]{11}$/;
+				
+				if(regExp.test(phone)) {
+					phoneCheck = true;
+				} else {
+					phoneCheck = false;
+				}
+				
+				if(phone === ""){
+					phoneCheck = false;
+				}
+				
+			});	/* phone check */
+			
+			$("#email").keyup(function() {
+				var email = $("#email").val();
+				var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+				
+				if(regExp.test(email)) {
+					emailCheck = true;
+				} else {
+					emailCheck = false;
+				}
+				
+				
+				if(email === "") {
+					emailCheck = false;
+				}
+				
+			});	/* email check */
+			
+		});
+		
+		function joinCheck() {
+			
+			var nameCheck = false;
+			var cpCheck = false;
+			var zipNoCheck = false;
+			var jusoCheck = false;
+			var ckboxCheck = $("input:checkbox[name=checkAll]").is(":checked");
+			
+			
+			var name = $("#userName").val();
+			var cp = $("#company").val();
+			var zipNo = $("#zipNo").val();
+			var addr = $("#address").val();
+			
+			if(name === ""){
+				nameCheck = false;
+			} else {
+				nameCheck = true;
+			}
+			
+			if(cp === ""){
+				cpCheck = false;
+			} else {
+				cpCheck = true;
+			}
+			
+			if(zipNo === "") {
+				zipNoCheck = false;
+			} else {
+				zipNoCheck = true;
+			}
+			
+			if(addr === "") {
+				jusoCheck = false;
+			} else {
+				jusoCheck = true;
+			}
+			
+			console.log("id : " + idCheck);
+			console.log("pw1 : " + pwCheck1);
+			console.log("pw2 : " + pwCheck2);
+			console.log(nameCheck);
+			console.log(cpCheck);
+			console.log("phone : " + phoneCheck);
+			console.log("email : " + emailCheck);
+			console.log(zipNoCheck);
+			console.log(jusoCheck);
+			console.log(ckboxCheck);
+			
+			if(idCheck === true && pwCheck1 === true && pwCheck2 === true && nameCheck === true && cpCheck === true
+					 && phoneCheck === true && emailCheck === true && zipNoCheck === true && jusoCheck === true && ckboxCheck === true) {
+				$("#joinForm").submit();
+				alert("회원가입 성공!");
+			} else {
+				alert("작성하지 않은 항목이 있습니다.");
+			}
+			
+		}
 		
 	</script>
 </body>
