@@ -9,8 +9,9 @@
 <title>사용자 메뉴</title>
 <style type="text/css">
 	body {
-		background-color:#F3F3F3;
+		background-color:#F9F9F9;
 		font-family: 'NanumSquare', sans-serif;
+		font-weight: lighter;
 	}
 	#aside {
 		height: 735px;
@@ -82,7 +83,7 @@
 	p.title {
 		width: 100%;
 		box-sizing: border-box;
-		font-weight: 600;
+		font-weight: lighter;
 		font-size: 20px;
 		margin-top: 10px;
 		margin-bottom: 15px;
@@ -150,7 +151,7 @@
 		<!-- aside div start -->
 		<div id="aside" class="aside">
 			<div class="aside-header" align="center">
-				<a href="../chiefManager/cmMainPage.jsp">
+				<a href="..">
 					<img alt="logoImage" src="../../resources/image/logo3.png" width="150px;">
 				</a>
 			</div>	<!-- aisde-header end -->
@@ -164,7 +165,7 @@
 								src="../../resources/image/bell.png"></td>
 						</tr>
 					</table> -->
-						<div class="login-name">김미소  님</div>
+						<div class="login-name">심다윤  님</div>
 						<div id="line"></div>
 					</div>	<!-- login-info end -->
 				</div>	<!-- aisde-body-header end -->
