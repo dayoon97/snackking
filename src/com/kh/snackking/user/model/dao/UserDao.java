@@ -50,6 +50,8 @@ public class UserDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		System.out.println("inserUser dao : " + result);
 		return result;
@@ -95,6 +97,36 @@ public class UserDao {
 			close(pstmt);
 		}
 		return loginUser;
+	}
+
+	public int idCheck(Connection con, String userId) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;						// 오라클 오류
+		
+		String query = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = -1;				// 아이디 중복
+			} else {
+				result = 1;					// 아이디 중복 X
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
