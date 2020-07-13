@@ -6,19 +6,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- <script type="text/javascript">
-function goPopup(){
-	var pop = window.open("/snackking/views/common/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-}
-
-function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
-	var addr = roadFullAddr;
-	var zipNo = zipNo;
-	
-	$("#zipNo").val(zipNo);
-	$("#address").val(addr);
-}
-</script> -->
 <style>
 *{
 	font-family: NanumSquare_ac;
@@ -138,7 +125,11 @@ span {
 						<form id="joinForm" action="<%= request.getContextPath() %>/insertUser.us" method="post">
 							<table align="center">
 								<tr>
-									<td>아이디 <strong>*</strong><span id="result-id-msg"></span></td>
+									<td>
+										아이디 <strong>*</strong>
+										<!-- <span onclick="checkId();" style='background: #ff9100; width:100px; border-radius: 3px; text-align: center; color: white; font-weight: 300; padding-top: 3px; padding-bottom: 3px; cursor: pointer;'>중복체크</span> -->
+										<span id="result-id-msg"></span>
+									</td>
 								</tr>
 								<tr>
 									<td><input type="text" id="userId" name="userId" size="50" placeholder="영문소문자/숫자, 4~16자"></td>
@@ -539,7 +530,8 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 				var regExp = /^[a-z0-9]{4,16}$/g;
 				
 				if(regExp.test(userId)) {
-					$("#result-id-msg").html("사용 가능한 아이디입니다.");
+					/* $("#result-id-msg").html("사용 가능한 아이디입니다."); */
+					$("#result-id-msg").html("<span onclick='checkId();' style='background: #ff9100; width:100px; border-radius: 3px; text-align: center; color: white; font-weight: 300; padding-top: 3px; padding-bottom: 3px; cursor: pointer;'>중복체크</span>");
 					idCheck = true;
 				} else {
 					$("#result-id-msg").html("사용 불가능한 아이디입니다.");
@@ -623,6 +615,22 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 			
 		});
 		
+		function checkId() {
+			var userId = $("#userId").val();
+			
+			$.ajax({
+				url: "idCheck.us",
+				type: "get",
+				data: {userId: userId},
+				success: function(data) {
+					console.log(data);
+				},
+				error: function() {
+					alert("아이디 중복체크 실패!");
+				}
+			});
+		}
+		
 		function joinCheck() {
 			
 			var nameCheck = false;
@@ -631,36 +639,70 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 			var jusoCheck = false;
 			var ckboxCheck = $("input:checkbox[name=checkAll]").is(":checked");
 			
+			var id = $("#userId").val();
+			var pwd1 = $("#password1").val();
+			var pwd2 = $("#password2").val();
+			var phone = $("#phone").val();
+			var email = $("#email").val();
 			
 			var name = $("#userName").val();
 			var cp = $("#company").val();
 			var zipNo = $("#zipNo").val();
 			var addr = $("#address").val();
 			
+			if(id === ""){
+				alert("ID를 입력해주세요.");
+			}
+			
+			if(pwd1 === ""){
+				alert("비밀번호를 입력해주세요.");
+			}
+			
+			if(pwd2 === ""){
+				alert("비밀번호 확인을 입력해주세요.");
+			}
+			
 			if(name === ""){
 				nameCheck = false;
+				alert("이름을 입력해주세요.");
 			} else {
 				nameCheck = true;
 			}
 			
 			if(cp === ""){
 				cpCheck = false;
+				alert("회사명을 입력해주세요.");
 			} else {
 				cpCheck = true;
 			}
 			
+			if(phone === ""){
+				alert("전화번호를 입력해주세요.");
+			}
+			
+			if(email === ""){
+				alert("이메일을 입력해주세요.");
+			}
+			
 			if(zipNo === "") {
 				zipNoCheck = false;
+				alert("우편번호를 입력해주세요.");
 			} else {
 				zipNoCheck = true;
 			}
 			
 			if(addr === "") {
 				jusoCheck = false;
+				alert("주소를 입력해주세요.");
 			} else {
 				jusoCheck = true;
 			}
 			
+			if(ckboxCheck != true){
+				alert("이용약관 및 개인정보 수집 및 이용 동의를 해주세요.");
+			}
+			
+			/* 
 			console.log("id : " + idCheck);
 			console.log("pw1 : " + pwCheck1);
 			console.log("pw2 : " + pwCheck2);
@@ -671,13 +713,13 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 			console.log(zipNoCheck);
 			console.log(jusoCheck);
 			console.log(ckboxCheck);
-			
+			 */
 			if(idCheck === true && pwCheck1 === true && pwCheck2 === true && nameCheck === true && cpCheck === true
 					 && phoneCheck === true && emailCheck === true && zipNoCheck === true && jusoCheck === true && ckboxCheck === true) {
 				$("#joinForm").submit();
-				alert("회원가입 성공!");
+				/* alert("회원가입 성공!"); */
 			} else {
-				alert("작성하지 않은 항목이 있습니다.");
+				/* alert("작성하지 않은 항목이 있습니다."); */
 			}
 			
 		}

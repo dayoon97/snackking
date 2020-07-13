@@ -41,10 +41,10 @@ public class CommonFilter implements Filter {
 		
 		if(hRequest.getMethod().equalsIgnoreCase("POST")) {
 			request.setCharacterEncoding("UTF-8");
-			System.out.println("POST - filter정상작동");
+			//System.out.println("POST - filter정상작동");
 		}
 		
-		System.out.println("UTF-8 인코딩 완료");
+		//System.out.println("UTF-8 인코딩 완료");
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}
