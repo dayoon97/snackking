@@ -22,7 +22,7 @@ public class UserService {
 		}
 		
 		close(con);
-		
+		System.out.println("insertUser service : " + result);
 		return result;
 	}
 

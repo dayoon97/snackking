@@ -101,7 +101,7 @@ th {
 			<div class="loginFormArea">
 				<div class="loginForm-box">
 					<div class="loginForm">
-						<form id="findIdForm" action="" method="post">
+						<form id="findIdForm" action="<%= request.getContextPath() %>/findId.us" method="post">
 							<table align="center">
 								<thead>
 									<tr>
@@ -113,20 +113,20 @@ th {
 										<td>이름</td>
 									</tr>
 									<tr>
-										<td><input type="text" id="findIdName" size="50"></td>
+										<td><input type="text" id="findIdName" name="findIdName" size="50"></td>
 									</tr>
 									<tr>
 										<td>이메일</td>
 									</tr>
 									<tr>
-										<td><input type="text" id="findIdEmail" size="50"></td>
+										<td><input type="text" id="findIdEmail" name="findInEmail" size="50"></td>
 									</tr>
 								</tbody>
 							</table>
 							<br>
 							<div class="btn-div" align="center">
-								<!-- <div class="login-btn"><input type="submit" value="로그인" id="login-btn"></div><br> -->
-								<button type="submit" id="findId-btn">아이디 찾기</button>
+							<!-- 	<div id="findId-btn">아이디 찾기</div> -->
+								<input type="submit" id="findId-btn" value="아이디 찾기">
 							</div>
 						</form>
 						<br><br>
@@ -160,8 +160,7 @@ th {
 							</table>
 							<br>
 							<div class="btn-div" align="center">
-								<!-- <div class="login-btn"><input type="submit" value="로그인" id="login-btn"></div><br> -->
-								<button type="submit" id="findPwd-btn">비밀번호 찾기</button>
+								<div id="findPwd-btn">비밀번호 찾기</div>
 							</div>
 						</form>
 					</div>	<!-- loginForm end -->

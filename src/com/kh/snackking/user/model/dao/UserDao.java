@@ -46,7 +46,7 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("inserUser dao : " + result);
 		return result;
 	}
 

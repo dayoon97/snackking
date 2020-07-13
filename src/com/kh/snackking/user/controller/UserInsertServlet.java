@@ -62,13 +62,21 @@ public class UserInsertServlet extends HttpServlet {
 //		System.out.println("reqUser : " + reqUser);
 		
 		int result = new UserService().insertUser(reqUser);
-		
+		System.out.println("insertUser servlet : " + result);
+		String page = "";
 		if(result > 0) {
 //			System.out.println("성공");
-		} else {
-//			System.out.println("실패");
-		}
+			page = "views/common/successPage.jsp";
+			request.setAttribute("successCode", "insertUser");
+		} 
 		
+//		else {
+////			System.out.println("실패");
+//			/*page = "views/common/errorPage.jsp";
+//			request.setAttribute("errorCode", "insertUser");*/
+//		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
 		
 	}
 
