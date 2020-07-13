@@ -18,5 +18,6 @@ public class Preference {
 	private String pEquipment2;	//기타 설비
 	private String pPacking;	//포장
 	
+	
 	public Preference() {}
 }
