@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -218,7 +219,7 @@
 					</ul>
 				</div>	<!-- accodion-box end -->
 			</div>	<!-- aside-body end -->
-			<div id="logout-box" name="logout">
+			<div id="logout-box" name="logout" class="logout">
 				로그아웃
 			</div>	<!-- logout-box end -->
 		</div>	<!-- div aside end -->
@@ -228,6 +229,10 @@
 		$("p.title").on('click', function(){
 			/* $(this).next(".con").slideToggle(300); */
 			$(".con").not($(this).next(".con").slideToggle(300)).slideUp();
+		});
+		
+		$(".logout").click(function() {
+			location.href="<%=request.getContextPath()%>/logout";
 		});
 	</script>
 </body>

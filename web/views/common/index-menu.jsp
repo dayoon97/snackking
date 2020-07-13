@@ -10,12 +10,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <style>
 .inner {
-  max-width:1200px;
+  max-width:1400px;
   height:50px;
   margin-left: 250px;
   padding:0 20px;
   display: inline-block;
-  width: 1200px;
+  width: 1400px;
 }
 
 header {
@@ -91,8 +91,27 @@ ul li {
 	height:35px;
 	width:80px;
 }
+.loginName{
+	outline:0;
+	border: 0;
+	background: #F0BB00;
+	border-radius: 999px;
+	height:35px;
+	width:110px;
+}
+
+.logout{
+	outline:0;
+	border: 0;
+	background: #F0BB00;
+	border-radius: 999px;
+	height:35px;
+	width:80px;
+}
+
+
 .loginArea{
-	width:100px;
+	width:300px;
 	margin-left: 800px;
 	margin-top: 8px;
 }
@@ -106,7 +125,11 @@ left: 0px;
 right: 0px;
 top: 0px;
 bottom: 0px;
+text-align: right;
+letter-spacing: 2.5px;
+text-transform: uppercase;
 
+color: #FFFFFF;
 background: #F0BB00;
 border-radius: 999px;
 }
@@ -118,13 +141,14 @@ border-radius: 999px;
 <header>
   <div class="inner">
       	<ul>
-      		<li><div class="menu-logo"><img src="/snackking/resources/image/logo5.png" style="width:100px;"></div></li>
+      		<li id="goMain"><div class="menu-logo"><img src="/snackking/resources/image/logo5.png" style="width:100px;"></div></li>
       		<li><a href="./views/comInfo/comInfo.jsp">회사소개</a></li>
       		<li class="loginArea">
 			<% if(loginUser == null) { %>
       			<button class="login" id="login" onclick="location.href='/snackking/views/common/login.jsp'">로그인</button>
       		<% } else { %>
-      		    <button class="login" id="login" onclick=""><%=loginUser.getUserName() %>님</button>
+      		    <button class="loginName" id="login" onclick="location.href='/snackking/views/common/userMenu.jsp'"><%=loginUser.getUserName() %>님</button>
+      		    <button class="logout" id="logout" onclick="logout();">로그아웃</button>
 			<%} %>      		
       		
       		</li>
@@ -153,8 +177,15 @@ $(function(){
 	  });
 	});
 	
-
-
+	$("#goMain").click(function() {
+		location.href = "<%=request.getContextPath()%>";
+	});
+	
+	
+	
+	function logout() {
+			location.href="<%=request.getContextPath()%>/logout";
+		}
 </script>
 </body>
 </html>
