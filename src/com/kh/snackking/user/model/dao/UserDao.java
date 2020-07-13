@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 
@@ -127,6 +128,46 @@ public class UserDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<User> selectUserList(Connection con, int mngId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("selectUserList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mngId);
+			
+			list = new ArrayList<User>();
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				User user = new User();
+				user.setUserNo(rset.getInt("USER_NO"));
+				user.setUserId(rset.getString("USER_ID"));
+				user.setCompany(rset.getString("COMPANY"));
+				user.setAddress(rset.getString("ADDRESS"));
+				user.setPhone(rset.getString("PHONE"));
+				user.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				
+				list.add(user);
+				
+				System.out.println(list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
 	}
 
 }

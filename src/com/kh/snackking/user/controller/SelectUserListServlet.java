@@ -38,11 +38,23 @@ public class SelectUserListServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		String phone = request.getParameter("phone");
 		String enrollDate = request.getParameter("enrollDate");
+		int mngId = Integer.parseInt(request.getParameter("mngId"));
 		
-		ArrayList<User> list = new UserService().selectUserList(); 
+		System.out.println(userNo);
 		
+		ArrayList<User> list = new UserService().selectUserList(mngId); 
 		
+		System.out.println("회원 리스트 : " + list);
 		
+		String page = "";
+		if(list != null) {
+			page = "views/chiefManager/cmMemberSelect.jsp";
+			request.setAttribute("list", list);
+		} else {
+			System.out.println("에러");
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

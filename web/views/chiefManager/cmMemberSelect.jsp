@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User, java.util.*"%>
+ <% ArrayList<User> list = (ArrayList<User>) session.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -231,7 +232,7 @@ height: 25px;
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-	<%@ include file="../common/cmMain.jsp" %>
+	<%@ include file="../common/userMenu.jsp" %>
 	
 	<!-- outer start -->
 	<div id="outer">
@@ -295,21 +296,21 @@ height: 25px;
 							<th width="250px">주소</th>
 							<th width="100px">연락처</th>
 							<th width="80px">가입일</th>
-							<th width="80px">관리</th>
 						</tr>
 						
 						<!-- 리스트 바디  -->
+						<% for(User l : list) { %>
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
+							<td><%= l.getUserNo() %></td>
+							<td><%= l.getUserId() %></td>
+							<td><%= l.getCompany() %></td>
+							<td><%= l.getUserName() %></td>
+							<td><%= l.getAddress() %></td>
+							<td><%= l.getPhone() %></td>
+							<td><%= l.getEnrollDate() %></td>
 						</tr>
+						<% } %>
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
 							<td>내용</td>
@@ -393,7 +394,6 @@ height: 25px;
 		</div>	<!-- background-box end -->
 	</div>	<!-- outer end -->
 </div>	<!-- mainWrapper end -->
-	
 	<script>
 	<!-- check박스 전체선택 -->
       
