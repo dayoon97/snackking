@@ -30,16 +30,14 @@ public class UserLoginServlet extends HttpServlet {
     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-      
       
       String userId = request.getParameter("userId");
       String userPwd = request.getParameter("password1");
-      String url = request.getParameter("url");
+//      String url = request.getParameter("url");
       
       System.out.println("login userId  : " + userId);
       System.out.println("login userPwd : " + userPwd);
-      System.out.println(url);
+//      System.out.println(url);
       
       
       User requestMember = new User();
@@ -53,18 +51,16 @@ public class UserLoginServlet extends HttpServlet {
       String page = "";
      
       if(loginUser != null) {
-         request.getSession().setAttribute("loginUser", loginUser);
-		response.sendRedirect(url);
+    	  request.getSession().setAttribute("loginUser", loginUser);
+    	  response.sendRedirect("index.jsp");
          
       }else {
-         page = "views/common/login.jsp";
-         request.setAttribute("msg", "로그인 실패!");
+         page = "views/common/errorPage.jsp";
+         request.setAttribute("errorCode", "loginUser");
          request.getRequestDispatcher(page).forward(request, response);
          
       }
    }
-    
-   
 
    /**
     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
