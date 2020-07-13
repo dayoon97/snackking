@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <% String msg = (String) request.getAttribute("msg"); %>
+     
+     <!-- 이전 페이지의 경로를 나타낸다 -->
+    <%String url = request.getHeader("Referer"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,19 +127,21 @@ table{
 			<div class="loginFormArea">
 				<div class="loginForm-box">
 					<div class="loginForm">
-						<form action="" method="post">
+						<form action="<%=request.getContextPath()%>/loginUser.us" method="post">
 							<table align="center">
 								<tr>
 									<td id="admin-id">아이디</td>
 								</tr>
 								<tr>
-									<td><input type="text" id="admin-id" size="50" placeholder="아이디를 입력해주세요"></td>
+									<td><input type="text" id="admin-id" name="userId" size="50" placeholder="아이디를 입력해주세요">
+										<input type="hidden" name="url" value="<%=url%>">
+									</td>
 								</tr>
 								<tr>
 									<td id="admin-pwd">비밀번호</td>
 								</tr>
 								<tr>
-									<td><input type="password" id="admin-password" size="50" placeholder="비밀번호를 입력해주세요"></td>
+									<td><input type="password" id="admin-password" name="password1" size="50" placeholder="비밀번호를 입력해주세요"></td>
 								</tr>
 								
 								
@@ -153,5 +159,17 @@ table{
 			</div>
 		</div>
 	</div>
+	
+	<script>
+   <%if (msg != null){ %>
+      alert("<%=msg%>");
+   <%}%>
+
+
+   
+	</script>
+	
+	
+	
 </body>
 </html>

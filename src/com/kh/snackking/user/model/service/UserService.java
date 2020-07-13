@@ -1,8 +1,10 @@
 package com.kh.snackking.user.model.service;
 
+
 import static com.kh.snackking.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+
 
 import com.kh.snackking.user.model.dao.UserDao;
 import com.kh.snackking.user.model.vo.User;
@@ -24,6 +26,14 @@ public class UserService {
 		close(con);
 		
 		return result;
+	}
+
+	public User loginCheck(User requestMember) {
+		Connection con = getConnection();
+		UserDao md = new UserDao();
+		User loginUser = md.loginCheck(con, requestMember);
+		close(con);
+		return loginUser;
 	}
 
 }
