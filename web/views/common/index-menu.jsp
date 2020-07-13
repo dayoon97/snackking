@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User"%>
+<% User loginUser = (User) session.getAttribute("loginUser"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +17,7 @@
   display: inline-block;
   width: 1200px;
 }
+
 header {
   position:fixed;
   width:100%;
@@ -96,6 +99,18 @@ ul li {
  a:link { color: black; text-decoration: none;}
  a:visited { color: black; text-decoration: none;}
  a:hover {text-decoration: none;}
+ 
+.userNameBox{
+position: absolute;
+left: 0px;
+right: 0px;
+top: 0px;
+bottom: 0px;
+
+background: #F0BB00;
+border-radius: 999px;
+}
+
 
 </style>
 </head>
@@ -105,9 +120,14 @@ ul li {
       	<ul>
       		<li><div class="menu-logo"><img src="/snackking/resources/image/logo5.png" style="width:100px;"></div></li>
       		<li><a href="./views/comInfo/comInfo.jsp">회사소개</a></li>
-      <li class="loginArea">
-      	<button class="login" id="login" onclick="location.href='/snackking/views/common/login.jsp'">로그인</button>
-      </li>
+      		<li class="loginArea">
+			<% if(loginUser == null) { %>
+      			<button class="login" id="login" onclick="location.href='/snackking/views/common/login.jsp'">로그인</button>
+      		<% } else { %>
+      		    <button class="login" id="login" onclick=""><%=loginUser.getUserName() %>님</button>
+			<%} %>      		
+      		
+      		</li>
       	</ul>
   </div>
 </header>

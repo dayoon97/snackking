@@ -1,11 +1,16 @@
 package com.kh.snackking.user.model.dao;
 
+import static com.kh.snackking.common.JDBCTemplate.*;
+
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+
 
 import com.kh.snackking.user.model.vo.User;
 
@@ -48,6 +53,48 @@ public class UserDao {
 		}
 		System.out.println("inserUser dao : " + result);
 		return result;
+	}
+
+	public User loginCheck(Connection con, User requestMember) {
+		User loginUser = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		System.out.println("DAO" + requestMember);
+		String query = prop.getProperty("loginCheck");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, requestMember.getUserId());
+			pstmt.setString(2, requestMember.getUserPwd());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				loginUser = new User();
+				loginUser.setUserNo(rset.getInt("USER_NO"));
+				loginUser.settCode(rset.getString("TCODE"));
+				loginUser.setUserId(rset.getString("USER_ID"));
+				loginUser.setUserPwd(rset.getString("USER_PWD"));
+				loginUser.setUserName(rset.getString("USER_NAME"));
+				loginUser.setCompany(rset.getString("COMPANY"));
+				loginUser.setPhone(rset.getString("PHONE"));
+				loginUser.setEmail(rset.getString("EMAIL"));
+				loginUser.setZipNo(rset.getInt("ZIPNO"));
+				loginUser.setAddress(rset.getString("ADDRESS"));
+				loginUser.setMngId(rset.getInt("MANAGER"));
+				loginUser.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				loginUser.setWithdrawalDate(rset.getDate("WITHDRAWAL_DATE"));
+				loginUser.setStatus(rset.getString("STATUS"));
+			}
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return loginUser;
 	}
 
 }
