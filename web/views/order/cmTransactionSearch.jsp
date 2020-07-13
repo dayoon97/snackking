@@ -5,6 +5,9 @@
 <head> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style type="text/css">
 	#outer {
@@ -413,17 +416,17 @@ height: 80px;
 /*---------하단 listTableN 시작----------------------------------------------------------------*/
 
 /* 열 9개짜리 테이블 */
-#listTable9 th:nth-of-type(1), #listTable10 td:nth-of-type(1){width:60px; important!}
-#listTable9 th:nth-of-type(2), #listTable10 td:nth-of-type(2){width:100px; important!}
-#listTable9 th:nth-of-type(3), #listTable10 td:nth-of-type(3){width:100px; important!}
-#listTable9 th:nth-of-type(4), #listTable10 td:nth-of-type(4){width:100px; important!}
-#listTable9 th:nth-of-type(5), #listTable10 td:nth-of-type(5){width:100px; important!}
-#listTable10 th:nth-of-type(6), #listTable10 td:nth-of-type(6){width:100px; important!}
-#listTable10 th:nth-of-type(7), #listTable10 td:nth-of-type(7){width:100px; important!}
-#listTable10 th:nth-of-type(8), #listTable10 td:nth-of-type(8){width:100px; important!}
-#listTable10 th:nth-of-type(9), #listTable10 td:nth-of-type(9){width:100px; important!}
-#listTable10 th:nth-of-type(10){width:140px; important!}
-#listTable10 td:nth-of-type(10){width:120px; important!}
+#listTable9 th:nth-of-type(1), #listTable9 td:nth-of-type(1){width:60px; important!}
+#listTable9 th:nth-of-type(2), #listTable9 td:nth-of-type(2){width:100px; important!}
+#listTable9 th:nth-of-type(3), #listTable9 td:nth-of-type(3){width:100px; important!}
+#listTable9 th:nth-of-type(4), #listTable9 td:nth-of-type(4){width:100px; important!}
+#listTable9 th:nth-of-type(5), #listTable9 td:nth-of-type(5){width:120px; important!}
+#listTable9 th:nth-of-type(6), #listTable9 td:nth-of-type(6){width:100px; important!}
+#listTable9 th:nth-of-type(7), #listTable9 td:nth-of-type(7){width:100px; important!}
+#listTable9 th:nth-of-type(8), #listTable9 td:nth-of-type(8){width:100px; important!}
+#listTable9 th:nth-of-type(9), #listTable9 td:nth-of-type(9){width:200px; important!}
+#listTable9 th:nth-of-type(10){width:140px; important!}
+#listTable9 td:nth-of-type(10){width:120px; important!}
 
 
 /*열 10개짜리 테이블*/
@@ -613,7 +616,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
+								<td><input type="button" value="거래명세서 보기" onclick=""></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -624,7 +627,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
+								<td><input type="button" value="거래명세서 보기" onclick=""></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -635,7 +638,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
+								<td><input type="button" value="거래명세서 보기" onclick=""></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -646,7 +649,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
+								<td><input type="button" value="거래명세서 보기" onclick=""></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -657,7 +660,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
+								<td><input type="button" value="거래명세서 보기" onclick=""></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -668,7 +671,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
+								<td><input type="button" value="거래명세서 보기" onclick=""></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -679,7 +682,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
+								<td><input type="button" value="거래명세서 보기" onclick=""></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -690,7 +693,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
+								<td><input type="button" value="거래명세서 보기" onclick=""></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -701,7 +704,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
+								<td><input type="button" value="거래명세서 보기" onclick=""></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -712,7 +715,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
+								<td><input type="button" value="거래명세서 보기" onclick=""></td>
 							</tr>
 						
 						</tbody>
@@ -723,11 +726,63 @@ overflow-y: auto !important;
 	</div>	<!-- outer end -->
 </div>	<!-- mainWrapper end -->
 
+
+<!-- 거래명세서 모달창 -->
+<div id="ex1" class="modal">
+  <table>
+	<thead>
+		
+	</thead>
+  
+  
+  
+  </table>
+  
+  
+  
+  
+<a href="#" rel="modal:close">닫기</a>
+</div>
+ 
+<p><a href="#ex1" rel="modal:open" >모달창띄우기</a></p>
+
+ 
+ 
+ 
+ 
+<!-- <p><a class="btn1" href="#ex7">도달창띄우기2</a></p>
+ 
+<div id="ex7" class="modal">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</div>
+ 
+<script>
+    $('a[href="#ex7"]').click(function(event) {
+      event.preventDefault();
+ 
+      $(this).modal({
+        fadeDuration: 250
+      });
+    });
+</script> -->
+
+ 
+
+
+
+
 </body>
 
 
-<script>
 
+
+
+<script>
 
 /* 옵션 선택 드롭 다운 */
 $('.dropdown').click(function () {
@@ -751,8 +806,6 @@ $('.dropdown-menu li').click(function () {
       msg = '<span class="msg">Hidden input value: ';
   $('.msg').html(msg + input + '</span>');
 }); 
-
-
 
 
 </script>
