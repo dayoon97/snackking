@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html> 
+<html>
 <head> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -411,8 +411,22 @@ border-spacing: 15px 0;
 height: 80px;
 }
 /*---------하단 listTableN 시작----------------------------------------------------------------*/
-/*열 10개짜리 테이블*/
 
+/* 열 9개짜리 테이블 */
+#listTable9 th:nth-of-type(1), #listTable10 td:nth-of-type(1){width:60px; important!}
+#listTable9 th:nth-of-type(2), #listTable10 td:nth-of-type(2){width:100px; important!}
+#listTable9 th:nth-of-type(3), #listTable10 td:nth-of-type(3){width:100px; important!}
+#listTable9 th:nth-of-type(4), #listTable10 td:nth-of-type(4){width:100px; important!}
+#listTable9 th:nth-of-type(5), #listTable10 td:nth-of-type(5){width:100px; important!}
+#listTable10 th:nth-of-type(6), #listTable10 td:nth-of-type(6){width:100px; important!}
+#listTable10 th:nth-of-type(7), #listTable10 td:nth-of-type(7){width:100px; important!}
+#listTable10 th:nth-of-type(8), #listTable10 td:nth-of-type(8){width:100px; important!}
+#listTable10 th:nth-of-type(9), #listTable10 td:nth-of-type(9){width:100px; important!}
+#listTable10 th:nth-of-type(10){width:140px; important!}
+#listTable10 td:nth-of-type(10){width:120px; important!}
+
+
+/*열 10개짜리 테이블*/
 #listTable10 th:nth-of-type(1), #listTable10 td:nth-of-type(1){width:60px; important!}
 #listTable10 th:nth-of-type(2), #listTable10 td:nth-of-type(2){width:100px; important!}
 #listTable10 th:nth-of-type(3), #listTable10 td:nth-of-type(3){width:100px; important!}
@@ -455,13 +469,13 @@ height: 80px;
 #listTable12 td:nth-of-type(12){width:80px; important!}
 
 /*리스트 컬럼 10,11,12개 짜리  테이블 바디 선 스타일*/
-#listTable10 tbody tr, #listTable11 tbody tr, #listTable12 tbody tr{
+#listTable9 tbody tr, #listTable10 tbody tr, #listTable11 tbody tr, #listTable12 tbody tr{
 border-bottom:3px solid #EBEAEA;
 height: 36px;
 }
 
 /*리스트 컬럼 10,11, 12개 짜리  테이블  헤더 기본 높이 및 폰트 스타일*/
-#listTable10 thead tr, #listTable11 thead tr, #listTable12 thead tr{
+#listTable9 thead tr, #listTable10 thead tr, #listTable11 thead tr, #listTable12 thead tr{
 width: 1000px;
 height: 32px;
 padding-left:20px;
@@ -473,7 +487,7 @@ line-height:17px;
 }
 
 /*리스트 테이블 컬럼 10,11,12개 짜리  위치 및 설정*/
-#listTable10, #listTable11, #listTable12{
+#listTable9, #listTable10, #listTable11, #listTable12{
 width: 1000px;
 border-collapse:collapse;
 position: absolute;
@@ -485,7 +499,7 @@ display: block;
 }
 
 /*리스트 테이블 컬럼 10,11, 12개 짜리  바디 기본 높이*/
-#listTable10 tbody, #listTable11 tbody, #listTable12 tbody{
+#listTable9 tbody, #listTable10 tbody, #listTable11 tbody, #listTable12 tbody{
 display: block;
 height: 280px;
 overflow-y: auto !important;
@@ -509,22 +523,22 @@ overflow-y: auto !important;
 		
 			<!-- title-area start ---------------------------------------------------------------------------->
 			<div id="titleArea">
-				<div id="mainTitle">계약 관리</div>
+				<div id="mainTitle">주문 관리</div>
 				<div id="line1"></div>
-				<div id="subTitle">계약 내역 조회</div>	
+				<div id="subTitle">거래 내역 조회</div>	
 			</div>	<!--title-area end ---------------------------------------------------------------------------->
 			
 			<!-- search-area start ---------------------------------------------------------------------------->
 			<div id="searchArea">
 				<!-- 조회 제목 -->
-				<div id="subSubTitle1">계약 조회</div>
-					<!-- searchBox start -->
+				<div id="subSubTitle1">거래명세서 조회 및 출력</div>
+					<!-- searchBox start --> 
 						<div id="searchBox" style="height: 120px !important; display: table !important;">
 							<form id="searchForm" style="display:table-cell !important; vertical-align:middle !important; ">
-								<table id="searchContract"  style="margin-left: auto !important; margin-right: auto !important; border-spacing: 20px 10px" >
+								<table   id="searchContract"  style="margin-left: auto !important; margin-right: auto !important; border-spacing: 20px 10px" >
 									<tr style="height:34px !important;">
 									
-										<td style="width:200px; padding-left: 15px" colspan="2" >거래처명 :
+										<td style="width:200px; padding-left:15px" colspan="2" >거래처명 :
 											<input type="text" class="searchTextBox" size="20" name="">
 										</td>
 										<td></td>
@@ -534,22 +548,16 @@ overflow-y: auto !important;
 										<input type="submit" class="searchBtn" value="검색" id="submit" style="width:85px;"></td>
 										
 									</tr>
+									
 									<tr>
-										<td style="padding-left: 15px;">계약번호 : 
-										<input type="text" class="searchTextBox" size="20" name=""></td>
-										<td></td>
-										<td colspan="3" align="center">계약일 : 
-										<input type="date" class="searchTextBox" size="10" name=""></td>
-									</tr>
-									<tr>
-										<td colspan="2" style="padding-left: 15px;">계약기간 :
+										<td colspan="3" style="padding-left: 15px; width:">계약기간 :
 											<button onclick="">오늘</button>
 											<button onclick="">1주일</button>
 											<button onclick="">1개월</button>
 											<button onclick="">3개월</button>
 											<button onclick="">6개월</button>
 										</td>
-										<td colspan="3" style="width:400px;" align="center">
+										<td colspan="2" style="width:300px;" align="center">
 										<input type="date" class="searchTextBox" name="">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
 										<input type="date" class="searchTextBox" name="">
 										</td>
@@ -569,8 +577,8 @@ overflow-y: auto !important;
 					<!-- <div id="subSubTitle2" style="top:325px !important;">조회 리스트</div> -->
 					
 					<div style="margin-top:185px; padding-left:40px;">
-						<button onclick="" class="btn" id="btnValidContract" style="width:130px; top:310px; left:40px;">유효한 계약내역</button>
- 						<button onclick="" class="btn" id="btnFinishContract" style="width:130px; top:310px; left:200px">종료된 계약내역</button>
+						<button onclick="" class="btn" id="btnTransaction" style="width:130px; top:310px; left:40px;">거래 건별 내역</button>
+ 						<button onclick="" class="btn" id="btnTransactionCompany" style="width:130px; top:310px; left:200px">거래처별 집계</button>
 					</div>
 					
 					
@@ -579,22 +587,19 @@ overflow-y: auto !important;
 					<span id="apply" style="top:330px !important;">조회 결과 수 :</span>
 						<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
-					<table id="listTable12" style="top:365px !important;">
+					<table id="listTable9" style="top:365px !important;">
 						<thead>
 							<!-- 테이블 헤드 -->
 							<tr>
 								<th>순번</th>
-								<th>계약번호</th>
+								<th>거래 번호</th>
 								<th>거래처명</th>
-								<th>계약일자</th>
-								<th>계약시작일</th>
-								<th>계약종료일</th>
-								<th>배송횟수(월)</th>
-								<th>회차당 금액</th>
-								<th>월 계약금액</th>
-								<th>배송 주</th>
-								<th>요일</th>
-								<th>수정</th>
+								<th>거래일자</th>
+								<th>거래내용</th>
+								<th>공급가액</th>
+								<th>부가세</th>
+								<th>매출 계</th>
+								<th>상세 품목 및 거래명세서</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -609,28 +614,8 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
 							</tr>
 							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
@@ -651,28 +636,8 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
 							</tr>
 							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
@@ -693,6 +658,14 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
+							</tr>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
@@ -707,6 +680,14 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
+							</tr>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
@@ -721,14 +702,8 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
 							</tr>
 							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
