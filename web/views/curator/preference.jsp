@@ -209,7 +209,7 @@ text-align:center;
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-	<%@ include file="menubar.jsp" %>
+	<%@ include file="../common/userMenu.jsp" %>
 	
 	<!-- outer start -->
 	<div id="outer">
