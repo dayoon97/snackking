@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.snackking.user.model.service.UserService;
 
 /**
@@ -36,7 +37,10 @@ public class UserIdCheckServlet extends HttpServlet {
 		int result = new UserService().idCheck(userId);
 //		System.out.println("useridcheck result servlet : " + result);
 		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
 		
+		new Gson().toJson(result, response.getWriter());
 		
 	}
 

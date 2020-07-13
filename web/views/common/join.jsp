@@ -101,7 +101,10 @@ span {
 	color: red;
 	font-weight: 600;
 }
-
+textarea {
+	resize: none;
+	overflow-x: hidden; 
+}
 </style>
 </head>
 <body>
@@ -432,7 +435,7 @@ span {
 									<td>
 										[필수] 개인정보 수집 및 이용 동의
 										<br><br>
-										<textarea rows="7" cols="50" readonly>
+										<textarea rows="7" cols="50" readonly >
 SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 관련 법령상의 개인정보보호 규정을 준수하며, 고객사의 개인정보 보호에 최선을 다하고 있습니다.
 
 1. 개인정보 수집 및 이용주체
@@ -518,6 +521,7 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 			});
 		});
 		
+		var idOverlap = false;
 		var idCheck = false;
 		var pwCheck1 = false;
 		var pwCheck2 = false;
@@ -549,7 +553,7 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 				var regExp = /^(?=.*[a-zA-Z])(?=.*[`~!@#$%^&*+-?])(?=.*[0-9])*.{8,16}$/g;
 				
 				if(regExp.test(password1)) {
-					$("#result-pwd1-msg").html("사용 가능한 비밀번호입니다.");
+					$("#result-pwd1-msg").html("<span style='color: green;'>사용 가능한 비밀번호입니다.</span>");
 					pwCheck1 = true;
 				} else {
 					$("#result-pwd1-msg").html("사용 불가능한 비밀번호입니다.");
@@ -567,7 +571,7 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 				var password2 = $("#password2").val();
 				
 				if(password2 === password1) {
-					$("#result-pwd2-msg").html("비밀번호와 일치합니다.");
+					$("#result-pwd2-msg").html("<span style='color: green;'>비밀번호와 일치합니다.</span>");
 					pwCheck2 = true;
 				} else {
 					$("#result-pwd2-msg").html("비밀번호와 확인이 일치하지 않습니다.");
@@ -617,14 +621,22 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 		
 		function checkId() {
 			var userId = $("#userId").val();
-			<%-- location.href = "<%= request.getContextPath()%>/checkUserId.us?userId=" + userId; --%>
 
 			$.ajax({
 				url: "<%= request.getContextPath()%>/checkUserId.us?userId=" + userId,
 				type: "get",
 				data: {userId: userId},
 				success: function(data) {
-					console.log(data);
+					console.log("checkId result : " + data);
+					
+					if(data > 0){
+						$("#result-id-msg").html("<span style='color: green;'>사용 가능한 아이디입니다.</span>");
+						idOverlap = true;
+					} else {
+						$("#result-id-msg").html("사용 불가능한 아이디입니다.");
+						idOverlap = false;
+					}
+					
 				},
 				error: function() {
 					alert("아이디 중복체크 실패!");
@@ -651,6 +663,10 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 			var cp = $("#company").val();
 			var zipNo = $("#zipNo").val();
 			var addr = $("#address").val();
+			
+			if(idOverlap === false){
+				alert("아이디 중복체크를 해주세요.");
+			}
 			
 			if(id === ""){
 				alert("ID를 입력해주세요.");
@@ -704,7 +720,7 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 				alert("이용약관 및 개인정보 수집 및 이용 동의를 해주세요.");
 			}
 			
-			if(idCheck === true && pwCheck1 === true && pwCheck2 === true && nameCheck === true && cpCheck === true
+			if(idCheck === true && idOverlap === true && pwCheck1 === true && pwCheck2 === true && nameCheck === true && cpCheck === true
 					 && phoneCheck === true && emailCheck === true && zipNoCheck === true && jusoCheck === true && ckboxCheck === true) {
 				$("#joinForm").submit();
 				/* alert("회원가입 성공!"); */

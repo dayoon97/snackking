@@ -22,7 +22,7 @@
 			switch(successCode) {
 				case "insertUser" : 
 					successMessage = "회원 가입이 성공하였습니다!";
-					movePath = "<%= request.getContextPath() %>/views/common/login.jsp";
+					movePath = "<%= request.getContextPath() %>";
 					break;
 				case "updateMember" : 
 					successMessage = "회원 정보 수정이 성공하였습니다!";
