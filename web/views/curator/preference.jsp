@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>/
 <!DOCTYPE html>
 <html>
 <head>
@@ -434,19 +434,7 @@ text-align:center;
 									</tr>
 								</table>
 							</div>
-							
-							<div class="memberTable">
-								<h4>선호하는 구성 스타일을 선택 해주세요.</h4>
-								<br>
-								<table>
-									<tr>
-										<td width="100px;"></td>
-										<td width="150px;"><input type="checkbox" name="delivery" value="" onclick="deliveryclick(this);">방문 및 세팅 관리</td>
-										<td width="100px;"></td>
-										<td width="90px;"><input type="checkbox" name="delivery" value="" onclick="deliveryclick(this);">택배 배송</td>
-									</tr>
-								</table>
-							</div>
+
 							
 							<div class="memberTable">
 								<h4>필요하신 설비를 선택해주세요 (예산에 따라 제공되는 설비가 달라질 수 있으며, 사전 수요 조사용 문항입니다 ) </h4>
@@ -487,19 +475,7 @@ text-align:center;
 								</td>
 								</tr>
 							</table>
-							
-							<div class="memberTable">
-								<h4>선호하는 구성 스타일을 선택 해주세요.</h4>
-								<br>
-								<table>
-									<tr>
-										<td width="100px;"></td>
-										<td width="150px;"><input type="checkbox" name="packing" value="" onclick="packingclick(this);">일반 포장</td>
-										<td width="100px;"></td>
-										<td width="300px;"><input type="checkbox" name="packing" value="" onclick="packingclick(this);">개별 포장(인원수에 맞춰서 포장)</td>
-									</tr>
-								</table>
-							</div>
+
 							
 						</form>
 						<input class="searchBtn" type="button" onclick="preference();" value="작성 완료">
