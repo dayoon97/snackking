@@ -147,7 +147,7 @@ span.choose {
 	height:150px;
 }
 .orderArea{
-	height:700px;
+	height:850px;
 	width:1200px;
 	margin:0 auto;
 }
@@ -194,8 +194,6 @@ th{
 	margin-left: 750px;
 	margin-top: 30px;
 }
-
-
 
 .box .form-control{
 	max-width: 300px;
@@ -278,6 +276,26 @@ input[type='text']{
 	text-align: center;
 	color: #FFFFFF;
 }
+
+input[type='checkbox']{
+	border: 1px solid #F0BB00;
+}
+.write{
+	float: right;
+	margin-top: 60px;
+}
+.delete{
+	margin-left: 1000px;
+	margin-top:60px;
+	background: white;
+	color:#F0BB00;
+	border: 1px solid #F0BB00;
+}
+.btnArea{
+	height:200px;
+	width:1200px;
+	margin:0 auto;
+}
 </style>
 </head>
 <body>
@@ -292,10 +310,10 @@ input[type='text']{
 	<div class="outer">
 		<div class="orderArea">
 			<div class="order-table">
-				<p class="order-History">주문 내역</p>
+				<p class="order-History">문의 내역</p>
 				<div class="line"></div>
 					<div class="searchArea">
-						<!-- <input type="text" class="datepicker-here form-control" id="minMaxExample" data-date-format="dd/mm/yyyy" data-language="en" placeholder="날짜를 선택해주세요"> -->
+						<!--<input type="text" class="datepicker-here form-control" id="minMaxExample" data-date-format="yy/mm/dd" data-language="en" placeholder="날짜를 선택해주세요">  -->
 						<input type="date">
 						<input type="text" size="9" value="주문번호 검색">
 						<input type="submit" value="검색" class="submit-btn">
@@ -303,79 +321,99 @@ input[type='text']{
 			<form>
 				<table class="order-history-table" align="center">
 					<tr>
-						<th>주문번호</th>
-						<th>배송일자</th>
-						<th>회차</th>
-						<th>결제상태</th>
-						<th width="200px;">거래명세서</th>
-						<th width="200px;">큐레이팅 리스트</th>
+						<th width="40px;"><input type="checkbox"></th>
+						<th width="60px;">번호</th>
+						<th width="400px;">제목</th>
+						<th width="150px;">날짜</th>
+						<th width="300px;">구분</th>
+						<th width="80px;">상태</th>
 					</tr>
 					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-12</td>
-						<td>1</td>
-						<td>결제완료</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
+						<td><input type="checkbox"></td>
+						<td>10</td>
+						<td>제목</td>
+						<td>날짜</td>
+						<td>구분</td>
+						<td>미답변</td>
 					</tr>
 					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>2</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
+						<td><input type="checkbox"></td>
+						<td>9</td>
+						<td>제목</td>
+						<td>날짜</td>
+						<td>구분</td>
+						<td>미답변</td>
 					</tr>
 					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>3</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>4</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>5</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>6</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>7</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
+						<td><input type="checkbox"></td>
 						<td>8</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
+						<td>제목</td>
+						<td>날짜</td>
+						<td>구분</td>
+						<td>미답변</td>
+					</tr>
+					<tr id="order-td">
+						<td><input type="checkbox"></td>
+						<td>7</td>
+						<td>제목</td>
+						<td>날짜</td>
+						<td>구분</td>
+						<td>미답변</td>
+					</tr>
+					<tr id="order-td">
+						<td><input type="checkbox"></td>
+						<td>6</td>
+						<td>제목</td>
+						<td>날짜</td>
+						<td>피드백</td>
+						<td>답변</td>
+					</tr>
+					<tr id="order-td">
+						<td><input type="checkbox"></td>
+						<td>5</td>
+						<td>제목</td>
+						<td>날짜</td>
+						<td>피드백</td>
+						<td>답변</td>
+					</tr>
+					<tr id="order-td">
+						<td><input type="checkbox"></td>
+						<td>4</td>
+						<td>제목</td>
+						<td>날짜</td>
+						<td>피드백</td>
+						<td>답변</td>
+					</tr>
+					<tr id="order-td">
+						<td><input type="checkbox"></td>
+						<td>3</td>
+						<td>제목</td>
+						<td>날짜</td>
+						<td>피드백</td>
+						<td>답변</td>
+					</tr>
+					<tr id="order-td">
+						<td><input type="checkbox"></td>
+						<td>2</td>
+						<td>제목</td>
+						<td>날짜</td>
+						<td>교환</td>
+						<td>답변</td>
+					</tr>
+					<tr id="order-td">
+						<td><input type="checkbox"></td>
+						<td>1</td>
+						<td>제목</td>
+						<td>날짜</td>
+						<td>피드백</td>
+						<td>답변</td>
 					</tr>
 				</table>
-				</form>
+			</form>
+			</div>
+			<div class="btnArea">
+				<input type="button" value="글쓰기" class="submit-btn write">
+				<input type="button" value="삭제" class="submit-btn delete">
 			</div>
 		</div>
 	</div>
@@ -415,8 +453,9 @@ input[type='text']{
 	var maxdate = new Date();
 	    maxdate.setDate(maxdate.getDate() - 1);
 	    
-	  $(document).ready(function(){
+	  /* $(document).ready(function(){
 		  $('#minMaxExample').datepicker({
+			  	dateFormat: 'yy-mm-dd',
 			    language: 'en',
 					range : true,
 					minDate : mindate,
@@ -424,9 +463,11 @@ input[type='text']{
 					multipleDates: true,
 					multipleDatesSeparator: " - "
 			});
-	  });
+	  }); */
 	 $(function(){
-		 
+		 $('#minMaxExample').datepicker({
+			 
+		 });
 	 });
 	
 	</script>

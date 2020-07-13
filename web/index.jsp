@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>스낵킹</title>
+<link rel="shortcut icon" href="resources/image/snakicon.ico" type="image/x-icon">
+<link rel="icon" href="resources/image/snakicon.ico" type="image/x-icon">
 <link src="../css/style.css" rel="stylesheet">
 <link src="../css/media-queries.css" rel="stylesheet">
 <script src="../js/js.script.js"></script>
