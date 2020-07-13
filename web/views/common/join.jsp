@@ -617,9 +617,10 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 		
 		function checkId() {
 			var userId = $("#userId").val();
-			
+			<%-- location.href = "<%= request.getContextPath()%>/checkUserId.us?userId=" + userId; --%>
+
 			$.ajax({
-				url: "idCheck.us",
+				url: "<%= request.getContextPath()%>/checkUserId.us?userId=" + userId,
 				type: "get",
 				data: {userId: userId},
 				success: function(data) {
@@ -629,6 +630,7 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 					alert("아이디 중복체크 실패!");
 				}
 			});
+			
 		}
 		
 		function joinCheck() {
@@ -702,18 +704,6 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 				alert("이용약관 및 개인정보 수집 및 이용 동의를 해주세요.");
 			}
 			
-			/* 
-			console.log("id : " + idCheck);
-			console.log("pw1 : " + pwCheck1);
-			console.log("pw2 : " + pwCheck2);
-			console.log(nameCheck);
-			console.log(cpCheck);
-			console.log("phone : " + phoneCheck);
-			console.log("email : " + emailCheck);
-			console.log(zipNoCheck);
-			console.log(jusoCheck);
-			console.log(ckboxCheck);
-			 */
 			if(idCheck === true && pwCheck1 === true && pwCheck2 === true && nameCheck === true && cpCheck === true
 					 && phoneCheck === true && emailCheck === true && zipNoCheck === true && jusoCheck === true && ckboxCheck === true) {
 				$("#joinForm").submit();

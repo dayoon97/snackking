@@ -35,5 +35,16 @@ public class UserService {
 		close(con);
 		return loginUser;
 	}
+	
+	public int idCheck(String userId) {
+		
+		Connection con = getConnection();
+		
+		int result = new UserDao().idCheck(con, userId);
+		
+		close(con);
+		
+		return result;
+	}
 
 }
