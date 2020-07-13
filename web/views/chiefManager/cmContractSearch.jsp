@@ -542,14 +542,14 @@ overflow-y: auto !important;
 										<input type="date" class="searchTextBox" size="10" name=""></td>
 									</tr>
 									<tr>
-										<td colspan="2" style="padding-left: 15px;">계약기간 :
+										<td colspan="3" style="padding-left: 15px;">계약기간 :
 											<button onclick="">오늘</button>
 											<button onclick="">1주일</button>
 											<button onclick="">1개월</button>
 											<button onclick="">3개월</button>
 											<button onclick="">6개월</button>
 										</td>
-										<td colspan="3" style="width:400px;" align="center">
+										<td colspan="2" style="width:400px;" align="center">
 										<input type="date" class="searchTextBox" name="">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
 										<input type="date" class="searchTextBox" name="">
 										</td>
