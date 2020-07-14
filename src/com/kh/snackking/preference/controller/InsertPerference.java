@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.snackking.preference.model.service.PreferenceService;
+import com.kh.snackking.preference.model.vo.Preference;
+
 /**
  * Servlet implementation class InsertPerference
  */
@@ -28,15 +31,21 @@ public class InsertPerference extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String userId = request.getParameter("userid"); //유저번호 ( 숫자로 바꿔야함 )
-		String budget = request.getParameter("budget"); //예산
-		String personnel = request.getParameter("personnel"); //간식먹을 인원
+		int user = 0;
+		if(userId != "" && userId != null) {
+			user = Integer.parseInt(userId);
+		}
+		
+		
+		int budget = Integer.parseInt(request.getParameter("budget")); //예산
+		int personnel = Integer.parseInt(request.getParameter("personnel")); //간식먹을 인원
+		
 		String age1 = request.getParameter("age1"); //나이20
 		String age2 = request.getParameter("age2");	//나이30
 		String age3 = request.getParameter("age3");	//나이40
 		String age4 = request.getParameter("age4");	//나이50
 		String age5 = request.getParameter("age5");	//나이60
-		String genderM = request.getParameter("genderM"); //성별 남자
-		String genderW = request.getParameter("genderW"); //성별 여자
+		String age = age1 + ", " + age2 + ", " + age3 + ", " + age4 + ", " + age5;
 		
 		String[] kinds = request.getParameterValues("kinds"); //과자 종류
 		String kindsList = "";
@@ -116,11 +125,34 @@ public class InsertPerference extends HttpServlet {
 			}
 		}
 		
-		String equipment2 = request.getParameter("equipment2"); //필요한 설비
 		
-		System.out.println(budget + personnel + age1 + age2 + age3 + age4 + age5 + genderM + genderW + kindsList + flavorList + smellList + freesmell + allergyList + perstyle + equipmentList + equipment2);
+		System.out.println(budget + personnel + age + kindsList + flavorList + smellList + freesmell + allergyList + perstyle + equipmentList);
 		
+		Preference insertPre = new Preference();
+		insertPre.setUserNo(user);
+		insertPre.setPreBudget(budget);
+		insertPre.setPrePersonnel(personnel);
+		insertPre.setPreAge("age");
+		insertPre.setPreProductTypes(kindsList);
+		insertPre.setPreTaste(flavorList);
+		insertPre.setPreFlavor(smellList);
+		insertPre.setPreEtcFlavor(freesmell);
+		insertPre.setPreAlName(allergyList);
+		insertPre.setPreStyle(perstyle);
+		insertPre.setPreEquipment(equipmentList);
 		
+		System.out.println(insertPre);
+		int result = new PreferenceService().insertPreference(insertPre);
+		System.out.println(result);
+		
+		String page = "";
+		if(result > 0) {
+			page = "views/common/userMenu.jsp";
+			request.setAttribute("insertPre", insertPre);
+		}else {
+			System.out.println("에러");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

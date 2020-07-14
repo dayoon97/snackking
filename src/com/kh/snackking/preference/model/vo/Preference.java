@@ -2,7 +2,7 @@ package com.kh.snackking.preference.model.vo;
 
 import java.sql.Date;
 
-public class Preference {
+public class Preference implements java.io.Serializable{
 	private int userNo;     		  //유저 번호
 	private int preNo;       		  //선호도 아이디
 	private int preBudget;    		  //예산
@@ -15,7 +15,7 @@ public class Preference {
 	private String preAlName;   	   //알레르기 종류
 	private String preStyle;     	  //구성 스타일
 	private String preEquipment; 	  //수요설비
-	private Date preDate;
+	private Date preDate;			//날짜
 	private String status; //삭제여부
 	
 	public Preference() {}

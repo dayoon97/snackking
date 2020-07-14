@@ -283,27 +283,6 @@ text-align:center;
 								</table>
 							</div>
 							
-							<div class="memberTable">
-								<h4>간식을 드시는 분들의 남녀 성비를 입력해주세요</h4>
-								<br>
-								<table>
-									<tr>
-										<th width="70px;"></th>
-										<th width="90px;">남자</th>
-										<th width="70px;"></th>
-										<th width="90px;">여자</th>
-										<th width="70px;"></th>
-										<th width="200px;" colspan="2">남자 다수 / 여자 다수 / 반반</th>
-									</tr>
-									<tr>
-										<td></td>
-										<td><input type="text" name="genderM" class="" size="8" style="height:40px;" placeholder="                %"></td>
-										<td></td>
-										<td><input type="text" name="genderW" class="" size="8" style="height:40px;" placeholder="                %"></td>
-									</tr>
-								</table>
-							</div>
-							
 							<h2 style="margin-left: 20px; font-size: 30px;">선호도 입력</h2>
 							
 							<div class="memberTable">
@@ -499,20 +478,6 @@ text-align:center;
 									</tr>
 								</table>
 							</div>
-							
-							<table class="memberTable">
-								<tr>
-									<!-- 검색 내용 타이핑하는 부분 -->
-									<td width="800px"><h4>기타 필요 설비를 입력해주세요.</h4></td>
-								</tr>
-								<tr>
-								<td>
-									<input type="text" class="" name="equipment2" size="100" style="height:40px;" placeholder="예시: 냉장고">
-								</td>
-								</tr>
-							</table>
-
-							
 						</form>
 						<input class="searchBtn" type="button" onclick="preference();" value="작성 완료">
 					</div> <!-- searchBox end -->
