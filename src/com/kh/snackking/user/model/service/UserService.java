@@ -49,10 +49,10 @@ public class UserService {
 
 
 
-	public ArrayList<User> selectUserNameList(User user) {
+	public ArrayList<User> selectUserNameList(String memberName, int nno) {
 		Connection con = getConnection();
 		
-		ArrayList<User> list = new UserDao().selectUserNameList(con, user);
+		ArrayList<User> list = new UserDao().selectUserNameList(memberName, nno, con);
 		
 		close(con);
 		
@@ -70,11 +70,11 @@ public class UserService {
 		return userId;
 	}
 	
-	public ArrayList<User> selectUserList(int mngNo) {
+	public ArrayList<User> selectUserList(int nno) {
 		
 		Connection con = getConnection();
 		
-		ArrayList<User> list = new UserDao().selectUserList(con, mngNo);
+		ArrayList<User> list = new UserDao().selectUserList(con, nno);
 		
 		return list;
 	}

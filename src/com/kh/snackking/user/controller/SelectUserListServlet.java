@@ -34,10 +34,15 @@ public class SelectUserListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int MngNo = Integer.parseInt(request.getParameter("mngNo"));
+		String num = request.getParameter("num");
+		
+		int nno = 0;
+		if(num != "" && num != null) {
+			nno = Integer.parseInt(num);
+		}
 		
 		
-		ArrayList<User> list = new UserService().selectUserList(MngNo); 
+		ArrayList<User> list = new UserService().selectUserList(nno); 
 		
 		System.out.println("회원 리스트 : " + list);
 		
