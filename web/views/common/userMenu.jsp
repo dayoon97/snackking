@@ -268,7 +268,7 @@
 		<!-- aside div start -->
 		<div id="aside" class="aside">
 			<div class="aside-header" align="center">
-				<a href="..">
+				<a href="../../index.jsp">
 					<img alt="logoImage" src="../../resources/image/logo3.png" width="150px;">
 				</a>
 			</div>	<!-- aisde-header end -->
@@ -285,7 +285,7 @@
 								<p class="title">내 정보</p>
 							</div>
 								<ul class="con">
-									<li><a href="userBoard.jsp">나의 문의내역</a></li>
+									<li><a href="../common/userBoard.jsp">나의 문의내역</a></li>
 									<li><a href="">회원정보 수정</a></li>
 								</ul>
 						</li>
@@ -293,14 +293,14 @@
 								<p class="title">주문관리</p>
 							</div>
 								<ul class="con">
-									<li><a href="userOrderHistory.jsp">주문내역 관리</a></li>
+									<li><a href="../common/userOrderHistory.jsp">주문내역 관리</a></li>
 								</ul>
 						</li>
 						<li><div class="user-menu-box">
 								<p class="title">선호도조사</p>
 							</div>
 								<ul class="con">
-									<li><a href="../curatore/preference.jsp">선호도 조사</a></li>
+									<li><a href="../curator/preference.jsp">선호도 조사</a></li>
 									<li><a href="../">선호도 조사 내역</a></li>
 								</ul>
 						</li>
