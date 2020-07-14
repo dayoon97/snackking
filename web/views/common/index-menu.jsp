@@ -147,7 +147,6 @@ border-radius: 999px;
 			<% if(loginUser == null) { %>
       			<button class="login" id="login" onclick="location.href='/snackking/views/common/login.jsp'">로그인</button>
       		<% } else { %>
-      			<button class="myPage" id="myPage" onclick="myPage();">마이페이지</button>
       		    <button class="loginName" id="login" onclick="location.href='/snackking/views/common/userMenu.jsp'"><%=loginUser.getUserName() %>님</button>
       		    <button class="logout" id="logout" onclick="logout();">로그아웃</button>
 			<%} %>      		
@@ -187,11 +186,6 @@ $(function(){
 	function logout() {
 			location.href="<%=request.getContextPath()%>/logout";
 		}
-	
-	function myPage(){
-		location.href="../common/userMyPage.jsp";
-	}
-		
 </script>
 </body>
 </html>
