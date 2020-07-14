@@ -5,6 +5,9 @@
 <head> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style type="text/css">
 	#outer {
@@ -414,16 +417,16 @@ height: 80px;
 /*열 10개짜리 테이블*/
 
 #listTable10 th:nth-of-type(1), #listTable10 td:nth-of-type(1){width:60px; important!}
-#listTable10 th:nth-of-type(2), #listTable10 td:nth-of-type(2){width:100px; important!}
-#listTable10 th:nth-of-type(3), #listTable10 td:nth-of-type(3){width:100px; important!}
-#listTable10 th:nth-of-type(4), #listTable10 td:nth-of-type(4){width:100px; important!}
-#listTable10 th:nth-of-type(5), #listTable10 td:nth-of-type(5){width:100px; important!}
-#listTable10 th:nth-of-type(6), #listTable10 td:nth-of-type(6){width:100px; important!}
-#listTable10 th:nth-of-type(7), #listTable10 td:nth-of-type(7){width:100px; important!}
-#listTable10 th:nth-of-type(8), #listTable10 td:nth-of-type(8){width:100px; important!}
-#listTable10 th:nth-of-type(9), #listTable10 td:nth-of-type(9){width:100px; important!}
-#listTable10 th:nth-of-type(10){width:140px; important!}
-#listTable10 td:nth-of-type(10){width:120px; important!}
+#listTable10 th:nth-of-type(2), #listTable10 td:nth-of-type(2){width:130px; important!}
+#listTable10 th:nth-of-type(3), #listTable10 td:nth-of-type(3){width:130px; important!}
+#listTable10 th:nth-of-type(4), #listTable10 td:nth-of-type(4){width:130px; important!}
+#listTable10 th:nth-of-type(5), #listTable10 td:nth-of-type(5){width:130px; important!}
+#listTable10 th:nth-of-type(6), #listTable10 td:nth-of-type(6){width:130px; important!}
+#listTable10 th:nth-of-type(7), #listTable10 td:nth-of-type(7){width:130px; important!}
+#listTable10 th:nth-of-type(8), #listTable10 td:nth-of-type(8){width:130px; important!}
+#listTable10 th:nth-of-type(9), #listTable10 td:nth-of-type(9){width:130px; important!}
+#listTable10 th:nth-of-type(10){width:150px; important!}
+#listTable10 td:nth-of-type(10){width:130px; important!}
 
 /*열 11개짜리 테이블*/
 #listTable11 th:nth-of-type(1), #listTable11 td:nth-of-type(1){width:60px; important!}
@@ -490,6 +493,7 @@ display: block;
 height: 280px;
 overflow-y: auto !important;
 }
+
 
 /*--------하단 listTableN 끝----------------------------------------------------------------*/
 
@@ -579,7 +583,7 @@ overflow-y: auto !important;
 					<span id="apply" style="top:330px !important;">조회 결과 수 :</span>
 						<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
-					<table id="listTable12" style="top:365px !important;">
+					<table id="listTable10" style="top:365px !important;">
 						<thead>
 							<!-- 테이블 헤드 -->
 							<tr>
@@ -592,8 +596,6 @@ overflow-y: auto !important;
 								<th>배송횟수(월)</th>
 								<th>회차당 금액</th>
 								<th>월 계약금액</th>
-								<th>배송 주</th>
-								<th>요일</th>
 								<th>수정</th>
 							</tr>
 						</thead>
@@ -609,9 +611,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td>수정</td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -623,9 +623,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -637,9 +635,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -651,9 +647,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -665,9 +659,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -679,9 +671,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -693,9 +683,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -707,9 +695,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -721,9 +707,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td></td>
 							</tr>
 							<tr class="hover">
 								<td>내용</td>
@@ -735,9 +719,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td></td>
 							</tr>
 						
 						</tbody>
@@ -747,6 +729,14 @@ overflow-y: auto !important;
 		</div>	<!-- background-box end -->
 	</div>	<!-- outer end -->
 </div>	<!-- mainWrapper end -->
+<div id="ex1" class="modal" style="width:800px; height:700px;">
+
+<a href="#" rel="modal:close">닫기</a>
+</div>
+ 
+<p><a href="#ex1" rel="modal:open" >모달창 띄우기</a></p>
+
+
 
 </body>
 

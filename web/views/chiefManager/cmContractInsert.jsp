@@ -345,7 +345,7 @@ height: 25px;
 								<td>계약번호 :</td>
 								<td><input type="text" class="searchTextBox" size="15" name="conNumber">
 								</td>
-								<td>계약일 :</td>
+								<td style="text-align:center">계약일 :</td>
 								<td><input type="date" class="searchTextBox" size="10" name="conDate"></td>
 								<td></td>
 								<td></td>
@@ -353,44 +353,27 @@ height: 25px;
 							<tr>
 								<td>계약기간 :</td>
 								<td colspan="2"><input type="date" class="searchTextBox" size=""
-									name="calendar1">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; <input
-									type="date" class="searchTextBox" name="calendar2"></td>
-								<td><input type="text" class="searchTextBox" size="7" name="conMonth">
-									개월</td>
+									name="calendar1">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
+									<input type="date" class="searchTextBox" name="calendar2"></td>
+								<td></td>
 								<td></td>
 								<td></td>
 							</tr>
 							<tr>
 								<td>배송횟수 :</td>
-								<td>월 <input type="text" class="searchTextBox" size="7"
+								<td>월 <input type="text" class="searchTextBox" size="10"
 									name="deliverCount"> 회
 								</td>
-								<td>회차당 금액 :</td>
-								<td><input type="text" class="searchTextBox" size="7" name="Pay">
-									원</td>
+								<td style="text-align:center">회차당 금액 :</td>
+								<td><input type="text" class="searchTextBox" size="10" name="Pay">원</td>
 								<td>월 계약금액 :</td>
-								<td><input type="text" class="searchTextBox" size="7" name="monthPay">
-									원</td>
+								<td><input type="text" class="searchTextBox" size="10" name="monthPay">원</td>
 							</tr>
-							<tr>
-								<td>배송주기 :</td>
-								<td><input type="radio" id="del1" name="delivery" value="everyday">
-									<label for="del1">매일 &nbsp;&nbsp;&nbsp;</label> 
-									<input type="radio" id="del2" class="searchTextBox" name="delivery" value="everyweek">
-									<label for="del2">매주 &nbsp;&nbsp;&nbsp;</label>
-									<input type="radio" id="del3" name="delivery" value="everymonth">
-									<label for="del3">매월 &nbsp;&nbsp;&nbsp;</label></td>
-									<td><input type="text" class="deliveryTextBox" size="10" name="deliveryTextBox" placeholder="주, 요일 작성"></td>
-									<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							
 									
 						</table>
 								
 							<td><input type="submit" class="insertBtn" value="등록" id="submit" 
-							onclick="button_click();" style="margin-left: 860px; top: 500px;">
+							onclick="button_click();" style="margin-left: 860px; top: 500px;"></td>
 									
 							<div id="myModal" class="modal">
 								<div class="modal-content" style="width: 30%;">
