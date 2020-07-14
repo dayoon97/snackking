@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 *{
 	font-family: NanumSquare_ac;
@@ -82,6 +83,43 @@ input[type=text], input[type=password]{
 th {
 	font-size: 20px;
 }
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 8% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -101,7 +139,7 @@ th {
 			<div class="loginFormArea">
 				<div class="loginForm-box">
 					<div class="loginForm">
-						<form id="findIdForm" action="<%= request.getContextPath() %>/findId.us" method="post">
+						<%-- <form id="findIdForm" action="<%= request.getContextPath() %>/findId.us" method="post"> --%>
 							<table align="center">
 								<thead>
 									<tr>
@@ -119,7 +157,7 @@ th {
 										<td>이메일</td>
 									</tr>
 									<tr>
-										<td><input type="text" id="findIdEmail" name="findInEmail" size="50"></td>
+										<td><input type="text" id="findIdEmail" name="findIdEmail" size="50"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -128,9 +166,8 @@ th {
 							<!-- 	<div id="findId-btn">아이디 찾기</div> -->
 								<input type="submit" id="findId-btn" value="아이디 찾기">
 							</div>
-						</form>
+						<!-- </form> -->
 						<br><br>
-						<form id="findPwdForm" action="" method="post">
 							<table align="center">
 								<thead>
 									<tr>
@@ -154,22 +191,86 @@ th {
 										<td>이메일</td>
 									</tr>
 									<tr>
-										<td><input type="text" id="findIdEmail" size="50"></td>
+										<td><input type="text" id="findPwdEmail" size="50"></td>
 									</tr>
 								</tbody>
 							</table>
 							<br>
 							<div class="btn-div" align="center">
-								<div id="findPwd-btn">비밀번호 찾기</div>
+								<input type="submit" id="findPwd-btn" value="비밀번호 찾기">
 							</div>
-						</form>
 					</div>	<!-- loginForm end -->
 				</div>	<!-- loginForm-box -->
 			</div>	<!-- loginFormArea end -->
 		</div>	<!-- loginArea end -->
 	</div>	<!-- wrapper end -->
-	<script type="text/javascript">
 	
-	</script>
+	<!-- ***************************아이디 조회 모달******************************* -->
+	<!-- Modal -->
+	<div class="modal" id="find-Modal">
+		
+			<!-- modal content -->
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<div class="modal-header">
+					<h4 class="modal-title" id="modal-title"></h4>
+				</div>	<!-- modal-header end -->
+				<div class="modal-body">
+					<p id="modal-body"></p>
+				</div>	<!-- modal-body end -->
+				<div class="modal-footer">
+				</div>	<!-- modal-footer end -->
+			</div>	<!-- modal-content end -->
+		
+	</div>	<!-- Modal end -->
+	
+<script type="text/javascript">
+	var modal = document.getElementById("find-Modal");
+	var btn1 = document.getElementById("findId-btn");
+	var span = document.getElementsByClassName("close")[0];
+	
+	btn1.onclick = function() {
+		var name = $("#findIdName").val();
+		var email = $("#findIdEmail").val();
+		console.log("name : " + name);
+		console.log("email : " + email);
+		$.ajax({
+			url: "<%= request.getContextPath() %>/findId.us",
+			type: "post",
+			data: {
+				name: name,
+				email: email
+			},
+			success: function(data) {
+				//console.log(data);
+				modal.style.display = "block";
+				
+				if(data != null){
+					$("#modal-title").html("아이디 찾기 결과");
+					$("#modal-body").html("아이디 찾기 결과  : " + data);
+				} else {
+					$("#modal-body").html("일치하는 결과가 없습니다.");
+				}
+				
+			},
+			error: function() {
+				alert("Error!");
+			}
+		});
+	}
+	
+	span.onclick = function() {
+		modal.style.display = "none";
+	}
+	
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+	
+	
+</script>
+
 </body>
 </html>

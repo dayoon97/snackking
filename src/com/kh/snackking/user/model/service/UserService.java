@@ -59,4 +59,15 @@ public class UserService {
 		return list;
 	}
 
+	public String findUserId(User reqUser) {
+		
+		Connection con = getConnection();
+		
+		String userId = new UserDao().findUserId(con, reqUser);
+		
+		close(con);
+		
+		return userId;
+	}
+
 }

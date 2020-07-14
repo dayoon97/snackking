@@ -170,4 +170,33 @@ public class UserDao {
 		return list;
 	}
 
+	public String findUserId(Connection con, User reqUser) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String userId = null;
+		
+		String query = prop.getProperty("findUserId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqUser.getUserName());
+			pstmt.setString(2, reqUser.getEmail());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				userId = rset.getString("USER_ID");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("find userId userDao : " + userId);
+		return userId;
+	}
+
 }
