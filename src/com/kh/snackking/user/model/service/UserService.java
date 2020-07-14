@@ -47,13 +47,13 @@ public class UserService {
 		return result;
 	}
 
-	public ArrayList<User> selectUserList(int mngId) {
-		
+
+
+	public ArrayList<User> selectUserNameList(User user) {
 		Connection con = getConnection();
 		
-		ArrayList<User> list = new UserDao().selectUserList(con, mngId);
+		ArrayList<User> list = new UserDao().selectUserNameList(con, user);
 		
-		System.out.println(list);
 		close(con);
 		
 		return list;

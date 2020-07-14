@@ -252,24 +252,24 @@ height: 25px;
 				<div id="subSubTitle1">회원 검색</div>
 					<!-- searchBox start -->
 					<div id="searchBox">
-						<form id="searchForm">
+						<form id="searchForm" action="<%=request.getContextPath()%>/selectName.us" method="post">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
 									<td>이름  :</td>
-									<td><input type="text" class="searchTextBox" size="7"></td>
-																		
+									<td><input type="text" class="searchTextBox" size="7" name="MemberName"></td>
+									
 									<td>회사명  :</td>
-									<td><input type="text" class="searchTextBox" size="7"></td>
+									<td><input type="text" class="searchTextBox" size="7" name="MemberCompany"></td>
 									
 									<td>아이디  :</td>
-									<td><input type="text" class="searchTextBox" size="7"></td>
+									<td><input type="text" class="searchTextBox" size="7" name="MemberId"></td>
 									
 									<td>전화번호  :</td>										
-									<td><input type="text" class="searchTextBox" size="10"></td>
+									<td><input type="text" class="searchTextBox" size="10" name="MemberPhone"></td>
 									
-									<td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
-								
+									<td><input type="submit" class="searchBtn" value="검색하기" id="submit"><input type="hidden" name="mngNo" value="<%=loginUser.getUserNo()%>"></td>
+									
 								</tr>
 							</table>
 						</form>
@@ -287,6 +287,7 @@ height: 25px;
 					<!-- 조회 리스트 테이블 -->
 					<table id="listTable">
 						<!-- 테이블 헤드 -->
+						<input type="hidden" value="<%=loginUser.getUserNo()%>" name="mngNo">
 						<tr id="listHead">
 							<th width="20px"><input type="checkbox" id="checkall"></th>
 							<th width="30px">번호</th>
@@ -299,32 +300,30 @@ height: 25px;
 						</tr>
 						
 						<!-- 리스트 바디  -->
-						<% for(User l : list) { %>
+					
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
-							<td><%= l.getUserNo() %></td>
-							<td><%= l.getUserId() %></td>
-							<td><%= l.getCompany() %></td>
-							<td><%= l.getUserName() %></td>
-							<td><%= l.getAddress() %></td>
-							<td><%= l.getPhone() %></td>
-							<td><%= l.getEnrollDate() %></td>
+							<td><label name="userNo"></label></td>
+							<td><label name="userId"></label></td>
+							<td><label name="company"></label></td>
+							<td><label name="userName"></label></td>
+							<td><label name="address"></label></td>
+							<td><label name="phone"></label></td>
+							<td><label name="enrollDate"></label></td>
+						</tr> 
+						
+						<tr class="listBody">
+							<td><input type="checkbox" name="chk"></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
-						<% } %>
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
@@ -342,22 +341,9 @@ height: 25px;
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
-							<td>내용</td>
 						</tr>
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
@@ -375,11 +361,19 @@ height: 25px;
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
-							<td>내용</td>
 						</tr>
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
 							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+							<td>내용</td>
+						</tr>
+						<tr class="listBody">
+							<td><input type="checkbox" name="chk"></td>
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
@@ -413,7 +407,15 @@ height: 25px;
    	   
    	});
    	
-
+	/* $(function(){
+		var MemberName = document.getElementsByName("MemberName");
+		
+		$("#submit").click(function(){
+			MemberName
+		});
+	}); */
+	
+	
    	</script>
 	
 </body>

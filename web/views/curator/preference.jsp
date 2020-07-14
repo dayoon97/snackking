@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>/
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,11 +15,10 @@
 		height: 100vh;
 		position: relative;
 	}
-	#background-box {
+	#background-box2 {
 		position: relative;
 		width: 1092px;
-		/* width: auto; */
-		height: 2800px;
+		height: 2600px;
 		top: 15px;
 		background: white;
 		border-radius: 12px;
@@ -95,7 +94,7 @@
 	#searchBox{
 		position: absolute;
 		width: 980px;
-		height: 2500px;
+		height: 2300px;
 		left: 40px;
 		right: 40px;
 		margin: 0 auto;
@@ -214,7 +213,7 @@ text-align:center;
 	<!-- outer start -->
 	<div id="outer">
 		<!-- background-box start -->
-		<div id="background-box">
+		<div id="background-box2">
 		
 			<!-- title-area start -->
 			<div id="titleArea">
@@ -229,8 +228,8 @@ text-align:center;
 					<div id="searchBox">
 					<!-- 조회 제목 -->
 						<div id="subSubTitle1"><h2>기본 정보 입력</h2></div>
-						<form id="searchForm" action="" method="">
-						
+						<form id="searchForm" action="<%= request.getContextPath() %>/insertPer.per" method="post">
+							<input type="hidden" nama="userid" value="<%=loginUser.getUserNo()%>">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
@@ -313,15 +312,20 @@ text-align:center;
 								<table>
 									<tr >
 										<td width="50px;"></td>
-										<td width="90px;"><input type="checkbox" name="kinds" value="snack">과자</td>
+										<td width="90px;"><input type="checkbox" id="snack" name="kinds" value="과자">
+										<label for="snack">과자</label></td>
 										<td width="20px;"></td>
-										<td width="150px;"><input type="checkbox" name="kinds" value="candy">캔디/껌/초콜릿</td>
+										<td width="150px;"><input type="checkbox" id="candy" name="kinds" value="캔디/껌/초콜릿">
+										<label for="candy">캔디/껌/초콜릿</label></td>
 										<td width="20px;"></td>
-										<td width="120px;"><input type="checkbox" name="kinds" value="coffee">커피/차</td>
+										<td width="120px;"><input type="checkbox" id="coffee" name="kinds" value="커피/차">
+										<label for="coffee">커피/차</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="kinds" value="beverage">음료</td>
+										<td width="90px;"><input type="checkbox" id="beverage" name="kinds" value="음료">
+										<label for="beverage">음료</label></td>
 										<td width="20px;"></td>
-										<td width="120px;"><input type="checkbox" name="kinds" value="curamen">컵라면/컵밥</td>
+										<td width="120px;"><input type="checkbox" id="curamen" name="kinds" value="컵라면/컵밥">
+										<label for="curamen">컵라면/컵밥</label></td>
 									</tr>
 								</table>
 							</div>
@@ -332,15 +336,20 @@ text-align:center;
 								<table>
 									<tr>
 										<td width="50px;"></td>
-										<td width="90px;"><input type="checkbox" name="flavor" value="">달콤</td>
+										<td width="90px;"><input type="checkbox" id="sweet" name="flavor" value="달콤">
+										<label for="sweet">달콤</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="flavor" value="">짭짤</td>
+										<td width="90px;"><input type="checkbox" id="salty" name="flavor" value="짭짤">
+										<label for="salty">짭짤</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="flavor" value="">단백</td>
+										<td width="90px;"><input type="checkbox" id="plain" name="flavor" value="단백">
+										<label for="plain">단백</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="flavor" value="">고소</td>
+										<td width="90px;"><input type="checkbox" id="sue" name="flavor" value="고소">
+										<label for="sue">고소</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="flavor" value="">새콤</td>
+										<td width="90px;"><input type="checkbox" id="sour" name="flavor" value="새콤">
+										<label for="sour">새콤</label></td>
 									</tr>
 								</table>
 							</div>
@@ -351,27 +360,37 @@ text-align:center;
 								<table>
 									<tr>
 										<td width="50px;"></td>
-										<td width="90px;"><input type="checkbox" name="smell" value="">바나나</td>
+										<td width="90px;"><input type="checkbox" id="banana" name="smell" value="바나나">
+										<label for="banana">바나나</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="smell" value="">초코</td>
+										<td width="90px;"><input type="checkbox" id="choco" name="smell" value="초코">
+										<label for="choco">초코</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="smell" value="">소다</td>
+										<td width="90px;"><input type="checkbox" id="soda" name="smell" value="소다">
+										<label for="soda">소다</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="smell" value="">커피</td>
+										<td width="90px;"><input type="checkbox" id="coffee" name="smell" value="커피">
+										<label for="coffee">커피</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="smell" value="">시나몬</td>
+										<td width="90px;"><input type="checkbox" id="cinnamon" name="smell" value="시나몬">
+										<label for="cinnamon">시나몬</label></td>
 									</tr>
 									<tr>
 										<td width="50px;"></td>
-										<td width="90px;"><input type="checkbox" name="smell" value="">민트</td>
+										<td width="90px;"><input type="checkbox" id="mint" name="smell" value="민트">
+										<label for="mint">민트</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="smell" value="">포도</td>
+										<td width="90px;"><input type="checkbox" id="grape" name="smell" value="포도">
+										<label for="grape">포도</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="smell" value="">딸기</td>
+										<td width="90px;"><input type="checkbox" id="strawberry" name="smell" value="딸기">
+										<label for="strawberry">딸기</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="smell" value="">땅콩</td>
+										<td width="90px;"><input type="checkbox" id="peanut" name="smell" value="땅콩">
+										<label for="peanut">땅콩</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="smell" value="">바닐라</td>
+										<td width="90px;"><input type="checkbox" id="vanilla" name="smell" value="바닐라">
+										<label for="vanilla">바닐라</label></td>
 									</tr>
 								</table>
 							</div>
@@ -384,7 +403,7 @@ text-align:center;
 								</tr>
 								<tr>
 								<td>
-									<input type="text" class="" size="100" style="height:40px;" placeholder="예시: 민트">
+									<input type="text" class="" size="100" name="freesmell" style="height:40px;" placeholder="예시: 민트">
 								</td>
 								</tr>
 							</table>
@@ -395,27 +414,37 @@ text-align:center;
 								<table>
 									<tr>
 										<td width="50px;"></td>
-										<td width="90px;"><input type="checkbox" name="allergy" value="">밀</td>
+										<td width="90px;"><input type="checkbox" id="wheat" name="allergy" value="밀">
+										<label for="wheat">밀</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="allergy" value="">계란</td>
+										<td width="90px;"><input type="checkbox" id="egg" name="allergy" value="계란">
+										<label for="egg">계란</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="allergy" value="">우유</td>
+										<td width="90px;"><input type="checkbox" id="milk" name="allergy" value="우유">
+										<label for="milk">우유</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="allergy" value="">대두</td>
+										<td width="90px;"><input type="checkbox" id="soybean" name="allergy" value="대두">
+										<label for="soybean">대두</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="allergy" value="">게</td>
+										<td width="90px;"><input type="checkbox" id="crab" name="allergy" value="게">
+										<label for="crab">게</label></td>
 									</tr>
 									<tr>
 										<td width="50px;"></td>
-										<td width="90px;"><input type="checkbox" name="allergy" value="">돼지고기</td>
+										<td width="90px;"><input type="checkbox" id="pig" name="allergy" value="돼지고기">
+										<label for="pig">돼지고기</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="allergy" value="">땅콩</td>
+										<td width="90px;"><input type="checkbox" id="peanut" name="allergy" value="땅콩">
+										<label for="peanut">땅콩</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="allergy" value="">메밀</td>
+										<td width="90px;"><input type="checkbox" id="buckwheat" name="allergy" value="메밀">
+										<label for="buckwheat">메밀</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" name="allergy" value="">호두</td>
+										<td width="90px;"><input type="checkbox" id="walnut" name="allergy" value="호두">
+										<label for="walnut">호두</label></td>
 										<td width="20px;"></td>
-										<td width="200px;"><input type="checkbox" name="allergy" value="">기타 <input type="text" size="10"></td>
+										<td width="200px;"><input type="checkbox" id="" name="allergy" value="">기타
+										<label for="vanilla"><input type="text" size="10"></label></td>
 									</tr>
 								</table>
 							</div>
@@ -426,11 +455,14 @@ text-align:center;
 								<table>
 									<tr>
 										<td width="100px;"></td>
-										<td width="90px;"><input type="checkbox" name="amount" value="풍부하게" onclick="amountclick(this);">풍부하게</td>
+										<td width="90px;"><input type="checkbox" id="abundance" name="perstyle" value="풍부하게" onclick="amountclick(this);">
+										<label for="abundance">풍부하게</label></td>
 										<td width="100px;"></td>
-										<td width="90px;"><input type="checkbox" name="amount" value="고급지게" onclick="amountclick(this);">고급지게</td>
+										<td width="90px;"><input type="checkbox" id="advanced" name="perstyle" value="고급지게" onclick="amountclick(this);">
+										<label for="advanced">고급지게</label></td>
 										<td width="100px;"></td>
-										<td width="90px;"><input type="checkbox" name="amount" value="반반" onclick="amountclick(this);">반반</td>
+										<td width="90px;"><input type="checkbox" id="half" name="perstyle" value="반반" onclick="amountclick(this);">
+										<label for="half">반반</label></td>
 									</tr>
 								</table>
 							</div>
@@ -442,13 +474,17 @@ text-align:center;
 								<table>
 									<tr>
 										<td width="50px;"></td>
-										<td width="200px;"><input type="checkbox" name="equipment" value="">스낵 쇼케이스(대형)</td>
+										<td width="200px;"><input type="checkbox" id="Box" name="equipment" value="스낵 쇼케이스(대형)">
+										<label for="bBox">스낵 쇼케이스(대형)</label></td>
 										<td width="40px;"></td>
-										<td width="200px;"><input type="checkbox" name="equipment" value="">스낵 쇼케이스(소형)</td>
+										<td width="200px;"><input type="checkbox" id="Box" name="equipment" value="스낵 쇼케이스(소형)">
+										<label for="sBox">스낵 쇼케이스(소형)</label></td>
 										<td width="40px;"></td>
-										<td width="200px;"><input type="checkbox" name="equipment" value="">냉장고(대형)</td>
+										<td width="200px;"><input type="checkbox" id="bFrige" name="equipment" value="냉장고(대형)">
+										<label for="bFrige">냉장고(대형)</label></td>
 										<td width="40px;"></td>
-										<td width="200px;"><input type="checkbox" name="equipment" value="">냉장고(소형)</td>
+										<td width="200px;"><input type="checkbox" id="sFrige" name="equipment" value="냉장고(소형)">
+										<label for="sFrige">냉장고(소형)</label></td>
 									</tr>
 									
 									<tr>
@@ -471,7 +507,7 @@ text-align:center;
 								</tr>
 								<tr>
 								<td>
-									<input type="text" class="" size="100" style="height:40px;" placeholder="예시: 냉장고">
+									<input type="text" class="" name="equipment2" size="100" style="height:40px;" placeholder="예시: 냉장고">
 								</td>
 								</tr>
 							</table>
@@ -488,7 +524,7 @@ text-align:center;
 
 <script type="text/javascript">
 function amountclick(am){
-    var obj = document.getElementsByName("amount");
+    var obj = document.getElementsByName("perstyle");
     for(var i=0; i<obj.length; i++){
         if(obj[i] != am){
             obj[i].checked = false;
@@ -504,7 +540,6 @@ function deliveryclick(de){
         }
     }
 }
-
 function packingclick(pack){
     var obj = document.getElementsByName("packing");
     for(var i=0; i<obj.length; i++){
