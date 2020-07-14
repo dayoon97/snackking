@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 
@@ -87,6 +88,8 @@ public class UserDao {
 				loginUser.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				loginUser.setWithdrawalDate(rset.getDate("WITHDRAWAL_DATE"));
 				loginUser.setStatus(rset.getString("STATUS"));
+				
+				
 			}
 			
 
@@ -96,6 +99,7 @@ public class UserDao {
 			close(rset);
 			close(pstmt);
 		}
+		
 		return loginUser;
 	}
 
@@ -127,6 +131,115 @@ public class UserDao {
 		}
 		
 		return result;
+	}
+
+//	public ArrayList<User> selectUserList(Connection con, User user) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		ArrayList<User> list = null;
+//		
+//		String query = prop.getProperty("selectUserList");
+//		
+//		try {
+//			pstmt = con.prepareStatement(query);
+//			pstmt.setInt(1, user.getMngId());
+//			
+//			list = new ArrayList<User>();
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			while(rset.next()) {
+//				User u = new User();
+//				u.setUserNo(rset.getInt("USER_NO"));
+//				u.setUserId(rset.getString("USER_ID"));
+//				u.setCompany(rset.getString("COMPANY"));
+//				u.setAddress(rset.getString("ADDRESS"));
+//				u.setPhone(rset.getString("PHONE"));
+//				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+//				
+//				list.add(user);
+//				
+//				System.out.println(list);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}  finally {
+//			close(pstmt);
+//			close(rset);
+//		}
+//		
+//		
+//		
+//		return list;
+//	}
+
+	public ArrayList<User> selectUserNameList(Connection con, User user) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("selectUserNameList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, user.getUserNo());
+			pstmt.setString(2, user.getUserName());
+			
+			list = new ArrayList<User>();
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserNo(rset.getInt("USER_NO"));
+				u.setUserId(rset.getString("USER_ID"));
+				u.setCompany(rset.getString("COMPANY"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setAddress(rset.getString("ADDRESS"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				
+				list.add(u);
+				
+				System.out.println("Dao list : " + list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public String findUserId(Connection con, User reqUser) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String userId = null;
+		
+		String query = prop.getProperty("findUserId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqUser.getUserName());
+			pstmt.setString(2, reqUser.getEmail());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				userId = rset.getString("USER_ID");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("find userId userDao : " + userId);
+		return userId;
 	}
 
 }

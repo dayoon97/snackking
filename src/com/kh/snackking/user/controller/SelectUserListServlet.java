@@ -1,7 +1,9 @@
 package com.kh.snackking.user.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,18 +33,23 @@ public class SelectUserListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		String userId = request.getParameter("userId");
-		String company = request.getParameter("company");
-		String userName = request.getParameter("userName");
-		String address = request.getParameter("address");
-		String phone = request.getParameter("phone");
-		String enrollDate = request.getParameter("enrollDate");
 		
-		ArrayList<User> list = new UserService().selectUserList(); 
+		int MngNo = Integer.parseInt(request.getParameter("mngNo"));
 		
 		
+		ArrayList<User> list = new UserService().selectUserList(MngNo); 
 		
+		System.out.println("회원 리스트 : " + list);
+		
+		String page = "";
+		if(list != null) {
+			page = "views/chiefManager/cmMemberSelect.jsp";
+			request.setAttribute("list", list);
+		} else {
+			System.out.println("에러");
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

@@ -10,18 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.snackking.user.model.service.UserService;
+import com.kh.snackking.user.model.vo.User;
 
 /**
- * Servlet implementation class UserIdCheckServlet
+ * Servlet implementation class FindUserIdServlet
  */
-@WebServlet("/checkUserId.us")
-public class UserIdCheckServlet extends HttpServlet {
+@WebServlet("/findId.us")
+public class FindUserIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserIdCheckServlet() {
+    public FindUserIdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +32,22 @@ public class UserIdCheckServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("userId");
-//		System.out.println("useridcheck servlet : " + userId);
-
-		int result = new UserService().idCheck(userId);
-//		System.out.println("useridcheck result servlet : " + result);
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+//		System.out.println("find userid name servlet : " + name);
+//		System.out.println("find userid email servlet : " + email);
+		
+		User reqUser = new User();
+		reqUser.setUserName(name);
+		reqUser.setEmail(email);
+		
+		String userId = new UserService().findUserId(reqUser);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
-		new Gson().toJson(result, response.getWriter());
+		new Gson().toJson(userId, response.getWriter());
 		
 	}
 

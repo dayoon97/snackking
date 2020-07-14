@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <% String msg = (String) request.getAttribute("msg"); %>
-     
-     <!-- 이전 페이지의 경로를 나타낸다 -->
-    <%String url = request.getHeader("Referer"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -134,7 +130,7 @@ table{
 								</tr>
 								<tr>
 									<td><input type="text" id="admin-id" name="userId" size="50" placeholder="아이디를 입력해주세요">
-										<input type="hidden" name="url" value="<%=url%>">
+										<%-- <input type="hidden" name="url" value="<%=url%>"> --%>
 									</td>
 								</tr>
 								<tr>
@@ -159,17 +155,6 @@ table{
 			</div>
 		</div>
 	</div>
-	
-	<script>
-   <%if (msg != null){ %>
-      alert("<%=msg%>");
-   <%}%>
-
-
-   
-	</script>
-	
-	
 	
 </body>
 </html>

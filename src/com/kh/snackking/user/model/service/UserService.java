@@ -4,7 +4,7 @@ package com.kh.snackking.user.model.service;
 import static com.kh.snackking.common.JDBCTemplate.*;
 
 import java.sql.Connection;
-
+import java.util.ArrayList;
 
 import com.kh.snackking.user.model.dao.UserDao;
 import com.kh.snackking.user.model.vo.User;
@@ -45,6 +45,29 @@ public class UserService {
 		close(con);
 		
 		return result;
+	}
+
+
+
+	public ArrayList<User> selectUserNameList(User user) {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().selectUserNameList(con, user);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public String findUserId(User reqUser) {
+		
+		Connection con = getConnection();
+		
+		String userId = new UserDao().findUserId(con, reqUser);
+		
+		close(con);
+		
+		return userId;
 	}
 
 }

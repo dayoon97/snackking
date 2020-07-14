@@ -24,9 +24,9 @@
 					errorsMessage = "회원 가입에 실패하였습니다!";
 					movePath = "<%= request.getContextPath() %>/views/common/join.jsp";
 					break;
-				case "updateMember" : 
-					successMessage = "회원 정보 수정이 성공하였습니다!";
-					movePath = "<%= request.getContextPath() %>";
+				case "loginUser" : 
+					errorsMessage = "로그인에 실패하였습니다!!";
+					movePath = "<%= request.getContextPath() %>/views/common/login.jsp";
 					break;
 				
 			}

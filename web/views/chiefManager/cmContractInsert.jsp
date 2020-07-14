@@ -144,6 +144,18 @@
 		background: #F6F1F1; 
 	}
 	
+	/* 배송주기 주, 요일 타이핑하는 부분, input 태그*/
+	.deliveryTextBox {
+		border:0;
+		outline:0;
+		height: 20px;
+		padding:0;
+		margin:0;
+		background: #F6F1F1;
+	
+	}
+	
+	
 	/*노란 버튼 공통 스타일*/
  	.searchBtn{
 		border:0;
@@ -219,25 +231,7 @@
 }
 
 
-	.subSubTable {
-		margin-top: 10px;
-		margin-left: 10px;
-		width: 830px; 
-		height: 200px; 
-		margin-left: 30px;
-	}
-
-	/*td 글자 스타일 지정*/
-  	 .subSubTalble>td{
-		height: 30px;
-		font-family: NanumSquare_ac;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 15px;
-		color: #000000;
-		padding-top:5px;
-		padding-left:0;	
-	}
+	
 }
 
 /*조회 결과 리스트 제목 스타일*/
@@ -380,56 +374,18 @@ height: 25px;
 							</tr>
 							<tr>
 								<td>배송주기 :</td>
-								<td><input type="radio" name="delivery" value="everyday">
-									매일 &nbsp;&nbsp;&nbsp; <input type="radio" class="searchTextBox" name="delivery"
-									value="everyweek"> 매주&nbsp;&nbsp;&nbsp; <input
-									type="radio" name="delivery" value="everymonth"> 매월</td>
-								<td></td>
-								<td></td>
+								<td><input type="radio" id="del1" name="delivery" value="everyday">
+									<label for="del1">매일 &nbsp;&nbsp;&nbsp;</label> 
+									<input type="radio" id="del2" class="searchTextBox" name="delivery" value="everyweek">
+									<label for="del2">매주 &nbsp;&nbsp;&nbsp;</label>
+									<input type="radio" id="del3" name="delivery" value="everymonth">
+									<label for="del3">매월 &nbsp;&nbsp;&nbsp;</label></td>
+									<td><input type="text" class="deliveryTextBox" size="10" name="deliveryTextBox" placeholder="주, 요일 작성"></td>
+									<td></td>
 								<td></td>
 								<td></td>
 							</tr>
-							<!-- 클릭했을 때 보여지는 세부선택 부분-->
-							<!-- <tr style="display: none"> -->
-							<tr style="display:none">
-								<td colspan="6">
-									<div>
-										<!-- 클릭했을 떄 보여지는 세부선택 부분 -->	
-										<table class="subSubTable" style="background:white; border:1px solid black;">
-											<tr>
-												<td>매</td>											
-												<td>
-												<input type="checkbox" name="week" width="">첫째</td>									
-												<td>
-												<input type="checkbox" width="week">둘째</td>											
-												<td>
-												<input type="checkbox" width="week">셋째</td>											
-												<td>
-												<input type="checkbox" width="week">넷째</td>											
-												<td>
-												<input type="checkbox" width="week">다섯째</td>											
-												<td>주 마다 다음 요일에 배송</td>											
-											</tr>
-											<tr>
-												<td></td>											
-												<td>
-												<input type="checkbox" width="">월요일</td>											
-												<td>
-												<input type="checkbox" width="">화요일</td>											
-												<td>
-												<input type="checkbox" width="">수요일</td>											
-												<td>
-												<input type="checkbox" width="">목요일</td>											
-												<td>
-												<input type="checkbox" width="">금요일</td>											
-												<td></td>											
-											</tr>
-											
-										</table>
-									</div>
-								</td>
-								
-							</tr>
+							
 									
 						</table>
 								
