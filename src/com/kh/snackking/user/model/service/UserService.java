@@ -69,5 +69,14 @@ public class UserService {
 		
 		return userId;
 	}
+	
+	public ArrayList<User> selectUserList(int mngNo) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().selectUserList(con, mngNo);
+		
+		return list;
+	}
 
 }
