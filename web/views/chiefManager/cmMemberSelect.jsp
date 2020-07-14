@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User, java.util.*"%>
- <% ArrayList<User> list = (ArrayList<User>) session.getAttribute("list"); %>
+ <% ArrayList<User> list = (ArrayList<User>) request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -226,6 +226,9 @@ height: 25px;
 	margin-right: auto;
 	display: table;
 }
+input[type='text']{
+	color:transparent;
+}
 </style>
 </head>
 <body>
@@ -252,23 +255,23 @@ height: 25px;
 				<div id="subSubTitle1">회원 검색</div>
 					<!-- searchBox start -->
 					<div id="searchBox">
-						<form id="searchForm" action="<%=request.getContextPath()%>/selectName.us" method="post">
+						<form id="searchForm"<%--  action="<%=request.getContextPath()%>/selectName.us?num=<%=loginUser.getUserNo() %>" method="post" value="mngNo" --%>>
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
 									<td>이름  :</td>
-									<td><input type="text" class="searchTextBox" size="7" name="MemberName"></td>
+									<td><input type="text" class="searchTextBox" size="7" name="memberName" onfocus="this.value=''; return true" value="memberName"></td>
 									
 									<td>회사명  :</td>
-									<td><input type="text" class="searchTextBox" size="7" name="MemberCompany"></td>
+									<td><input type="text" class="searchTextBox" size="7" name="searchCondition" onfocus="this.value=''; return true" value="memberCompany"></td>
 									
 									<td>아이디  :</td>
-									<td><input type="text" class="searchTextBox" size="7" name="MemberId"></td>
+									<td><input type="text" class="searchTextBox" size="7" name="searchCondition" onfocus="this.value=''; return true" value="memberId"></td>
 									
 									<td>전화번호  :</td>										
-									<td><input type="text" class="searchTextBox" size="10" name="MemberPhone"></td>
+									<td><input type="text" class="searchTextBox" size="10" name="searchCondition" onfocus="this.value=''; return true" value="memberPhone"></td>
 									
-									<td><input type="submit" class="searchBtn" value="검색하기" id="submit"><input type="hidden" name="mngNo" value="<%=loginUser.getUserNo()%>"></td>
+									<td><input type="submit" class="searchBtn" value="검색하기" id="submit" name="searchBtn"></td>
 									
 								</tr>
 							</table>
@@ -285,10 +288,11 @@ height: 25px;
 					<span id="apply">조회 결과 수 :</span>
 					
 					<!-- 조회 리스트 테이블 -->
-					<table id="listTable">
+					<table id="listTable" name="listTable">
 						<!-- 테이블 헤드 -->
-						<input type="hidden" value="<%=loginUser.getUserNo()%>" name="mngNo">
+						<thead>
 						<tr id="listHead">
+						
 							<th width="20px"><input type="checkbox" id="checkall"></th>
 							<th width="30px">번호</th>
 							<th width="80px">아이디</th>
@@ -298,21 +302,23 @@ height: 25px;
 							<th width="100px">연락처</th>
 							<th width="80px">가입일</th>
 						</tr>
-						
+						</thead>
 						<!-- 리스트 바디  -->
-					
+						<tbody>
+							<% for(User u : list) {%>
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
-							<td><label name="userNo"></label></td>
-							<td><label name="userId"></label></td>
-							<td><label name="company"></label></td>
-							<td><label name="userName"></label></td>
-							<td><label name="address"></label></td>
-							<td><label name="phone"></label></td>
-							<td><label name="enrollDate"></label></td>
+							<td><%= u.getUserNo() %></td>
+							<td><%= u.getUserId() %></td>
+							<td><%= u.getCompany() %></td>
+							<td><%= u.getUserName() %></td>
+							<td><%= u.getAddress() %></td>
+							<td><%= u.getPhone() %></td>
+							<td><%= u.getEnrollDate() %></td>
 						</tr> 
-						
-						<tr class="listBody">
+						<% } %>
+					</tbody>
+						<!-- <tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
 							<td></td>
 							<td></td>
@@ -381,7 +387,7 @@ height: 25px;
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
-						</tr>
+						</tr> -->
 					</table>
 				</div>
 		
@@ -414,6 +420,60 @@ height: 25px;
 			MemberName
 		});
 	}); */
+	
+	$(function(){
+		$("#searchCondition").keyup(function(){
+			$(this).css({"color":"black"});
+		});
+	});
+	
+	$(function(){
+		$("#searchBtn").click(function(){
+			$("#listTable tbody").remove();
+			$("#listTable tr").remove();
+			$("#listTable td").remove();
+			$.ajax({
+				url: "<%=request.getContextPath()%>/selectName.us?num=<%=loginUser.getUserNo()%>",
+				data: {memberName : $("#memberName").val()},
+				type: "get",
+				success: function(data){
+					console.log(data);
+					$tableBody = $("#listTable tbody");
+ 					
+ 					$tableBody.html('');
+ 					
+ 					$.each(data, function(index, value){
+ 						var $tr = $("<tr>");
+ 						var $noTd = $("<td>").text(value.userNo);
+ 						var $idTd = $("<td>").text(decodeURIComponent(value.userId));
+ 						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
+ 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
+ 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
+ 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
+ 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
+ 						
+ 						$tr.append($noTd);
+ 						$tr.append($idTd);
+ 						$tr.append($companyTd);
+ 						$tr.append($userNameTd);
+ 						$tr.append($addressTd);
+ 						$tr.append($phoneTd);
+ 						$tr.append($enrollDateTd);
+ 						
+ 						
+ 						$tableBody.append($tr);
+ 					});
+ 					
+ 					
+ 				},
+ 				error: function(data){
+ 					console.log("에러!");
+ 				}
+				
+				
+			});
+		});
+	});
 	
 	
    	</script>
