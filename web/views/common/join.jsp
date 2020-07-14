@@ -150,10 +150,10 @@ textarea {
 									<td><input type="password" id="password2" name="password2" size="50" placeholder="비밀번호 확인"></td>
 								</tr>
 								<tr>
-									<td>담당자명(이름)<strong>*</strong></td>
+									<td>이름<strong>*</strong></td>
 								</tr>
 								<tr>
-									<td><input type="text" id="userName" name="userName" size="50" placeholder="담당자명(이름)"></td>
+									<td><input type="text" id="userName" name="userName" size="50" placeholder="이름"></td>
 								</tr>
 								<tr>
 									<td>회사명<strong>*</strong></td>

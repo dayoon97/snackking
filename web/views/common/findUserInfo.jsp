@@ -213,7 +213,7 @@ th {
 			<div class="modal-content">
 				<span class="close">&times;</span>
 				<div class="modal-header">
-					<h4 class="modal-title" id="modal-title"></h4>
+					<h2 class="modal-title" id="modal-title"></h2>
 				</div>	<!-- modal-header end -->
 				<div class="modal-body">
 					<p id="modal-body"></p>
@@ -227,13 +227,13 @@ th {
 <script type="text/javascript">
 	var modal = document.getElementById("find-Modal");
 	var btn1 = document.getElementById("findId-btn");
+	var btn2 = document.getElementById("findPwd-btn");
 	var span = document.getElementsByClassName("close")[0];
 	
 	btn1.onclick = function() {
 		var name = $("#findIdName").val();
 		var email = $("#findIdEmail").val();
-		console.log("name : " + name);
-		console.log("email : " + email);
+
 		$.ajax({
 			url: "<%= request.getContextPath() %>/findId.us",
 			type: "post",
@@ -258,6 +258,37 @@ th {
 			}
 		});
 	}
+	
+	btn2.onclick = function() {
+		var userId = $("#findPwdUserId").val();
+		var name = $("#findPwdName").val();
+		var email = $("#findPwdEmail").val();
+		
+		$.ajax({
+			url: "<%= request.getContextPath() %>/findPwd.us",
+			type: "post",
+			data: {
+				userId: userId,
+				name: name,
+				email: email
+			},
+			success: function(data) {
+				console.log(data);
+				/* modal.style.display = "block";
+				
+				if(data != null){
+					$("#modal-title").html("아이디 찾기 결과");
+					$("#modal-body").html("아이디 찾기 결과  : " + data);
+				} else {
+					$("#modal-body").html("일치하는 결과가 없습니다.");
+				} */
+				
+			},
+			error: function() {
+				alert("Error!");
+			}
+		});
+	};
 	
 	span.onclick = function() {
 		modal.style.display = "none";
