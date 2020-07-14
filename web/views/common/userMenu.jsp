@@ -300,7 +300,7 @@
 								<p class="title">선호도조사</p>
 							</div>
 								<ul class="con">
-									<li><a href="../curatore/preference.jsp">선호도 조사</a></li>
+									<li><a href="../curator/preference.jsp">선호도 조사</a></li>
 									<li><a href="../">선호도 조사 내역</a></li>
 								</ul>
 						</li>
