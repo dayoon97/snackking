@@ -323,7 +323,7 @@ height: 25px;
 				<div id="subSubTitle1">설비 검색</div>
 					<!-- searchBox start -->
 					<div id="searchBox">
-						<form id="searchForm">
+						<form id="searchForm" action="<%=request.getContextPath()%>/selectEquipment" method="post">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
@@ -335,22 +335,22 @@ height: 25px;
 												<span>선택</span>
 												<i class="fa fa-chevron-left"></i>
 											</div>
-											<input type="hidden" name="Job-code" value="">
+											<input type="hidden" name="equipType" id="equipType" value="">
 											<ul class="dropdown-menu">
-												<li>선택</li>
-												<li><input type="hidden" name="small_ref" value="소형냉장고">소형냉장고</li>
-												<li><input type="hidden" name="big_ref" value="대형냉장고">소형냉장고</li>
-												<li><input type="hidden" name="small_case" value="소형케이스">소형케이스</li>
-												<li><input type="hidden" name="big_case" value="대형케이스">대형케이스</li>
+												<li id="">선택</li>
+												<li id="냉장고소형">소형냉장고</li>
+												<li id="냉장고대형">대형냉장고</li>
+												<li id="스낵쇼케이스소형">소형케이스</li>
+												<li id="스낵쇼케이스대형">대형케이스</li>
 											</ul>
 										</div>
 									</td>
 									
 									<td>모델명 :</td>
-									<td><input type="text" class="searchTextBox" size="7"  name="equipName"></td>
+									<td><input type="text" class="searchTextBox" size="7"  name="equipName" value=""></td>
 										
 									<td>제조사  :</td>										
-									<td><input type="text" class="searchTextBox" size="7" name="equipMake"></td>
+									<td><input type="text" class="searchTextBox" size="7" name="equipMake" value=""></td>
 									
 									<td style="width:110px;">대여가능 여부  :</td>
 									<td><input type="radio" name="possible" value="Y" id="Y"><label for="Y">Y</label>
@@ -397,6 +397,13 @@ height: 25px;
 							<td>내용</td>
 							<td>내용</td>
 						</tr>
+						
+						
+						
+						
+						
+						
+						
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
 							<td>내용</td>
@@ -406,15 +413,7 @@ height: 25px;
 							<td>내용</td>
 							<td>내용</td>
 						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
+						
 					</table>
 				</div>
 		
@@ -467,6 +466,8 @@ height: 25px;
 	   	});
 		
 	</script>	
+	
+
 	
 </body>
 </html>

@@ -1,7 +1,7 @@
 package com.kh.snackking.equipment.model.dao;
 
 
-import static com.kh.snackking.common.JDBCTemplate.*;
+import static com.kh.snackking.common.JDBCTemplate.close;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -61,18 +60,15 @@ public class EquipmentDao {
 		ArrayList<Equipment> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
 		String query = prop.getProperty("selectList");
-		
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, equipment.getEquipCode());
-			pstmt.setString(2, equipment.getEquipType());
-			pstmt.setString(3, equipment.getEquipName());
-			pstmt.setString(4, equipment.getPossible());
-			pstmt.setString(5, equipment.getEquipMake());
-			rset = pstmt.executeQuery(query);
+			pstmt.setString(1, equipment.getEquipType());
+			pstmt.setString(2, equipment.getEquipName());
+			pstmt.setString(3, equipment.getPossible());
+			pstmt.setString(4, equipment.getEquipMake());
+			rset = pstmt.executeQuery();
 			list = new ArrayList<Equipment>();
 			
 			while(rset.next()) {
@@ -80,10 +76,12 @@ public class EquipmentDao {
 				e.setEquipCode(rset.getInt("EQUIP_CODE"));
 				e.setEquipType(rset.getString("EQUIP_TYPE"));
 				e.setEquipName(rset.getString("EQUIP_NAME"));
-				e.setPossible(rset.getString("POSIBLE"));
+				e.setPossible(rset.getString("POSSIBLE"));
 				e.setEquipMake(rset.getString("EQUIP_MAKE"));
 				list.add(e);
+				System.out.println(e);
 			}	
+			
 		} catch (SQLException e) {
 		e.printStackTrace();
 		}finally {
