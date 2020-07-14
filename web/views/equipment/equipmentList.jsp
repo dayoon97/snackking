@@ -320,42 +320,43 @@ height: 25px;
 			<!-- search-area start -->
 			<div id="searchArea">
 				<!-- 조회 제목 -->
-				<div id="subSubTitle1">재고 검색</div>
+				<div id="subSubTitle1">설비 검색</div>
 					<!-- searchBox start -->
 					<div id="searchBox">
 						<form id="searchForm">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
-									<td>설비ID  :</td>
-									<td><input type="text" class="searchTextBox" size="7"></td>
-																		
+								
 									<td>설비타입  :</td>
 									<td>
-										<!-- <select id="searchCondition" name="searchCondition">
-											<option value="none">==선택==</option>
-											<option value="continue">진행중</option>
-											<option value="endContract">종료</option>
-										</select> -->
-										<div class="dropdown">
+										<div class="dropdown"  style="width: 120px;">
 											<div class="select">
 												<span>선택</span>
 												<i class="fa fa-chevron-left"></i>
 											</div>
-											<input type="hidden" name="Job-code">
+											<input type="hidden" name="Job-code" value="">
 											<ul class="dropdown-menu">
-												<li id="continue">진행중</li>
-												<li id="endContract">종료</li>
+												<li>선택</li>
+												<li><input type="hidden" name="small_ref" value="소형냉장고">소형냉장고</li>
+												<li><input type="hidden" name="big_ref" value="대형냉장고">소형냉장고</li>
+												<li><input type="hidden" name="small_case" value="소형케이스">소형케이스</li>
+												<li><input type="hidden" name="big_case" value="대형케이스">대형케이스</li>
 											</ul>
 										</div>
 									</td>
 									
+									<td>모델명 :</td>
+									<td><input type="text" class="searchTextBox" size="7"  name="equipName"></td>
+										
+									<td>제조사  :</td>										
+									<td><input type="text" class="searchTextBox" size="7" name="equipMake"></td>
 									
-									<td>설비명  :</td>										
-									<td><input type="text" class="searchTextBox" size="7"></td>
-									
-									<td style="width: 110px;">대여가능수량  :</td>
-									<td><input type="text" class="searchTextBox" size="7"></td>
+									<td style="width:110px;">대여가능 여부  :</td>
+									<td><input type="radio" name="possible" value="Y" id="Y"><label for="Y">Y</label>
+                          				 <input type="radio" name="possible" value="N" id="N"><label for="N">N</label>
+                           			</td>
+
 									
 									<td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
 								
@@ -388,51 +389,6 @@ height: 25px;
 						
 						<!-- 리스트 바디  -->
 						<tr class="listBody" onclick="location.href='equipmentDetail.jsp';">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
 							<td>내용</td>
 							<td>내용</td>
@@ -494,7 +450,6 @@ height: 25px;
 							$('.msg').html(msg + input + '</span>');
 						});
 		
-		<!-- check박스 전체선택 -->
 	      
 	      $(document).ready(function(){
 	   	   /*  //최상단 체크박스 클릭 */
@@ -508,8 +463,8 @@ height: 25px;
 	   	            /* //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의 */
 	   	            $("input[name=chk]").prop("checked",false);
 	   	        }
-	   	    })
-	   	})
+	   	   });
+	   	});
 		
 	</script>	
 	
