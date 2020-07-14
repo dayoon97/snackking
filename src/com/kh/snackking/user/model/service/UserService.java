@@ -59,13 +59,15 @@ public class UserService {
 		return list;
 	}
 
-	public ArrayList<User> selectUserList(int mngNo) {
+	public String findUserId(User reqUser) {
 		
 		Connection con = getConnection();
 		
-		ArrayList<User> list = new UserDao().selectUserList(con, mngNo);
+		String userId = new UserDao().findUserId(con, reqUser);
 		
-		return list;
+		close(con);
+		
+		return userId;
 	}
 
 }
