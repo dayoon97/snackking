@@ -33,7 +33,7 @@
       selectable: true,
       selectMirror: true,
       select: function(arg) {
-        var title = prompt('Event Title:');
+        var title = prompt('일정 입력:');
         if (title) {
           calendar.addEvent({
             title: title,
@@ -45,12 +45,15 @@
         calendar.unselect()
       },
       editable: true,
+      eventResourceEditable: true,
+      resourceEditable: true,
       eventLimit: true, // allow "more" link when too many events
       locale:'ko',
       events: [
         {
           title: 'All Day Event',
-          start: '2019-06-01'
+          start: '2019-06-01 '
+          l
         },
         {
           title: 'Long Event',

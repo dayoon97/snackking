@@ -1,13 +1,15 @@
 package com.kh.snackking.scheduler.model.dao;
 
+import static com.kh.snackking.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
-import static com.kh.snackking.common.JDBCTemplate.*;
 import com.kh.snackking.scheduler.model.vo.Scheduler;
 
 public class SchedulerDao {
@@ -24,25 +26,6 @@ public class SchedulerDao {
 	}
 	
 	
-	
-	public int insertDate(Connection con, Scheduler scheduler) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("insertDate");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
 
 }
 
