@@ -135,7 +135,7 @@ public class UserDao {
 
 
 
-	public ArrayList<User> selectUserNameList(String memberName, int nno, Connection con) {
+	public ArrayList<User> selectUserNameList(String userName, int nno, Connection con) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<User> list = null;
@@ -145,7 +145,7 @@ public class UserDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, nno);
-			pstmt.setString(2, memberName);
+			pstmt.setString(2, userName);
 			
 			list = new ArrayList<User>();
 			
@@ -231,7 +231,6 @@ public class UserDao {
 				
 				list.add(u);
 				
-				System.out.println(list);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -295,6 +294,126 @@ public class UserDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<User> selectUserCompanyList(String userCompany, int nno, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("selectUserCompanyList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, nno);
+			pstmt.setString(2, userCompany);
+			
+			list = new ArrayList<User>();
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserNo(rset.getInt("USER_NO"));
+				u.setUserId(rset.getString("USER_ID"));
+				u.setCompany(rset.getString("COMPANY"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setAddress(rset.getString("ADDRESS"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				
+				list.add(u);
+				
+				System.out.println("UserCompanyList : " + list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<User> selectUserIdList(String userId, int nno, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("selectUserIdList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, nno);
+			pstmt.setString(2, userId);
+			
+			list = new ArrayList<User>();
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserNo(rset.getInt("USER_NO"));
+				u.setUserId(rset.getString("USER_ID"));
+				u.setCompany(rset.getString("COMPANY"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setAddress(rset.getString("ADDRESS"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				
+				list.add(u);
+				
+				System.out.println("UserIdList : " + list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<User> selectUserPhoneList(String userPhone, int nno, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("selectUserPhoneList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, nno);
+			pstmt.setString(2, userPhone);
+			
+			list = new ArrayList<User>();
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserNo(rset.getInt("USER_NO"));
+				u.setUserId(rset.getString("USER_ID"));
+				u.setCompany(rset.getString("COMPANY"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setAddress(rset.getString("ADDRESS"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				
+				list.add(u);
+				
+				System.out.println("UserPhoneList : " + list);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
 	}
 
 }
