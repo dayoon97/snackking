@@ -229,8 +229,8 @@ text-align:center;
 					<!-- 조회 제목 -->
 						<div id="subSubTitle1"><h2>기본 정보 입력</h2></div>
 						<form id="searchForm" action="<%= request.getContextPath() %>/insertPer.per" method="post">
-							<input type="hidden" nama="userid" value="<%=loginUser.getUserNo()%>">
-							<input type="hidden" nama="userName" value="<%=loginUser.getUserName()%>">
+							<input type="hidden" id="userid" name="userid" value="<%=loginUser.getUserNo()%>">
+							<input type="hidden" id="username" name="userName" value="<%=loginUser.getUserName()%>">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
@@ -516,6 +516,10 @@ function packingclick(pack){
 }
 
 function preference(){
+	var userId = $("#userid").val();
+	
+	console.log(userId);
+	
 	$("#searchForm").submit();
 }
 </script>

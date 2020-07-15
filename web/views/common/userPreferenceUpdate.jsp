@@ -1,476 +1,569 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.*"%>
+<% Preference insertPre = (Preference) request.getAttribute("insertPre"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style>
+
+<style type="text/css">
+	#outer {
+		margin-left: 265px;
+		margin-right: 35px;
+		/* width: auto; */
+		height: 100vh;
+		position: relative;
+	}
+	#background-box2 {
+		position: relative;
+		width: 1092px;
+		height: 2600px;
+		top: 15px;
+		background: white;
+		border-radius: 12px;
+		margin-left: auto;
+		margin-right: auto;
+		background: white;
+	}
+			
+	/*본문영역 상단부*/
+	#titleArea {
+		position: relative;
+		height: 20%;
+	
+	}
+	/*본문 영역 제목*/
+	#mainTitle {
+		position: absolute;
+		width: 250px;
+		height: 100px;
+		left: 30px;
+		font-family: NanumSquare_ac;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 35px;
+		line-height: 53px;
+		display: flex;
+		align-items: center;
+		color: #232323;	
+	}
+	
+	/*본문 영역 제목 밑에있는 선*/
+	#line1 {
+		position: absolute;
+		width: 1000px;
+		height: 0px;
+		left: 30px;
+		top: 80px;
+		border: 1px solid #666666;
+	}
+	
+	/*본문 영역 소제목*/
+	#subTitle {
+		position: absolute;
+		width: 250px;
+		height: 50px;
+		left: 30px;
+		top: 78px;
+		font-family: NanumSquare_ac;
+		font-style: normal;
+		font-size: 25px;
+		line-height: 40px;
+		display: flex;
+		align-items: center;
+		color: #343434;
+	}
+	/*조회 제목 스타일*/
+	#subSubTitle1{
+		position: absolute;
+		/* width: 69px; */
+		height: 30px;
+		left: 40px;
+		top: 50px;
+		/* font-family: NanumSquare_ac; */
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		/* line-height: 20px; */
+		display: flex;
+		align-items: center;
+		/* color: #000000; */
+	}
+	/*조회 상자 테두리*/
+	#searchBox{
+		position: absolute;
+		width: 980px;
+		height: 2300px;
+		left: 40px;
+		right: 40px;
+		margin: 0 auto;
+		top: 190px;
+		border: 1px solid black;
+		box-sizing: border-box;
+		border-radius: 33.5px;
+	}
+	/*폼 기본 서식*/
+	#searchForm{
+		height:95%;
+		margin: 0 auto;
+		padding-left:20px;
+		margin-top: 100px;
+	}
+	/*테이블 기본 서식*/
+	.memberTable, #listTable{
+		width: 800px;
+		margin-top: 50px;
+		margin-left:  50px;
+	}
+
+	/*td 글자 스타일 지정*/
+  	.memberTable>td{
+		height: 30px;
+		font-family: NanumSquare_ac;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 20px;
+		color: #000000;
+		padding-top:5px;
+		padding-left:0;	
+	}
+	 
+	
+	
+	/*검색 내용 타이핑하는 부분, input 태그*/
+ 	.searchTextBox{
+		border:0;
+		outline:0;
+		height: 20px;
+		padding:0;
+		margin:0;
+		background: #F6F1F1;
+	}
+	
+	/*노란 버튼 공통 스타일*/
+ 	.searchBtn{
+		border:0;
+		outline:0;
+		width: 300px;
+		height: 32px;
+		background: #F0BB00;
+		display:inline-block;
+		font-family: NanumSquare_ac;
+		font-style: normal;
+		font-weight: 300;
+		font-size: 17px;
+		line-height: 19px;
+		text-align: center;
+		color: #FFFFFF;
+		margin-top: 80px;
+		margin-left: 300px;
+	}
+
+/*조회 결과 리스트 제목 스타일*/
+#subSubTitle2{
+position: absolute;
+width: 90px;
+height: 30px;
+left: 40px;
+top: 300px;
+font-family: NanumSquare_ac;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 20px;
+display: flex;
+align-items: center;
+color: #000000;
+}
+
+/*적용 버튼*/
+#apply{
+position:absolute;	
+top:300px;
+right:90px;
+}
+
+#listTable{
+border-collapse:collapse;
+position: absolute;
+top:350px;
+left:45px;
+text-align:center;
+}
+
+.searchBtn:hover {
+	cursor: pointer;
+}
+
+/* drowBox Css end */
 #mainWrapper {
-margin-left: auto;
-margin-right: auto;
-display: table;
-}
-#outer {
-	margin-left: 265px;
-	margin-right: 35px;
-	height: 100vh;
-	position: relative;
-}
-body {
-  overflow-x: hidden;
-}
-span.msg,
-span.choose {
-  color: #555;
-  padding: 5px 0 10px;
-  display: inherit
-}
-.container {
-  width: 500px;
-  margin: 50px auto 0;
-  text-align: center
-}
-
-/*Styling Selectbox*/
-.dropdown {
-  width: 90px;
-  display: inline-block;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 0 2px rgb(204, 204, 204);
-  transition: all .5s ease;
-  position: relative;
-  font-size: 14px;
-  color: #474747;
-  height: 100%;
-  text-align: left
-}
-.dropdown .select {
-    cursor: pointer;
-    display: block;
-    padding: 10px
-}
-.dropdown .select > i {
-    font-size: 13px;
-    color: #888;
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-    float: right;
-    line-height: 20px
-}
-.dropdown:hover {
-    box-shadow: 0 0 4px rgb(204, 204, 204)
-}
-.dropdown:active {
-    background-color: #f8f8f8
-}
-.dropdown.active:hover,
-.dropdown.active {
-    box-shadow: 0 0 4px rgb(204, 204, 204);
-    border-radius: 2px 2px 0 0;
-    background-color: #f8f8f8
-}
-.dropdown.active .select > i {
-    transform: rotate(-90deg)
-}
-.dropdown .dropdown-menu {
-    position: absolute;
-    background-color: #fff;
-    width: 100%;
-    left: 0;
-    margin-top: 1px;
-    box-shadow: 0 1px 2px rgb(204, 204, 204);
-    border-radius: 0 1px 2px 2px;
-    overflow: hidden;
-    display: none;
-    max-height: 144px;
-    overflow-y: auto;
-    z-index: 9
-}
-.dropdown .dropdown-menu li {
-    padding: 10px;
-    transition: all .2s ease-in-out;
-    cursor: pointer
-} 
-.dropdown .dropdown-menu {
-    padding: 0;
-    list-style: none
-}
-.dropdown .dropdown-menu li:hover {
-    background-color: #f2f2f2
-}
-.dropdown .dropdown-menu li:active {
-    background-color: #e2e2e2
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 2; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 65%; /* Could be more or less, depending on screen size */
-  z-index:1;
-}
-
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-.footerArea{
-	height:150px;
-}
-.orderArea{
-	height:850px;
-	width:1200px;
-	margin:0 auto;
-}
-.order-table{
-	width:1100px;
-	height:700px;
-	margin-left: 100px;
-	margin-top: -20px;
-}
-.order-History{
-	font-size: 30px;
-	text-align: center;
-}
-.order-history-table{
-	margin-top: 50px;
-	padding: 1px;
-	width:100%;
-}
-td{
-	border-bottom: 1px solid #E8E8E8;
-	height: 50px;
-	text-align: center;
-}
-#order-td:hover{
-	background: white;
-}
-th{
-	height: 40px;
-	border-bottom: 1px solid #FFC700;
-	background: #F0BB00;
-	color: white;
-	font-weight: lighter;
-}
-.odNum{
-	color: #007AEB;
-}
-.line{
-	margin:0 auto;
-	margin-top: 5px;
-	width:10%;
-	border: 2px solid #FFC700;
-}
-.searchArea{
-	margin-left: 750px;
-	margin-top: 30px;
-}
-
-.box .form-control{
-	max-width: 300px;
-	margin: 0 auto;	
-}
-.datepicker{
-	font-family: 'Exo 2', sans-serif;
-}
-.datepicker--cell.-range-to-{
-	background: rgba(248, 206, 236, 0.4);
-	border-color: rgba(248, 206, 236, 1);
-}
-.datepicker--cell.-current-{}
-.datepicker--cell.-selected-,.datepicker--cell.-selected-.-focus-{
-	background-color: #f8ceec;
-	color: #000000;
-}
-.datepicker--cell.-in-range-{
-	background: rgba(248, 206, 236, 0.2);
-}
-.datepicker--cell-day {
-    font-weight: 500;
-    color: #000000;
-}
-
-.form-control{
-	height: 50px;
-	font-size: 16px;
-	color: #414D64;
-	background: #ffffff;
-	padding: 0 15px;
-	border: 2px solid #DADEEA;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-transition: all 0.3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
-	-o-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
-	text-align: center;
-}
-textarea.form-control{
-	height: 120px;
-	padding-top: 15px;
-}
-.form-control-plaintext{
-	font-size: 18px;
-	color: #434343;
-}
-button.form-control{
-	text-overflow: ellipsis;
-	overflow: hidden;
-}
-.form-control:focus{
-	border-color: #37B448;
-	-webkit-box-shadow: 0px 2px 6px rgba(55, 180, 72, .15);
-	-moz-box-shadow: 0px 2px 6px rgba(55, 180, 72, .15);
-	box-shadow: 0px 2px 6px rgba(55, 180, 72, .15);
-}
-input[type='text']{
-	width:92px;
-	height:28px;
-	background: #F0F0F0;
-	border: 0;
-	outline: 0;
-	color: #D8D8D8;
-}
-.submit-btn{
-	border:0;
-	outline:0;
-	width: 92px;
-	height: 32px;
-	background: #F0BB00;
-	display:inline-block;
-	font-family: NanumSquare_ac;
-	font-style: normal;
-	font-weight: 300;
-	font-size: 17px;
-	line-height: 19px;
-	text-align: center;
-	color: #FFFFFF;
-}
-
-input[type='checkbox']{
-	border: 1px solid #F0BB00;
-}
-.write{
-	float: right;
-	margin-top: 60px;
-}
-.delete{
-	margin-left: 1000px;
-	margin-top:60px;
-	background: white;
-	color:#F0BB00;
-	border: 1px solid #F0BB00;
-}
-.btnArea{
-	height:200px;
-	width:1200px;
-	margin:0 auto;
+	margin-left: auto;
+	margin-right: auto;
+	display: table;
 }
 </style>
 </head>
 <body>
-	<!-- mainWrapper start -->
+<!-- mainWrapper start -->
 <div id="mainWrapper">
+
 	<%@ include file="../common/userMenu.jsp" %>
-	<div class="nav">
-			<div class="snack-nav">
-				<div class="snack-logo"><img src="../../resources/image/logo5.png"></div>
-			</div>
-	</div>
-	<div class="outer">
-		<div class="orderArea">
-			<div class="order-table">
-				<p class="order-History">문의 내역</p>
-				<div class="line"></div>
-					<div class="searchArea">
-						<!--<input type="text" class="datepicker-here form-control" id="minMaxExample" data-date-format="yy/mm/dd" data-language="en" placeholder="날짜를 선택해주세요">  -->
-						<input type="date">
-						<input type="text" size="9" value="주문번호 검색">
-						<input type="submit" value="검색" class="submit-btn">
-					</div>
-			<form>
-				<table class="order-history-table" align="center">
-					<tr>
-						<th width="40px;"><input type="checkbox"></th>
-						<th width="60px;">번호</th>
-						<th width="400px;">제목</th>
-						<th width="150px;">날짜</th>
-						<th width="300px;">구분</th>
-						<th width="80px;">상태</th>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>10</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>구분</td>
-						<td>미답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>9</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>구분</td>
-						<td>미답변</td>
-					</tr>
-					<tr id="order-td">
-					<td><input type="checkbox"></td>
-						<td>8</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>구분</td>
-						<td>미답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>7</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>구분</td>
-						<td>미답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>6</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>피드백</td>
-						<td>답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>5</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>피드백</td>
-						<td>답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>4</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>피드백</td>
-						<td>답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>3</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>피드백</td>
-						<td>답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>2</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>교환</td>
-						<td>답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>피드백</td>
-						<td>답변</td>
-					</tr>
-				</table>
-			</form>
-			</div>
-			<div class="btnArea">
-				<input type="button" value="글쓰기" class="submit-btn write">
-				<input type="button" value="삭제" class="submit-btn delete">
-			</div>
-		</div>
-	</div>
 	
-	
-	<div class="footerArea">
-	<%@ include file="../common/footer.jsp" %>
-	</div>
+	<!-- outer start -->
+	<div id="outer">
+		<!-- background-box start -->
+		<div id="background-box2">
+		
+			<!-- title-area start -->
+			<div id="titleArea">
+				<div id="mainTitle">선호도 작성</div>
+				<div id="line1"></div>
+			</div>	<!--title-area end -->
+			
+			<!-- search-area start -->
+			<div id="searchArea">
+				
+					<!-- searchBox start -->
+					<div id="searchBox">
+					<!-- 조회 제목 -->
+						<div id="subSubTitle1"><h2>기본 정보 입력</h2></div>
+						<form id="searchForm" action="<%= request.getContextPath() %>/updatePreference.pre" method="post">
+							<input type="hidden" id="userid" name="userid" value="<%=loginUser.getUserNo()%>">
+							<input type="hidden" id="username" name="userName" value="<%=loginUser.getUserName()%>">
+							<table class="memberTable">
+								<tr>
+									<!-- 검색 내용 타이핑하는 부분 -->
+									<td width="800px"><h4>월 간식 예산을 입력해주세요.</h4></td>
+								</tr>
+								<tr>
+								<td>
+									<input type="text" name="budget" class="" size="100" style="height:40px;" value="<%= insertPre.getPreBudget()%>">
+								</td>
+								</tr>
+							</table>
+							
+							<table class="memberTable">
+								<tr>
+									<!-- 검색 내용 타이핑하는 부분 -->
+									<td width="800px"><h4>간식 드시는 인원은 몇 명이신가요 ?</h4></td>
+								</tr>
+								<tr>
+								<td>
+									<input type="text" name="personnel" class="" size="100" style="height:40px;" value="<%= insertPre.getPrePersonnel()%>">
+								</td>
+								</tr>
+							</table>
+							
+							<div class="memberTable">
+								<h4>간식을 드시는 분들의 연령 구성을 입력해주세요</h4>
+								<br>
+								<table>
+									<tr>
+										<th width="90px;">20대</th>
+										<th width="70px;"></th>
+										<th width="90px;">30대</th>
+										<th width="70px;"></th>
+										<th width="90px;">40대</th>
+										<th width="70px;"></th>
+										<th width="90px;">50대</th>
+										<th width="70px;"></th>
+										<th width="90px;">60대↑</th>
+									</tr>
+									<tr><% String[] age = insertPre.getPreAge().split(", "); %>
+										<td><input type="text" name="age1" class="" size="8" style="height:40px;" value="<%=age[0]%>"></td>
+										<td></td>
+										<td><input type="text" name="age2" class="" size="8" style="height:40px;" value="<%=age[1]%>"></td>
+										<td></td>
+										<td><input type="text" name="age3" class="" size="8" style="height:40px;" value="<%=age[2]%>"></td>
+										<td></td>
+										<td><input type="text" name="age4" class="" size="8" style="height:40px;" value="<%=age[3]%>"></td>
+										<td></td>
+										<td><input type="text" name="age5" class="" size="8" style="height:40px;" value="<%=age[4]%>"></td>
+									</tr>
+								</table>
+							</div>
+							
+							<h2 style="margin-left: 20px; font-size: 30px;">선호도 입력</h2>
+							
+							<div class="memberTable">
+								<h4>간식 종류를 선택해주세요(중복 선택 가능)</h4>
+								<br>
+								<table>
+									<tr >
+										<td width="50px;"></td>
+										<td width="90px;"><input type="checkbox" id="snack" name="kinds" value="과자">
+										<label for="snack">과자</label></td>
+										<td width="20px;"></td>
+										<td width="150px;"><input type="checkbox" id="candy" name="kinds" value="캔디/껌/초콜릿">
+										<label for="candy">캔디/껌/초콜릿</label></td>
+										<td width="20px;"></td>
+										<td width="120px;"><input type="checkbox" id="coffee" name="kinds" value="커피/차">
+										<label for="coffee">커피/차</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="beverage" name="kinds" value="음료">
+										<label for="beverage">음료</label></td>
+										<td width="20px;"></td>
+										<td width="120px;"><input type="checkbox" id="curamen" name="kinds" value="컵라면/컵밥">
+										<label for="curamen">컵라면/컵밥</label></td>
+									</tr>
+								</table>
+							</div>
+							
+							<div class="memberTable">
+								<h4>선호하는 맛을 선택해주세 (중복 선택 가능)</h4>
+								<br>
+								<table>
+									<tr>
+										<td width="50px;"></td>
+										<td width="90px;"><input type="checkbox" id="sweet" name="flavor" value="달콤">
+										<label for="sweet">달콤</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="salty" name="flavor" value="짭짤">
+										<label for="salty">짭짤</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="plain" name="flavor" value="단백">
+										<label for="plain">단백</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="sue" name="flavor" value="고소">
+										<label for="sue">고소</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="sour" name="flavor" value="새콤">
+										<label for="sour">새콤</label></td>
+									</tr>
+								</table>
+							</div>
+							
+							<div class="memberTable">
+								<h4>선호하는 향을 선택해주세요 (중복 선택 가능)</h4>
+								<br>
+								<table>
+									<tr>
+										<td width="50px;"></td>
+										<td width="90px;"><input type="checkbox" id="banana" name="smell" value="바나나">
+										<label for="banana">바나나</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="choco" name="smell" value="초코">
+										<label for="choco">초코</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="soda" name="smell" value="소다">
+										<label for="soda">소다</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="coffee" name="smell" value="커피">
+										<label for="coffee">커피</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="cinnamon" name="smell" value="시나몬">
+										<label for="cinnamon">시나몬</label></td>
+									</tr>
+									<tr>
+										<td width="50px;"></td>
+										<td width="90px;"><input type="checkbox" id="mint" name="smell" value="민트">
+										<label for="mint">민트</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="grape" name="smell" value="포도">
+										<label for="grape">포도</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="strawberry" name="smell" value="딸기">
+										<label for="strawberry">딸기</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="peanut" name="smell" value="땅콩">
+										<label for="peanut">땅콩</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="vanilla" name="smell" value="바닐라">
+										<label for="vanilla">바닐라</label></td>
+									</tr>
+								</table>
+							</div>
+							
+							
+							<table class="memberTable">
+								<tr>
+									<!-- 검색 내용 타이핑하는 부분 -->
+									<td width="800px"><h4>기타 선호 향 을 입력 해주세요.</h4></td>
+								</tr>
+								<tr>
+								<td>
+									<input type="text" class="" size="100" name="freesmell" style="height:40px;" placeholder="예시: 민트">
+								</td>
+								</tr>
+							</table>
+							
+							<div class="memberTable">
+								<h4>알레르기 해당 사항을 선택 해주세요. (중복 선택 가능)</h4>
+								<br>
+								<table>
+									<tr>
+										<td width="50px;"></td>
+										<td width="90px;"><input type="checkbox" id="wheat" name="allergy" value="밀">
+										<label for="wheat">밀</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="egg" name="allergy" value="계란">
+										<label for="egg">계란</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="milk" name="allergy" value="우유">
+										<label for="milk">우유</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="soybean" name="allergy" value="대두">
+										<label for="soybean">대두</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="crab" name="allergy" value="게">
+										<label for="crab">게</label></td>
+									</tr>
+									<tr>
+										<td width="50px;"></td>
+										<td width="90px;"><input type="checkbox" id="pig" name="allergy" value="돼지고기">
+										<label for="pig">돼지고기</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="peanut" name="allergy" value="땅콩">
+										<label for="peanut">땅콩</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="buckwheat" name="allergy" value="메밀">
+										<label for="buckwheat">메밀</label></td>
+										<td width="20px;"></td>
+										<td width="90px;"><input type="checkbox" id="walnut" name="allergy" value="호두">
+										<label for="walnut">호두</label></td>
+										<td width="20px;"></td>
+										<td width="200px;"><input type="checkbox" id="" name="allergy" value="">기타
+										<label for="vanilla"><input type="text" size="10"></label></td>
+									</tr>
+								</table>
+							</div>
+							
+							<div class="memberTable">
+								<h4>선호하는 구성 스타일을 선택 해주세요.</h4>
+								<br>
+								<table>
+									<tr>
+										<td width="100px;"></td>
+										<td width="90px;"><input type="checkbox" id="abundance" name="perstyle" value="풍부하게" onclick="amountclick(this);">
+										<label for="abundance">풍부하게</label></td>
+										<td width="100px;"></td>
+										<td width="90px;"><input type="checkbox" id="advanced" name="perstyle" value="고급지게" onclick="amountclick(this);">
+										<label for="advanced">고급지게</label></td>
+										<td width="100px;"></td>
+										<td width="90px;"><input type="checkbox" id="half" name="perstyle" value="반반" onclick="amountclick(this);">
+										<label for="half">반반</label></td>
+									</tr>
+								</table>
+							</div>
+
+							
+							<div class="memberTable">
+								<h4>필요하신 설비를 선택해주세요 (예산에 따라 제공되는 설비가 달라질 수 있으며, 사전 수요 조사용 문항입니다 ) </h4>
+								<br>
+								<table>
+									<tr>
+										<td width="50px;"></td>
+										<td width="200px;"><input type="checkbox" id="Box" name="equipment" value="스낵 쇼케이스(대형)">
+										<label for="bBox">스낵 쇼케이스(대형)</label></td>
+										<td width="40px;"></td>
+										<td width="200px;"><input type="checkbox" id="Box" name="equipment" value="스낵 쇼케이스(소형)">
+										<label for="sBox">스낵 쇼케이스(소형)</label></td>
+										<td width="40px;"></td>
+										<td width="200px;"><input type="checkbox" id="bFrige" name="equipment" value="냉장고(대형)">
+										<label for="bFrige">냉장고(대형)</label></td>
+										<td width="40px;"></td>
+										<td width="200px;"><input type="checkbox" id="sFrige" name="equipment" value="냉장고(소형)">
+										<label for="sFrige">냉장고(소형)</label></td>
+									</tr>
+									
+									<tr>
+										<td></td>
+										<td><img src=""></td>
+										<td></td>
+										<td><img src=""></td>
+										<td></td>
+										<td><img src=""></td>
+										<td></td>
+										<td><img src=""></td>
+									</tr>
+								</table>
+							</div>
+						</form>
+						<input class="searchBtn" type="button" onclick="update();" value="수정하기">
+					</div> <!-- searchBox end -->
+			</div>	<!-- search-area end -->
+		
+		</div>	<!-- background-box end -->
+	</div>	<!-- outer end -->
 </div>	<!-- mainWrapper end -->
 
-<script>
-	/* $('.dropdown').click(function () {
-        $(this).attr('tabindex', 1).focus();
-        $(this).toggleClass('active');
-        $(this).find('.dropdown-menu').slideToggle(300);
-    });
-    $('.dropdown').focusout(function () {
-        $(this).removeClass('active');
-        $(this).find('.dropdown-menu').slideUp(300);
-    });
-    $('.dropdown .dropdown-menu li').click(function () {
-        $(this).parents('.dropdown').find('span').text($(this).text());
-        $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-    });
-	/*End Dropdown Menu*/
+<script type="text/javascript">
+
+$(function(){
+	var ProductTypes = '<%=insertPre.getPreProductTypes()%>'.split(",");
+	var flavor = '<%=insertPre.getPreTaste()%>'.split(",");
+	var smell = '<%=insertPre.getPreFlavor()%>'.split(",");
+	var allergy = '<%=insertPre.getPreAlName()%>'.split(",");
+	var perstyle = '<%=insertPre.getPreStyle()%>'.split(",");
+	var equipment = '<%=insertPre.getPreEquipment()%>'.split(",");
+	
+	$("input[name=kinds]").each(function(){ //상품 종류
+		for(var i = 0; i < ProductTypes.length; i++){
+			if($(this).val() === ProductTypes[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=flavor]").each(function(){ //맛
+		for(var i = 0; i < flavor.length; i++){
+			if($(this).val() === flavor[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=smell]").each(function(){ //향
+		for(var i = 0; i < smell.length; i++){
+			if($(this).val() === smell[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=allergy]").each(function(){ //알레르기
+		for(var i = 0; i < allergy.length; i++){
+			if($(this).val() === allergy[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=perstyle]").each(function(){ //구성스타일
+		for(var i = 0; i < perstyle.length; i++){
+			if($(this).val() === perstyle[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=equipment]").each(function(){ //설비
+		for(var i = 0; i < equipment.length; i++){
+			if($(this).val() === equipment[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+});
+function amountclick(am){
+    var obj = document.getElementsByName("perstyle");
+    for(var i=0; i<obj.length; i++){
+        if(obj[i] != am){
+            obj[i].checked = false;
+        }
+    }
+}
 
 
-	/* $('.dropdown-menu li').click(function () {
-	  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-	      msg = '<span class="msg">Hidden input value: ';
-	  $('.msg').html(msg + input + '</span>');
-	});  */
+function update(){
 	
-	var mindate = new Date();
-	    mindate.setDate(mindate.getDate() - 8);
-	    
-	var maxdate = new Date();
-	    maxdate.setDate(maxdate.getDate() - 1);
-	    
-	  /* $(document).ready(function(){
-		  $('#minMaxExample').datepicker({
-			  	dateFormat: 'yy-mm-dd',
-			    language: 'en',
-					range : true,
-					minDate : mindate,
-			    maxDate : maxdate,
-					multipleDates: true,
-					multipleDatesSeparator: " - "
-			});
-	  }); */
-	 $(function(){
-		 $('#minMaxExample').datepicker({
-			 
-		 });
-	 });
-	
-	</script>
+	$("#searchForm").submit();
+}
+
+</script>
+
 	
 </body>
 </html>

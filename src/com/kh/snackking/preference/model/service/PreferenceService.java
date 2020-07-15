@@ -25,6 +25,28 @@ public class PreferenceService {
 		return result;
 	}
 
+	public Preference UpdatePreference(Preference updatePre) {
+		Connection con = getConnection();
+		int  result = new PreferenceDao().UpdatePreference(con, updatePre);
+		Preference Pre = null;
+		if(result > 0) {
+			Pre = new PreferenceDao().selectOne(con, updatePre);
+			if(Pre != null) {
+				commit(con);
+			}else {
+				rollback(con);
+				Pre = null;
+			}
+		}else {
+			rollback(con);
+			
+		}
+		
+		close(con);
+		return Pre;
+	}
+
+
 	
 	
 }

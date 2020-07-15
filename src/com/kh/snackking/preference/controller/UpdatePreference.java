@@ -11,16 +11,16 @@ import com.kh.snackking.preference.model.service.PreferenceService;
 import com.kh.snackking.preference.model.vo.Preference;
 
 /**
- * Servlet implementation class InsertPerference
+ * Servlet implementation class UpdatePreference
  */
-@WebServlet("/insertPer.per")
-public class InsertPerference extends HttpServlet {
+@WebServlet("/updatePreference.pre")
+public class UpdatePreference extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertPerference() {
+    public UpdatePreference() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,7 +29,6 @@ public class InsertPerference extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String userId = request.getParameter("userid"); //유저번호 ( 숫자로 바꿔야함 )
 		int userid = 0;
 		if(userId != "" && userId != null) {
@@ -127,30 +126,31 @@ public class InsertPerference extends HttpServlet {
 		}
 		
 		
-		System.out.println(budget + personnel + age + kindsList + flavorList + smellList + freesmell + allergyList + perstyle + equipmentList);
 		
-		Preference insertPre = new Preference();
-		insertPre.setUserNo(userid);
-		insertPre.setUserName(userName);
-		insertPre.setPreBudget(budget);
-		insertPre.setPrePersonnel(personnel);
-		insertPre.setPreAge(age);
-		insertPre.setPreProductTypes(kindsList);
-		insertPre.setPreTaste(flavorList); //flavorList
-		insertPre.setPreFlavor(smellList);
-		insertPre.setPreEtcFlavor(freesmell);
-		insertPre.setPreAlName(allergyList);
-		insertPre.setPreStyle(perstyle);
-		insertPre.setPreEquipment(equipmentList);
+		Preference updatePre = new Preference();
+		updatePre.setUserNo(userid);
+		updatePre.setUserName(userName);
+		updatePre.setPreBudget(budget);
+		updatePre.setPrePersonnel(personnel);
+		updatePre.setPreAge(age);
+		updatePre.setPreProductTypes(kindsList);
+		updatePre.setPreTaste(flavorList); //flavorList
+		updatePre.setPreFlavor(smellList);
+		updatePre.setPreEtcFlavor(freesmell);
+		updatePre.setPreAlName(allergyList);
+		updatePre.setPreStyle(perstyle);
+		updatePre.setPreEquipment(equipmentList);
 		
-		System.out.println(insertPre);
-		int result = new PreferenceService().insertPreference(insertPre);
-		System.out.println(result);
+		
+		
+		Preference update = new PreferenceService().UpdatePreference(updatePre);
+		
+		System.out.println("update" + update);
 		
 		String page = "";
-		if(result > 0) {
+		if(update != null) {
 			page = "views/common/userPreferenceUpdate.jsp";
-			request.setAttribute("insertPre", insertPre);
+			request.setAttribute("insertPre", update);
 		}else {
 			System.out.println("에러");
 		}
