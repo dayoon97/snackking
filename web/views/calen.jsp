@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +13,9 @@
 <script src='../resources/packages/daygrid/main.js'></script>
 <script src='../resources/packages/timegrid/main.js'></script>
 <script src='../resources/packages/list/main.js'></script>
+<script src='../resources/packages/core/locales/main.js'></script>
+
+<!-- 캘린더 초기설정 -->
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -41,6 +46,7 @@
       },
       editable: true,
       eventLimit: true, // allow "more" link when too many events
+      locale:'ko',
       events: [
         {
           title: 'All Day Event',
@@ -100,8 +106,10 @@
           title: 'Click for Google',
           url: 'http://google.com/',
           start: '2019-06-28'
-        }
+        },
+
       ]
+    
     });
 
     calendar.render();

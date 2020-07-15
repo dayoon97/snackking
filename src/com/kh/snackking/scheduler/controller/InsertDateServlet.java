@@ -53,10 +53,10 @@ public class InsertDateServlet extends HttpServlet {
 		int result = new SchedulerService().insertDate(scheduler);
 		
 		if(result > 0) {
-			response.sendRedirect("");
+			response.sendRedirect("/snackking/index.jsp");
 		} else {
-			request.setAttribute("", "");
-			request.getRequestDispatcher("");
+			request.setAttribute("msg", "공지사항 등록 실패!");
+			request.getRequestDispatcher("/snackking/index.jsp").forward(request, response);
 		}
 	}
 
