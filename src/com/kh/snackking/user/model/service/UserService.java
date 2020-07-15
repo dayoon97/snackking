@@ -104,4 +104,33 @@ public class UserService {
 		return result;
 	}
 
+	public boolean updatePwdCheck(User reqUser) {
+		
+		Connection con = getConnection();
+		boolean result = false;
+		
+		result = new UserDao().updatePwdCheck(con, reqUser);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public User updateUserInfo(User reqUser) {
+		
+		Connection con = getConnection();
+		User responseUser = null;
+		
+		int result = new UserDao().updateUserInfo(con, reqUser);
+		
+		if(result > 0) {
+			commit(con);
+			responseUser = new UserDao().loginCheck(con, reqUser.getUserNo());
+		} else {
+			rollback(con);
+		}
+		
+		return responseUser;
+	}
+
 }

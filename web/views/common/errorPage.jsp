@@ -21,7 +21,7 @@
 			
 			switch(errorCode) {
 				case "insertUser" : 
-					errorsMessage = "회원 가입에 실패하였습니다!";
+					errorsMessage = "회원 가입에 실패하였습니다!!";
 					movePath = "<%= request.getContextPath() %>/views/common/join.jsp";
 					break;
 				case "loginUser" : 
@@ -31,6 +31,14 @@
 				case "equipmentList" : 
 					errorsMessage = "설비 계시판 조회에 실패하였습니다!!";
 					movePath = "<%= request.getContextPath() %>/views/common/equipmentList.jsp";
+					break;
+				case "updatePwdCheck" : 
+					errorsMessage = "비밀번호가 일치하지 않습니다!!";
+					movePath = "<%= request.getContextPath() %>/views/common/userUpdateInfoPwdCheck.jsp";
+					break;
+				case "updateUser" : 
+					errorsMessage = "회원정보 수정에 실패했습니다!!";
+					movePath = "<%= request.getContextPath() %>/views/common/userUpdateInfoPwdCheck.jsp";
 					break;
 			}
 			alert(errorsMessage);
