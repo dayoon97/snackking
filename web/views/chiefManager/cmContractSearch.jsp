@@ -742,8 +742,6 @@ overflow-y: auto !important;
 
 
 <script>
-
-
 /* 옵션 선택 드롭 다운 */
 $('.dropdown').click(function () {
     $(this).attr('tabindex', 1).focus();

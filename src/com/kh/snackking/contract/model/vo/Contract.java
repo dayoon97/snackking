@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Contract implements java.io.Serializable {
 	
-	private String conCode;    //계약코드. 
+	private String conCode;    //계약코드
 	private Date startDate;    //계약시작일
 	private Date endDate;      //계약종료일
 	private Date conDate;      //계약일
