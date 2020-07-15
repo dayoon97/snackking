@@ -345,7 +345,7 @@ input[type='checkbox']{
 						<td>미답변</td>
 					</tr>
 					<tr id="order-td">
-						<td><input type="checkbox"></td>
+					<td><input type="checkbox"></td>
 						<td>8</td>
 						<td>제목</td>
 						<td>날짜</td>
