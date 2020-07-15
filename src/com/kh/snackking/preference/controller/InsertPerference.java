@@ -30,12 +30,12 @@ public class InsertPerference extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("userid"); //유저번호 ( 숫자로 바꿔야함 )
-		int user = 0;
-		if(userId != "" && userId != null) {
-			user = Integer.parseInt(userId);
-		}
-		
+//		String userId = request.getParameter("userid"); //유저번호 ( 숫자로 바꿔야함 )
+//		int user = 0;
+//		if(userId != "" && userId != null) {
+//			user = Integer.parseInt(userId);
+//		}
+		String userName = request.getParameter("userName");
 		
 		int budget = Integer.parseInt(request.getParameter("budget")); //예산
 		int personnel = Integer.parseInt(request.getParameter("personnel")); //간식먹을 인원
@@ -129,7 +129,7 @@ public class InsertPerference extends HttpServlet {
 		System.out.println(budget + personnel + age + kindsList + flavorList + smellList + freesmell + allergyList + perstyle + equipmentList);
 		
 		Preference insertPre = new Preference();
-		insertPre.setUserNo(user);
+		insertPre.setUserName(userName);
 		insertPre.setPreBudget(budget);
 		insertPre.setPrePersonnel(personnel);
 		insertPre.setPreAge("age");

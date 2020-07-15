@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Preference implements java.io.Serializable{
 	private int userNo;     		  //유저 번호
+	private String userName;			//유저이름
 	private int preNo;       		  //선호도 아이디
 	private int preBudget;    		  //예산
 	private int prePersonnel; 	     //인원수
@@ -20,11 +21,12 @@ public class Preference implements java.io.Serializable{
 	
 	public Preference() {}
 
-	public Preference(int userNo, int preNo, int preBudget, int prePersonnel, String preAge, String preProductTypes,
-			String preTaste, String preFlavor, String preEtcFlavor, String preAlName, String preStyle,
-			String preEquipment, Date preDate, String status) {
+	public Preference(int userNo, String userName, int preNo, int preBudget, int prePersonnel, String preAge,
+			String preProductTypes, String preTaste, String preFlavor, String preEtcFlavor, String preAlName,
+			String preStyle, String preEquipment, Date preDate, String status) {
 		super();
 		this.userNo = userNo;
+		this.userName = userName;
 		this.preNo = preNo;
 		this.preBudget = preBudget;
 		this.prePersonnel = prePersonnel;
@@ -52,6 +54,20 @@ public class Preference implements java.io.Serializable{
 	 */
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}
+
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	/**
@@ -241,12 +257,12 @@ public class Preference implements java.io.Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "Preference [userNo=" + userNo + ", preNo=" + preNo + ", preBudget=" + preBudget + ", prePersonnel="
-				+ prePersonnel + ", preAge=" + preAge + ", preProductTypes=" + preProductTypes + ", preTaste="
-				+ preTaste + ", preFlavor=" + preFlavor + ", preEtcFlavor=" + preEtcFlavor + ", preAlName=" + preAlName
-				+ ", preStyle=" + preStyle + ", preEquipment=" + preEquipment + ", preDate=" + preDate + ", status="
-				+ status + "]";
+		return "Preference [userNo=" + userNo + ", userName=" + userName + ", preNo=" + preNo + ", preBudget="
+				+ preBudget + ", prePersonnel=" + prePersonnel + ", preAge=" + preAge + ", preProductTypes="
+				+ preProductTypes + ", preTaste=" + preTaste + ", preFlavor=" + preFlavor + ", preEtcFlavor="
+				+ preEtcFlavor + ", preAlName=" + preAlName + ", preStyle=" + preStyle + ", preEquipment="
+				+ preEquipment + ", preDate=" + preDate + ", status=" + status + "]";
 	}
 
-
+	
 }

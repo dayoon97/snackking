@@ -31,7 +31,7 @@ public class PreferenceDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, insertPre.getUserNo());
+			pstmt.setString(1, insertPre.getUserName());
 			pstmt.setInt(2, insertPre.getPreBudget());
 			pstmt.setInt(3, insertPre.getPrePersonnel());
 			pstmt.setString(4, insertPre.getPreAge());
