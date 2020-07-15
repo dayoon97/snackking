@@ -139,7 +139,6 @@ th {
 			<div class="loginFormArea">
 				<div class="loginForm-box">
 					<div class="loginForm">
-						<%-- <form id="findIdForm" action="<%= request.getContextPath() %>/findId.us" method="post"> --%>
 							<table align="center">
 								<thead>
 									<tr>
@@ -166,7 +165,6 @@ th {
 							<!-- 	<div id="findId-btn">아이디 찾기</div> -->
 								<input type="submit" id="findId-btn" value="아이디 찾기">
 							</div>
-						<!-- </form> -->
 						<br><br>
 							<table align="center">
 								<thead>
@@ -273,15 +271,15 @@ th {
 				email: email
 			},
 			success: function(data) {
-				console.log(data);
-				/* modal.style.display = "block";
+				//console.log(data);
+				modal.style.display = "block";
 				
 				if(data != null){
-					$("#modal-title").html("아이디 찾기 결과");
-					$("#modal-body").html("아이디 찾기 결과  : " + data);
+					$("#modal-title").html("임시 비밀번호 전송");
+					$("#modal-body").html("입력하신 이메일로 임시 비밀번호를 발송했습니다! 바뀐 비밀번호로 로그인해서 비밀번호를 변경 해주세요!");
 				} else {
 					$("#modal-body").html("일치하는 결과가 없습니다.");
-				} */
+				}
 				
 			},
 			error: function() {
