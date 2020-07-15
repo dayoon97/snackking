@@ -330,7 +330,7 @@ height: 25px;
 				<div id="subSubTitle1">계약 등록</div>
 					<!-- searchBox start -->
 					<div id="searchBox">
-						<form id="searchForm">
+						<form id="searchForm" action="<%= request.getContextPath()%>/insertContract.co" method="post">
 							<table class="memberTable"  >
 							<tr>
 								<td>거래처명 :</td>
@@ -342,7 +342,7 @@ height: 25px;
 								<td></td>
 							</tr>
 							<tr>
-								<td>계약번호 :</td>
+								<td>계약코드 :</td>
 								<td><input type="text" class="searchTextBox" size="15" name="conNumber">
 								</td>
 								<td style="text-align:center">계약일 :</td>
@@ -375,7 +375,7 @@ height: 25px;
 							<td><input type="submit" class="insertBtn" value="등록" id="submit" 
 							onclick="button_click();" style="margin-left: 860px; top: 500px;"></td>
 									
-							<div id="myModal" class="modal">
+							<!--   <div id="myModal" class="modal">
 								<div class="modal-content" style="width: 30%;">
 									<span class="close">&times;</span>
 									<div style="text-align:center; margin-top:50px;"> 등록이 완료되었습니다.</div>
@@ -384,6 +384,8 @@ height: 25px;
 									</div>
 								</div>
 							</div>
+							-->
+							
 						</form>
 					</div> <!-- searchBox end -->
 			</div>	<!-- search-area end -->
