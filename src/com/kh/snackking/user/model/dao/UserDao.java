@@ -297,4 +297,106 @@ public class UserDao {
 		return result;
 	}
 
+	public Boolean updatePwdCheck(Connection con, User reqUser) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		boolean result = false;
+		
+		String query = prop.getProperty("updatePwdCheck");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, reqUser.getUserNo());
+			pstmt.setString(2, reqUser.getUserPwd());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int updateUserInfo(Connection con, User reqUser) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateUserInfo");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqUser.getUserPwd());
+			pstmt.setString(2, reqUser.getUserName());
+			pstmt.setString(3, reqUser.getCompany());
+			pstmt.setString(4, reqUser.getPhone());
+			pstmt.setString(5, reqUser.getEmail());
+			pstmt.setInt(6, reqUser.getZipNo());
+			pstmt.setString(7, reqUser.getAddress());
+			pstmt.setInt(8, reqUser.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public User loginCheck(Connection con, int userNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		User responseUser = null;
+		
+		String query = prop.getProperty("updateLoginCheck");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				responseUser = new User();
+				responseUser.setUserNo(rset.getInt("USER_NO"));
+				responseUser.settCode(rset.getString("TCODE"));
+				responseUser.setUserId(rset.getString("USER_ID"));
+				responseUser.setUserPwd(rset.getString("USER_PWD"));
+				responseUser.setUserName(rset.getString("USER_NAME"));
+				responseUser.setCompany(rset.getString("COMPANY"));
+				responseUser.setPhone(rset.getString("PHONE"));
+				responseUser.setEmail(rset.getString("EMAIL"));
+				responseUser.setZipNo(rset.getInt("ZIPNO"));
+				responseUser.setAddress(rset.getString("ADDRESS"));
+				responseUser.setMngId(rset.getInt("MANAGER"));
+				responseUser.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				responseUser.setWithdrawalDate(rset.getDate("WITHDRAWAL_DATE"));
+				responseUser.setStatus(rset.getString("STATUS"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return responseUser;
+		
+	}
+	
 }

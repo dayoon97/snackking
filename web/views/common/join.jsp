@@ -67,6 +67,7 @@ input[type=text]:focus {
 }
 input[type=text], input[type=password]{
 	height:30px;
+	padding-left: 5px;
 }
 td {
 	padding:15px;
@@ -186,7 +187,7 @@ textarea {
 									</td>
 								</tr>
 								<tr>
-									<td id="check-all"><input type="checkbox" id="check-all" name="checkAll">이용약관 및 개인정보 수집 및 이용에 모두 동의합니다.</td>
+									<td id="check-all"><label><input type="checkbox" id="check-all" name="checkAll">이용약관 및 개인정보 수집 및 이용에 모두 동의합니다.</label></td>
 								</tr>
 								<tr>
 									<td>
@@ -428,7 +429,7 @@ textarea {
 										</textarea>
 										<br>
 										<label>이용약관에 동의하십니까?</label>
-										<input type="checkbox" class="check-btn" name="checkOne"><label>동의함</label>
+										<label><input type="checkbox" class="check-btn" name="checkOne">동의함</label>
 									</td>
 								</tr>
 								<tr>
@@ -459,7 +460,7 @@ SnackKing(스낵킹)(이하 “스낵킹”이라 함)는 개인정보보호법,
 										</textarea>
 										<br>
 										<label>이용약관에 동의하십니까?</label>
-										<input type="checkbox" class="check-btn" name="checkOne"><label>동의함</label>
+										<label><input type="checkbox" class="check-btn" name="checkOne">동의함</label>
 									</td>
 								</tr>
 							</table>

@@ -269,7 +269,7 @@
 		<div id="aside" class="aside">
 			<div class="aside-header" align="center">
 				<a href="../../index.jsp">
-					<img alt="logoImage" src="../../resources/image/logo3.png" width="150px;">
+					<img alt="logoImage" src="/snackking/resources/image/logo3.png" width="150px;">
 				</a>
 			</div>	<!-- aisde-header end -->
 			<div class="aside-body">
@@ -286,7 +286,7 @@
 							</div>
 								<ul class="con">
 									<li><a href="../common/userBoard.jsp">나의 문의내역</a></li>
-									<li><a href="">회원정보 수정</a></li>
+									<li><a href="../common/userUpdateInfoPwdCheck.jsp">회원정보 수정</a></li>
 								</ul>
 						</li>
 						<li><div class="user-menu-box">
@@ -301,7 +301,7 @@
 							</div>
 								<ul class="con">
 									<li><a href="../curator/preference.jsp">선호도 조사</a></li>
-									<li><a href="../">선호도 조사 내역</a></li>
+									<!-- <li><a href="../">선호도 조사 내역</a></li> -->
 								</ul>
 						</li>
 					</ul>
@@ -520,8 +520,8 @@
 		<!-- aside div start -->
 		<div id="aside" class="aside">
 			<div class="aside-header" align="center">
-				<a href="../chiefManager/cmMainPage.jsp">
-					<img alt="logoImage" src="../../resources/image/logo3.png" width="150px;">
+				<a href="index.jsp">
+					<img alt="logoImage" src="/snackking/resources/image/logo3.png" width="150px;">
 				</a>
 			</div>	<!-- aisde-header end -->
 			<div class="aside-body">
