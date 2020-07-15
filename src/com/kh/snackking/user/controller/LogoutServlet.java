@@ -21,13 +21,14 @@ public class LogoutServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//세션 만료
-		request.getSession().invalidate();
+		request.getSession().invalidate();//session.invalidate()는 세션을 무효화하는 메서드이다.(소멸은 아니므로 혼동하지 않기로 주의한다.)
 		response.sendRedirect("index.jsp");
 	
 	}
