@@ -244,5 +244,57 @@ public class UserDao {
 		
 		return list;
 	}
+	public User findUserPwd(Connection con, User reqUser) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		User responseUser = null;
+		
+		String query = prop.getProperty("findUserPwd");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqUser.getUserId());
+			pstmt.setString(2, reqUser.getUserName());
+			pstmt.setString(3, reqUser.getEmail());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				responseUser = new User();
+				responseUser.setUserNo(rset.getInt("USER_NO"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return responseUser;
+	}
+
+	public int changePwd(Connection con, User reqUser, User responseUser) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changePwd");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, reqUser.getUserPwd());
+			pstmt.setInt(2, responseUser.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

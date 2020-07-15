@@ -15,7 +15,7 @@ import javax.mail.internet.MimeMessage;
 
 public class TempPwdGmailSend {
 	
-	private static String TempPwd() {
+	public String TempPwd() {
 		 String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		 
 		 String temPwd = uuid.substring(0,10);
@@ -23,7 +23,7 @@ public class TempPwdGmailSend {
 		 return temPwd;
 	}
 	
-	public static void gmailSend(String email) {
+	public void gmailSend(String email, String tempPassword) {
 		
 		String user = "snackking07@gmail.com";
 		String password = "snackking123!@#";
@@ -52,7 +52,7 @@ public class TempPwdGmailSend {
             message.setSubject("[SNACKKING] 임시 비밀번호입니다.");
 
             // 내용
-            message.setText("임시 비밀번호 입니다. \n " + TempPwd());
+            message.setText("임시 비밀번호 입니다. \n" + tempPassword);
 
             // 이메일 보내기
             Transport.send(message); ////전송

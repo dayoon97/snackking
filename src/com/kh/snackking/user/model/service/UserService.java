@@ -78,5 +78,30 @@ public class UserService {
 		
 		return list;
 	}
+	
+	public int findUserPwd(User reqUser) {
+		
+		Connection con = getConnection();
+		int result = 0;
+		
+		User responseUser = new UserDao().findUserPwd(con, reqUser);
+		
+		if(responseUser != null) {
+			result = new UserDao().changePwd(con, reqUser, responseUser);
+			
+			if(result > 0) {
+				commit(con);
+			} else {
+				rollback(con);
+				// 안해도 될 거 같은데 혹시 몰라서 써놓는다.
+				responseUser = null;
+			}
+			
+		}
+		
+		close(con);
+		
+		return result;
+	}
 
 }
