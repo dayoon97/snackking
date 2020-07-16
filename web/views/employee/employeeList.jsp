@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.awt.*"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User, java.util.*"%>
+<% ArrayList<User> adminlist = (ArrayList<User>) request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,6 +108,7 @@
 		height:100%;
 		margin: 0 auto;
 		padding-left:20px;
+		margin-top: 10px;
 	}
 	/*테이블 기본 서식*/
 	.memberTable, #listTable{
@@ -124,7 +126,7 @@
 		font-size: 15px;
 		color: #000000;
 		padding-top:5px;
-		padding-left:0;	
+		padding-left:10px;;	
 	}
 	 
 	
@@ -135,7 +137,8 @@
 		outline:0;
 		height: 20px;
 		padding:0;
-		margin:0;
+		margin-left:20px;
+		margin-right: 20px;
 		background: #F6F1F1;
 	}
 	
@@ -252,7 +255,9 @@ span.choose {
   font-size: 14px;
   color: #474747;
   height: 100%;
-  text-align: left
+  text-align: left;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 .dropdown .select {
     cursor: pointer;
@@ -353,7 +358,21 @@ span.choose {
 td {
 	text-align: center;
 }
-
+.btn{
+	border: 0;
+    outline: 0;
+    width: 92px;
+    height: 32px;
+    background: #F0BB00;
+    display: inline-block;
+    font-family: NanumSquare_ac;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 19px;
+    text-align: center;
+    color: #FFFFFF;
+ }
 </style>
 <!-- <link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/> -->
 </head>
@@ -391,7 +410,7 @@ td {
 									<tr>
 										<!-- 검색 내용 타이핑하는 부분 -->
 										<td>이름  :</td>
-										<td><input type="text" class="searchTextBox" size="7"></td>
+										<td><input type="text" class="searchTextBox" size="7" name="employee"></td>
 																			
 										<td>직급코드  :</td>
 										<td><div class="dropdown">
@@ -401,9 +420,8 @@ td {
 										        </div>
 										        <input type="hidden" name="Job-code">
 										        <ul class="dropdown-menu">
-										          <li id="J1">J1</li>
-										          <li id="J2">J2</li>
-										          <li id="J3">J3</li>
+										          <li id="T4" name="employee">T4</li>
+										          <li id="T5" name="employee">T5</li>
 										        </ul>
 										      </div>
 										<!-- <select>
@@ -415,10 +433,10 @@ td {
                         				</td>
 										
 										<td>사원코드  :</td>
-										<td><input type="text" class="searchTextBox" size="7"></td>
+										<td><input type="text" class="searchTextBox" size="7" name="employee"></td>
 										
 										<td>전화번호  :</td>
-										<td><input type="text" class="searchTextBox" size="10"></td>
+										<td><input type="text" class="searchTextBox" size="10" name="employee"></td>
 										
 										<td><input type="submit" class="btn" value="검색하기" id="submit"></td>
 									
@@ -484,68 +502,33 @@ td {
 					<!-- 조회 리스트 테이블 -->
 					<table id="listTable">
 						<!-- 테이블 헤드 -->
+						<thead>
 						<tr id="listHead">
-							<th><input type="checkbox" id="checkall"></th>
-							<th width="100px">사원</th>
-							<th width="140px">직급코드</th>
+							<th width="30px;"><input type="checkbox" id="checkall"></th>
+							<th width="30px">사원</th>
+							<th width="50px">직급코드</th>
 							<th width="80px">이름 </th>
 							<th width="250px">주소</th>
 							<th width="80px">연락처</th>
 							<th width="80px">입사일</th>
 							<th width="80px">근무상태</th>
 						</tr>
-						
+						</thead>
+						<tbody>
 						<!-- 리스트 바디  -->
+						<% for(User u : adminlist) {%>
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
+							<td><%= u.getUserNo() %></td>
+							<td><%= u.gettCode() %></td>
+							<td><%= u.getUserName() %></td>
+							<td><%= u.getAddress() %></td>
+							<td><%= u.getPhone() %></td>
+							<td><%= u.getEnrollDate() %></td>
+							<td><%= u.getStatus() %></td>
 						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
+						<% } %>
+						</tbody>
 						
 					</table>
 				</div>
@@ -621,9 +604,91 @@ td {
  	            /* //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의 */
  	            $("input[name=chk]").prop("checked",false);
  	        }
- 	    })
- 	})
-	
+ 	    });
+ 	});
+	$(function(){
+		$("#chk").eq()
+	});
+    
+    $(function(){
+		$("#submit").click(function(){
+		
+			$("#listTable td").remove();
+			
+			var arr = [];
+			
+			var name = document.getElementsByName("employee")[0].value;
+			var tcode = document.getElementsByName("employee")[1].value;
+			var id = document.getElementsByName("employee")[2].value;
+			var phone = document.getElementsByName("employee")[3].value;
+			
+			$('input[name="member"]:text').each(function(i){
+				arr.push($(this).val());
+			});
+			
+			for(i in arr){
+				console.log(arr[i])
+				if(arr[i] == null) {
+					
+				} 	
+			}
+			
+			var member = {
+				"user" : $("#mngNo").val(),
+				"list" : arr
+					
+			};
+			
+			console.log(arr);
+			
+			$.ajax({
+				url: "<%=request.getContextPath()%>/selectName.us",
+				data: member,
+				type: "get",
+				traditional:true,
+				success: function(data){
+					
+					console.log(data);
+					$tableBody = $("#listTable tbody");
+ 					
+ 					$tableBody.html('');
+ 					
+ 					$.each(data, function(index, value){
+ 						var $tr = $("<tr>");
+ 						var $Td = $("<td>").html("<input type='checkbox'>");
+ 						var $noTd = $("<td>").text(value.userNo);
+ 						var $idTd = $("<td>").text(decodeURIComponent(value.userId));
+ 						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
+ 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
+ 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
+ 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
+ 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
+ 						
+ 						$tr.append($Td);
+ 						$tr.append($noTd);
+ 						$tr.append($idTd);
+ 						$tr.append($companyTd);
+ 						$tr.append($userNameTd);
+ 						$tr.append($addressTd);
+ 						$tr.append($phoneTd);
+ 						$tr.append($enrollDateTd);
+ 						
+ 						
+ 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "25px"});
+ 						
+ 						$tableBody.append($tr);
+ 					}); 
+ 					
+ 					
+ 				},
+ 				error: function(data){
+ 					console.log("에러!");
+ 				}
+				
+				
+			});
+		});
+	});
 	</script>
 	
 </body>
