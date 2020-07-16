@@ -46,7 +46,19 @@ public class PreferenceService {
 		return Pre;
 	}
 
-
-	
-	
+	public Preference selectOne(Preference userNo) {
+		Connection con = getConnection();
+		
+		Preference Pre = new PreferenceDao().selectOne(con, userNo);
+		
+		if(Pre != null) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return Pre;
+	}
 }
