@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User, java.util.*"%>
  <% ArrayList<User> list = (ArrayList<User>) request.getAttribute("list"); %>
+ <% ArrayList<User> adminlist = (ArrayList<User>) request.getAttribute("adminlist"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -232,8 +233,10 @@ height: 25px;
 <body>
 <!-- mainWrapper start -->
 <div id="mainWrapper">
-
-	<%@ include file="../common/userMenu.jsp" %>
+	
+	<!--  -->
+	<%@ include file ="../common/userMenu.jsp" %>
+	
 	
 	<!-- outer start -->
 	<div id="outer">

@@ -12,7 +12,7 @@
 	body {
 		background-color:#F9F9F9;
 		font-family: 'NanumSquare', sans-serif;
-		font-weight: lighter;
+		
 	}
 	#aside {
 		height: 735px;
@@ -163,11 +163,11 @@
 		margin-right: auto;
 	}
 
-#mainWrapper {
-	margin-left: auto;
-	margin-right: auto;
-	display: table;
-}
+	#mainWrapper {
+		margin-left: auto;
+		margin-right: auto;
+		display: table;
+	}
 	#info-table {
 		width:1092px;
 		height:700px;
@@ -259,6 +259,244 @@
 	}
 	
 	
+	
+	
+	
+	body {
+		background-color:#F3F3F3;
+		font-family: 'NanumSquare', sans-serif;
+	}
+	#aside {
+		height: 735px;
+		/* min-height:100%; */
+		background-color: #F0BB00;
+		position: fixed;
+		width:230px;
+		z-index: 1;
+		border-radius: 20px;
+		overflow: hidden;
+	}
+	#section {
+		background: white;
+		margin-left: 265px;
+		margin-right: 35px;
+	}
+	.aside-header {
+		padding: 0 20px;
+	}
+	.aside-body {
+		background-color: #F3F3F3;
+		width: 88%;
+		height: 80%;
+		postion: relative;
+		border-radius: 20px;
+		margin-left: auto;
+		margin-right: auto;
+		overflow: hidden;
+	}
+	.aside-body-header{
+		padding-top:10px;
+	}
+	.login-info {
+		width: 80%;
+		height: 80px;
+		background-color: #F0BB00;
+		color:black;
+		margin-left: auto;
+		margin-right: auto;
+		border-radius: 10px;
+	}
+	.login-name {
+		padding-top: 13px;
+		padding-bottom: 10px;
+		font-weight: 600;
+		font-size: 20px;
+		display: inline-block;
+	}
+	.bell {
+		vertical-align: middle;
+	}
+	.login-jobname {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		font-weight: 200;
+		font: 15px;
+	}
+	#accodion-box {
+		width: 100%;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 30px;
+	}
+	.list {
+		padding: 0;
+		list-style: none; 
+		text-align:center;
+	}
+	p.title {
+		width: 100%;
+		box-sizing: border-box;
+		font-weight: 600;
+		font-size: 20px;
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	.con {
+		padding-left: 0;
+		padding-right: 55px;
+		display: none;
+		text-align: right;
+		list-style: none;
+	}
+	.con>li {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	#logout-box {
+		background: rgba(205, 135, 0, 0.66);
+		color: white;
+		font-size: 20px;
+		width: 180px;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		margin: 10px auto;
+		border-radius: 10px;
+		postion: relative;
+	}
+	p.title:hover, .con>li:hover, #logout-box:hover {
+		cursor: pointer;
+	}
+	a:link{
+		color: black;
+		text-decoration: none;
+	}
+	a:visited {
+		color: black;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #F0BB00;
+	}
+	<!--  최고관리자 css -->
+	body {
+		background-color:#F3F3F3;
+		font-family: 'NanumSquare', sans-serif;
+	}
+	#aside {
+		height: 735px;
+		/* min-height:100%; */
+		background-color: #F0BB00;
+		position: fixed;
+		width:230px;
+		z-index: 1;
+		border-radius: 20px;
+		overflow: hidden;
+	}
+	#section {
+		background: white;
+		margin-left: 265px;
+		margin-right: 35px;
+	}
+	.aside-header {
+		padding: 0 20px;
+	}
+	.aside-body {
+		background-color: #F3F3F3;
+		width: 88%;
+		height: 80%;
+		postion: relative;
+		border-radius: 20px;
+		margin-left: auto;
+		margin-right: auto;
+		overflow: hidden;
+	}
+	.aside-body-header{
+		padding-top:10px;
+	}
+	.login-info {
+		width: 80%;
+		height: 80px;
+		background-color: #F0BB00;
+		color:black;
+		margin-left: auto;
+		margin-right: auto;
+		border-radius: 10px;
+	}
+	.login-name {
+		padding-top: 13px;
+		padding-bottom: 10px;
+		font-weight: 600;
+		font-size: 20px;
+		display: inline-block;
+	}
+	.bell {
+		vertical-align: middle;
+	}
+	.login-jobname {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		font-weight: 200;
+		font: 15px;
+	}
+	#accodion-box {
+		width: 100%;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 30px;
+	}
+	.list {
+		padding: 0;
+		list-style: none; 
+		text-align:center;
+	}
+	p.title2 {
+		width: 100%;
+		box-sizing: border-box;
+		font-weight: 600;
+		font-size: 20px;
+		margin-top: 13px;
+		margin-bottom: 20px;
+	}
+	.con {
+		padding-left: 0;
+		padding-right: 55px;
+		display: none;
+		text-align: right;
+		list-style: none;
+	}
+	.con>li {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	#logout-box {
+		background: rgba(205, 135, 0, 0.66);
+		color: white;
+		font-size: 20px;
+		width: 180px;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		margin: 10px auto;
+		border-radius: 10px;
+		postion: relative;
+	}
+	p.title2:hover, .con>li:hover, #logout-box:hover {
+		cursor: pointer;
+	}
+	a:link{
+		color: black;
+		text-decoration: none;
+	}
+	a:visited {
+		color: black;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #F0BB00;
+	}
 </style>
 </head>
 <body topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
@@ -316,203 +554,108 @@
 	<!-- T3 최고관리자 -->
 	<%}else if((loginUser.gettCode().equals("T3"))){ %>
 		<!-- mainWrapper start -->
-<div id="mainWrapper">
-
-	<%@ include file="../common/cmMain.jsp" %>
-	
-	<!-- outer start -->
-	<div id="outer">
-		<!-- background-box start -->
-		<div id="background-box">
-			
-			<table id="info-table">
-				<tr class="name-tr">
-					<td>게시글 관리</td>
-					<td>재고 상태</td>
-				</tr>
-				<tr class="content-tr">
-					<td>
-						<div id="con-board" class="conWrap">
-							<div class="content1">새로운 게시글</div>
-							<div class="alert-circle"><img alt="alert-circle" src="../../resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number">3</div>
-							<div class="line"></div>
-							<div class="list-wrap">
-								<table class="list">
-									<tr>
-										<td class="list-log" colspan="4">LOG</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</td>
-					<td>
-						<div id="con-stock" class="conWrap">
-							<div class="content1">부족한 재고 알림</div>
-							<div class="alert-circle"><img alt="alert-circle" src="../../resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number">13</div>
-							<div class="line"></div>
-							<div class="list-wrap">
-								<table class="list">
-									<tr>
-										<td class="list-log" colspan="4">LOG</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									
-								</table>
-							</div>
-						</div>
-					</td>
-				</tr>
-				<tr class="name-tr">
-					<td>회원관리</td>
-					<td>승인 요청 내역</td>
-				</tr>
-				<tr class="content-tr">
-					<td>
-						<div id="con-member" class="conWrap">
-							<div class="content1">새로운 회원 알림</div>
-							<div class="alert-circle"><img alt="alert-circle" src="../../resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number">3</div>
-							<div class="line"></div>
-							<div class="list-wrap">
-								<table class="list">
-									<tr>
-										<td class="list-log" colspan="4">LOG</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</td>
-					<td>
-						<div id="con-approval" class="conWrap">
-							<div class="content1">승인 대기 요청</div>
-							<div class="alert-circle"><img alt="alert-circle" src="../../resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number">3</div>
-							<div class="line"></div>
-							<div class="list-wrap">
-								<table class="list">
-									<tr>
-										<td class="list-log" colspan="4">LOG</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</td>
-				</tr>
-			</table>
+	<div id="wrap" style="display: block;">
+		<!-- aside div start -->
+		<div id="aside" class="aside">
+			<div class="aside-header" align="center">
+				<a href="index.jsp">
+					<img alt="logoImage" src="/snackking/resources/image/logo3.png" width="150px;">
+				</a>
+			</div>	<!-- aisde-header end -->
+			<div class="aside-body">
+				<div class="aside-body-header">
+					<div class="login-info" align="center">
+					<!-- <table>
+						<tr>
+							<td class="login-name">김미소</td>
+							<td class="bell">&nbsp;&nbsp;<img alt="bell"
+								src="../../resources/image/bell.png"></td>
+						</tr>
+					</table> -->
+						<div class="login-name"><%=loginUser.getUserName()%></div>
+						<div id="line" style="border:1px solid #AA8400; width:60%; background-color: #AA8400"></div>
+						<div class="login-jobname">최고 관리자</div>
+					</div>	<!-- login-info end -->
+				</div>	<!-- aisde-body-header end -->
+				<div class="aside-body-body" id="accodion-box">
+					<ul class="list">
+						<li>
+							<p class="title2">회원 관리</p>
+								<ul class="con">
+									<li><a href="<%=request.getContextPath()%>/adminUserSelect.ad?num=<%=loginUser.getUserNo()%>">회원 리스트</a></li>
+									<li><a href="../question/cmquestion.jsp">문의 게시판 관리</a></li>
+									<li><a href="../chiefManager/cmContractMember.jsp">계약 회원 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/adminUserDelete.ad?num=<%=loginUser.getUserNo()%>">회원 탈퇴 승인</a></li>
+								</ul>
+						</li>
+						<li>
+							<p class="title2">직원 관리</p>
+								<ul class="con">
+									<li><a href="../employee/employeeSchedule.jsp">스케줄 확인</a></li>
+									<li><a href="<%=request.getContextPath()%>/adminEmpSelect.ad?num=<%=loginUser.getUserNo()%>">직원 정보 관리</a></li>
+									<li><a href="../employee/employeeMatching.jsp">고객-큐레이터<br>매칭 관리</a></li>
+								</ul>
+						</li>
+						<li>
+							<p class="title2">상품 관리</p>
+								<ul class="con">
+									<li><a href="../product/productManagement.jsp">상품 정보 확인</a></li>
+									<li><a href="../product/productStockManagement.jsp">상품 재고 확인</a></li>
+									<li><a href="../product/productOrderManagement.jsp">발주 관리</a></li>
+								</ul>
+						</li>
+						<li>
+							<p class="title2">주문 관리</p>
+								<ul class="con">
+									<li><a href="../order/cmOrderfavorite.jsp">선호도 조사 내역</a></li>
+									<li><a href="../order/cmOrderCurating.jsp">큐레이팅 관리</a></li>
+									<li>피드백 관리</li>
+									<li><a href="../order/cmOrderRelease.jsp">출고 관리</a></li>
+								</ul>
+						</li>
+						<li>
+							<p class="title2">교환 관리</p>
+								<ul class="con">
+									<li>교환 신청 확인</li>
+									<li>회수 내역 관리</li>
+									<li>교환 지급 품목 관리</li>
+								</ul>
+						</li>
+						<li>
+							<p class="title2">설비 관리</p>
+								<ul class="con">
+									<li><a href="../equipment/equipmentList.jsp">보유 설비 관리</a></li>
+									<li><a href="../equipment/rentalList.jsp">설비 대여 관리</a></li>
+								</ul>
+						</li>
+						<li>
+							<p class="title2">정산 관리</p>
+								<ul class="con">
+									<li><a href="../adjustment/adjustment.jsp">정산 내역 관리</a></li>
+								</ul>
+						</li>
+						<li>
+							<p class="title2">계약 관리</p>
+								<ul class="con">
+									<li>계약 내역 조회</li>
+								</ul>
+						</li>
+					</ul>
+				</div>	<!-- accodion-box end -->
+			</div>	<!-- aside-body end -->
+			<div id="logout-box" name="logout" class="logout">
+				로그아웃
+			</div>	<!-- logout-box end -->
+		</div>	<!-- div aside end -->
 		
-		</div>	<!-- background-box end -->
-	</div>	<!-- outer end -->
-</div>	<!-- mainWrapper end -->
-	
+	</div>
+	<script>
+
+	$("p.title2").on('click', function(){
+		/* $(this).next(".con").slideToggle(300); */
+		$(".con").not($(this).next(".con").slideToggle(300)).slideUp();
+	});
+	</script>
 	
 	<!-- T4 큐레이터 -->	
 	<%}else if((loginUser.gettCode().equals("T4"))){ %>
@@ -672,6 +815,7 @@
 			/* $(this).next(".con").slideToggle(300); */
 			$(".con").not($(this).next(".con").slideToggle(300)).slideUp();
 		});
+		
 	</script>
 	
 	
@@ -693,6 +837,8 @@
 	});
 	
 	
-	</script>
+	
+</script>
+	
 </body>
 </html>

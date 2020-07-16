@@ -147,13 +147,17 @@ border-radius: 999px;
 			<% if(loginUser == null) { %>
       			<button class="login" id="login" onclick="location.href='/snackking/views/common/login.jsp'">로그인</button>
       		<% } else {
-      			if(loginUser.gettCode() == "T1" || loginUser.gettCode() == "T2") {%>
-      		    <button class="loginName" id="login" onclick="location.href='<%= request.getContextPath()%>/selectPre.pre?num=<%=loginUser.getUserNo()%>'"><%=loginUser.getUserName() %>님</button>
-      		    <%}else { %>
-      		    <button class="loginName" id="login" onclick="location.href='/snackking/views/common/userMenu.jsp'"><%=loginUser.getUserName() %>님</button>
-      		    <%} %>
+      			if(loginUser.gettCode().equals("T1") || loginUser.gettCode().equals("T2")) {%>
+      		    <button class="loginName" id="login1" onclick="location.href='<%= request.getContextPath()%>/selectPre.pre?num=<%=loginUser.getUserNo()%>'"><%=loginUser.getUserName() %>님</button>
+      		    <%}if(loginUser.gettCode().equals("T3")){ %>
+      		    <button class="loginName" id="login2" onclick="location.href='<%= request.getContextPath()%>/adminUserSelect.ad?num=<%=loginUser.getUserNo()%>'"><%=loginUser.getUserName() %>님</button>
+      		    <%}if(loginUser.gettCode().equals("T4")) {%>
+      		     <button class="loginName" id="login3"  onclick="location.href='<%= request.getContextPath()%>/selectUserList.us?num=<%=loginUser.getUserNo()%>'"><%=loginUser.getUserName() %>님</button>
+      		    <%}if(loginUser.gettCode().equals("T5")) {%>
+      		      <button class="loginName" id="login4" onclick="location.href='<%= request.getContextPath()%>/selectPre.?num=<%=loginUser.getUserNo()%>'"><%=loginUser.getUserName() %>님</button>
+      		    <%}%>
       		    <button class="logout" id="logout" onclick="logout();">로그아웃</button>
-			<%} %>      		
+			<%} %>   
       		
       		</li>
       	</ul>
