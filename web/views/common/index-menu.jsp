@@ -152,6 +152,7 @@ border-radius: 999px;
       		    <%}else { %>
       		    <button class="loginName" id="login" onclick="location.href='/snackking/views/common/userMenu.jsp'"><%=loginUser.getUserName() %>님</button>
       		    <%} %>
+      		    <button class="logout" id="logout" onclick="logout();">로그아웃</button>
 			<%} %>      		
       		
       		</li>
