@@ -144,7 +144,7 @@ table{
 	
 	
 	<div class="footerArea">
-	<%@ include file="../common/footer.jsp" %>
+		<%@ include file="../common/footer.jsp" %>
 	</div>
 </div>	<!-- mainWrapper end -->
 
