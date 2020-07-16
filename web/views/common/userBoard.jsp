@@ -276,7 +276,9 @@ input[type='text']{
 	text-align: center;
 	color: #FFFFFF;
 }
-
+.submit-btn:hover {
+	cursor: pointer;
+}
 input[type='checkbox']{
 	border: 1px solid #F0BB00;
 }
@@ -412,7 +414,7 @@ input[type='checkbox']{
 			</form>
 			</div>
 			<div class="btnArea">
-				<input type="button" value="글쓰기" class="submit-btn write">
+				<input type="button" value="글쓰기" id="write-btn" class="submit-btn write">
 				<input type="button" value="삭제" class="submit-btn delete">
 			</div>
 		</div>
@@ -425,6 +427,9 @@ input[type='checkbox']{
 </div>	<!-- mainWrapper end -->
 
 <script>
+	$("#write-btn").click(function() {
+		location.href='userBoardinsertForm.jsp';
+	});
 	/* $('.dropdown').click(function () {
         $(this).attr('tabindex', 1).focus();
         $(this).toggleClass('active');

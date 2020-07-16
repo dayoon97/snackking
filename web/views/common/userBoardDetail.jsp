@@ -11,6 +11,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	display: table;
+	overflow-x: hidden;
 }
 #outer {
 	margin-left: 265px;
@@ -110,11 +111,40 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-
-
+.writeReply {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	padding: 15px;
+	border: 2px solid lightgray;
+	border-radius: 5px;
+	background: white;
+}
+.replyWriter{
+	font-size: 15px;
+}
+#replyTname{
+	font-weight: 400;
+}
+.reply-box-writer {
+	font-size: 15px;
+	font-weight: 600;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+.reply-box-content{
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+.reply-box-date{
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+}
 </style>
 </head>
-<body>
+<body style="overflow-x: hidden;">
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
@@ -171,17 +201,26 @@
 							<div class="reply-box-title">댓글</div>
 							<table border="1">
 								<tr>
-									<td style="font-size: 15px; font-weight: 600; padding-top: 10px; padding-right: 10px; padding-left: 10px;">최고미소</td>
+									<td class="reply-box-writer">최고미소</td>
 								</tr>
 								<tr>
-									<td style="padding-top: 10px; padding-right: 10px; padding-left: 10px;">시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~</td>
+									<td class="reply-box-content">시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~</td>
 								</tr>
 								<tr>
-									<td style="padding-top: 10px; padding-right: 10px; padding-left: 10px;">2020.07.16. 14:52</td>
+									<td class="reply-box-date">2020.07.16. 14:52</td>
 								</tr>
 							</table>
-							<div style="border: 1px solid black;">
-								
+							<div class="writeReply">
+								<div class="replyWriter">
+									<span id="replyTname">큐레이터</span>&nbsp;&nbsp;
+									<span id="replyName">큐레미소</span>
+								</div>
+								<div style="margin-top: 5px;">
+									<textarea class="reply-area" rows="2" cols="140" placeholder="댓글을 입력해주세요." style="overflow: hidden; resize: none; border: 0;"></textarea>
+								</div>
+								<div style="height:25px; margin-top: 5px;">
+									<div style="display: inline-block; float: right;"><input type="button" id="reply-btn" value="등록"></div>
+								</div>
 							</div>
 						</div>	<!-- reply-box -->
 					</div>	<!-- article_container -->
@@ -196,6 +235,9 @@
 </div>	<!-- mainWrapper end -->
 
 <script>
+	/* $(".listBtn-top").onclick(function() {
+		
+	}); */
 	
 </script>
 	
