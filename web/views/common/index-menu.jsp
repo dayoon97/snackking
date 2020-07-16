@@ -146,10 +146,12 @@ border-radius: 999px;
       		<li class="loginArea">
 			<% if(loginUser == null) { %>
       			<button class="login" id="login" onclick="location.href='/snackking/views/common/login.jsp'">로그인</button>
-      		<% } else { %>
-      			
+      		<% } else {
+      			if(loginUser.gettCode() == "T1" || loginUser.gettCode() == "T2") {%>
       		    <button class="loginName" id="login" onclick="location.href='<%= request.getContextPath()%>/selectPre.pre?num=<%=loginUser.getUserNo()%>'"><%=loginUser.getUserName() %>님</button>
-      		    <button class="logout" id="logout" onclick="logout();">로그아웃</button>
+      		    <%}else { %>
+      		    <button class="loginName" id="login" onclick="location.href='/snackking/views/common/userMenu.jsp'"><%=loginUser.getUserName() %>님</button>
+      		    <%} %>
 			<%} %>      		
       		
       		</li>
