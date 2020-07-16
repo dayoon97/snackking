@@ -64,7 +64,7 @@ public class InsertContractServlet extends HttpServlet {
 		contract.setTtlAmount(ttlAmount);
 		
 		//date 타입 날짜 3개를 String으로 바꿨는데 잘 나오는지 확인했다. 잘 나온다.
-		System.out.println(contract);
+//		System.out.println(contract);
 		
 		int result = new ContractService().insertContract(contract);
 		
@@ -74,6 +74,8 @@ public class InsertContractServlet extends HttpServlet {
 //		System.out.println("insert controller servlet result : " + result);
 		
 		
+		//if문 써서 result > 0  쓰는 부분은 dao 갔다가 돌아올 때 쓰는 부분인 듯.
+		//지금 dao 쿼리문에서 막힘 ㅜㅜ insert 말고 select 조회하러 감미다
 		
 		
 		
