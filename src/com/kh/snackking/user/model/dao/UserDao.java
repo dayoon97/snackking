@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Properties;
 
 
@@ -517,6 +518,50 @@ public class UserDao {
 		}
 		
 		return list;
+	}
+
+	public ArrayList<User> selectSearchUserList(int nno, Map<String, Object> mapper, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<User> searchMember = null;
+		
+		String query = prop.getProperty("selectSearchUserList");
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, nno);
+			pstmt.setObject(2, mapper);
+			
+			
+			System.out.println(mapper.get(1));
+			searchMember = new ArrayList<User>();
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserNo(rset.getInt("USER_NO"));
+				u.setUserId(rset.getString("USER_ID"));
+				u.setCompany(rset.getString("COMPANY"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setAddress(rset.getString("ADDRESS"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				
+				searchMember.add(u);
+				
+				System.out.println("UserPhoneList : " + searchMember);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return searchMember;
 	}
 	
 }

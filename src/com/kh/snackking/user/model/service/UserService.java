@@ -5,6 +5,7 @@ import static com.kh.snackking.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.kh.snackking.user.model.dao.UserDao;
 import com.kh.snackking.user.model.vo.User;
@@ -162,6 +163,16 @@ public class UserService {
 		close(con);
 		
 		return list;
+	}
+
+	public ArrayList<User> selectSearchUserList(int nno, Map<String, Object> mapper) {
+		Connection con = getConnection();
+		
+		ArrayList<User> searchMember = new UserDao().selectSearchUserList(nno, mapper, con);
+		
+		
+		close(con);
+		return searchMember;
 	}
 
 }
