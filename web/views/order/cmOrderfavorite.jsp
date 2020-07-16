@@ -418,7 +418,7 @@ height: 25px;
                      <td>내용</td>
                      <td>내용</td>
                      <td>내용</td>
-                  </tr>
+                  </tr> 
                   <tr class="listBody">
                      <td><input type="checkbox" name="chk"></td>
                      <td>내용</td>
