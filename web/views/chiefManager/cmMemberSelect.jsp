@@ -226,9 +226,7 @@ height: 25px;
 	margin-right: auto;
 	display: table;
 }
-input[type='text']{
-	color:transparent;
-}
+
 </style>
 </head>
 <body>
@@ -260,18 +258,18 @@ input[type='text']{
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
 									<td>이름  :</td>
-									<td><input type="text" class="searchTextBox" size="7" name="memberName" onfocus="this.value=''; return true" value="memberName"></td>
+									<td><input type="text" class="searchTextBox" size="7" name="member" onfocus="this.value=''; return true" id="memberName"></td>
 									
 									<td>회사명  :</td>
-									<td><input type="text" class="searchTextBox" size="7" name="searchCondition" onfocus="this.value=''; return true" value="memberCompany"></td>
+									<td><input type="text" class="searchTextBox" size="7" name="member" onfocus="this.value=''; return true" id="memberCompany"></td>
 									
 									<td>아이디  :</td>
-									<td><input type="text" class="searchTextBox" size="7" name="searchCondition" onfocus="this.value=''; return true" value="memberId"></td>
+									<td><input type="text" class="searchTextBox" size="7" name="member" onfocus="this.value=''; return true" id="memberId"></td>
 									
 									<td>전화번호  :</td>										
-									<td><input type="text" class="searchTextBox" size="10" name="searchCondition" onfocus="this.value=''; return true" value="memberPhone"></td>
+									<td><input type="text" class="searchTextBox" size="10" name="member" onfocus="this.value=''; return true" id="memberPhone"></td>
 									
-									<td><input type="submit" class="searchBtn" value="검색하기" id="submit" name="searchBtn"></td>
+									<td><input type="hidden" id="mngNo" value="<%=loginUser.getUserNo()%>"><input type="button" class="searchBtn" value="검색하기" id="submit" name="searchBtn"></td>
 									
 								</tr>
 							</table>
@@ -318,76 +316,7 @@ input[type='text']{
 						</tr> 
 						<% } %>
 					</tbody>
-						<!-- <tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr> -->
+						
 					</table>
 				</div>
 		
@@ -413,13 +342,6 @@ input[type='text']{
    	   
    	});
    	
-	/* $(function(){
-		var MemberName = document.getElementsByName("MemberName");
-		
-		$("#submit").click(function(){
-			MemberName
-		});
-	}); */
 	
 	$(function(){
 		$("#searchCondition").keyup(function(){
@@ -427,16 +349,46 @@ input[type='text']{
 		});
 	});
 	
+	
+	
 	$(function(){
-		$("#searchBtn").click(function(){
-			$("#listTable tbody").remove();
-			$("#listTable tr").remove();
+		$("#submit").click(function(){
+		
 			$("#listTable td").remove();
+			
+			var arr = [];
+			
+			var name = document.getElementsByName("member")[0].value;
+			var company = document.getElementsByName("member")[1].value;
+			var id = document.getElementsByName("member")[2].value;
+			var phone = document.getElementsByName("member")[3].value;
+			
+			$('input[name="member"]:text').each(function(i){
+				arr.push($(this).val());
+			});
+			
+			for(i in arr){
+				console.log(arr[i])
+				if(arr[i] == null) {
+					
+				} 	
+			}
+			
+			var member = {
+				"user" : $("#mngNo").val(),
+				"list" : arr
+					
+			};
+			
+			console.log(arr);
+			
 			$.ajax({
-				url: "<%=request.getContextPath()%>/selectName.us?num=<%=loginUser.getUserNo()%>",
-				data: {memberName : $("#memberName").val()},
+				url: "<%=request.getContextPath()%>/selectName.us",
+				data: member,
 				type: "get",
+				traditional:true,
 				success: function(data){
+					
 					console.log(data);
 					$tableBody = $("#listTable tbody");
  					
@@ -444,6 +396,7 @@ input[type='text']{
  					
  					$.each(data, function(index, value){
  						var $tr = $("<tr>");
+ 						var $Td = $("<td>").html("<input type='checkbox'>");
  						var $noTd = $("<td>").text(value.userNo);
  						var $idTd = $("<td>").text(decodeURIComponent(value.userId));
  						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
@@ -452,6 +405,7 @@ input[type='text']{
  						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
  						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
  						
+ 						$tr.append($Td);
  						$tr.append($noTd);
  						$tr.append($idTd);
  						$tr.append($companyTd);
@@ -461,8 +415,10 @@ input[type='text']{
  						$tr.append($enrollDateTd);
  						
  						
+ 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "25px"});
+ 						
  						$tableBody.append($tr);
- 					});
+ 					}); 
  					
  					
  				},
@@ -474,7 +430,7 @@ input[type='text']{
 			});
 		});
 	});
-	
+
 	
    	</script>
 	
