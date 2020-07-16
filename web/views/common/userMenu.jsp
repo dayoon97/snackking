@@ -285,22 +285,22 @@
 								<p class="title">내 정보</p>
 							</div>
 								<ul class="con">
-									<li><a href="../common/userBoard.jsp">나의 문의내역</a></li>
-									<li><a href="../common/userUpdateInfoPwdCheck.jsp">회원정보 수정</a></li>
+									<li><a href="/snackking/views/common/userBoard.jsp">나의 문의내역</a></li>
+									<li><a href="/snackking/views/common/userUpdateInfoPwdCheck.jsp">회원정보 수정</a></li>
 								</ul>
 						</li>
 						<li><div class="user-menu-box">
 								<p class="title">주문관리</p>
 							</div>
 								<ul class="con">
-									<li><a href="../common/userOrderHistory.jsp">주문내역 관리</a></li>
+									<li><a href="/snackking/views/common/userOrderHistory.jsp">주문내역 관리</a></li>
 								</ul>
 						</li>
 						<li><div class="user-menu-box">
 								<p class="title">선호도조사</p>
 							</div>
 								<ul class="con">
-									<li><a href="../curator/preference.jsp">선호도 조사</a></li>
+									<li><a href="<%= request.getContextPath()%>/selectPre.pre?num=<%=loginUser.getUserNo()%>">선호도 조사</a></li>
 									<!-- <li><a href="../">선호도 조사 내역</a></li> -->
 								</ul>
 						</li>
