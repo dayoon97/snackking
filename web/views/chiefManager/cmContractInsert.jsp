@@ -331,10 +331,11 @@ height: 25px;
 					<!-- searchBox start -->
 					<div id="searchBox">
 						<form id="searchForm" action="<%= request.getContextPath()%>/insertContract.co" method="post">
-							<table class="memberTable"  >
+							<table class="memberTable">
 							<tr>
 								<td>거래처명 :</td>
-								<td><input type="text" class="searchTextBox" size="15" name="conCompany">
+								<!-- 여기 view 페이지에 있는 name=""(값 넘어가는것)하고 다음에 넘어가는 controller의 servlet getParameter("")하고 같아야 함!!! -->
+								<td><input type="text" class="searchTextBox" size="15" name="corpName"> 
 								</td>
 								<td></td>
 								<td></td>
@@ -343,7 +344,7 @@ height: 25px;
 							</tr>
 							<tr>
 								<td>계약코드 :</td>
-								<td><input type="text" class="searchTextBox" size="15" name="conNumber">
+								<td><input type="text" class="searchTextBox" size="15" name="conCode">
 								</td>
 								<td style="text-align:center">계약일 :</td>
 								<td><input type="date" class="searchTextBox" size="10" name="conDate"></td>
@@ -353,8 +354,8 @@ height: 25px;
 							<tr>
 								<td>계약기간 :</td>
 								<td colspan="2"><input type="date" class="searchTextBox" size=""
-									name="calendar1">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
-									<input type="date" class="searchTextBox" name="calendar2"></td>
+									name="startDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
+									<input type="date" class="searchTextBox" name="endDate"></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -362,19 +363,24 @@ height: 25px;
 							<tr>
 								<td>배송횟수 :</td>
 								<td>월 <input type="text" class="searchTextBox" size="10"
-									name="deliverCount"> 회
+									name="delivCount"> 회
 								</td>
 								<td style="text-align:center">회차당 금액 :</td>
-								<td><input type="text" class="searchTextBox" size="10" name="Pay">원</td>
+								<td><input type="text" class="searchTextBox" size="10" name="amountPDeliv">원</td>
 								<td>월 계약금액 :</td>
-								<td><input type="text" class="searchTextBox" size="10" name="monthPay">원</td>
+								<td><input type="text" class="searchTextBox" size="10" name="ttlAmout">원</td>
 							</tr>
 									
 						</table>
 								
-							<td><input type="submit" class="insertBtn" value="등록" id="submit" 
-							onclick="button_click();" style="margin-left: 860px; top: 500px;"></td>
+							<div><button type="submit" class="insertBtn" value="등록" id="submit" 
+									style="margin-left:860px; top:500px;">등록</button>
+							</div>
+								
 									
+							<!-- 전송, 클릭 이벤트. 이벤트가 2개라서 잘 안 됨 -->		
+							<!-- <input type="submit" class="insertBtn" value="등록" id="submit" 
+							onclick="button_click();" style="margin-left: 860px; top: 500px;"> -->
 							<!--   <div id="myModal" class="modal">
 								<div class="modal-content" style="width: 30%;">
 									<span class="close">&times;</span>
