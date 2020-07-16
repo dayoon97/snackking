@@ -3,6 +3,7 @@ package com.kh.snackking.preference.model.service;
 import static com.kh.snackking.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.snackking.preference.model.dao.PreferenceDao;
 import com.kh.snackking.preference.model.vo.Preference;
@@ -51,6 +52,7 @@ public class PreferenceService {
 		
 		Preference Pre = new PreferenceDao().selectOne(con, userNo);
 		
+		System.out.println("Pre : " + Pre);
 		if(Pre != null) {
 			commit(con);
 		}else{
@@ -60,5 +62,38 @@ public class PreferenceService {
 		close(con);
 		
 		return Pre;
+	}
+
+	public ArrayList<Preference> selectPreference() {
+		Connection con = getConnection();
+		
+		ArrayList<Preference> List = new PreferenceDao().selectPreference(con);
+		System.out.println("srtvice List : " + List);
+		if(List != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return List;
+	}
+
+	public Preference cmSelectOne(Preference pre) {
+		Connection con = getConnection();
+		
+		Preference P = new PreferenceDao().cmSelectOne(con, pre);
+		
+		System.out.println("Pre : " + P);
+		if(P != null) {
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return P;
 	}
 }

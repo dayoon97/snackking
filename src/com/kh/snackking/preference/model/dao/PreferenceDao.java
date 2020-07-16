@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.snackking.preference.model.vo.Preference;
@@ -95,33 +96,33 @@ public class PreferenceDao {
 	public Preference selectOne(Connection con, Preference updatePre) {
 		PreparedStatement pstmt = null;
 		 ResultSet rset = null;
-		 Preference Pre = null;
+		 Preference p = null;
 		 
 		 String query = prop.getProperty("selectOne");
 		 
 		 try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, updatePre.getUserNo());
-			pstmt.setInt(2, updatePre.getUserNo());
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				Pre = new Preference();
-				Pre.setUserNo(rset.getInt("USER_NO"));
-				Pre.setPreNo(rset.getInt("PRE_NO"));
-				Pre.setPreBudget(rset.getInt("PRE_BUDGET"));
-				Pre.setPrePersonnel(rset.getInt("PRE_PERSONNEL"));
-				Pre.setPreAge(rset.getString("PRE_AGE"));
-				Pre.setPreProductTypes(rset.getString("PRE_PROTYPES"));
-				Pre.setPreTaste(rset.getString("PRE_TASTE"));
-				Pre.setPreFlavor(rset.getString("PRE_FLAVOR"));
-				Pre.setPreEtcFlavor(rset.getString("PRE_ETCFLAVOR"));
-				Pre.setPreAlName(rset.getString("PRE_ALNAME"));
-				Pre.setPreStyle(rset.getString("PRE_STYLE"));
-				Pre.setPreEquipment(rset.getString("PRE_EQUIPMENT"));
-				Pre.setPreDate(rset.getString("PRE_DATE"));
-				Pre.setStatus(rset.getString("PRE_STATUS"));
+				 p = new Preference();
+				
+				p.setUserNo(rset.getInt("USER_NO"));
+				p.setPreNo(rset.getInt("PRE_NO"));
+				p.setPreBudget(rset.getInt("PRE_BUDGET"));
+				p.setPrePersonnel(rset.getInt("PRE_PERSONNEL"));
+				p.setPreAge(rset.getString("PRE_AGE"));
+				p.setPreProductTypes("PRE_PROTYPES");
+				p.setPreTaste(rset.getString("PRE_TASTE"));
+				p.setPreFlavor(rset.getString("PRE_FLAVOR"));
+				p.setPreEtcFlavor(rset.getString("PRE_ETCFLAVOR"));
+				p.setPreAlName(rset.getString("PRE_ALNAME"));
+				p.setPreStyle(rset.getString("PRE_STYLE"));
+				p.setPreEquipment(rset.getString("PRE_EQUIPMENT"));
+				p.setPreDate(rset.getString("PRE_DATE"));
+				p.setStatus(rset.getString("PRE_STATUS"));
 			}
 			
 			
@@ -131,7 +132,96 @@ public class PreferenceDao {
 			close(rset);
 			close(pstmt);
 		}
-		return Pre;
+		return p;
+	}
+
+	public ArrayList<Preference> selectPreference(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Preference> List = null;
+		
+		String query = prop.getProperty("selectPreference");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			List = new ArrayList<Preference>();
+			while(rset.next()) {
+				Preference p = new Preference();
+				
+				p.setUserNo(rset.getInt("USER_NO"));
+				p.setUserName(rset.getString("USER_NAME"));
+				p.setUserCom(rset.getString("COMPANY"));
+				p.setPreNo(rset.getInt("PRE_NO"));
+				p.setPreBudget(rset.getInt("PRE_BUDGET"));
+				p.setPrePersonnel(rset.getInt("PRE_PERSONNEL"));
+				p.setPreAge(rset.getString("PRE_AGE"));
+				p.setPreProductTypes("PRE_PROTYPES");
+				p.setPreTaste(rset.getString("PRE_TASTE"));
+				p.setPreFlavor(rset.getString("PRE_FLAVOR"));
+				p.setPreEtcFlavor(rset.getString("PRE_ETCFLAVOR"));
+				p.setPreAlName(rset.getString("PRE_ALNAME"));
+				p.setPreStyle(rset.getString("PRE_STYLE"));
+				p.setPreEquipment(rset.getString("PRE_EQUIPMENT"));
+				p.setPreDate(rset.getString("PRE_DATE"));
+				p.setStatus(rset.getString("PRE_STATUS"));
+				
+				List.add(p);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		return List;
+	}
+
+	public Preference cmSelectOne(Connection con, Preference pre) {
+		PreparedStatement pstmt = null;
+		 ResultSet rset = null;
+		 Preference p = null;
+		 
+		 String query = prop.getProperty("cmSelectOne");
+		 
+		 try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pre.getPreNo());
+			
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				 p = new Preference();
+				
+				p.setUserNo(rset.getInt("USER_NO"));
+				p.setPreNo(rset.getInt("PRE_NO"));
+				p.setPreBudget(rset.getInt("PRE_BUDGET"));
+				p.setPrePersonnel(rset.getInt("PRE_PERSONNEL"));
+				p.setPreAge(rset.getString("PRE_AGE"));
+				p.setPreProductTypes("PRE_PROTYPES");
+				p.setPreTaste(rset.getString("PRE_TASTE"));
+				p.setPreFlavor(rset.getString("PRE_FLAVOR"));
+				p.setPreEtcFlavor(rset.getString("PRE_ETCFLAVOR"));
+				p.setPreAlName(rset.getString("PRE_ALNAME"));
+				p.setPreStyle(rset.getString("PRE_STYLE"));
+				p.setPreEquipment(rset.getString("PRE_EQUIPMENT"));
+				p.setPreDate(rset.getString("PRE_DATE"));
+				p.setStatus(rset.getString("PRE_STATUS"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
 	}
 
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference, java.util.*"%>
+<% ArrayList<Preference> List = (ArrayList<Preference>)request.getAttribute("List"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -381,95 +382,45 @@ height: 25px;
                      <th width="20px"><input type="checkbox" id="checkall"></th>
                      <th width="30px">작성번호</th>
                      <th width="60px">상호명</th>
+                     <th width="80px">이름</th>
                      <th width="80px">선호도 작성일자</th>
                      <th width="50px">계약여부</th>
-                     <th width="80px">서비스 종료일</th>
                      <th width="70px">작성내용 상세보기</th>
                      <th width="50px">삭제</th>
                   </tr>
                   
                   <!-- 리스트 바디  -->
+				<% for(Preference n : List) { %>
                   <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr> 
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
+						<td><input type="checkbox"></td>
+						<td><%= n.getPreNo() %></td>
+						<td><%= n.getUserCom() %></td>
+						<td><%= n.getUserName()%></td>
+						<td><%= n.getPreDate() %></td>
+						<td><%= n.getStatus() %></td>
+						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="/snackkking/resources/image/search.png" width="15px" alt="My Image"></a></td>
+						<td><button>삭제</button></td>
+					</tr>
+				<%} %>
                </table>
+               
+               <%-- 				<tr>
+				<th >글번호</th>
+				<th width="300px">글제목</th>
+				<th width="100px">작성자</th>
+				<th>조회수</th>
+				<th width="100px">작성일</th>
+				</tr>
+				<% for(Notice n : list) { %>
+				
+				<tr>
+					<td><%= n.getNno() %></td>
+					<td><%= n.getnTitle() %></td>
+					<td><%= n.getNickName() %></td>
+					<td><%= n.getnCount() %></td>
+					<td><%= n.getnDate() %></td>
+				</tr>
+				<%} %> --%>
             </div>
       
       </div>   <!-- background-box end -->
