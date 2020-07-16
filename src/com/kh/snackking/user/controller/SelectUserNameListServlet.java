@@ -35,50 +35,59 @@ public class SelectUserNameListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String MngNo = request.getParameter("num");
-		
-		int nno = 0;
-		if(MngNo != "" && MngNo != null) {
-			nno = Integer.parseInt(MngNo);
-		}
-		
-		String memberName = request.getParameter("memberName");
-	
-		System.out.println(memberName);
-		
-		ArrayList<User> list = new UserService().selectUserNameList(memberName, nno);
-		
-		
-		
-//		if(searchCondition.equals("memberName")) {
-//			String userName = request.getParameter("searchValue");
-//			
-//			list = new UserService().selectUserNameList(userName, nno);
-//		} 
-//		else if(searchCondition.equals("memberCompany")) {
-//			String userCompany = request.getParameter("searchValue");
-//			
-//			list = new UserService().selectUserCompanyList(userCompany, nno);
-//		} else if(searchCondition.equals("memberId")) {
-//			String userId = request.getParameter("searchValue");
-//			
-//			list = new UserService().selectUserIdList(userId, nno);
-//		} else if(searchCondition.equals("memberPhone")) {
-//			String userPhone = request.getParameter("searchValue");
-//			
-//			list = new UserService().selectUserPhoneList(userPhone, nno);
+		String[] member = request.getParameterValues("list");
+		int nno = (Integer.parseInt(request.getParameter("user")));
+//		String list = "";
+//		if(member != null) {
+//			for(int i = 0; i < member.length; i++) {
+//				if(i == 0) {
+//					list += member[i];
+//				} else {
+//					list += ", " + member[i];
+//				}
+//			}
 //		}
 		
+		System.out.println(nno);
+		//System.out.println(list);
+		
+		System.out.println(member[0]);
+		System.out.println(member[1]);
+		System.out.println(member[2]);
+		System.out.println(member[3]);
+		
+		//ArrayList<User> list = new UserService().selectUserNameList(nno);
+		
+		ArrayList<User> searchMember = null;
 		
 		
+		if(member[0] != "") {
+			String userName = member[0];
+			
+			searchMember = new UserService().selectUserNameList(userName, nno);
+		} 
+			
+		if(member[1] != "") {
+			String userCompany = member[1];
+			
+			searchMember = new UserService().selectUserCompanyList(userCompany, nno);
+		}
+		if(member[2] != "") {
+			String userId = member[2];
+			
+			searchMember = new UserService().selectUserIdList(userId, nno);
+		}
+		if(member[3] != "") {
+			String userPhone = member[3];
+			
+			searchMember = new UserService().selectUserPhoneList(userPhone, nno);
+		}
 		
-		
-		System.out.println("회원 리스트 : " + list);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
-		new Gson().toJson(list, response.getWriter());
+		new Gson().toJson(searchMember, response.getWriter());
 		
 	}
 

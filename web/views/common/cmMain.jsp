@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User"%>
+<% User loginUser = (User) session.getAttribute("loginUser"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,7 +148,7 @@
 								src="../../resources/image/bell.png"></td>
 						</tr>
 					</table> -->
-						<div class="login-name">김미소</div>
+						<div class="login-name"><%=loginUser.getUserName()%></div>
 						<div id="line" style="border:1px solid #AA8400; width:60%; background-color: #AA8400"></div>
 						<div class="login-jobname">최고 관리자</div>
 					</div>	<!-- login-info end -->
@@ -158,7 +158,7 @@
 						<li>
 							<p class="title">회원 관리</p>
 								<ul class="con">
-									<li><a href="../chiefManager/cmMemberSelect.jsp">회원 리스트</a></li>
+									<li><a href="<%=request.getContextPath()%>/adminUserSelect.ad?num=<%=loginUser.getUserNo()%>">회원 리스트</a></li>
 									<li><a href="../question/cmquestion.jsp">문의 게시판 관리</a></li>
 									<li><a href="../chiefManager/cmContractMember.jsp">계약 회원 관리</a></li>
 									<li><a href="../chiefManager/cmDeleteMember.jsp">회원 탈퇴 승인</a></li>

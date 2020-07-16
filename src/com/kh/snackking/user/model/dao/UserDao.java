@@ -2,13 +2,13 @@ package com.kh.snackking.user.model.dao;
 
 import static com.kh.snackking.common.JDBCTemplate.*;
 
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -518,5 +518,78 @@ public class UserDao {
 		
 		return list;
 	}
-	
+
+	public ArrayList<User> adminUserList(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("adminUserList");
+		
+		try {
+			stmt = con.createStatement();
+			
+			list = new ArrayList<User>();
+			
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserNo(rset.getInt("USER_NO"));
+				u.setUserId(rset.getString("USER_ID"));
+				u.setCompany(rset.getString("COMPANY"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setAddress(rset.getString("ADDRESS"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				
+				list.add(u);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<User> adminEmployeeSelect(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("adminEmployeeList");
+		
+		try {
+			stmt = con.createStatement();
+			
+			list = new ArrayList<User>();
+			
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserNo(rset.getInt("USER_NO"));
+				u.settCode(rset.getString("TCODE"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setAddress(rset.getString("ADDRESS"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				u.setStatus(rset.getString("STATUS"));
+				
+				list.add(u);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return list;
+	}
 }

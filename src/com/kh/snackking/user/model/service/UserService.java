@@ -164,4 +164,21 @@ public class UserService {
 		return list;
 	}
 
+	public ArrayList<User> adminUserList() {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().adminUserList(con);
+		
+		return list;
+		
+	}
+
+	public ArrayList<User> adminEmployeeSelect() {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().adminEmployeeSelect(con);
+		
+		return list;
+	}
+
 }
