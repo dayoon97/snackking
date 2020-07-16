@@ -229,9 +229,10 @@ text-align:center;
 					<div id="searchBox">
 					<!-- 조회 제목 -->
 						<div id="subSubTitle1"><h2>기본 정보 입력</h2></div>
-						<form id="searchForm" action="<%= request.getContextPath() %>/updatePreference.pre" method="post">
+						<form id="searchForm" action="<%= request.getContextPath() %>/insertPer.per" method="post">
 							<input type="hidden" id="userid" name="userid" value="<%=loginUser.getUserNo()%>">
 							<input type="hidden" id="username" name="userName" value="<%=loginUser.getUserName()%>">
+							<input type="hidden" id="username" name="predate" value="<%=insertPre.getPreDate()%>">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
@@ -481,7 +482,7 @@ text-align:center;
 								</table>
 							</div>
 						</form>
-						<input class="searchBtn" type="button" onclick="update();" value="수정하기">
+						<input class="searchBtn" type="button" onclick="update();" value="저장하기">
 					</div> <!-- searchBox end -->
 			</div>	<!-- search-area end -->
 		
