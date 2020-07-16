@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,50 +37,72 @@ public class SelectUserNameListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String MngNo = request.getParameter("num");
-		
-		int nno = 0;
-		if(MngNo != "" && MngNo != null) {
-			nno = Integer.parseInt(MngNo);
+		String[] member = request.getParameterValues("list");
+		int nno = (Integer.parseInt(request.getParameter("user")));
+		String list = "";
+		if(member != null) {
+			for(int i = 0; i < member.length; i++) {
+				if(i == 0) {
+					list += member[i];
+				} else {
+					list += ", " + member[i];
+				}
+			}
 		}
 		
-		String memberName = request.getParameter("memberName");
-	
-		System.out.println(memberName);
-		
-		ArrayList<User> list = new UserService().selectUserNameList(memberName, nno);
 		
 		
+		System.out.println(nno);
+		System.out.println(list);
+		System.out.println(member);
+//		System.out.println(member[0]);
+//		System.out.println(member[1]);
+//		System.out.println(member[2]);
+//		System.out.println(member[3]);
 		
-//		if(searchCondition.equals("memberName")) {
-//			String userName = request.getParameter("searchValue");
+		Map<String, Object> mapper = null;
+		mapper.put("member", member);
+		
+		
+		ArrayList<User> searchMember = null;
+		
+		searchMember = new UserService().selectSearchUserList(nno, mapper);
+		
+		
+		
+		
+		
+		//ArrayList<User> list = new UserService().selectUserNameList(nno);
+		
+		
+		
+//		if(member[0] != "") {
+//			String userName = member[0];
 //			
-//			list = new UserService().selectUserNameList(userName, nno);
+//			searchMember = new UserService().selectUserNameList(userName, nno);
 //		} 
-//		else if(searchCondition.equals("memberCompany")) {
-//			String userCompany = request.getParameter("searchValue");
 //			
-//			list = new UserService().selectUserCompanyList(userCompany, nno);
-//		} else if(searchCondition.equals("memberId")) {
-//			String userId = request.getParameter("searchValue");
+//		if(member[1] != "") {
+//			String userCompany = member[1];
 //			
-//			list = new UserService().selectUserIdList(userId, nno);
-//		} else if(searchCondition.equals("memberPhone")) {
-//			String userPhone = request.getParameter("searchValue");
-//			
-//			list = new UserService().selectUserPhoneList(userPhone, nno);
+//			searchMember = new UserService().selectUserCompanyList(userCompany, nno);
 //		}
-		
-		
-		
-		
-		
-		System.out.println("회원 리스트 : " + list);
+//		if(member[2] != "") {
+//			String userId = member[2];
+//			
+//			searchMember = new UserService().selectUserIdList(userId, nno);
+//		}
+//		if(member[3] != "") {
+//			String userPhone = member[3];
+//			
+//			searchMember = new UserService().selectUserPhoneList(userPhone, nno);
+//		}
+//		
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
-		new Gson().toJson(list, response.getWriter());
+		new Gson().toJson(searchMember, response.getWriter());
 		
 	}
 
