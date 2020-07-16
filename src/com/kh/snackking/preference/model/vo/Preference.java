@@ -16,14 +16,14 @@ public class Preference implements java.io.Serializable{
 	private String preAlName;   	   //알레르기 종류
 	private String preStyle;     	  //구성 스타일
 	private String preEquipment; 	  //수요설비
-	private Date preDate;			//날짜
+	private String preDate;			//날짜
 	private String status; //삭제여부
 	
 	public Preference() {}
 
 	public Preference(int userNo, String userName, int preNo, int preBudget, int prePersonnel, String preAge,
 			String preProductTypes, String preTaste, String preFlavor, String preEtcFlavor, String preAlName,
-			String preStyle, String preEquipment, Date preDate, String status) {
+			String preStyle, String preEquipment, String preDate, String status) {
 		super();
 		this.userNo = userNo;
 		this.userName = userName;
@@ -227,14 +227,14 @@ public class Preference implements java.io.Serializable{
 	/**
 	 * @return the preDate
 	 */
-	public Date getPreDate() {
+	public String getPreDate() {
 		return preDate;
 	}
 
 	/**
 	 * @param preDate the preDate to set
 	 */
-	public void setPreDate(Date preDate) {
+	public void setPreDate(String preDate) {
 		this.preDate = preDate;
 	}
 
@@ -264,5 +264,6 @@ public class Preference implements java.io.Serializable{
 				+ preEquipment + ", preDate=" + preDate + ", status=" + status + "]";
 	}
 
+	
 	
 }
