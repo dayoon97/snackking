@@ -1,302 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.equipment.model.vo.Equipment, java.util.*"%>
+<% ArrayList<Equipment> list = (ArrayList<Equipment>) request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../../resources/css/mine.css">
+
 <style type="text/css">
-	#outer {
-		margin-left: 265px;
-		margin-right: 35px;
-		/* width: auto; */
-		height: 100vh;
-		position: relative;
-	}
-	#background-box {
-		position: relative;
-		width: 1092px;
-		/* width: auto; */
-		height: 700px;
-		top: 15px;
-		background: white;
-		border-radius: 12px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-			
-	/*본문영역 상단부*/
-	#titleArea {
-		position: relative;
-		height: 20%;
-	
-	}
-	/*본문 영역 제목*/
-	#mainTitle {
-		position: absolute;
-		width: 250px;
-		height: 100px;
-		left: 30px;
-		font-family: NanumSquare_ac;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 35px;
-		line-height: 53px;
-		display: flex;
-		align-items: center;
-		color: #232323;	
-	}
-	
-	/*본문 영역 제목 밑에있는 선*/
-	#line1 {
-		position: absolute;
-		width: 170px;
-		height: 0px;
-		left: 30px;
-		top: 80px;
-		border: 1px solid #666666;
-	}
-	
-	/*본문 영역 소제목*/
-	#subTitle {
-		position: absolute;
-		width: 250px;
-		height: 50px;
-		left: 30px;
-		top: 78px;
-		font-family: NanumSquare_ac;
-		font-style: normal;
-		font-size: 25px;
-		line-height: 40px;
-		display: flex;
-		align-items: center;
-		color: #343434;
-	}
-	/*조회 제목 스타일*/
-	#subSubTitle1{
-		position: absolute;
-		/* width: 69px; */
-		height: 30px;
-		left: 40px;
-		top: 150px;
-		/* font-family: NanumSquare_ac; */
-		font-style: normal;
-		font-weight: bold;
-		font-size: 18px;
-		/* line-height: 20px; */
-		display: flex;
-		align-items: center;
-		/* color: #000000; */
-	}
-	/*조회 상자 테두리*/
-	#searchBox{
-		position: absolute;
-		width: 980px;
-		height: 60px;
-		left: 40px;
-		right: 40px;
-		margin: 0 auto;
-		top: 190px;
-		border: 1px solid rgba(75, 75, 75, 0.23);
-		box-sizing: border-box;
-		border-radius: 33.5px;
-	}
-	/*폼 기본 서식*/
-	#searchForm{
-		height:100%;
-		margin: 0 auto;
-		padding-left:20px;
-	}
-	/*테이블 기본 서식*/
-	.memberTable, #listTable{
-		width: 950px;
-		margin-top: 10px;
-		margin-left: 10px;
-	}
 
-	/*td 글자 스타일 지정*/
-  	.memberTable>td{
-		height: 30px;
-		font-family: NanumSquare_ac;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 15px;
-		color: #000000;
-		padding-top:5px;
-		padding-left:0;	
-	}
-	 
-	
-	
-	/*검색 내용 타이핑하는 부분, input 태그*/
- 	.searchTextBox{
-		border:0;
-		outline:0;
-		height: 20px;
-		padding:0;
-		margin:0;
-		background: #F6F1F1;
-	}
-	
-	/*노란 버튼 공통 스타일*/
- 	.searchBtn{
-		border:0;
-		outline:0;
-		width: 92px;
-		height: 32px;
-		background: #F0BB00;
-		display:inline-block;
-		font-family: NanumSquare_ac;
-		font-style: normal;
-		font-weight: 300;
-		font-size: 17px;
-		line-height: 19px;
-		text-align: center;
-		color: #FFFFFF;
-	}
-
-/*조회 결과 리스트 제목 스타일*/
-#subSubTitle2{
-position: absolute;
-width: 90px;
-height: 30px;
-left: 40px;
-top: 300px;
-font-family: NanumSquare_ac;
-font-style: normal;
-font-weight: bold;
-font-size: 18px;
-line-height: 20px;
-display: flex;
-align-items: center;
-color: #000000;
-}
-
-/*적용 버튼*/
-#apply{
-position:absolute;	
-top:300px;
-right:90px;
-}
-
-#listTable{
-border-collapse:collapse;
-position: absolute;
-top:350px;
-left:45px;
-text-align:center;
-}
-
-
-/*조회 리스트 테이블 listHead*/
-#listHead{
-width: 1400px;
-height: 31px;
-padding-left:20px;
-background: #FBFAFA;
-box-sizing:border-box;
-border-radius: 300px 0 0 300px;
-}
-
-/*조회 리스트 부분 테이블 헤더 폰트 스타일*/
-.listHead th{
-padding:4px;
-font-size:15px;
-line-height:17px;
-}
-
-/* 리스트 바디 하위 td 테이블 선 스타일*/
-.listBody>td{
-border-bottom:3px solid #EBEAEA;
-height: 25px;
-}
-
-.listBody:hover{
-	cursor:pointer;
-	background: #F0BB00;
-}
-
-.searchBtn:hover {
-	cursor: pointer;
-}
-/*Styling Selectbox*/
-.dropdown {
-  width: 90px;
-  display: inline-block;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 0 2px rgb(204, 204, 204);
-  transition: all .5s ease;
-  position: relative;
-  font-size: 14px;
-  color: #474747;
-  height: 20px;
-  text-align: left;
-}
-.dropdown .select {
-    cursor: pointer;
-    display: block;
-    padding: 2px 10px;
-}
-.dropdown .select > i {
-    font-size: 13px;
-    color: #888;
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-    float: right;
-    line-height: 20px;
-}
-.dropdown:hover {
-    box-shadow: 0 0 4px rgb(204, 204, 204);
-}
-.dropdown:active {
-    background-color: #f8f8f8;
-}
-.dropdown.active:hover,
-.dropdown.active {
-    box-shadow: 0 0 4px rgb(204, 204, 204);
-    border-radius: 2px 2px 0 0;
-    background-color: #f8f8f8;
-}
-.dropdown.active .select > i {
-    transform: rotate(-90deg);
-}
-.dropdown .dropdown-menu {
-    position: absolute;
-    background-color: #fff;
-    width: 100%;
-    left: 0;
-    margin-top: 1px;
-    box-shadow: 0 1px 2px rgb(204, 204, 204);
-    border-radius: 0 1px 2px 2px;
-    overflow: hidden;
-    display: none;
-    max-height: 144px;
-    overflow-y: auto;
-    z-index: 9;
-}
-.dropdown .dropdown-menu li {
-    padding: 10px;
-    transition: all .2s ease-in-out;
-    cursor: pointer;
-} 
-.dropdown .dropdown-menu {
-    padding: 0;
-    list-style: none;
-}
-.dropdown .dropdown-menu li:hover {
-    background-color: #f2f2f2;
-}
-.dropdown .dropdown-menu li:active {
-    background-color: #e2e2e2;
-}
-/* drowBox Css end */
-#mainWrapper {
-	margin-left: auto;
-	margin-right: auto;
-	display: table;
-}
 </style>
 </head>
 <body>
@@ -323,7 +37,7 @@ height: 25px;
 				<div id="subSubTitle1">설비 검색</div>
 					<!-- searchBox start -->
 					<div id="searchBox">
-						<form id="searchForm" action="<%=request.getContextPath()%>/selectEquipment" method="post">
+						<form id="searchForm">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
@@ -338,10 +52,10 @@ height: 25px;
 											<input type="hidden" name="equipType" id="equipType" value="">
 											<ul class="dropdown-menu">
 												<li id="">선택</li>
-												<li id="냉장고소형">소형냉장고</li>
-												<li id="냉장고대형">대형냉장고</li>
-												<li id="스낵쇼케이스소형">소형케이스</li>
-												<li id="스낵쇼케이스대형">대형케이스</li>
+												<li id="소형냉장고">소형냉장고</li>
+												<li id="대형냉장고">대형냉장고</li>
+												<li id="소형케이스">소형케이스</li>
+												<li id="대형케이스">대형케이스</li>
 											</ul>
 										</div>
 									</td>
@@ -358,62 +72,153 @@ height: 25px;
                            			</td>
 
 									
-									<td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
+									<td><input type="button" class="searchBtn" value="검색하기" id="submit"></td>
 								
 								</tr>
 							</table>
 						</form>
 					</div> <!-- searchBox end -->
 			</div>	<!-- search-area end -->
+				<!-- The Modal 추가모달 --------------------------------------------------------------->
+						<div id="myModal3" class="modal3">
+						  <!-- Modal content -->
+						  <div class="modal-content3">
+						    <span class="close3">&times;</span>
+						    <form>
+						    <table align="center">
+						    	<caption><h2>설비 추가 등록</h2></caption>
+						    	<tr style="height: 20px;"></tr>
+						    	<tr>
+						    		<td class="right">설비타입 : </td>
+                                    <td>
+                                    <div class="dropdown a" style="width: 140px;">
+                                         <div class="select">
+                                              <span class="basic">선택</span>
+                                           <i class="fa fa-chevron-left"></i>
+                                         </div>
+                                         <input type="hidden" name="addEquipType" value="">
+                                         <ul class="dropdown-menu">
+                                                   <li id="선택">선택</li>
+                                                   <li id="소형냉장고">소형냉장고</li>
+                                                   <li id="소형냉장고">대형냉장고</li>
+                                                   <li id="소형냉장고">소형케이스</li>
+                                                   <li id="소형냉장고">대형케이스</li>
+                                         </ul>
+                                       </div>
+                                    </td>
+						    	</tr>
+						    	
+						    	<tr style="height: 30px;"></tr>
+								<tr>
+									<td>모델명 :</td>
+									<td><input type="text" name="addEquipName" class="add InputBox1" style="margin-right: 15px;"></td>
+									<td colspan="2"></td>
+								</tr>
+								<tr style="height: 30px;"></tr>
+								<tr>
+									<td>제조사 :</td>
+									<td><input type="text" name="addEquipMake" class="add InputBox1" style="margin-right: 15px;"></td>
+									<td colspan="2"></td>
+								</tr>
+								
+								<tr style="height: 30px;"></tr>
+								<tr>
+									<td colspan="4">
+										<input type="button" class="btn1" id="addEquipmentBtn" value="등록">
+									</td>
+								
+								</tr>
+						    </table>
+						    </form>
+						  </div>
+						</div><!-- 추가 모달----------------------------------------------- -->
+			
+			<!-- The Modal 수정모달--------------------------------------------------------------->
+						<div id="myModal4" class="modal4">
+						  <!-- Modal content -->
+						  <div class="modal-content4">
+						    <span class="close4">&times;</span>
+						    <form>
+						    <table align="center">
+						    	<caption><h2>설비 정보 수정</h2></caption>
+						    	<tr style="height: 20px;"></tr>
+						    	<tr>
+						    		<td class="right">설비타입 : </td>
+                                    <td>
+                                    <div class="dropdown a" style="width: 140px;">
+                                         <div class="select">
+                                              <span class="basic">선택</span>
+                                           <i class="fa fa-chevron-left"></i>
+                                         </div>
+                                         <input type="hidden" name="updateEquipType" value="">
+                                         <ul class="dropdown-menu">
+                                                   <li id="선택">선택</li>
+                                                   <li id="소형냉장고">소형냉장고</li>
+                                                   <li id="소형냉장고">대형냉장고</li>
+                                                   <li id="소형냉장고">소형케이스</li>
+                                                   <li id="소형냉장고">대형케이스</li>
+                                         </ul>
+                                       </div>
+                                    </td>
+						    	</tr>
+						    	
+						    	<tr style="height: 30px;"></tr>
+								<tr>
+									<td>모델명 :</td>
+									<td><input type="text" name="updateEquipName" class="InputBox1" style="margin-right: 15px;"></td>
+									<td colspan="2"></td>
+								</tr>
+								<tr style="height: 30px;"></tr>
+								<tr>
+									<td>제조사 :</td>
+									<td><input type="text" name="updateEquipMake" class="InputBox1" style="margin-right: 15px;"></td>
+									<td colspan="2"></td>
+								</tr>
+								
+								<tr style="height: 30px;"></tr>
+								<tr>
+									<td colspan="4">
+										<input type="button" class="btn1" id="updateEquipmentBtn" value="등록">
+									</td>
+								
+								</tr>
+						    </table>
+						    </form>
+						  </div>
+						</div><!-- 수정 모달----------------------------------------------- -->
+			
+			
+			
+			
+			
 			
 			<!-- 조회 결과 리스트 부분 -->
 				<div id="listArea">
 					<!-- 조회 결과 리스트 제목 -->
-					<div id="subSubTitle2">재고 리스트</div>
+					<div id="subSubTitle2" style="width:120px !important;">설비 리스트</div>
 					<!-- 적용 버튼 -->
-					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
-					<span id="apply">조회 결과 수 :</span>
+					 <button id="del"  class="btn2 btnPosition3">삭제</button> 
+					 <button id="update" class="btn2 btnPosition2">수정</button> 
+					 <button style="display:none;" id="updateModalBtn" ></button>
+					 <button id="addModalBtn" class="btn2 btnPosition1">추가</button> 
+					<!-- <span id="apply">조회 결과 수 :</span> -->
 					
 					<!-- 조회 리스트 테이블 -->
 					<table id="listTable">
 						<!-- 테이블 헤드 -->
-						<tr id="listHead">
-							<th width="20px"><input type="checkbox" id="checkall"></th>
-							<th width="30px">설비ID</th>
-							<th width="60px">설비타입</th>
-							<th width="80px">설비명</th>
-							<th width="50px">총 수량</th>
-							<th width="80px">대여 가능 수량</th>
-							<th width="50px">용도</th>
-						</tr>
+						<thead>
+							<tr id="listHead">
+								<th width="50px">선택</th>
+								<th width="180px">설비코드</th>
+								<th width="180px">설비타입</th>
+								<th width="180px">모델명</th>
+								<th width="180px">대여가능여부</th>
+								<th width="180px">제조사</th>
+							</tr>
+						</thead>
 						
-						<!-- 리스트 바디  -->
-						<tr class="listBody" onclick="location.href='equipmentDetail.jsp';">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						
-						
-						
-						
-						
-						
-						
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						
+						<tbody>
+						</tbody>
 					</table>
 				</div>
 		
@@ -432,12 +237,12 @@ height: 25px;
 			$(this).find('.dropdown-menu').slideUp(300);
 		});
 		$('.dropdown .dropdown-menu li').click(
-				function() {
-					$(this).parents('.dropdown').find('span').text(
-							$(this).text());
-					$(this).parents('.dropdown').find('input').attr('value',
-							$(this).attr('id'));
-				});
+			function() {
+				$(this).parents('.dropdown').find('span').text(
+						$(this).text());
+				$(this).parents('.dropdown').find('input').attr('value',
+						$(this).attr('id'));
+			});
 		/*End Dropdown Menu*/
 
 		$('.dropdown-menu li')
@@ -449,23 +254,242 @@ height: 25px;
 							$('.msg').html(msg + input + '</span>');
 						});
 		
+	
+	     
 	      
-	      $(document).ready(function(){
-	   	   /*  //최상단 체크박스 클릭 */
-	   	    $("#checkall").click(function(){
-	   	        /* //클릭되었으면 */
-	   	        if($("#checkall").prop("checked")){
-	   	            //* /input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의 */
-	   	            $("input[name=chk]").prop("checked",true);
-	   	            /* //클릭이 안되있으면 */
-	   	        }else{
-	   	            /* //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의 */
-	   	            $("input[name=chk]").prop("checked",false);
-	   	        }
-	   	   });
-	   	});
+	 //검색 버튼 클릭시 화면 바뀌게 하기
+	$(function() {
+		$(".searchBtn").click(function(){
+			var equipType = $("input[name=equipType]").val();
+			var equipMake = $("input[name=equipMake]").val();
+			var equipName = $("input[name=equipName]").val();
+			//check 된 radio 버튼
+			var possible = $("input[name=possible]:checked").val();
+			
+			var arr = {
+					"equipType" : equipType,
+					"equipMake": equipMake,
+					"equipName" : equipName,
+					"possible" : possible
+			};
+			
+			$.ajax({
+				url: "<%=request.getContextPath()%>/selectEquipment",
+				data: arr,
+				type: "get",
+				success: function(data){
+					$tableBody = $("#listTable tbody");
+					$tableBody.html('');
+					$tableBody.find("tr").remove();
+					
+ 						for(var key in data){
+ 							//클래스 속성 추가
+ 							var $tr =  $("<tr>").attr('class','listBody');
+ 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+ 							var $td2 = $("<td>").text(data[key].equipCode);
+ 							var $td3 = $("<td>").text(data[key].equipType);
+ 							var $td4 = $("<td>").text(data[key].equipName);
+ 	 						var $td5 = $("<td>").text(data[key].possible);
+ 	 						var $td6 = $("<td>").text(data[key].equipMake);
+ 							$tr.append($td1);
+ 							$tr.append($td2);
+ 							$tr.append($td3);
+ 	 						$tr.append($td4);
+ 	 						$tr.append($td5);
+ 	 						$tr.append($td6);
+ 							$tableBody.append($tr);
+ 							
+ 						}	
+ 							
+ 						/*	var $tr = $("<tr class="listBody">");
+ 						
+ 						
+ 						
+ 						
+ 						}; */
+ 					
+			
+ 				},
+ 				error: function(error){
+ 					console.log("에러!" + error);
+ 				}
+			});
+		});
+	});  
+	      
+	   
+	 
+		function only(chk){ 
+			var obj = document.getElementsByName("chk");
+	        for(var i=0; i<obj.length; i++){
+	            if(obj[i] != chk){
+	                obj[i].checked = false;
+	            }
+	        }
+		}
+	
+		//최고 관리자 설비 추가
+		 $(function() {
+			$("#addEquipmentBtn").click(function() {
+				var newEquipType = $("input[name=addEquipType]").val();
+				var newEquipMake = $("input[name=addEquipMake]").val();
+				var newEquipName = $("input[name=addEquipName]").val();
+				if(newEquipType == "" || newEquipType == "선택" || newEquipMake=="" || newEquipName ==""){
+					alert("항목을 모두 입력해주세요");
+				}else{
+					var arr2 = {
+							"newEquipType" : newEquipType,
+							"newEquipMake": newEquipMake,
+							"newEquipName" : newEquipName
+					};
+					$.ajax({
+						url: "<%=request.getContextPath()%>/addEquipment",
+						type: "get",
+						data: arr2,
+						success: function(data){
+							console.log(data);
+							$('.dropdown').find('span').text('선택');
+							$("input[name=addEquipMake]").val('');
+							$("input[name=addEquipName]").val('');
+							alert("설비 등록에 성공하였습니다")
+						},
+						error: function(error){
+		 					console.log("equipment 추가 실패!");
+		 				}
+					});
+				}
+			});
+		});
 		
+	
+		
+		//설비 삭제
+		 $(function() {
+				$("#del").click(function() {
+					var str = "";
+					/* var num = 0;
+		            var obj = document.getElementsByName("chk");
+		                 for(var i=0; i<obj.length; i++){
+			                  if(obj[i].checked){
+			                      num = i;
+			                      //td 맨 첫번째 숫서 기준이라서 두번째 설비코드값 가져와야함~!!
+			                      console.log("출력  : " + num + "번 선택");
+			                  }
+						 } */
+						 
+						 /* 테이블 특정 요소 값 가져오기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+		               var checkbox = $("input[name=chk]:checked");
+						checkbox.each(function(i){
+							var tr = checkbox.parent().parent().eq(i);
+							var td = tr.children();
+							str = td.eq(1).text();
+						});
+						 
+					
+
+		               console.log(str); 
+		                 
+	                 $.ajax({
+							url: "<%=request.getContextPath()%>/deleteEquipment",
+							type: "get",
+							data: {"str" : str},
+							success: function(data){
+								alert("설비 삭제에 성공하였습니다");
+								//삭제 성공하고 한번더 갔다옴. 페이지 renew 하려고
+										$.ajax({
+											url: "<%=request.getContextPath()%>/renewPageEquipment",
+											type: "get",
+											success: function(data){
+												/* 다시 업데이트 해줌 */
+												
+												$tableBody = $("#listTable tbody");
+												$tableBody.html('');
+												$tableBody.find("tr").remove();
+												
+							 						for(var key in data){
+							 							//클래스 속성 추가
+							 							var $tr =  $("<tr>").attr('class','listBody');
+							 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+							 							var $td2 = $("<td>").text(data[key].equipCode);
+							 							var $td3 = $("<td>").text(data[key].equipType);
+							 							var $td4 = $("<td>").text(data[key].equipName);
+							 	 						var $td5 = $("<td>").text(data[key].possible);
+							 	 						var $td6 = $("<td>").text(data[key].equipMake);
+							 							$tr.append($td1);
+							 							$tr.append($td2);
+							 							$tr.append($td3);
+							 	 						$tr.append($td4);
+							 	 						$tr.append($td5);
+							 	 						$tr.append($td6);
+							 							$tableBody.append($tr);
+							 							
+							 						}
+												
+												
+												
+												
+												
+												
+												
+											},
+											error: function(error){
+							 					console.log("equipment 삭제 실패!");
+							 				}
+										});
+								
+							},
+							error: function(error){
+			 					console.log("equipment 삭제 실패!");
+			 				}
+						});   
+		              
+		                 
+				});
+			});
+		
+		
+		
+		$(function() {
+			$("#update").click(function() {
+				alert("업데이트 기능 구현은 차차 생각해보겠습니다.");
+			});
+		});
+		
+		
+		
+	//추가 버튼 작동시 모달	
+			
+	//Get the modal
+	var modal = document.getElementById("myModal3");
+	
+	//Get the button that opens the modal
+	var btn = document.getElementById("addModalBtn");
+	
+	//Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close3")[0];
+	var span22 = document.getElementById("addEquipmentBtn");
+
+	//When the user clicks on the button, open the modal
+	btn.onclick = function() {
+	modal.style.display = "block";
+	}
+	
+	//When the user clicks on <span> (x), close the modal
+	span22.onclick = function() {
+	modal.style.display = "none";
+	}	
+	span.onclick = function() {
+		modal.style.display = "none";
+	}	
+	
+	
+	
+	
 	</script>	
+	
+
+	
+	
 	
 
 	
