@@ -480,7 +480,7 @@ text-align:center;
 								</table>
 							</div>
 						</form>
-						<input class="searchBtn" type="button" onclick="preference();" value="작성 완료">
+						<input class="searchBtn" type="button" onclick="preference();" value="저장 하기">
 					</div> <!-- searchBox end -->
 			</div>	<!-- search-area end -->
 		

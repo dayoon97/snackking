@@ -102,6 +102,7 @@ public class PreferenceDao {
 		 try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, updatePre.getUserNo());
+			pstmt.setInt(2, updatePre.getUserNo());
 			
 			rset = pstmt.executeQuery();
 			
@@ -119,7 +120,7 @@ public class PreferenceDao {
 				Pre.setPreAlName(rset.getString("PRE_ALNAME"));
 				Pre.setPreStyle(rset.getString("PRE_STYLE"));
 				Pre.setPreEquipment(rset.getString("PRE_EQUIPMENT"));
-				Pre.setPreDate(rset.getDate("PRE_DATE"));
+				Pre.setPreDate(rset.getString("PRE_DATE"));
 				Pre.setStatus(rset.getString("PRE_STATUS"));
 			}
 			
