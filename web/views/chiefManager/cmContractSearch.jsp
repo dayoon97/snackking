@@ -416,16 +416,16 @@ height: 80px;
 /*---------하단 listTableN 시작----------------------------------------------------------------*/
 /*열 10개짜리 테이블*/
 
-#listTable10 th:nth-of-type(1), #listTable10 td:nth-of-type(1){width:60px; important!}
-#listTable10 th:nth-of-type(2), #listTable10 td:nth-of-type(2){width:130px; important!}
-#listTable10 th:nth-of-type(3), #listTable10 td:nth-of-type(3){width:130px; important!}
-#listTable10 th:nth-of-type(4), #listTable10 td:nth-of-type(4){width:130px; important!}
-#listTable10 th:nth-of-type(5), #listTable10 td:nth-of-type(5){width:130px; important!}
-#listTable10 th:nth-of-type(6), #listTable10 td:nth-of-type(6){width:130px; important!}
-#listTable10 th:nth-of-type(7), #listTable10 td:nth-of-type(7){width:130px; important!}
-#listTable10 th:nth-of-type(8), #listTable10 td:nth-of-type(8){width:130px; important!}
-#listTable10 th:nth-of-type(9), #listTable10 td:nth-of-type(9){width:130px; important!}
-#listTable10 th:nth-of-type(10){width:150px; important!}
+#listTable10 th:nth-of-type(1), #listTable10 td:nth-of-type(1){width:100px; important!}
+#listTable10 th:nth-of-type(2), #listTable10 td:nth-of-type(2){width:140px; important!}
+#listTable10 th:nth-of-type(3), #listTable10 td:nth-of-type(3){width:140px; important!}
+#listTable10 th:nth-of-type(4), #listTable10 td:nth-of-type(4){width:140px; important!}
+#listTable10 th:nth-of-type(5), #listTable10 td:nth-of-type(5){width:140px; important!}
+#listTable10 th:nth-of-type(6), #listTable10 td:nth-of-type(6){width:140px; important!}
+#listTable10 th:nth-of-type(7), #listTable10 td:nth-of-type(7){width:140px; important!}
+#listTable10 th:nth-of-type(8), #listTable10 td:nth-of-type(8){width:140px; important!}
+#listTable10 th:nth-of-type(9), #listTable10 td:nth-of-type(9){width:140px; important!}
+#listTable10 th:nth-of-type(10){width:130px; important!}
 #listTable10 td:nth-of-type(10){width:130px; important!}
 
 /*열 11개짜리 테이블*/
@@ -539,7 +539,7 @@ overflow-y: auto !important;
 										
 									</tr>
 									<tr>
-										<td style="padding-left: 15px;">계약번호 : 
+										<td style="padding-left: 15px;">계약코드 : 
 										<input type="text" class="searchTextBox" size="20" name=""></td>
 										<td></td>
 										<td colspan="3" align="center">계약일 : 
@@ -587,8 +587,8 @@ overflow-y: auto !important;
 						<thead>
 							<!-- 테이블 헤드 -->
 							<tr>
-								<th>순번</th>
 								<th>계약번호</th>
+								<th>계약코드</th>
 								<th>거래처명</th>
 								<th>계약일자</th>
 								<th>계약시작일</th>
@@ -742,8 +742,6 @@ overflow-y: auto !important;
 
 
 <script>
-
-
 /* 옵션 선택 드롭 다운 */
 $('.dropdown').click(function () {
     $(this).attr('tabindex', 1).focus();
