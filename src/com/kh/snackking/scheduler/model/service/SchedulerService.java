@@ -22,6 +22,11 @@ public class SchedulerService {
 		return sList;
 	}
 
+	public ArrayList<Scheduler> SchedulerUpdate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 	
