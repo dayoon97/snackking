@@ -16,14 +16,14 @@ import com.kh.snackking.scheduler.model.vo.Scheduler;
 /**
  * Servlet implementation class InsertDateServlet
  */
-@WebServlet("/insert.da")
-public class InsertDateServlet extends HttpServlet {
+@WebServlet("/search.da")
+public class SchedulerSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertDateServlet() {
+    public SchedulerSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,13 @@ public class InsertDateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userid = request.getParameter("userId");
+		ArrayList<Scheduler> sList = new ArrayList<>();
 		
+		sList = new SchedulerService().schedulerSearch(userid);
+
+		request.setAttribute("sList", sList);
+		request.getRequestDispatcher("views/calen2.jsp").forward(request, response);
 		
 	}
 

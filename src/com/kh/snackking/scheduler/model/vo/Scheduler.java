@@ -20,6 +20,25 @@ public class Scheduler implements java.io.Serializable {
 	private String status;
 	
 	public Scheduler() {}
+	
+	
+
+	public Scheduler(String userName) {
+		super();
+		this.userName = userName;
+	}
+
+
+
+	public Scheduler(int userNo, String userId, String company, String phone) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.company = company;
+		this.phone = phone;
+	}
+
+
 
 	public Scheduler(int userNo, String tCode, String userId, String userPwd, String userName, String company, String phone,
 			String email, int zipNo, String address, int mngId, Date enrollDate, Date withdrawalDate, String status) {
@@ -154,7 +173,7 @@ public class Scheduler implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "S [userNo=" + userNo + ", tCode=" + tCode + ", userId=" + userId + ", userPwd=" + userPwd
+		return "User [userNo=" + userNo + ", tCode=" + tCode + ", userId=" + userId + ", userPwd=" + userPwd
 				+ ", userName=" + userName + ", company=" + company + ", phone=" + phone + ", email=" + email
 				+ ", zipNo=" + zipNo + ", address=" + address + ", mngId=" + mngId + ", enrollDate=" + enrollDate
 				+ ", withdrawalDate=" + withdrawalDate + ", status=" + status + "]";
