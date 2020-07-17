@@ -624,7 +624,7 @@
 						<li>
 							<p class="title2">설비 관리</p>
 								<ul class="con">
-									<li><a href="../equipment/equipmentList.jsp">보유 설비 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/views/equipment/equipmentList.jsp">보유 설비 관리</a></li>
 									<li><a href="../equipment/rentalList.jsp">설비 대여 관리</a></li>
 								</ul>
 						</li>
