@@ -16,12 +16,13 @@ public class Board implements java.io.Serializable{
 	private int bCount;
 	private Date bDate;
 	private String status;
+	private int rid;
 	private String answerCheck;
 	
 	public Board() {}
 
 	public Board(int rNum, int bid, String bType, String btName, int bno, String bTitle, String bContent, int bWriter,
-			String userName, int bCount, Date bDate, String status, String answerCheck) {
+			String userName, int bCount, Date bDate, String status, int rid, String answerCheck) {
 		super();
 		this.rNum = rNum;
 		this.bid = bid;
@@ -35,9 +36,10 @@ public class Board implements java.io.Serializable{
 		this.bCount = bCount;
 		this.bDate = bDate;
 		this.status = status;
+		this.rid = rid;
 		this.answerCheck = answerCheck;
 	}
-	
+
 	public int getrNum() {
 		return rNum;
 	}
@@ -134,6 +136,14 @@ public class Board implements java.io.Serializable{
 		this.status = status;
 	}
 
+	public int getRid() {
+		return rid;
+	}
+
+	public void setRid(int rid) {
+		this.rid = rid;
+	}
+
 	public String getAnswerCheck() {
 		return answerCheck;
 	}
@@ -146,8 +156,8 @@ public class Board implements java.io.Serializable{
 	public String toString() {
 		return "Board [rNum=" + rNum + ", bid=" + bid + ", bType=" + bType + ", btName=" + btName + ", bno=" + bno
 				+ ", bTitle=" + bTitle + ", bContent=" + bContent + ", bWriter=" + bWriter + ", userName=" + userName
-				+ ", bCount=" + bCount + ", bDate=" + bDate + ", status=" + status + ", answerCheck=" + answerCheck
-				+ "]";
+				+ ", bCount=" + bCount + ", bDate=" + bDate + ", status=" + status + ", rid=" + rid + ", answerCheck="
+				+ answerCheck + "]";
 	}
 	
 }

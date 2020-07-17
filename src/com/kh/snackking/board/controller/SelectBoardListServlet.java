@@ -70,7 +70,7 @@ public class SelectBoardListServlet extends HttpServlet {
 				
 		ArrayList<Board> list = new BoardService().selectList(userNo, pi);
 		
-		System.out.println("select board list : " + list);
+//		System.out.println("select board list : " + list);
 		
 		String page = "";
 		if(list != null) {
