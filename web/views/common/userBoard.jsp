@@ -269,7 +269,6 @@ input[type='checkbox']{
 		location.href='userBoardinsertForm.jsp';
 	});
 	
-	
 </script>
 	
 </body>
