@@ -22,11 +22,11 @@
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid','list','button' ],
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid','list' ],
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,list,button'
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
       },
       //defaultDate: '2019-06-12',
       navLinks: true, // can click day/week names to navigate views
@@ -53,10 +53,17 @@
       
       
       events: [
-        {
+       /*  {
           title: 'asd',
           start: '2020-07-16'
-        }
+        }, */
+        
+        /* {
+          start: '2020-07-20',
+          end: '2020-07-22',
+          backgroundColor: '#ff9f89',
+          rendering: 'background'
+        } */
       ]
     
     });
@@ -78,6 +85,9 @@
     max-width: 900px;
     margin: 0 auto;
   }
+  /* 주말 색 추가 */
+.fc-sat { background-color:#a4ccf1}
+.fc-sun { background-color:#f7b5c0}
 
 </style>
 </head>
@@ -87,7 +97,7 @@
   <form action="<%=request.getContextPath()%>/search.da" method="get">
   <label>큐레이터 아이디 : </label>
   <input type="text" name="userId">
-  <button type="submit">제출</button>
+  <button type="submit">가져오기</button>
   
   </form>
   
