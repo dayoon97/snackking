@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%
+    pageEncoding="UTF-8" import="com.kh.snackking.contract.model.vo.*, java.util.*"%>
+<%-- <%
 	ArrayList<Contract> list = (ArrayList<Contract>) request.getAttribute("list");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
-	ing listCount = pi.getListCount();
+	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-
-%>    
+	
+%> --%>
+    
+    
 <!DOCTYPE html>
 <html> 
 <head> 
@@ -514,7 +516,7 @@ overflow-y: auto !important;
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-	<%@ include file="../common/cmMain.jsp" %>
+	<%@ include file="../common/userMenu.jsp" %>
 	
 	<!-- outer start -->
 	<div id="outer">
@@ -545,7 +547,8 @@ overflow-y: auto !important;
 										<td style="width:200px"></td>
 										<td style="width:200px"></td>			
 										<td rowspan="3" align="center">
-										<button class="searchBtn" id="submit" style="width:85px;" >검색</button>
+										<button class="searchBtn" id="submit" style="width:85px;" 
+										onclick="location.href='<%=request.getContextPath()%>/selectContract.co'">검색</button>
 										
 										<!-- <input type="submit" class="searchBtn" value="검색" id="submit" style="width:85px;"></td> -->
 										
@@ -593,7 +596,7 @@ overflow-y: auto !important;
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
 					<span id="apply" style="top:330px !important;">조회 결과 수 :</span>
-						<!-- 테이블 시작 -->
+					<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
 					<table id="listTable10" style="top:365px !important;">
 						<thead>
@@ -613,20 +616,21 @@ overflow-y: auto !important;
 						</thead>
 						<tbody>
 						<!-- 리스트 바디  -->
-						<%= for(Contract c : list) {  %>
+  						<%-- <% for(Contract c : list) { %> --%>
 							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+							<%-- <input type="hidden" value="<%= c.getConNo()%>"> --%>
+								<td><%-- <%= c.getConCode() %> --%></td>
+								<td><%-- <%= c.getCorpName() %> --%></td>
+								<td><%-- <%= c.getConDate() %> --%></td>
+								<td><%-- <%= c.getStartDate() %> --%></td>
+								<td><%-- <%= c.getEndDate() %> --%></td>
+								<td><%-- <%= c.getDelivCount() %> --%></td>
+								<td><%-- <%= c.getAmountPDeliv() %> --%></td>
+								<td><%-- <%= c.getTtlAmount() %> --%></td>
 								<td>수정</td>
 							</tr>
-							<!-- <tr class="hover">
+						<%-- <% } %> --%>
+							 <!-- <tr class="hover">
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
@@ -733,8 +737,8 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td>내용</td>
 								<td></td>
-							</tr> -->
-						
+							</tr>
+						 -->
 						</tbody>
 					</table>
 					<!-- 테이블 끝 -->
@@ -742,6 +746,41 @@ overflow-y: auto !important;
 		</div>	<!-- background-box end -->
 	</div>	<!-- outer end -->
 </div>	<!-- mainWrapper end -->
+
+	<!-- 페이징 처리 버튼 -->
+	<div class="pageingArea" align="center">
+		<button onclick="lacation.href='<%=request.getContextPath()%>/selectContract.co?currentPage=1'"><<</button>
+	
+		<%-- <%if(currentPage <= 1) { %> --%>
+		<button disabled><</button>
+		<%-- <% } else { %> --%>
+		<button onclick="loaction.href='<%=request.getContextPath()%>/selectContract.co?currentPage=<%-- <%=currentPage -1%> --%>'"><</button>
+		<%-- <% } %>	 --%>
+	<%-- 
+		<% for(int p = startPage; p <= endPage; p++) {
+				if(p == currentPage) { 
+		%> --%>
+				<button disabled><%-- <%= p %> --%></button>
+		<%-- <%      } else { %> --%>
+				<button  onclick="location.href='<%-- <%=request.getContextPath()%> --%>/selectContract.co?currentPage=<%-- <%= p%> --%>'"></button>
+		<%-- <%
+				}
+			}
+		%>
+		
+		<%if(currentPage >= maxPage) { %> --%>
+	         <button disabled>></button>
+	        <%--  <% } else { %> --%>
+	         <button onclick="location.href='<%-- <%=request.getContextPath()%> --%>/selectContract.co?currentPage=<%-- <%=currentPage +1%> --%>'">></button>
+	         <%-- <% } %> --%>
+	         <button onclick="location.href='<%-- <%=request.getContextPath()%> --%>/selectContract.co?currentPage=<%-- <%=maxPage%> --%>'">>></button>
+	</div>
+
+
+
+
+
+
 <div id="ex1" class="modal" style="width:800px; height:700px;">
 
 <a href="#" rel="modal:close">닫기</a>
