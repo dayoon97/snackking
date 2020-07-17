@@ -229,7 +229,7 @@ text-align:center;
 					<div id="searchBox">
 					<!-- 조회 제목 -->
 						<div id="subSubTitle1"><h2>기본 정보 입력</h2></div>
-						<form id="searchForm" action="<%= request.getContextPath() %>/insertPer.per" method="post">
+						<form id="searchForm" action="<%= request.getContextPath() %>/insertPer.per?pno=<%=insertPre.getPreNo() %>" method="post">
 							<input type="hidden" id="userid" name="userid" value="<%=loginUser.getUserNo()%>">
 							<input type="hidden" id="username" name="userName" value="<%=loginUser.getUserName()%>">
 							<input type="hidden" id="username" name="predate" value="<%=insertPre.getPreDate()%>">

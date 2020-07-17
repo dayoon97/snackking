@@ -114,7 +114,7 @@ public class PreferenceDao {
 				p.setPreBudget(rset.getInt("PRE_BUDGET"));
 				p.setPrePersonnel(rset.getInt("PRE_PERSONNEL"));
 				p.setPreAge(rset.getString("PRE_AGE"));
-				p.setPreProductTypes("PRE_PROTYPES");
+				p.setPreProductTypes(rset.getString("PRE_PROTYPES"));
 				p.setPreTaste(rset.getString("PRE_TASTE"));
 				p.setPreFlavor(rset.getString("PRE_FLAVOR"));
 				p.setPreEtcFlavor(rset.getString("PRE_ETCFLAVOR"));
@@ -158,7 +158,7 @@ public class PreferenceDao {
 				p.setPreBudget(rset.getInt("PRE_BUDGET"));
 				p.setPrePersonnel(rset.getInt("PRE_PERSONNEL"));
 				p.setPreAge(rset.getString("PRE_AGE"));
-				p.setPreProductTypes("PRE_PROTYPES");
+				p.setPreProductTypes(rset.getString("PRE_PROTYPES"));
 				p.setPreTaste(rset.getString("PRE_TASTE"));
 				p.setPreFlavor(rset.getString("PRE_FLAVOR"));
 				p.setPreEtcFlavor(rset.getString("PRE_ETCFLAVOR"));
@@ -181,7 +181,7 @@ public class PreferenceDao {
 		return List;
 	}
 
-	public Preference cmSelectOne(Connection con, int pre) {
+	public Preference cmSelectOne(Connection con, int num) {
 		PreparedStatement pstmt = null;
 		 ResultSet rset = null;
 		 Preference p = null;
@@ -190,7 +190,7 @@ public class PreferenceDao {
 		 
 		 try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, pre);
+			pstmt.setInt(1, num);
 			
 			
 			rset = pstmt.executeQuery();
@@ -203,7 +203,7 @@ public class PreferenceDao {
 				p.setPreBudget(rset.getInt("PRE_BUDGET"));
 				p.setPrePersonnel(rset.getInt("PRE_PERSONNEL"));
 				p.setPreAge(rset.getString("PRE_AGE"));
-				p.setPreProductTypes("PRE_PROTYPES");
+				p.setPreProductTypes(rset.getString("PRE_PROTYPES"));
 				p.setPreTaste(rset.getString("PRE_TASTE"));
 				p.setPreFlavor(rset.getString("PRE_FLAVOR"));
 				p.setPreEtcFlavor(rset.getString("PRE_ETCFLAVOR"));
