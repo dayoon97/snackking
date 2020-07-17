@@ -1,6 +1,8 @@
 package com.kh.snackking.preference.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +13,16 @@ import com.kh.snackking.preference.model.service.PreferenceService;
 import com.kh.snackking.preference.model.vo.Preference;
 
 /**
- * Servlet implementation class SelectDetail
+ * Servlet implementation class DelicatePreference
  */
-@WebServlet("/selectDetail.pre")
-public class SelectDetail extends HttpServlet {
+@WebServlet("/delicatePre.pre")
+public class DelicatePreference extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectDetail() {
+    public DelicatePreference() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +32,17 @@ public class SelectDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String num = request.getParameter("num");
-		int userNo = 0;
-		if(num != null && num != "") {
-			userNo = Integer.parseInt(num);
-		}
 		
-		System.out.println("userNo : " + userNo);
+		int pno = Integer.parseInt(num);
 		
-		Preference Pre = new Preference();
-		Pre.setPreNo(userNo);
+		System.out.println("pno : " + pno);
+		ArrayList<Preference> pre = new PreferenceService().DelicatePreference(pno);
 		
-		Preference selectPre = new PreferenceService().cmSelectOne(userNo);
-		System.out.println("userPreference: " + selectPre);
+		System.out.println("pre : " + pre);
 		String page = "";
-		if(selectPre != null) {
-			page = "views/order/cmOrderfavoriteDetail.jsp";
-			request.setAttribute("insertPre", selectPre);
+		if(pre != null) {
+			page = "views/order/cmOrderfavorite.jsp";
+			request.setAttribute("List", pre);
 		}else {
 			System.out.println("에러");
 		}
