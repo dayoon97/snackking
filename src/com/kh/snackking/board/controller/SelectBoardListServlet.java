@@ -1,11 +1,17 @@
 package com.kh.snackking.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.snackking.board.model.service.BoardService;
+import com.kh.snackking.board.model.vo.Board;
+import com.kh.snackking.board.model.vo.PageInfo;
 
 /**
  * Servlet implementation class SelectBoardListServlet
@@ -69,18 +75,18 @@ public class SelectBoardListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 			
-		PageInfoVO pi = new PageInfoVO(currentPage, listCount, limit, maxPage, startPage, endPage);
+		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 				
-		ArrayList<BoardVO> list = new BoardService().selectList(pi);
+		ArrayList<Board> list = new BoardService().selectList(pi);
 				
 		String page = "";
 		if(list != null) {
-			page = "views/board/boardList.jsp";
+			page = "views/common/userBoard.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시판 조회 실패!");
+			request.setAttribute("errorCode", "selectBoardList");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);		

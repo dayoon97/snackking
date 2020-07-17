@@ -40,6 +40,10 @@
 					errorsMessage = "회원정보 수정에 실패했습니다!!";
 					movePath = "<%= request.getContextPath() %>/views/common/userUpdateInfoPwdCheck.jsp";
 					break;
+				case "selectBoardList" : 
+					errorsMessage = "게시판을 읽어오는데 실패했습니다!!";
+					movePath = "<%= request.getContextPath() %>/index.jsp";
+					break;
 			}
 			alert(errorsMessage);
 			
