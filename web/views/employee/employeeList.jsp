@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.awt.*"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User, java.util.*"%>
+<% ArrayList<User> adminlist = (ArrayList<User>) request.getAttribute("list"); %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,6 +109,7 @@
 		height:100%;
 		margin: 0 auto;
 		padding-left:20px;
+		padding-top: 8px;
 	}
 	/*테이블 기본 서식*/
 	.memberTable, #listTable{
@@ -136,6 +139,8 @@
 		height: 20px;
 		padding:0;
 		margin:0;
+		margin-left:30px;
+		margin-right:30px;
 		background: #F6F1F1;
 	}
 	
@@ -252,7 +257,9 @@ span.choose {
   font-size: 14px;
   color: #474747;
   height: 100%;
-  text-align: left
+  text-align: left;
+  margin-right: 30px;
+  margin-left: 30px;
 }
 .dropdown .select {
     cursor: pointer;
@@ -420,7 +427,7 @@ td {
 										<td>전화번호  :</td>
 										<td><input type="text" class="searchTextBox" size="10"></td>
 										
-										<td><input type="submit" class="btn" value="검색하기" id="submit"></td>
+										<td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
 									
 									</tr>
 								</table>
@@ -435,7 +442,7 @@ td {
 					<!-- 조회 결과 리스트 제목 -->
 					<div id="subSubTitle2">직원 리스트</div>
 					<!-- 적용 버튼 -->
-					<button onclick="" class="btn" id="apply">권한변경</button>
+					<button onclick="" class="searchBtn" id="apply">권한변경</button>
 						<!-- Trigger/Open The Modal -->
 
 
@@ -482,72 +489,41 @@ td {
 						</div>
 					
 					<!-- 조회 리스트 테이블 -->
+					
+				<div class="scroll">
 					<table id="listTable">
 						<!-- 테이블 헤드 -->
+						<thead>
 						<tr id="listHead">
-							<th><input type="checkbox" id="checkall"></th>
-							<th width="100px">사원</th>
-							<th width="140px">직급코드</th>
+							<th width="30px;"><input type="checkbox" id="checkall"></th>
+							<th width="30px">사원</th>
+							<th width="50px">직급코드</th>
 							<th width="80px">이름 </th>
 							<th width="250px">주소</th>
 							<th width="80px">연락처</th>
 							<th width="80px">입사일</th>
-							<th width="80px">근무상태</th>
+							<th width="50px">근무상태</th>
 						</tr>
-						
+						</thead>
+						<tbody>
+						<div class="scrollInside">
 						<!-- 리스트 바디  -->
+						<% for(User u : adminlist) {%>
 						<tr class="listBody">
 							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
+							<td><%= u.getUserNo() %></td>
+							<td><%= u.gettCode() %></td>
+							<td><%= u.getUserName() %></td>
+							<td><%= u.getAddress() %></td>
+							<td><%= u.getPhone() %></td>
+							<td><%= u.getEnrollDate() %></td>
+							<td><%= u.getStatus() %></td>
 						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						
+						<% } %>
+						</div>
+						</tbody>
 					</table>
+					</div>
 				</div>
 				
 			
@@ -560,6 +536,7 @@ td {
 </div>	<!-- mainWrapper end -->
 
 <script>
+	<!-- 드롭다운  -->
 	$('.dropdown').click(function () {
         $(this).attr('tabindex', 1).focus();
         $(this).toggleClass('active');
@@ -581,6 +558,8 @@ td {
 	      msg = '<span class="msg">Hidden input value: ';
 	  $('.msg').html(msg + input + '</span>');
 	}); 
+	
+	<!-- 모달 스크립트-->
 	// Get the modal
 	var modal = document.getElementById("myModal");
 
@@ -623,7 +602,98 @@ td {
  	        }
  	    })
  	})
-	
+	<!-- 검색 결과 ajax-->
+ 	$(function(){
+ 		$("#submit").click(function(){
+ 			
+			$("#listTable td").remove();
+			
+			var arr = [];
+			
+			var name = document.getElementsByName("member")[0].value;
+			var company = document.getElementsByName("member")[1].value;
+			var id = document.getElementsByName("member")[2].value;
+			var phone = document.getElementsByName("member")[3].value;
+			
+			$('input[name="member"]:text').each(function(i){
+				arr.push($(this).val());
+			});
+			
+			for(i in arr){
+				console.log(arr[i])
+				if(arr[i] == null) {
+					
+				} 	
+			}
+			
+			var member = {
+				"user" : $("#mngNo").val(),
+				"list" : arr
+					
+			};
+			
+			console.log(arr);
+			
+			$.ajax({
+				url: "<%=request.getContextPath()%>/selectName.us",
+				data: member,
+				type: "get",
+				traditional:true,
+				success: function(data){
+					
+					console.log(data);
+					$tableBody = $("#listTable tbody");
+ 					
+ 					$tableBody.html('');
+ 					
+ 					$.each(data, function(index, value){
+ 						var $tr = $("<tr>");
+ 						var $Td = $("<td>").html("<input type='checkbox'>");
+ 						var $noTd = $("<td>").text(value.userNo);
+ 						var $idTd = $("<td>").text(decodeURIComponent(value.userId));
+ 						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
+ 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
+ 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
+ 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
+ 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
+ 						
+ 						$tr.append($Td);
+ 						$tr.append($noTd);
+ 						$tr.append($idTd);
+ 						$tr.append($companyTd);
+ 						$tr.append($userNameTd);
+ 						$tr.append($addressTd);
+ 						$tr.append($phoneTd);
+ 						$tr.append($enrollDateTd);
+ 						
+ 						
+ 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "25px"});
+ 						
+ 						$tableBody.append($tr);
+ 					}); 
+ 					
+ 					
+ 				},
+ 				error: function(data){
+ 					console.log("에러!");
+ 				}
+				
+				
+			});
+		});
+ 	});
+    <!-- 스크롤 이벤트 -->
+    $(document).ready(function(){
+	    $('.scroll').scroll(function(){
+	        //scroll 에서 스크롤변화가 발생할때 호출
+	        var scrollT = $(this).scrollTop(); //스크롤바의 상단위치
+	        var scrollH = $(this).height(); //스크롤바를 갖는 div의 높이
+	        var contentH = $('.scrollInside').height(); //문서 전체 내용을 갖는 div의 높이
+	        if(scrollT + scrollH +1 >= contentH) { // 스크롤바가 아래 쪽에 위치할 때
+            	$('#divContent').append(imgs);
+	    });
+    });
+
 	</script>
 	
 </body>
