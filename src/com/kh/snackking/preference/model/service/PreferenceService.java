@@ -80,7 +80,7 @@ public class PreferenceService {
 		return List;
 	}
 
-	public Preference cmSelectOne(Preference pre) {
+	public Preference cmSelectOne(int pre) {
 		Connection con = getConnection();
 		
 		Preference P = new PreferenceDao().cmSelectOne(con, pre);
@@ -95,5 +95,27 @@ public class PreferenceService {
 		close(con);
 		
 		return P;
+	}
+
+	public ArrayList<Preference> DelicatePreference(int pno) {
+		Connection con = getConnection();
+		ArrayList<Preference> pre = null;
+		int result = new PreferenceDao().delicatePreference(con, pno);
+		
+		if(result > 0) {
+			 pre = new PreferenceDao().selectPreference(con);
+			 if(pre != null) {
+				 commit(con);
+				 
+			 }else {
+				 rollback(con);
+				 pre = null;
+				 
+			 }
+		}else {
+			rollback(con);
+		}
+		
+		return pre;
 	}
 }
