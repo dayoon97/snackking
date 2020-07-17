@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<Contract> list = (ArrayList<Contract>) request.getAttribute("list");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	ing listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+
+%>    
 <!DOCTYPE html>
 <html> 
 <head> 
@@ -535,8 +545,7 @@ overflow-y: auto !important;
 										<td style="width:200px"></td>
 										<td style="width:200px"></td>			
 										<td rowspan="3" align="center">
-										<button class="searchBtn" id="submit" style="width:85px;" 
-										onclick="location.href='<%=request.getContextPath()%>/selectContract.co'">검색</button>
+										<button class="searchBtn" id="submit" style="width:85px;" >검색</button>
 										
 										<!-- <input type="submit" class="searchBtn" value="검색" id="submit" style="width:85px;"></td> -->
 										
@@ -584,7 +593,151 @@ overflow-y: auto !important;
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
 					<span id="apply" style="top:330px !important;">조회 결과 수 :</span>
+						<!-- 테이블 시작 -->
+						<!-- 조회 리스트 테이블 -->
+					<table id="listTable10" style="top:365px !important;">
+						<thead>
+							<!-- 테이블 헤드 -->
+							<tr>
+								<th>계약번호</th>
+								<th>계약코드</th>
+								<th>거래처명</th>
+								<th>계약일자</th>
+								<th>계약시작일</th>
+								<th>계약종료일</th>
+								<th>배송횟수(월)</th>
+								<th>회차당 금액</th>
+								<th>월 계약금액</th>
+								<th>수정</th>
+							</tr>
+						</thead>
+						<tbody>
+						<!-- 리스트 바디  -->
+						<%= for(Contract c : list) {  %>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>수정</td>
+							</tr>
+							<!-- <tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td></td>
+							</tr>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td></td>
+							</tr>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td></td>
+							</tr>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td></td>
+							</tr>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td></td>
+							</tr>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td></td>
+							</tr>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td></td>
+							</tr>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td></td>
+							</tr>
+							<tr class="hover">
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td></td>
+							</tr> -->
 						
+						</tbody>
+					</table>
+					<!-- 테이블 끝 -->
 			</div>
 		</div>	<!-- background-box end -->
 	</div>	<!-- outer end -->
