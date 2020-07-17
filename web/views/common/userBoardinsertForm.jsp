@@ -78,12 +78,22 @@
 .content-img-box div{
 	margin: 10px 10px;
 	display: inline-block;
-	width: 21%;
+	width: 220px;
 	height: 150px;
 	border: 1px solid black;
 	border-radius: 8px;
 }
-
+.imgArea:hover {
+	cursor: pointer;
+	border: 2px solid red;
+}
+.imgContent {
+	border-radius: 8px;
+	/* display: none; */
+}
+img {
+	border: 0px;
+}
 .content-text-box {
 	/* border: 1px solid black; */
 	text-align: center;
@@ -115,6 +125,9 @@
 	font-weight: 300;
 	padding: 5px;
 	padding-left: 10px;
+}
+.submit-btn:hover {
+	cursor: pointer;
 }
 .footerArea{
 	margin-top: 100px;
@@ -211,27 +224,30 @@
 		
 		<div class="Article">
 			<div class="article_wrap">
-				<form action="">
+				<form id="articleForm" action="<%= request.getContextPath()%>/insert.bo" method="post" encType="multipart/form-data">
 				<div class="articleContentBox">
 				
 					<div class="article_header">
 						<div class="ArticleTitle">
 							<div id="categoryArea">
-							
+								
+								<input type="hidden" name="bWriter" value="<%=loginUser.getUserNo()%>">
+								
 								<div class="dropdown">
 									<div class="select">
 										<span style="vertical-align: -webkit-baseline-middle;">선택</span>
 										<i class="fa fa-chevron-left"></i>
 									</div>
+									<input type="hidden" name="boardType" id="boardType" value="">
 									<ul class="dropdown-menu">
-										<li id="etcBoard">기타문의</li>
-										<li id="changeBoard">교환문의</li>
-										<li id="feedbackBoard">피드백문의</li>
+										<li id="BT1">기타문의</li>
+										<li id="BT2">교환문의</li>
+										<li id="BT3">피드백문의</li>
 									</ul>
 								</div>
 								
 							</div>
-							<div id="boardTitleArea"><input type="text" id="bTitle" name="btitle" placeholder="제목을 입력해주세요." size="75"></div>
+							<div id="boardTitleArea"><input type="text" id="bTitle" name="btitle" placeholder="제목을 입력해주세요." size="75" autocomplete="off"></div>
 						</div>	<!-- ArticleTitle -->
 					</div>	<!-- article_header -->
 					
@@ -240,16 +256,29 @@
 							<div class="content-box-title">사진 등록</div>
 							<!-- 사진 올라가는 공간 -->
 							<div class="content-img-box">
-								<div>사진</div>
-								<div>사진</div>
-								<div>사진</div>
-								<div>사진</div>
+								<div id="imgArea1" class="imgArea">
+									<img id="img1" class="imgContent" width="220" height="150">
+								</div>
+								<div id="imgArea2" class="imgArea">
+									<img id="img2" class="imgContent" width="220" height="150">
+								</div>
+								<div id="imgArea3" class="imgArea">
+									<img id="img3" class="imgContent" width="220" height="150">
+								</div>
+								<div id="imgArea4" class="imgArea">
+									<img id="img4" class="imgContent" width="220" height="150">
+								</div>
 							</div>
-							
+							<div id="fileArea">
+								<input type="file" id="imgFile1" name="imgFile1" onchange="loadImg(this, 1);">
+								<input type="file" id="imgFile2" name="imgFile2" onchange="loadImg(this, 2);">
+								<input type="file" id="imgFile3" name="imgFile3" onchange="loadImg(this, 3);">
+								<input type="file" id="imgFile4" name="imgFile4" onchange="loadImg(this, 4);">
+							</div>
 							<div class="content-box-title">내용 등록</div>
 							<!-- 텍스트 올라가는 공간 -->
 							<div class="content-text-box">
-								<textarea style="resize: none;" rows="20" cols="131"></textarea>
+								<textarea name="content" style="resize: none;" rows="20" cols="131"></textarea>
 							</div>
 							
 							<div class="content-submit-area">
@@ -295,6 +324,42 @@ $('.dropdown-menu li').click(function() {
 	$('.msg').html(msg + input + '</span>');
 });
 	
+$(function() {
+	$("#fileArea").hide();
+	
+	$("#imgArea1").click(function() {
+		$("#imgFile1").click();
+	});
+	$("#imgArea2").click(function() {
+		$("#imgFile2").click();
+	});
+	$("#imgArea3").click(function() {
+		$("#imgFile3").click();
+	});
+	$("#imgArea4").click(function() {
+		$("#imgFile4").click();
+	});
+});
+
+function loadImg(value, num) {
+	if(value.files && value.files[0]) {
+		var reader = new FileReader();
+		
+		reader.onload = function(e) {
+			switch(num) {
+			case 1 : $("#img1").attr("src", e.target.result); break;
+			case 2 : $("#img2").attr("src", e.target.result); break;
+			case 3 : $("#img3").attr("src", e.target.result); break;
+			case 4 : $("#img4").attr("src", e.target.result); break;
+			}
+		}
+		reader.readAsDataURL(value.files[0]);
+	}	
+}
+
+$(".submit-btn").click(function() {
+	$("#articleForm").submit();
+});
 </script>
 	
 </body>

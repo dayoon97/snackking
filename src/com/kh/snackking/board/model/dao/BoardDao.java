@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.snackking.board.model.vo.Attachment;
 import com.kh.snackking.board.model.vo.Board;
 import com.kh.snackking.board.model.vo.PageInfo;
 import com.kh.snackking.user.model.vo.User;
@@ -94,9 +95,15 @@ public class BoardDao {
 				b.setbCount(rset.getInt("BCOUNT"));
 				b.setbDate(rset.getDate("BDATE"));
 				b.setStatus(rset.getString("STATUS"));
-				b.setAnswerCheck(rset.getString("NVL"));
+				b.setRid(rset.getInt("RID"));
+				if(rset.getString("ANSWER").equals("Y")) {
+					b.setAnswerCheck("답변완료");
+				} else {
+					b.setAnswerCheck("미답변");
+				}
 				
 				list.add(b);
+				
 			}
 
 		} catch (SQLException e) {
@@ -106,6 +113,80 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int insertBoard(Connection con, Board board) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, board.getbType());
+			pstmt.setString(2, board.getbTitle());
+			pstmt.setString(3, board.getbContent());
+			pstmt.setInt(4, board.getbWriter());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	// 최근 발생한 시퀀스 확인 메소드
+	public int selectCurrval(Connection con) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		int bid = 0;
+		
+		String query = prop.getProperty("selectCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				bid = rset.getInt("CURRVAL");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return bid;
+	}
+
+	public int insertAttachment(Connection con, Attachment attachment) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, attachment.getBid());
+			pstmt.setString(2, attachment.getOriginName());
+			pstmt.setString(3, attachment.getChangeName());
+			pstmt.setString(4, attachment.getFilePath());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }

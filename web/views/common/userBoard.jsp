@@ -58,6 +58,7 @@ span.choose {
 .order-History{
 	font-size: 30px;
 	text-align: center;
+	margin-top: 20px;
 }
 .order-history-table{
 	margin-top: 50px;
@@ -80,9 +81,7 @@ th{
 	color: white;
 	font-weight: lighter;
 }
-.odNum{
-	color: #007AEB;
-}
+
 .line{
 	margin:0 auto;
 	margin-top: 5px;
@@ -94,45 +93,7 @@ th{
 	margin-top: 30px;
 }
 
-.box .form-control{
-	max-width: 300px;
-	margin: 0 auto;	
-}
 
-.form-control{
-	height: 50px;
-	font-size: 16px;
-	color: #414D64;
-	background: #ffffff;
-	padding: 0 15px;
-	border: 2px solid #DADEEA;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	-webkit-transition: all 0.3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
-	-o-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
-	text-align: center;
-}
-textarea.form-control{
-	height: 120px;
-	padding-top: 15px;
-}
-.form-control-plaintext{
-	font-size: 18px;
-	color: #434343;
-}
-button.form-control{
-	text-overflow: ellipsis;
-	overflow: hidden;
-}
-.form-control:focus{
-	border-color: #37B448;
-	-webkit-box-shadow: 0px 2px 6px rgba(55, 180, 72, .15);
-	-moz-box-shadow: 0px 2px 6px rgba(55, 180, 72, .15);
-	box-shadow: 0px 2px 6px rgba(55, 180, 72, .15);
-}
 input[type='text']{
 	width:92px;
 	height:28px;
@@ -186,7 +147,7 @@ input[type='checkbox']{
 	<%@ include file="../common/userMenu.jsp" %>
 	<div class="nav">
 			<div class="snack-nav">
-				<div class="snack-logo"><img src="../../resources/image/logo5.png"></div>
+				<div class="snack-logo" style></div>
 			</div>
 	</div>
 	<div class="outer">
@@ -194,13 +155,6 @@ input[type='checkbox']{
 			<div class="order-table">
 				<p class="order-History">문의 내역</p>
 				<div class="line"></div>
-<!-- 					<div class="searchArea">
-						<input type="text" class="datepicker-here form-control" id="minMaxExample" data-date-format="yy/mm/dd" data-language="en" placeholder="날짜를 선택해주세요"> 
-						<input type="date">
-						<input type="text" size="9" value="주문번호 검색">
-						<input type="submit" value="검색" class="submit-btn">
-					</div> -->
-			<form>
 				<table class="order-history-table" align="center">
 					<tr>
 						<th width="40px;"><input type="checkbox"></th>
@@ -222,7 +176,6 @@ input[type='checkbox']{
 						</tr>
 					<% } %>
 				</table>
-			</form>
 			</div>
 			<!-- pagingArea(페이징 처리 버튼) start -->
 			<div class="pagingArea" align="center">
@@ -266,7 +219,7 @@ input[type='checkbox']{
 
 <script>
 	$("#write-btn").click(function() {
-		location.href='userBoardinsertForm.jsp';
+		location.href='/snackking/views/common/userBoardinsertForm.jsp';
 	});
 	
 </script>
