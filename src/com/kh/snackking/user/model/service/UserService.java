@@ -181,4 +181,23 @@ public class UserService {
 		return list;
 	}
 
+	public ArrayList<User> changeEmployeeTcode(int userNo, String tcode) {
+		Connection con = getConnection();
+		User responseUser = null;
+		
+		int result = new UserDao().changeEmployeeTcode(con,userNo,tcode);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		
+		ArrayList<User> list = new UserDao().adminEmployeeSelect(con);
+		
+		
+		return list;
+	}
+
 }

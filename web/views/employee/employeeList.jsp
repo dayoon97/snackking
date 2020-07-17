@@ -364,6 +364,18 @@ td {
 	width: 1000px;
 	margin-top: 40px;
 }
+#chCodeBtn{
+	margin-top: 30px;
+	margin-left: 45%;
+}
+.modaltitle:after{
+  content: "";
+  display: block;
+  width: 220px;
+  border-bottom: 5px solid #F0BB00;
+  margin-right: 10px;
+}
+
 </style>
 <!-- <link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/> -->
 </head>
@@ -415,12 +427,6 @@ td {
 										          <li id="T5">T5</li>
 										        </ul>
 										      </div>
-										<!-- <select>
-		                           				<option>전체</option>
-		                           				<option>J1</option>
-		                           				<option>J2</option>
-		                           				<option>J3</option>
-                        					</select> -->
                         				</td>
 										
 										<td>사원코드  :</td>
@@ -453,38 +459,12 @@ td {
 						  <!-- Modal content -->
 						  <div class="modal-content">
 						    <span class="close">&times;</span>
+						    <p align="center" class ="modaltitle" style="font-size:30px;">직급코드 변경하기</p>
+						    <div class="titleLine"></div>
 						    <table align="center" class="modalTable">
-						    	<tr>
-						    		<th width="40px !important;">사원</th>
-						    		<th width="30px !important;">직급코드</th>
-						    		<th width="60px !important;">이름</th>
-						    		<th width="400px !important;">주소</th>
-						    		<th width="200px !important;">연락처</th>
-						    		<th width="100px !important;">입사일</th>
-						    		<th width="70px !important;">근무상태</th>
-						    	</tr>
-						    	<tr>
-						    		<td></td>
-									<td><div class="dropdown">
-        										<div class="select">
-          											<span>선택</span>
-										          <i class="fa fa-chevron-left"></i>
-										        </div>
-										        <input type="hidden" name="Tcode">
-										        <ul class="dropdown-menu">
-										          <li id="T4">T4</li>
-										          <li id="T5">T5</li>
-										        </ul>
-										      </div></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-						    	</tr>
 						    	
 						    </table>
-						    <button onclick="" class="searchBtn" id="chCodeBtn">변경하기</button>
+						    <button class="searchBtn" id="chCodeBtn">변경하기</button>
 						  </div>
 						
 						</div>
@@ -510,8 +490,8 @@ td {
 						<tbody>
 						<!-- 리스트 바디  -->
 						<% for(User u : adminlist) {%>
-						<tr class="listBody">
-							<td><input type="checkbox" name="chk" onclick="only(this);"></td>
+						<tr class="listBody" name="">
+							<td><input type="checkbox" name="chk" onclick="only(this)"></td>
 							<td><%= u.getUserNo() %></td>
 							<td><%= u.gettCode() %></td>
 							<td><%= u.getUserName() %></td>
@@ -566,7 +546,7 @@ td {
 	  $('.msg').html(msg + input + '</span>');
 	}); 
 	
-	<!-- 모달 스크립트-->
+	//모달 스크립트
 	// Get the modal
 	var modal = document.getElementById("myModal");
 
@@ -591,10 +571,10 @@ td {
 	  if (event.target == modal) {
 	    modal.style.display = "none";
 	  }
-	}
+	};
 	
 	
-	<!-- 검색 결과 ajax-->
+	//검색 결과 ajax
  	$(function(){
  		$("#submit").click(function(){
  			
@@ -691,21 +671,20 @@ td {
     });
 
     
-    	var obj = document.getElementsByName("chk");
+    var obj = document.getElementsByName("chk");
     	
-        function only(chk){ 
-            for(var i=0; i<obj.length; i++){
-                if(obj[i] != chk){
-                    obj[i].checked = false;
-                }
-            }
+     function only(chk){ 
+          for(var i=0; i<obj.length; i++){
+              if(obj[i] != chk){
+                  obj[i].checked = false;
+              }
+          }
+     };
     
     
-    //직원권한 변경
-    $(function(){
-    	}
-    	
+    //직원권한 변경 버튼 눌렀을 때
     	$("#apply").click(function(){
+    		$(".modalTable").empty();
     		var rowData = new Array();
     		var tdArr = new Array();
     		
@@ -720,10 +699,9 @@ td {
     	    	var tr = checkbox.parent().parent().eq(i);
     	    	var td = tr.children();
     	    	
+    	    	var html = "";
     	    	rowData.push(tr.text());
     	    	
-    	    	console.log(tr);
-    	    	console.log(td);
     	    	
     	    	var id = td.eq(1).text();
     	    	var name = td.eq(3).text();
@@ -731,116 +709,120 @@ td {
     	    	var phone = td.eq(5).text();
     	    	var enrolldate = td.eq(6).text();
     	    	var status = td.eq(7).text();
+    	   
     	    	
+    	    	html += '<tr>';
+    	    	html += '<th width="40px !important;"> 사원 </th>';
+    	    	html += '<th width="30px !important;"> 직급코드 </th>';
+    	    	html += '<th width="70px !important;"> 이름 </th>';
+    	    	html += '<th width="400px !important;"> 주소 </th>';
+    	    	html += '<th width="200px !important;"> 연락처 </th>';
+    	    	html += '<th width="100px !important;"> 입사일 </th>';
+    	    	html += '<th width="70px !important;"> 상태 </th>';
+    	    	html += '</tr>';
+    	    	html += '<tr>';
+    	    	html += '<td>' + id + '</td>';
+    	    	html += '<td><div class="dropdown"> <div class="select"> <span id="tCode"> 선택  </span> <i class="fa fa-chevron-left"></i> </div>'
+    	    	+ '<input type="hidden" name="Tcode"> <ul class="dropdown-menu"> <li id="T4">T4</li> <li id="T5">T5'
+    	    	+ '</li> </ul> </div> </td>';
+    	    	html += '<td>' + name + '</td>';
+    	    	html += '<td>' + address + '</td>';
+    	    	html += '<td>' + phone + '</td>';
+    	    	html += '<td>' + enrolldate + '</td>';
+    	    	html += '<td>' + status + '</td>';
+
     	    	
-    	    	tdArr.push(id);
-    	    	tdArr.push(name);
-    	    	tdArr.push(address);
-    	    	tdArr.push(phone);
-    	    	tdArr.push(enrolldate);
-    	    	tdArr.push(status);
+    	    	$(".modalTable").empty();
+    	    	$(".modalTable").append(html);
     	    	
-    	    	for(key in tdArr){
-    	    		html += '<tr>';
-    	    		html += '<td>'+tdArr[key].id'</td>';
-    	    		html += '<td>'+tdArr[key].name'</td>';
-    	    		html += '<td>'+tdArr[key].address'</td>';
-    	    		html += '<td>'+tdArr[key].phone'</td>';
-    	    		html += '<td>'+tdArr[key].enrolldate'</td>';
-    	    		html += '<td>'+tdArr[key].status'</td>';
-    	    	}
-    	    	
-    	    	$(".modalTable").append(html);    	    	
+    	    	$('.dropdown').click(function () {
+    	            $(this).attr('tabindex', 1).focus();
+    	            $(this).toggleClass('active');
+    	            $(this).find('.dropdown-menu').slideToggle(300);
+    	        });
+    	        $('.dropdown').focusout(function () {
+    	            $(this).removeClass('active');
+    	            $(this).find('.dropdown-menu').slideUp(300);
+    	        });
+    	        $('.dropdown .dropdown-menu li').click(function () {
+    	            $(this).parents('.dropdown').find('span').text($(this).text());
+    	            $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+    	        });
+    	    	/*End Dropdown Menu*/
+
+
+    	    	$('.dropdown-menu li').click(function () {
+    	    	  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
+    	    	      msg = '<span class="msg">Hidden input value: ';
+    	    	  $('.msg').html(msg + input + '</span>');
+    	    	}); 
     	    });
     	});
-    });
     
-    
-    
-    
-    //설비 삭제
-	 $(function() {
-			$("#del").click(function() {
-				var str = "";
-				/* var num = 0;
-	            var obj = document.getElementsByName("chk");
-	                 for(var i=0; i<obj.length; i++){
-		                  if(obj[i].checked){
-		                      num = i;
-		                      //td 맨 첫번째 숫서 기준이라서 두번째 설비코드값 가져와야함~!!
-		                      console.log("출력  : " + num + "번 선택");
-		                  }
-					 } */
-					 
-					 /* 테이블 특정 요소 값 가져오기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-	               var checkbox = $("input[name=chk]:checked");
-					checkbox.each(function(i){
-						var tr = checkbox.parent().parent().eq(i);
-						var td = tr.children();
-						str = td.eq(1).text();
-					});
-					 
-				
 
-	               console.log(str); 
-	                 
-                $.ajax({
-						url: "<%=request.getContextPath()%>/deleteEquipment",
-						type: "get",
-						data: {"str" : str},
-						success: function(data){
-							alert("설비 삭제에 성공하였습니다");
-							//삭제 성공하고 한번더 갔다옴. 페이지 renew 하려고
-									$.ajax({
-										url: "<%=request.getContextPath()%>/renewPageEquipment",
-										type: "get",
-										success: function(data){
-											/* 다시 업데이트 해줌 */
-											
-											$tableBody = $("#listTable tbody");
-											$tableBody.html('');
-											$tableBody.find("tr").remove();
-											
-						 						for(var key in data){
-						 							//클래스 속성 추가
-						 							var $tr =  $("<tr>").attr('class','listBody');
-						 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
-						 							var $td2 = $("<td>").text(data[key].equipCode);
-						 							var $td3 = $("<td>").text(data[key].equipType);
-						 							var $td4 = $("<td>").text(data[key].equipName);
-						 	 						var $td5 = $("<td>").text(data[key].possible);
-						 	 						var $td6 = $("<td>").text(data[key].equipMake);
-						 							$tr.append($td1);
-						 							$tr.append($td2);
-						 							$tr.append($td3);
-						 	 						$tr.append($td4);
-						 	 						$tr.append($td5);
-						 	 						$tr.append($td6);
-						 							$tableBody.append($tr);
-						 							
-						 						}
-											
-											
-											
-											
-											
-											
-											
-										},
-										error: function(error){
-						 					console.log("equipment 삭제 실패!");
-						 				}
-									});
-							
-						},
-						error: function(error){
-		 					console.log("equipment 삭제 실패!");
-		 				}
-					});   
-	              
-	                 
-			});
-		});
+    //권한변경 모달안에서 변경하기 버튼 눌렀을 때
+    $(function(){
+    	$("#chCodeBtn").click(function(){
+    		
+	    	var userNo = $(".modalTable td").eq(0).text();
+	    	console.log(userNo);
+	    	
+	    	var Tcode = $("#tCode").text();
+	    	console.log(Tcode);
+	    	
+	    	var arr = {
+	    			"userNo" : userNo,
+	    			"Tcode" : Tcode
+	    	};
+	    	
+	    	$.ajax({
+	    		url:"<%=request.getContextPath()%>/changeTcode.ad",
+	    		data: arr,
+	    		type: "get",
+	    		traditional:true,
+	    		success: function(data){
+	    			modal.style.display = "none";
+					$tableBody = $("#listTable tbody");
+ 					
+ 					$tableBody.html('');
+ 					
+ 					$.each(data, function(index, value){
+ 						var $tr = $("<tr>");
+ 						var $Td = $("<td>").html("<input type='checkbox'>");
+ 						var $noTd = $("<td>").text(value.userNo);
+ 						var $TcodeTd = $("<td>").text(decodeURIComponent(value.tCode));
+ 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
+ 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
+ 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
+ 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
+ 						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
+ 						
+ 						
+ 						
+ 						$tr.append($Td);
+ 						$tr.append($noTd);
+ 						$tr.append($TcodeTd);
+ 						$tr.append($userNameTd);
+ 						$tr.append($addressTd);
+ 						$tr.append($phoneTd);
+ 						$tr.append($enrollDateTd);
+ 						$tr.append($statusTd);
+ 						
+ 						
+ 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "25px"});
+ 						
+ 						$tableBody.append($tr);
+ 					}); 
+ 					
+	    		},
+	    		error:function(data){
+	    			
+	    		}
+	    	});
+	    	
+	    	
+    	});
+    });
 	
 	
 	</script>
