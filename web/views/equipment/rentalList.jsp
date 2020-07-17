@@ -320,24 +320,32 @@ height: 25px;
 			<!-- search-area start -->
 			<div id="searchArea">
 				<!-- 조회 제목 -->
-				<div id="subSubTitle1">계약 조회</div>
+				<div id="subSubTitle1">대여내역 검색</div>
 					<!-- searchBox start -->
 					<div id="searchBox">
 						<form id="searchForm">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
-									<td>계약번호  :</td>
-									<td><input type="text" class="searchTextBox" size="7"></td>
+									<td>대여일  :</td>
+									<td><input type="date" class="searchTextBox" size="7" name="rentDate"></td>
 																		
-									<td>거래처명  :</td>
-									<td><input type="text" class="searchTextBox" size="7"></td>
+									<td>대여 회사명  :</td>
+									<td><input type="text" class="searchTextBox" size="7" name="company"></td>
 									
 									
-									<td>설비명  :</td>										
-									<td><input type="text" class="searchTextBox" size="7"></td>
+									<td>설비코드  :</td>										
+									<td><input type="text" class="searchTextBox" size="7" name="equipCode"></td>
 									
+									<td style="width:90px;">회수 여부  :</td>
+									<td><input type="radio" name="backOk" value="Y" id="Y"><label for="Y">Y</label>
+                          				 <input type="radio" name="backOk" value="N" id="N"><label for="N">N</label>
+                           			</td>
+                           			
 									<td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
+								
+
+								
 								
 								</tr>
 							</table>
@@ -348,7 +356,7 @@ height: 25px;
 			<!-- 조회 결과 리스트 부분 -->
 				<div id="listArea">
 					<!-- 조회 결과 리스트 제목 -->
-					<div id="subSubTitle2">재고 리스트</div>
+					<div id="subSubTitle2" style="width:120px;">대여내역 조회</div>
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
 					<span id="apply">조회 결과 수 :</span>
@@ -358,18 +366,14 @@ height: 25px;
 						<!-- 테이블 헤드 -->
 						<tr id="listHead">
 							<th width="40px">순번</th>
-							<th width="80px">계약번호</th>
-							<th width="80px">거래처명</th>
-							<th width="100px">계약일자</th>
-							<th width="100px">계약 시작일</th>
-							<th width="100px">계약 종료일</th>
-							<th width="60px">배달(월)</th>
-							<th width="100px">회차당 금액</th>
-							<th width="100px">월 계약금액</th>
-							<th width="50px">배송주</th>
-							<th width="50px">요일</th>
-							<th width="100px">배송지 보기</th>
-							<th width="100px">배송지 수정</th>
+							<th width="80px">대여일</th>
+							<th width="80px">회수일</th>
+							<th width="100px">설비코드</th>
+							<th width="100px">설비타입</th>
+							<th width="100px">모델명</th>
+							<th width="60px">제조사</th>
+							<th width="60px">대여 회사명</th>
+						
 						</tr>
 						
 						<!-- 리스트 바디  -->
@@ -382,120 +386,9 @@ height: 25px;
 							<td>내용</td>
 							<td>내용</td>
 							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
-						<tr class="listBody">
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
 						</tr>
 					</table>
 				</div>
-		
 		</div>	<!-- background-box end -->
 	</div>	<!-- outer end -->
 </div>	<!-- mainWrapper end -->
@@ -527,6 +420,68 @@ height: 25px;
 											.find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
 							$('.msg').html(msg + input + '</span>');
 						});
+	
+	      
+		
+		
+		
+		
+	//검색 버튼 클릭시 내용 조회하기
+	$(function() {
+		$(".searchBtn").click(function(){
+			var rentDate = $("input[name=rentDate]").val();
+			var equipCode = $("input[name=equipCode]").val();
+			var company = $("input[name=company]").val();
+			//check 된 radio 버튼
+			var backOk = $("input[name=backOk]:checked").val();
+			
+			var array = {
+					"rentDate" : rentDate,
+					"equipCode": equipCode,
+					"company" : company,
+					"backOk" : backOk
+			};
+				
+				$.ajax({
+					url: "<%=request.getContextPath()%>/equipmentRentSelect",
+					data: array,
+					type: "get",
+					success: function(data){
+						$tableBody = $("#listTable tbody");
+						$tableBody.html('');
+						$tableBody.find("tr").remove();
+						
+	 						for(var key in data){
+	 							//클래스 속성 추가
+	 							var $tr =  $("<tr>").attr('class','listBody');
+	 							var $td1 = $("<td>").text(순번1);
+	 							var $td2 = $("<td>").text(data[key].rentDate);
+	 							var $td3 = $("<td>").text(data[key].backDate);
+	 							var $td4 = $("<td>").text(data[key].equipCode);
+	 	 						var $td5 = $("<td>").text(data[key].equipType);
+	 	 						var $td6 = $("<td>").text(data[key].equipName);
+	 	 						var $td7 = $("<td>").text(data[key].equipMake);
+	 							var $td8 = $("<td>").text(data[key].company);
+	 							$tr.append($td1);
+	 							$tr.append($td2);
+	 	 						$tr.append($td3);
+	 	 						$tr.append($td4);
+	 	 						$tr.append($td5);
+	 	 						$tr.append($td6);
+	 	 						$tr.append($td7);
+	 	 						$tr.append($td8);
+	 							$tableBody.append($tr);
+	 						}	
+	 				},
+	 				error: function(error){
+	 					console.log("에러!" + error);
+	 				}
+				});
+			});
+		});  	
+		
+		
+		
 	</script>	
 	
 </body>

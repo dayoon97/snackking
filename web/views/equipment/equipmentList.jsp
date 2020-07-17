@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../../resources/css/mine.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mine.css">
 
 <style type="text/css">
 
@@ -196,13 +196,24 @@
 				<div id="listArea">
 					<!-- 조회 결과 리스트 제목 -->
 					<div id="subSubTitle2" style="width:120px !important;">설비 리스트</div>
-					<!-- 적용 버튼 -->
+					
+					
+					<%if((loginUser.gettCode().equals("T3"))){%>
+					<!-- 최고 관리자 설비 등록, 삭제, 수정 버튼-->
 					 <button id="del"  class="btn2 btnPosition3">삭제</button> 
 					 <button id="update" class="btn2 btnPosition2">수정</button> 
 					 <button style="display:none;" id="updateModalBtn" ></button>
 					 <button id="addModalBtn" class="btn2 btnPosition1">추가</button> 
 					<!-- <span id="apply">조회 결과 수 :</span> -->
+					<%} else if((loginUser.gettCode().equals("T4"))){%>
+					<!-- 큐레이터 설비 대여 버튼-->
+					<button id="equipmentRentBtn"  class="btn2 btnPosition3">대여</button> 
 					
+					
+					
+					
+					
+					<%} %>
 					<!-- 조회 리스트 테이블 -->
 					<table id="listTable">
 						<!-- 테이블 헤드 -->
@@ -225,6 +236,20 @@
 		</div>	<!-- background-box end -->
 	</div>	<!-- outer end -->
 </div>	<!-- mainWrapper end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<script type="text/javascript">
 		$('.dropdown').click(function() {
@@ -388,62 +413,53 @@
 					
 
 		               console.log(str); 
-		                 
-	                 $.ajax({
-							url: "<%=request.getContextPath()%>/deleteEquipment",
-							type: "get",
-							data: {"str" : str},
-							success: function(data){
-								alert("설비 삭제에 성공하였습니다");
-								//삭제 성공하고 한번더 갔다옴. 페이지 renew 하려고
-										$.ajax({
-											url: "<%=request.getContextPath()%>/renewPageEquipment",
-											type: "get",
-											success: function(data){
-												/* 다시 업데이트 해줌 */
-												
-												$tableBody = $("#listTable tbody");
-												$tableBody.html('');
-												$tableBody.find("tr").remove();
-												
-							 						for(var key in data){
-							 							//클래스 속성 추가
-							 							var $tr =  $("<tr>").attr('class','listBody');
-							 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
-							 							var $td2 = $("<td>").text(data[key].equipCode);
-							 							var $td3 = $("<td>").text(data[key].equipType);
-							 							var $td4 = $("<td>").text(data[key].equipName);
-							 	 						var $td5 = $("<td>").text(data[key].possible);
-							 	 						var $td6 = $("<td>").text(data[key].equipMake);
-							 							$tr.append($td1);
-							 							$tr.append($td2);
-							 							$tr.append($td3);
-							 	 						$tr.append($td4);
-							 	 						$tr.append($td5);
-							 	 						$tr.append($td6);
-							 							$tableBody.append($tr);
-							 							
-							 						}
-												
-												
-												
-												
-												
-												
-												
-											},
-											error: function(error){
-							 					console.log("equipment 삭제 실패!");
-							 				}
-										});
-								
-							},
-							error: function(error){
-			 					console.log("equipment 삭제 실패!");
-			 				}
-						});   
-		              
-		                 
+		                 //체크박스 값이  null이 아닌 경우만 삭제
+		               if(str != null && str!= ""){
+			                 $.ajax({
+									url: "<%=request.getContextPath()%>/deleteEquipment",
+									type: "get",
+									data: {"str" : str},
+									success: function(data){
+										alert("설비 삭제에 성공하였습니다");
+										//삭제 성공하고 한번더 갔다옴. 페이지 renew 하려고
+											$.ajax({
+												url: "<%=request.getContextPath()%>/renewPageEquipment",
+												type: "get",
+												success: function(data){
+													/* 다시 업데이트 해줌 */
+													
+													$tableBody = $("#listTable tbody");
+													$tableBody.html('');
+													$tableBody.find("tr").remove();
+													
+								 						for(var key in data){
+								 							//클래스 속성 추가
+								 							var $tr =  $("<tr>").attr('class','listBody');
+								 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+								 							var $td2 = $("<td>").text(data[key].equipCode);
+								 							var $td3 = $("<td>").text(data[key].equipType);
+								 							var $td4 = $("<td>").text(data[key].equipName);
+								 	 						var $td5 = $("<td>").text(data[key].possible);
+								 	 						var $td6 = $("<td>").text(data[key].equipMake);
+								 							$tr.append($td1);
+								 							$tr.append($td2);
+								 							$tr.append($td3);
+								 	 						$tr.append($td4);
+								 	 						$tr.append($td5);
+								 	 						$tr.append($td6);
+								 							$tableBody.append($tr);
+								 						}
+												},
+												error: function(error){
+								 					console.log("equipment 삭제 실패!");
+								 				}
+											});
+									},
+									error: function(error){
+					 					console.log("equipment 삭제 실패!");
+					 				}
+								});   
+				            }
 				});
 			});
 		
@@ -481,6 +497,7 @@
 	span.onclick = function() {
 		modal.style.display = "none";
 	}	
+	
 	
 	
 	

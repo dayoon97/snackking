@@ -599,7 +599,7 @@
 						<li>
 							<p class="title2">상품 관리</p>
 								<ul class="con">
-									<li><a href="../product/productManagement.jsp">상품 정보 확인</a></li>
+									<li><a href="<%=request.getContextPath()%>/views/product/productManagement.jsp">상품 정보 확인</a></li>
 									<li><a href="../product/productStockManagement.jsp">상품 재고 확인</a></li>
 									<li><a href="../product/productOrderManagement.jsp">발주 관리</a></li>
 								</ul>
@@ -625,7 +625,7 @@
 							<p class="title2">설비 관리</p>
 								<ul class="con">
 									<li><a href="<%=request.getContextPath()%>/views/equipment/equipmentList.jsp">보유 설비 관리</a></li>
-									<li><a href="../equipment/rentalList.jsp">설비 대여 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/views/equipment/rentalList.jsp">설비 대여 관리</a></li>
 								</ul>
 						</li>
 						<li>
@@ -711,7 +711,7 @@
 									<li><a href="">큐레이팅 관리</a></li>
 									<li><a href="">교환 관리</a></li>
 									<li><a href="">회수 관리</a></li>
-									<li><a href="">설비 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/views/equipment/equipmentList.jsp">설비 관리</a></li>
 									<li><a href="">거래명세서 관리</a></li>
 									<li><a href="">정산 관리</a></li>
 								</ul>
