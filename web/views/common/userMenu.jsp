@@ -523,7 +523,7 @@
 								<p class="title">내 정보</p>
 							</div>
 								<ul class="con">
-									<li><a href="/snackking/views/common/userBoard.jsp">나의 문의내역</a></li>
+									<li><a href="<%=request.getContextPath()%>/selectBoardList.bo?num=<%=loginUser.getUserNo()%>">나의 문의내역</a></li>
 									<li><a href="/snackking/views/common/userUpdateInfoPwdCheck.jsp">회원정보 수정</a></li>
 								</ul>
 						</li>
