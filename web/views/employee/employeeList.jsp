@@ -337,9 +337,9 @@ span.choose {
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #888;
-  width: 65%; /* Could be more or less, depending on screen size */
+  width: 75%; /* Could be more or less, depending on screen size */
   z-index:1;
 }
 
@@ -360,7 +360,10 @@ span.choose {
 td {
 	text-align: center;
 }
-
+.modalTable{
+	width: 1000px;
+	margin-top: 40px;
+}
 </style>
 <!-- <link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/> -->
 </head>
@@ -406,11 +409,10 @@ td {
           											<span>선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
-										        <input type="hidden" name="Job-code">
+										        <input type="hidden" name="Tcode">
 										        <ul class="dropdown-menu">
-										          <li id="J1">J1</li>
-										          <li id="J2">J2</li>
-										          <li id="J3">J3</li>
+										          <li id="T4">T4</li>
+										          <li id="T5">T5</li>
 										        </ul>
 										      </div>
 										<!-- <select>
@@ -424,7 +426,7 @@ td {
 										<td>사원코드  :</td>
 										<td><input type="text" class="searchTextBox" size="7"></td>
 										
-										<td>전화번호  :</td>
+										<td>근무상태  :</td>
 										<td><input type="text" class="searchTextBox" size="10"></td>
 										
 										<td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
@@ -451,39 +453,38 @@ td {
 						  <!-- Modal content -->
 						  <div class="modal-content">
 						    <span class="close">&times;</span>
-						    <table align="center">
+						    <table align="center" class="modalTable">
 						    	<tr>
-						    		<th>사원</th>
-						    		<th>직급코드</th>
-						    		<th>이름</th>
-						    		<th>주소</th>
-						    		<th>연락처</th>
-						    		<th>입사일</th>
-						    		<th>근무상태</th>
+						    		<th width="40px !important;">사원</th>
+						    		<th width="30px !important;">직급코드</th>
+						    		<th width="60px !important;">이름</th>
+						    		<th width="400px !important;">주소</th>
+						    		<th width="200px !important;">연락처</th>
+						    		<th width="100px !important;">입사일</th>
+						    		<th width="70px !important;">근무상태</th>
 						    	</tr>
 						    	<tr>
-						    		<td>D1</td>
+						    		<td></td>
 									<td><div class="dropdown">
         										<div class="select">
           											<span>선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
-										        <input type="hidden" name="Job-code">
+										        <input type="hidden" name="Tcode">
 										        <ul class="dropdown-menu">
-										          <li id="J1">J1</li>
-										          <li id="J2">J2</li>
-										          <li id="J3">J3</li>
+										          <li id="T4">T4</li>
+										          <li id="T5">T5</li>
 										        </ul>
 										      </div></td>
-									<td>심다윤</td>
-									<td>서울시 송파구</td>
-									<td>010-1234-1234</td>
-									<td>20-07-05</td>
-									<td>근무중</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
 						    	</tr>
 						    	
 						    </table>
-						    <button onclick="" class="btn" id="chCodeBtn">변경하기</button>
+						    <button onclick="" class="searchBtn" id="chCodeBtn">변경하기</button>
 						  </div>
 						
 						</div>
@@ -491,11 +492,12 @@ td {
 					<!-- 조회 리스트 테이블 -->
 					
 				<div class="scroll">
+						<div class="scrollInside">
 					<table id="listTable">
 						<!-- 테이블 헤드 -->
 						<thead>
 						<tr id="listHead">
-							<th width="30px;"><input type="checkbox" id="checkall"></th>
+							<th width="30px;">선택</th>
 							<th width="30px">사원</th>
 							<th width="50px">직급코드</th>
 							<th width="80px">이름 </th>
@@ -506,23 +508,28 @@ td {
 						</tr>
 						</thead>
 						<tbody>
-						<div class="scrollInside">
 						<!-- 리스트 바디  -->
 						<% for(User u : adminlist) {%>
 						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
+							<td><input type="checkbox" name="chk" onclick="only(this);"></td>
 							<td><%= u.getUserNo() %></td>
 							<td><%= u.gettCode() %></td>
 							<td><%= u.getUserName() %></td>
 							<td><%= u.getAddress() %></td>
 							<td><%= u.getPhone() %></td>
 							<td><%= u.getEnrollDate() %></td>
-							<td><%= u.getStatus() %></td>
+							<td>
+							<%if (u.getStatus().equals("Y")) { %>
+								근무중
+							<% } else { %>
+								퇴사
+							<% } %>
+							</td>
 						</tr>
 						<% } %>
-						</div>
 						</tbody>
 					</table>
+						</div>
 					</div>
 				</div>
 				
@@ -586,22 +593,7 @@ td {
 	  }
 	}
 	
-	<!-- check박스 전체선택 -->
-    
-    $(document).ready(function(){
- 	   /*  //최상단 체크박스 클릭 */
- 	    $("#checkall").click(function(){
- 	        /* //클릭되었으면 */
- 	        if($("#checkall").prop("checked")){
- 	            //* /input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의 */
- 	            $("input[name=chk]").prop("checked",true);
- 	            /* //클릭이 안되있으면 */
- 	        }else{
- 	            /* //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의 */
- 	            $("input[name=chk]").prop("checked",false);
- 	        }
- 	    })
- 	})
+	
 	<!-- 검색 결과 ajax-->
  	$(function(){
  		$("#submit").click(function(){
@@ -683,6 +675,9 @@ td {
 		});
  	});
     <!-- 스크롤 이벤트 -->
+    
+   	
+    
     $(document).ready(function(){
 	    $('.scroll').scroll(function(){
 	        //scroll 에서 스크롤변화가 발생할때 호출
@@ -690,10 +685,164 @@ td {
 	        var scrollH = $(this).height(); //스크롤바를 갖는 div의 높이
 	        var contentH = $('.scrollInside').height(); //문서 전체 내용을 갖는 div의 높이
 	        if(scrollT + scrollH +1 >= contentH) { // 스크롤바가 아래 쪽에 위치할 때
-            	$('#divContent').append(imgs);
+            	$('.scrollInside').append(".listBody");
+	        }
 	    });
     });
 
+    
+    	var obj = document.getElementsByName("chk");
+    	
+        function only(chk){ 
+            for(var i=0; i<obj.length; i++){
+                if(obj[i] != chk){
+                    obj[i].checked = false;
+                }
+            }
+    
+    
+    //직원권한 변경
+    $(function(){
+    	}
+    	
+    	$("#apply").click(function(){
+    		var rowData = new Array();
+    		var tdArr = new Array();
+    		
+    		 //체크된 체크박스를 가져온다.
+    	    var checkbox = $("input:checkbox[name=chk]:checked");
+    	    
+    		console.log(checkbox);
+    	    //체크된 체크박스의 값을 반복해 불러옴.
+    	    checkbox.each(function(i){
+    	    	//checkbox.parent() : checkbox의 부모는 td.
+    	    	//checkbox.parent().parent() : td의 부모는 tr.
+    	    	var tr = checkbox.parent().parent().eq(i);
+    	    	var td = tr.children();
+    	    	
+    	    	rowData.push(tr.text());
+    	    	
+    	    	console.log(tr);
+    	    	console.log(td);
+    	    	
+    	    	var id = td.eq(1).text();
+    	    	var name = td.eq(3).text();
+    	    	var address = td.eq(4).text();
+    	    	var phone = td.eq(5).text();
+    	    	var enrolldate = td.eq(6).text();
+    	    	var status = td.eq(7).text();
+    	    	
+    	    	
+    	    	tdArr.push(id);
+    	    	tdArr.push(name);
+    	    	tdArr.push(address);
+    	    	tdArr.push(phone);
+    	    	tdArr.push(enrolldate);
+    	    	tdArr.push(status);
+    	    	
+    	    	for(key in tdArr){
+    	    		html += '<tr>';
+    	    		html += '<td>'+tdArr[key].id'</td>';
+    	    		html += '<td>'+tdArr[key].name'</td>';
+    	    		html += '<td>'+tdArr[key].address'</td>';
+    	    		html += '<td>'+tdArr[key].phone'</td>';
+    	    		html += '<td>'+tdArr[key].enrolldate'</td>';
+    	    		html += '<td>'+tdArr[key].status'</td>';
+    	    	}
+    	    	
+    	    	$(".modalTable").append(html);    	    	
+    	    });
+    	});
+    });
+    
+    
+    
+    
+    //설비 삭제
+	 $(function() {
+			$("#del").click(function() {
+				var str = "";
+				/* var num = 0;
+	            var obj = document.getElementsByName("chk");
+	                 for(var i=0; i<obj.length; i++){
+		                  if(obj[i].checked){
+		                      num = i;
+		                      //td 맨 첫번째 숫서 기준이라서 두번째 설비코드값 가져와야함~!!
+		                      console.log("출력  : " + num + "번 선택");
+		                  }
+					 } */
+					 
+					 /* 테이블 특정 요소 값 가져오기 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+	               var checkbox = $("input[name=chk]:checked");
+					checkbox.each(function(i){
+						var tr = checkbox.parent().parent().eq(i);
+						var td = tr.children();
+						str = td.eq(1).text();
+					});
+					 
+				
+
+	               console.log(str); 
+	                 
+                $.ajax({
+						url: "<%=request.getContextPath()%>/deleteEquipment",
+						type: "get",
+						data: {"str" : str},
+						success: function(data){
+							alert("설비 삭제에 성공하였습니다");
+							//삭제 성공하고 한번더 갔다옴. 페이지 renew 하려고
+									$.ajax({
+										url: "<%=request.getContextPath()%>/renewPageEquipment",
+										type: "get",
+										success: function(data){
+											/* 다시 업데이트 해줌 */
+											
+											$tableBody = $("#listTable tbody");
+											$tableBody.html('');
+											$tableBody.find("tr").remove();
+											
+						 						for(var key in data){
+						 							//클래스 속성 추가
+						 							var $tr =  $("<tr>").attr('class','listBody');
+						 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+						 							var $td2 = $("<td>").text(data[key].equipCode);
+						 							var $td3 = $("<td>").text(data[key].equipType);
+						 							var $td4 = $("<td>").text(data[key].equipName);
+						 	 						var $td5 = $("<td>").text(data[key].possible);
+						 	 						var $td6 = $("<td>").text(data[key].equipMake);
+						 							$tr.append($td1);
+						 							$tr.append($td2);
+						 							$tr.append($td3);
+						 	 						$tr.append($td4);
+						 	 						$tr.append($td5);
+						 	 						$tr.append($td6);
+						 							$tableBody.append($tr);
+						 							
+						 						}
+											
+											
+											
+											
+											
+											
+											
+										},
+										error: function(error){
+						 					console.log("equipment 삭제 실패!");
+						 				}
+									});
+							
+						},
+						error: function(error){
+		 					console.log("equipment 삭제 실패!");
+		 				}
+					});   
+	              
+	                 
+			});
+		});
+	
+	
 	</script>
 	
 </body>
