@@ -33,7 +33,7 @@ public class SchedulerDao {
 		String query = null;
 		
 		if(userid.equals("admin")) {
-			query = "SELECT * FROM USER_INFO";
+			query = "SELECT * FROM USER_INFO ";
 		}else {
 			query = "SELECT * FROM USER_INFO WHERE USER_ID='"+userid+"'";
 		}

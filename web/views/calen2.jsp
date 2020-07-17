@@ -61,12 +61,13 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     locale: 'ko',
     events: [
-        <%for(int i=0;i< slist.size(); i++) { %>
+    	//값 들어가는지 확인용
+       <%--  <%for(int i=0;i< slist.size(); i++) { %>
 	        {
 	        title : '<%=slist.get(i).getUserName()%>',
 	        start : '2020-07-16'
 	        }
-        <%}%>
+        <%}%> --%>
     ]
 
   });
@@ -182,6 +183,11 @@ function getCalendarDataInDB(){
     max-width: 900px;
     margin: 20px auto;
   }
+  
+  /* 주말 색 추가 */
+.fc-sat { background-color:#a4ccf1}
+.fc-sun { background-color:#f7b5c0}
+
 </style>
  
 </head>
@@ -197,7 +203,6 @@ function getCalendarDataInDB(){
     <div class="fc-event">My Event 3</div>
     <div class="fc-event">My Event 4</div>
     <div class="fc-event">My Event 5</div>
-    <div class="fc-event"><form><input type="text" name="ttt"><input type="submit" id="btnAddTest" value="추가"></form></div>
     <p>
       <input type="checkbox" id="drop-remove" checked="checked">
       <label for="drop-remove">remove after drop</label>
