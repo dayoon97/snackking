@@ -59,16 +59,31 @@ document.addEventListener('DOMContentLoaded', function() {
         
       }
     },
+ 
+    //일정 변경 할때 alert
+    eventDrop: function(info) {
+        alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+
+        if (!confirm("일정을 변경하시겠습니까?")) {
+          info.revert();//취소했을때 이전으로 돌림.
+        }
+      },
+    
     locale: 'ko',
     events: [
     	//값 들어가는지 확인용
-       <%--  <%for(int i=0;i< slist.size(); i++) { %>
+         <%-- <%for(int i=0;i< slist.size(); i++) { %>
 	        {
 	        title : '<%=slist.get(i).getUserName()%>',
-	        start : '2020-07-16'
+	        start : '2020-07-16',
 	        }
-        <%}%> --%>
-    ]
+        <%}%>  --%>
+    ],
+    
+    eventClick: function(info){
+         alert('Event: ' + info.event.title);
+  		//모달창 추가 해서 정보 가져와야함....ㅁㄴㅇㄻㄴㅇㄹㄴㅁㅇㄻㄴㄻㄴㅇㄻㄴㄹㅇ
+    }
 
   });
     calendar.render();
@@ -194,11 +209,12 @@ function getCalendarDataInDB(){
 <body>
 <div id="external-events">
     <p>
-      <strong>Draggable Events</strong>
+      <strong><%for(int i=0;i< slist.size(); i++) { %>
+      		  <%=slist.get(i).getUserName()%>
+      		  <%}%>
+      </strong>
     </p>
-    <div class="fc-event"><%for(int i=0;i< slist.size(); i++) { %>
-        <%=slist.get(i).getUserName()%>
-        <%}%></div>
+    <div class="fc-event">My Event 1</div>
     <div class="fc-event">My Event 2</div>
     <div class="fc-event">My Event 3</div>
     <div class="fc-event">My Event 4</div>
