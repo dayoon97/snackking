@@ -11,22 +11,22 @@ import com.kh.snackking.board.model.vo.PageInfo;
 
 public class BoardService {
 
-	public int getListCount() {
+	public int getListCount(int userNo) {
 		
 		Connection con = getConnection();
 		
-		int listCount = new BoardDao().getListCount(con);
+		int listCount = new BoardDao().getListCount(con, userNo);
 		
 		close(con);
 		
 		return listCount;
 	}
 
-	public ArrayList<Board> selectList(PageInfo pi) {
+	public ArrayList<Board> selectList(int userNo, PageInfo pi) {
 		
 		Connection con = getConnection();
 		
-		ArrayList<Board> list = new BoardDao().selectList(con, pi);
+		ArrayList<Board> list = new BoardDao().selectList(con, userNo,pi);
 		
 		close(con);
 		

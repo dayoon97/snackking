@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.awt.*"%>
+    pageEncoding="UTF-8" import="java.awt.*, java.util.*, com.kh.snackking.board.model.vo.*"%>
+<%
+	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,116 +42,6 @@ span.choose {
   text-align: center
 }
 
-/*Styling Selectbox*/
-.dropdown {
-  width: 90px;
-  display: inline-block;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 0 2px rgb(204, 204, 204);
-  transition: all .5s ease;
-  position: relative;
-  font-size: 14px;
-  color: #474747;
-  height: 100%;
-  text-align: left
-}
-.dropdown .select {
-    cursor: pointer;
-    display: block;
-    padding: 10px
-}
-.dropdown .select > i {
-    font-size: 13px;
-    color: #888;
-    cursor: pointer;
-    transition: all .3s ease-in-out;
-    float: right;
-    line-height: 20px
-}
-.dropdown:hover {
-    box-shadow: 0 0 4px rgb(204, 204, 204)
-}
-.dropdown:active {
-    background-color: #f8f8f8
-}
-.dropdown.active:hover,
-.dropdown.active {
-    box-shadow: 0 0 4px rgb(204, 204, 204);
-    border-radius: 2px 2px 0 0;
-    background-color: #f8f8f8
-}
-.dropdown.active .select > i {
-    transform: rotate(-90deg)
-}
-.dropdown .dropdown-menu {
-    position: absolute;
-    background-color: #fff;
-    width: 100%;
-    left: 0;
-    margin-top: 1px;
-    box-shadow: 0 1px 2px rgb(204, 204, 204);
-    border-radius: 0 1px 2px 2px;
-    overflow: hidden;
-    display: none;
-    max-height: 144px;
-    overflow-y: auto;
-    z-index: 9
-}
-.dropdown .dropdown-menu li {
-    padding: 10px;
-    transition: all .2s ease-in-out;
-    cursor: pointer
-} 
-.dropdown .dropdown-menu {
-    padding: 0;
-    list-style: none
-}
-.dropdown .dropdown-menu li:hover {
-    background-color: #f2f2f2
-}
-.dropdown .dropdown-menu li:active {
-    background-color: #e2e2e2
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 2; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 65%; /* Could be more or less, depending on screen size */
-  z-index:1;
-}
-
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
 .footerArea{
 	height:150px;
 }
@@ -155,7 +54,6 @@ span.choose {
 	width:1100px;
 	height:700px;
 	margin-left: 100px;
-	margin-top: -20px;
 }
 .order-History{
 	font-size: 30px;
@@ -173,6 +71,7 @@ td{
 }
 #order-td:hover{
 	background: white;
+	cursor: pointer;
 }
 th{
 	height: 40px;
@@ -198,25 +97,6 @@ th{
 .box .form-control{
 	max-width: 300px;
 	margin: 0 auto;	
-}
-.datepicker{
-	font-family: 'Exo 2', sans-serif;
-}
-.datepicker--cell.-range-to-{
-	background: rgba(248, 206, 236, 0.4);
-	border-color: rgba(248, 206, 236, 1);
-}
-.datepicker--cell.-current-{}
-.datepicker--cell.-selected-,.datepicker--cell.-selected-.-focus-{
-	background-color: #f8ceec;
-	color: #000000;
-}
-.datepicker--cell.-in-range-{
-	background: rgba(248, 206, 236, 0.2);
-}
-.datepicker--cell-day {
-    font-weight: 500;
-    color: #000000;
 }
 
 .form-control{
@@ -314,105 +194,63 @@ input[type='checkbox']{
 			<div class="order-table">
 				<p class="order-History">문의 내역</p>
 				<div class="line"></div>
-					<div class="searchArea">
-						<!--<input type="text" class="datepicker-here form-control" id="minMaxExample" data-date-format="yy/mm/dd" data-language="en" placeholder="날짜를 선택해주세요">  -->
+<!-- 					<div class="searchArea">
+						<input type="text" class="datepicker-here form-control" id="minMaxExample" data-date-format="yy/mm/dd" data-language="en" placeholder="날짜를 선택해주세요"> 
 						<input type="date">
 						<input type="text" size="9" value="주문번호 검색">
 						<input type="submit" value="검색" class="submit-btn">
-					</div>
+					</div> -->
 			<form>
 				<table class="order-history-table" align="center">
 					<tr>
 						<th width="40px;"><input type="checkbox"></th>
 						<th width="60px;">번호</th>
+						<th width="100px;">구분</th>
 						<th width="400px;">제목</th>
 						<th width="150px;">날짜</th>
-						<th width="300px;">구분</th>
 						<th width="80px;">상태</th>
 					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>10</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>구분</td>
-						<td>미답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>9</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>구분</td>
-						<td>미답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>8</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>구분</td>
-						<td>미답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>7</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>구분</td>
-						<td>미답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>6</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>피드백</td>
-						<td>답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>5</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>피드백</td>
-						<td>답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>4</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>피드백</td>
-						<td>답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>3</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>피드백</td>
-						<td>답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>2</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>교환</td>
-						<td>답변</td>
-					</tr>
-					<tr id="order-td">
-						<td><input type="checkbox"></td>
-						<td>1</td>
-						<td>제목</td>
-						<td>날짜</td>
-						<td>피드백</td>
-						<td>답변</td>
-					</tr>
+					<% for(Board b : list) { %>
+						<tr id="order-td">
+							<input type="hidden" value="<%=b.getBid()%>">
+							<td><input type="checkbox"></td>
+							<td><%= b.getrNum() %></td>
+							<td><%= b.getBtName() %></td>
+							<td><%= b.getbTitle() %></td>
+							<td><%= b.getbDate() %></td>
+							<td><%= b.getAnswerCheck() %></td>
+						</tr>
+					<% } %>
 				</table>
 			</form>
 			</div>
+			<!-- pagingArea(페이징 처리 버튼) start -->
+			<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=1'"><<</button>
+			
+			<% if(currentPage <= 1) { %>
+				<button disabled><</button>
+			<% } else { %>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=currentPage - 1%>'"><</button>
+			<% } %>
+			
+			<% for(int p = startPage; p <= endPage; p++) {
+				if(p == currentPage) { %>
+					<button disabled><%= p %></button>
+				<% } else { %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=p%>'"><%= p %></button>
+				<% }
+			} %>
+			
+			
+			<% if(currentPage >= maxPage) { %>
+				<button disabled>></button>
+			<% } else { %>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=currentPage + 1%>'">></button>
+			<% } %>
+			
+			<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=maxPage%>'">>></button>
+		</div>	<!-- pagingArea end -->
 			<div class="btnArea">
 				<input type="button" value="글쓰기" id="write-btn" class="submit-btn write">
 				<input type="button" value="삭제" class="submit-btn delete">
@@ -430,52 +268,9 @@ input[type='checkbox']{
 	$("#write-btn").click(function() {
 		location.href='userBoardinsertForm.jsp';
 	});
-	/* $('.dropdown').click(function () {
-        $(this).attr('tabindex', 1).focus();
-        $(this).toggleClass('active');
-        $(this).find('.dropdown-menu').slideToggle(300);
-    });
-    $('.dropdown').focusout(function () {
-        $(this).removeClass('active');
-        $(this).find('.dropdown-menu').slideUp(300);
-    });
-    $('.dropdown .dropdown-menu li').click(function () {
-        $(this).parents('.dropdown').find('span').text($(this).text());
-        $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-    });
-	/*End Dropdown Menu*/
-
-
-	/* $('.dropdown-menu li').click(function () {
-	  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-	      msg = '<span class="msg">Hidden input value: ';
-	  $('.msg').html(msg + input + '</span>');
-	});  */
 	
-	var mindate = new Date();
-	    mindate.setDate(mindate.getDate() - 8);
-	    
-	var maxdate = new Date();
-	    maxdate.setDate(maxdate.getDate() - 1);
-	    
-	  /* $(document).ready(function(){
-		  $('#minMaxExample').datepicker({
-			  	dateFormat: 'yy-mm-dd',
-			    language: 'en',
-					range : true,
-					minDate : mindate,
-			    maxDate : maxdate,
-					multipleDates: true,
-					multipleDatesSeparator: " - "
-			});
-	  }); */
-	 $(function(){
-		 $('#minMaxExample').datepicker({
-			 
-		 });
-	 });
 	
-	</script>
+</script>
 	
 </body>
 </html>

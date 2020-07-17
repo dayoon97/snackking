@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Board implements java.io.Serializable{
 	
+	private int rNum;
 	private int bid;
 	private String bType;
 	private String btName;
@@ -15,12 +16,14 @@ public class Board implements java.io.Serializable{
 	private int bCount;
 	private Date bDate;
 	private String status;
+	private String answerCheck;
 	
 	public Board() {}
 
-	public Board(int bid, String bType, String btName, int bno, String bTitle, String bContent, int bWriter,
-			String userName, int bCount, Date bDate, String status) {
+	public Board(int rNum, int bid, String bType, String btName, int bno, String bTitle, String bContent, int bWriter,
+			String userName, int bCount, Date bDate, String status, String answerCheck) {
 		super();
+		this.rNum = rNum;
 		this.bid = bid;
 		this.bType = bType;
 		this.btName = btName;
@@ -32,6 +35,15 @@ public class Board implements java.io.Serializable{
 		this.bCount = bCount;
 		this.bDate = bDate;
 		this.status = status;
+		this.answerCheck = answerCheck;
+	}
+	
+	public int getrNum() {
+		return rNum;
+	}
+
+	public void setrNum(int rNum) {
+		this.rNum = rNum;
 	}
 
 	public int getBid() {
@@ -122,11 +134,20 @@ public class Board implements java.io.Serializable{
 		this.status = status;
 	}
 
+	public String getAnswerCheck() {
+		return answerCheck;
+	}
+
+	public void setAnswerCheck(String answerCheck) {
+		this.answerCheck = answerCheck;
+	}
+
 	@Override
 	public String toString() {
-		return "Board [bid=" + bid + ", bType=" + bType + ", btName=" + btName + ", bno=" + bno + ", bTitle=" + bTitle
-				+ ", bContent=" + bContent + ", bWriter=" + bWriter + ", userName=" + userName + ", bCount=" + bCount
-				+ ", bDate=" + bDate + ", status=" + status + "]";
+		return "Board [rNum=" + rNum + ", bid=" + bid + ", bType=" + bType + ", btName=" + btName + ", bno=" + bno
+				+ ", bTitle=" + bTitle + ", bContent=" + bContent + ", bWriter=" + bWriter + ", userName=" + userName
+				+ ", bCount=" + bCount + ", bDate=" + bDate + ", status=" + status + ", answerCheck=" + answerCheck
+				+ "]";
 	}
 	
 }

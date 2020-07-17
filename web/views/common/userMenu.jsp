@@ -506,7 +506,7 @@
 		<!-- aside div start -->
 		<div id="aside" class="aside">
 			<div class="aside-header" align="center">
-				<a href="../../index.jsp">
+				<a href="/snackking/index.jsp">
 					<img alt="logoImage" src="/snackking/resources/image/logo3.png" width="150px;">
 				</a>
 			</div>	<!-- aisde-header end -->
@@ -523,7 +523,7 @@
 								<p class="title">내 정보</p>
 							</div>
 								<ul class="con">
-									<li><a href="<%=request.getContextPath()%>/selectBoardList.bo?num=<%=loginUser.getUserNo()%>">나의 문의내역</a></li>
+									<li><a href="<%=request.getContextPath()%>/selectBoardList.bo">나의 문의내역</a></li>
 									<li><a href="/snackking/views/common/userUpdateInfoPwdCheck.jsp">회원정보 수정</a></li>
 								</ul>
 						</li>
