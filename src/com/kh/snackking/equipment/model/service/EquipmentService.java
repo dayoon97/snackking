@@ -34,6 +34,7 @@ public class EquipmentService {
 		return list;
 	}
 	
+	
 	//설비 update
 	public int updateEquipment(Equipment equipment) {
 		Connection con = getConnection();
@@ -46,6 +47,29 @@ public class EquipmentService {
 		close(con);
 		return result;
 	}
+
+
+	public int deleteEquipment(String equipCode) {
+		Connection con = getConnection();
+		int result = new EquipmentDao().deleteEquipment(con, equipCode);
+		if(result > 0) { 
+				commit(con);
+		}else {
+				rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+
+	public ArrayList<Equipment> selectListRenew() {
+		Connection con = getConnection();
+		ArrayList<Equipment> list = new EquipmentDao().selectListRenew(con);
+		close(con);
+		return list;
+	}
+
+
 	
 	
 	

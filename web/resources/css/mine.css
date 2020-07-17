@@ -41,6 +41,21 @@
 	top:300px !important;
 	right:90px !important;
 	}
+	.btnPosition3{
+	position:absolute;	
+	top:300px !important;
+	right:90px !important;
+	}
+	.btnPosition2{
+	position:absolute;	
+	top:300px !important;
+	right:160px !important;
+	}
+	.btnPosition1{
+	position:absolute;	
+	top:300px !important;
+	right:230px !important;
+	}
 
 	/*본문 영역 제목*/
 	#mainTitle {
@@ -242,7 +257,22 @@
 		text-align: center;
 		color: #FFFFFF;
 	}
-
+	/* 작은 노란 버튼 */
+	.btn2{
+		border:0;
+		outline:0;
+		width: 60px;
+		height: 32px;
+		background: #F0BB00;
+		display:inline-block;
+		font-family: NanumSquare_ac;
+		font-style: normal;
+		font-weight: 300;
+		font-size: 17px;
+		line-height: 19px;
+		text-align: center;
+		color: #FFFFFF;
+	}
 
 
 /*적용 버튼*/
@@ -626,6 +656,17 @@ margin: 20px;
 #listTable6 th:nth-of-type(6){width:166px; important!}
 #listTable6 td:nth-of-type(6){width:146px; important!}
 
+#listTable th:nth-of-type(1), #listTable td:nth-of-type(1){width:50px; important!}
+#listTable th:nth-of-type(2), #listTable td:nth-of-type(2){width:190px; important!}
+#listTable th:nth-of-type(3), #listTable td:nth-of-type(3){width:190px; important!}
+#listTable th:nth-of-type(4), #listTable td:nth-of-type(4){width:190px; important!}
+#listTable th:nth-of-type(5), #listTable td:nth-of-type(5){width:190px; important!}
+#listTable th:nth-of-type(6){width:190px; important!}
+#listTable td:nth-of-type(6){width:170px; important!}
+
+
+
+
 /*열 7개짜리 테이블*/
 
 #listTable7 th:nth-of-type(1), #listTable7 td:nth-of-type(1){width:142px; important!}
@@ -707,13 +748,13 @@ margin: 20px;
 #listTable12 td:nth-of-type(12){width:80px; important!}
 
 /*리스트 컬럼 10,11,12개 짜리  테이블 바디 선 스타일*/
-#listTable5 tbody tr,#listTable7 tbody tr, #listTable6 tbody tr, #listTable10 tbody tr, #listTable11 tbody tr, #listTable12 tbody tr, #listTable13 tbody tr{
+#listTable5 tbody tr,#listTable7 tbody tr, #listTable6 tbody tr, #listTable10 tbody tr, #listTable11 tbody tr, #listTable12 tbody tr, #listTable13 tbody tr, #listTable tbody tr{
 border-bottom:3px solid #EBEAEA;
 height: 36px;
 }
 
 /*리스트 컬럼 10,11, 12개 짜리  테이블  헤더 기본 높이 및 폰트 스타일*/
-#listTable5 thead tr, #listTable6 thead tr,#listTable7 thead tr, #listTable10 thead tr, #listTable11 thead tr, #listTable12 thead tr, #listTable13 thead tr{
+#listTable5 thead tr, #listTable6 thead tr,#listTable7 thead tr, #listTable10 thead tr, #listTable11 thead tr, #listTable12 thead tr, #listTable13 thead tr, #listTable thead tr{
 width: 1000px;
 height: 32px;
 padding-left:20px;
@@ -725,24 +766,30 @@ line-height:17px;
 }
 
 /*리스트 테이블 컬럼 10,11,12개 짜리  위치 및 설정*/
-#listTable5, #listTable6, #listTable7, #listTable10, #listTable11, #listTable12, #listTable13{
+#listTable5, #listTable6, #listTable7, #listTable10, #listTable11, #listTable12, #listTable13, #listTable{
 width: 1000px;
 border-collapse:collapse;
 position: absolute;
 top:350px;
 left:40px;
 text-align:center;
-overflow-x: hidden !important;
+
 display: block;
 }
 
 /*리스트 테이블 컬럼 10,11, 12개 짜리  바디 기본 높이*/
-#listTable5 tbody,#listTable6 tbody,#listTable7 tbody, #listTable10 tbody, #listTable11 tbody, #listTable12 tbody, #listTable13 tbody{
+#listTable5 tbody,#listTable6 tbody,#listTable7 tbody, #listTable10 tbody, #listTable11 tbody, #listTable12 tbody, #listTable13 tbody, #listTable tbody{
 display: block;
 height: 280px;
 overflow-y: auto !important;
 }
-
+#listTable tbody{
+height: 250px;
+overflow-y: auto !important;	
+}
+#listTable{
+	overflow-x: hidden !important;
+}
 /* The Modal (background) */
 .modal2 {
   display: none; /* Hidden by default */
@@ -925,4 +972,82 @@ margin-left:40px;
 .padding2{
 	padding-left: 30px;
 	
+}
+
+
+/* The Modal (background) */
+.modal3 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content3 {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 35%; /* Could be more or less, depending on screen size */
+  height: 40%;
+}
+
+/* The Close Button */
+.close3 {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close3:hover,
+.close3:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* The Modal (background) */
+.modal4 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content4 {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 35%; /* Could be more or less, depending on screen size */
+  height: 40%;
+}
+
+/* The Close Button */
+.close4 {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close4:hover,
+.close4:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

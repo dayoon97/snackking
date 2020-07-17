@@ -29,7 +29,7 @@
 					movePath = "<%= request.getContextPath() %>/views/common/login.jsp";
 					break;
 				case "equipmentList" : 
-					errorsMessage = "설비 계시판 조회에 실패하였습니다!!";
+					errorsMessage = "설비 게시판 조회에 실패하였습니다!!";
 					movePath = "<%= request.getContextPath() %>/views/common/equipmentList.jsp";
 					break;
 				case "updatePwdCheck" : 
