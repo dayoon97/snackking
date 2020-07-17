@@ -592,4 +592,67 @@ public class UserDao {
 		
 		return list;
 	}
+
+	public int changeEmployeeTcode(Connection con, int userNo, String tcode) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateEmployeeTcode");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, tcode);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+//	public ArrayList<User> changedEmployeeSelect(Connection con, int userNo) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		ArrayList<User> list = null;
+//		
+//		String query = prop.getProperty("changedEmployeeSelect");
+//		
+//		try {
+//			pstmt = con.prepareStatement(query);
+//			pstmt.setInt(1, userNo);
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			list = new ArrayList<User>();
+//			
+//			if(rset.next()) {
+//				User u = new User();
+//				u.setUserNo(rset.getInt("USER_NO"));
+//				u.settCode(rset.getString("TCODE"));
+//				u.setUserName(rset.getString("USER_NAME"));
+//				u.setAddress(rset.getString("ADDRESS"));
+//				u.setPhone(rset.getString("PHONE"));
+//				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+//				u.setStatus(rset.getString("STATUS"));
+//			
+//				list.add(u);
+//				
+//				System.out.println("업데이트 직원 조회 : " + list);
+//			}
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//			close(rset);
+//		}
+//		
+//		
+//		return list;
+//	}
 }
