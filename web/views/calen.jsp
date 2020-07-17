@@ -22,11 +22,11 @@
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid','list' ],
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid','list','button' ],
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,list,button'
       },
       //defaultDate: '2019-06-12',
       navLinks: true, // can click day/week names to navigate views
@@ -44,73 +44,19 @@
         }
         calendar.unselect()
       },
+      
       editable: true,
       eventResourceEditable: true,
       resourceEditable: true,
       eventLimit: true, // allow "more" link when too many events
       locale:'ko',
+      
+      
       events: [
         {
-          title: 'All Day Event',
-          start: '2019-06-01 '
-          l
-        },
-        {
-          title: 'Long Event',
-          start: '2019-06-07',
-          end: '2019-06-10'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2019-06-09T16:00:00'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2019-06-16T16:00:00'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2019-06-23T16:00:00'
-        }, 
-        {
-          title: 'Conference',
-          start: '2019-06-11',
-          end: '2019-06-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2019-06-12T10:30:00',
-          end: '2019-06-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2019-06-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2019-06-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2019-06-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2019-06-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2019-06-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2019-06-28'
-        },
-
+          title: 'asd',
+          start: '2020-07-16'
+        }
       ]
     
     });
@@ -138,6 +84,13 @@
 <body>
 
   <div id='calendar'></div>
-
+  <form action="<%=request.getContextPath()%>/search.da" method="get">
+  <label>큐레이터 아이디 : </label>
+  <input type="text" name="userId">
+  <button type="submit">제출</button>
+  
+  </form>
+  
+	
 </body>
 </html>
