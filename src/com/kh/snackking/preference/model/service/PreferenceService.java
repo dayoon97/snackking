@@ -118,4 +118,19 @@ public class PreferenceService {
 		
 		return pre;
 	}
+
+	public Preference selectCurating(int num) {
+		Connection con = getConnection();
+		
+		Preference p = new PreferenceDao().cmSelectOne(con, num);
+		
+		if(p != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return p;
+	}
 }

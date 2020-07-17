@@ -229,7 +229,7 @@ text-align:center;
 					<div id="searchBox">
 					<!-- 조회 제목 -->
 						<div id="subSubTitle1"><h2>기본 정보 입력</h2></div>
-						<form id="searchForm" action="<%= request.getContextPath() %>/insertPer.per" method="post">
+						<form id="curatingForm" action="<%= request.getContextPath() %>/selectCurating.pre?pno=<%=insertPre.getPreNo() %>" method="post">
 							<input type="hidden" id="userid" name="userid" value="<%=loginUser.getUserNo()%>">
 							<input type="hidden" id="username" name="userName" value="<%=loginUser.getUserName()%>">
 							<input type="hidden" id="username" name="predate" value="<%=insertPre.getPreDate()%>">
@@ -385,7 +385,7 @@ text-align:center;
 								</tr>
 								<tr>
 								<td>
-									<input type="text" class="" size="100" name="freesmell" style="height:40px;" placeholder="예시: 민트" disabled>
+									<input type="text" class="" size="100" name="freesmell" style="height:40px;" value="<%=insertPre.getPreEtcFlavor() %>" disabled>
 								</td>
 								</tr>
 							</table>
@@ -481,7 +481,9 @@ text-align:center;
 									</tr>
 								</table>
 							</div>
+							
 						</form>
+						<input type="button" onclick="curating();" class="searchBtn" value="큐레이팅">
 					</div> <!-- searchBox end -->
 			</div>	<!-- search-area end -->
 		
@@ -557,9 +559,9 @@ function amountclick(am){
 }
 
 
-function update(){
+function curating(){
 	
-	$("#searchForm").submit();
+	$("#curatingForm").submit();
 }
 
 </script>

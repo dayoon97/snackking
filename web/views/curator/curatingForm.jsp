@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference"%>
+<% Preference insertPre = (Preference) request.getAttribute("insertPre"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -164,17 +165,15 @@
 #subSubTitle2{
 position: absolute;
 width: 980px;
-height: 100px;
+height: 500px;
 top: 900px;
 font-family: NanumSquare_ac;
 font-style: normal;
 font-weight: bold;
 font-size: 18px;
 line-height: 20px;
-display: flex;
 align-items: center;
 color: #000000;
-background: yellow;
 }
 
 /*적용 버튼*/
@@ -190,6 +189,31 @@ position: absolute;
 text-align:center;
 }
 
+
+
+/*조회 리스트 테이블 listHead*/
+#listHead{
+width: 1400px;
+height: 31px;
+padding-left:20px;
+background: #FBFAFA;
+box-sizing:border-box;
+border-radius: 300px 0 0 300px;
+}
+
+/*조회 리스트 부분 테이블 헤더 폰트 스타일*/
+.listHead th{
+padding:4px;
+font-size:15px;
+line-height:17px;
+}
+
+/* 리스트 바디 하위 td 테이블 선 스타일*/
+.listBody>td{
+border-bottom:3px solid #EBEAEA;
+height: 25px;
+}
+
 .searchBtn:hover {
 	cursor: pointer;
 }
@@ -203,8 +227,19 @@ text-align:center;
 
 #snackList{
 	width: 980px;
-	height: 100px;
-	background: blue;
+	height: 500px;
+	background: white;
+	border: 1px solid black;
+		border-radius: 33.5px;
+}
+
+#productList{
+	width: 980px;
+	height: 500px;
+	background: white;
+	border: 1px solid black;
+	border-radius: 33.5px;
+	margin-top: 50px;
 }
 </style>
 </head>
@@ -212,7 +247,7 @@ text-align:center;
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-	<%-- <%@ include file="../common/userMenu.jsp" %> --%>
+	<%@ include file="../common/userMenu.jsp" %>
 	
 	<!-- outer start -->
 	<div id="outer">
@@ -238,9 +273,9 @@ text-align:center;
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
-									<td width="800px"><h4>예산</h4></td>
+									<td width="110px"><h4>예산</h4></td>
 									<td>
-										<input type="text" name="budget" class="" size="100" style="height:40px;" placeholder="예시: 500000">
+										<input type="text" name="budget" class="" size="80" style="height:40px;" value="<%= insertPre.getPreBudget() %>" placeholder="예시: 500000">
 									</td>
 								</tr>
 							</table>
@@ -248,9 +283,9 @@ text-align:center;
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
-									<td width="800px"><h4>인원</h4></td>
+									<td width="110px"><h4>인원</h4></td>
 									<td>
-										<input type="text" name="personnel" class="" size="100" style="height:40px;" placeholder="예시: 500000">
+										<input type="text" name="personnel" class="" size="80" style="height:40px;" value="<%= insertPre.getPrePersonnel() %>" placeholder="예시: 500000">
 									</td>
 								</tr>
 							</table>
@@ -269,16 +304,16 @@ text-align:center;
 										<th width="50px;"></th>
 										<th width="90px;">60대↑</th>
 									</tr>
-									<tr>
-										<td><input type="text" name="age1" class="" size="8" style="height:40px;" placeholder="                %"></td>
+									<tr><% String[] age = insertPre.getPreAge().split(", "); %>
+										<td><input type="text" name="age1" class="" size="8" style="height:40px;" value="<%=age[0]%>" placeholder="                %"></td>
 										<td></td>
-										<td><input type="text" name="age2" class="" size="8" style="height:40px;" placeholder="                %"></td>
+										<td><input type="text" name="age2" class="" size="8" style="height:40px;" value="<%=age[1]%>" placeholder="                %"></td>
 										<td></td>
-										<td><input type="text" name="age3" class="" size="8" style="height:40px;" placeholder="                %"></td>
+										<td><input type="text" name="age3" class="" size="8" style="height:40px;" value="<%=age[2]%>" placeholder="                %"></td>
 										<td></td>
-										<td><input type="text" name="age4" class="" size="8" style="height:40px;" placeholder="                %"></td>
+										<td><input type="text" name="age4" class="" size="8" style="height:40px;" value="<%=age[3]%>" placeholder="                %"></td>
 										<td></td>
-										<td><input type="text" name="age5" class="" size="8" style="height:40px;" placeholder="                %"></td>
+										<td><input type="text" name="age5" class="" size="8" style="height:40px;" value="<%=age[4]%>" placeholder="                %"></td>
 									</tr>
 								</table>
 							</div>
@@ -377,9 +412,9 @@ text-align:center;
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
-									<td width="800px"><h4>기타 향</h4></td>
+									<td width="110px"><h4>기타 향</h4></td>
 									<td>
-										<input type="text" class="" size="100" name="freesmell" style="height:40px;" placeholder="예시: 민트">
+										<input type="text" class="" size="80" name="freesmell" style="height:40px;" value="<%=insertPre.getPreEtcFlavor() %>" placeholder="예시: 민트">
 									</td>
 								</tr>
 							</table>
@@ -443,16 +478,18 @@ text-align:center;
 								</table>
 							</div>
 						</form>
-						
+					
 			<div id="subSubTitle2"><!-- 과자 리스트 -->
-				<h3>과자 리스트</h3>
+				
 				<!-- 조회 리스트 테이블 -->
 				<div id="snackList">
+				<br>
+				<h3 style="margin-left: 50px;">과자 리스트</h3>
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
                      <th width="20px"><input type="checkbox" id="checkall"></th>
-                     <th width="50px">상품명</th>
+                     <th width="70px">상품명</th>
                      <th width="150px">상품 종류</th>
                      <th width="150px">상품 맛</th>
                      <th width="150px">상품 향</th>
@@ -478,6 +515,38 @@ text-align:center;
                 </div>
                 
                 
+                
+                
+                <div id="productList"> <!-- 큐레이팅  등록 -->
+                <br>
+				<h3 style="margin-left: 50px;">상품 선택 리스트</h3>
+               <table id="listTable">
+                  <!-- 테이블 헤드 -->
+                  <tr id="listHead">
+                     <th width="20px"><input type="checkbox" id="checkall"></th>
+                     <th width="70px">상품명</th>
+                     <th width="150px">상품 종류</th>
+                     <th width="150px">상품 맛</th>
+                     <th width="150px">상품 향</th>
+                     <th width="150px">알레르기</th>
+                     <th width="50px">갯수</th>
+                  </tr>
+                 
+                  <!-- 리스트 바디  -->
+<%-- 				<% for(Preference n : List) { %>
+                  <tr class="listBody">
+						<td><input type="checkbox"></td>
+						<td><%= n.getPreNo() %></td>
+						<td><%= n.getUserCom() %></td>
+						<td><%= n.getUserName()%></td>
+						<td><%= n.getPreDate() %></td>
+						<td><%= n.getStatus() %></td>
+						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="/snackkking/resources/image/search.png" width="15px" alt="My Image"></a></td>
+						<td><button onclick="location.href='<%= request.getContextPath()%>/delicatePre.pre?num=<%=n.getPreNo()%>'">삭제</button></td>
+					</tr>
+				<%} %> --%>
+               </table>
+                </div>
                 
 						
 						</div>
@@ -514,6 +583,63 @@ function packingclick(pack){
         }
     }
 }
+
+$(function(){
+	var ProductTypes = '<%=insertPre.getPreProductTypes()%>'.split(",");
+	var flavor = '<%=insertPre.getPreTaste()%>'.split(",");
+	var smell = '<%=insertPre.getPreFlavor()%>'.split(",");
+	var allergy = '<%=insertPre.getPreAlName()%>'.split(",");
+	var perstyle = '<%=insertPre.getPreStyle()%>'.split(",");
+	var equipment = '<%=insertPre.getPreEquipment()%>'.split(",");
+	
+	$("input[name=kinds]").each(function(){ //상품 종류
+		for(var i = 0; i < ProductTypes.length; i++){
+			if($(this).val() === ProductTypes[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=flavor]").each(function(){ //맛
+		for(var i = 0; i < flavor.length; i++){
+			if($(this).val() === flavor[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=smell]").each(function(){ //향
+		for(var i = 0; i < smell.length; i++){
+			if($(this).val() === smell[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=allergy]").each(function(){ //알레르기
+		for(var i = 0; i < allergy.length; i++){
+			if($(this).val() === allergy[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=perstyle]").each(function(){ //구성스타일
+		for(var i = 0; i < perstyle.length; i++){
+			if($(this).val() === perstyle[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=equipment]").each(function(){ //설비
+		for(var i = 0; i < equipment.length; i++){
+			if($(this).val() === equipment[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+});
 
 function preference(){
 	var userId = $("#userid").val();

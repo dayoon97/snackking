@@ -710,7 +710,7 @@
 							<p class="title">주문 관리</p>
 								<ul class="con">
 									<li><a href="<%= request.getContextPath()%>/selectList.pre">선호도 조사 내역</a></li>
-									<li><a href="">큐레이팅 관리</a></li>
+									<li><a href="<%= request.getContextPath()%>/">큐레이팅 관리</a></li>
 									<li><a href="">교환 관리</a></li>
 									<li><a href="">회수 관리</a></li>
 									<li><a href="">설비 관리</a></li>
