@@ -213,8 +213,10 @@
 						<li>
 							<p class="title">계약 관리</p>
 								<ul class="con">
-									<li>계약 내역 조회</li>
+									<li><a href="../views/chiefManager/cmContractSearch.jsp">계약 내역 조회</a></li>
+									<li><a href="../views/chiefManager/cmContractInsert.jsp">계약 내역 등록</a></li>
 								</ul>
+								
 						</li>
 					</ul>
 				</div>	<!-- accodion-box end -->
