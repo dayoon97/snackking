@@ -1,11 +1,14 @@
 package com.kh.snackking.contract.model.vo;
 
+import java.sql.Date;
+
 public class Contract implements java.io.Serializable {
 	
+	//11개
 	private String conCode;    //계약코드
-	private String startDate;    //계약시작일
-	private String endDate;      //계약종료일
-	private String conDate;      //계약일
+	private Date startDate;    //계약시작일
+	private Date endDate;      //계약종료일
+	private Date conDate;      //계약일
 	private int delivCount;    //월배송횟수
 	private int amountPDeliv;  //회차당 금액
 	private String denYN;      //계약종료여부YN. 체크 제약조건
@@ -16,7 +19,7 @@ public class Contract implements java.io.Serializable {
 
 	public Contract() {}
 
-	public Contract(String conCode, String startDate, String endDate, String conDate, int delivCount, int amountPDeliv,
+	public Contract(String conCode, Date startDate, Date endDate, Date conDate, int delivCount, int amountPDeliv,
 			String denYN, int userNo, String corpName, int ttlAmount, int conNo) {
 		super();
 		this.conCode = conCode;
@@ -36,15 +39,15 @@ public class Contract implements java.io.Serializable {
 		return conCode;
 	}
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public String getConDate() {
+	public Date getConDate() {
 		return conDate;
 	}
 
@@ -80,15 +83,15 @@ public class Contract implements java.io.Serializable {
 		this.conCode = conCode;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
-	public void setConDate(String conDate) {
+	public void setConDate(Date conDate) {
 		this.conDate = conDate;
 	}
 
