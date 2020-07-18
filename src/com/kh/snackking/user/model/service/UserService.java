@@ -6,6 +6,7 @@ import static com.kh.snackking.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.snackking.adjustment.model.vo.Adjustment;
 import com.kh.snackking.user.model.dao.UserDao;
 import com.kh.snackking.user.model.vo.User;
 
@@ -198,6 +199,25 @@ public class UserService {
 		
 		
 		return list;
+	}
+
+	public int deleteUserSelect(int userNo) {
+		Connection con = null;
+		int result = 0;
+		
+		System.out.println("service userNo : " + userNo);
+		ArrayList<Adjustment> list = new UserDao().deleteUserSelect(con, userNo);
+		
+		
+		
+		if(list != null) {
+			rollback(con);
+		} else {
+			result = new UserDao().deleteUser(con, userNo);
+			commit(con);
+		}
+		
+		return result;
 	}
 
 }
