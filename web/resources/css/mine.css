@@ -6,6 +6,12 @@
 		height: 100vh;
 		position: relative;
 	}
+	
+	
+	.center{
+	line-height: 32px !important;
+	}
+	
 	#background-box {
 		position: relative;
 		width: 1092px;
@@ -185,6 +191,9 @@
 		margin:0;
 		background: #F6F1F1;
 	}
+	
+	
+	
 	.InputBox1{
 		border:0;
 		outline:0;
@@ -493,8 +502,7 @@ margin-left: 40px;
 border: 1px solid rgba(75, 75, 75, 0.23);
 border-radius: 33.5px;
 height: 510px;
-width: 950px;
-
+width: 1000px;
 }
 /*10칸짜리 마지막행 높이 제거*/
 #addProductTable :nth-child(13) td{
@@ -515,6 +523,22 @@ input[class="b"] {
   position: relative;
   top: -1.5px;
 }
+.top4{
+	/*뒤로가기*/
+	top:80px;
+	right:80px;
+	position: absolute;
+}
+.top5{
+	top:80px;
+	right:200px;
+	position: absolute;
+}
+.top6{
+	top:80px;
+	right:320px;
+	position: absolute;
+}
 /*사진 박스*/
 .pictureTd{
 border: red;
@@ -525,11 +549,11 @@ padding: 25px;
 }
 /*사진 박스 안쪽 div*/
 #picture{
-width:180px; 
+width:182px; 
 height: 200px;	
-border: 2px dashed rgba(75, 75, 75, 0.23);
-border-radius: 33.5px;
-background:lightgray;
+border: 2px dashed #E7E7E7;
+background:#F6F1F1;
+vertical-align: middle;
 }
 
 
@@ -1092,4 +1116,12 @@ margin-left:40px;
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+
+#productImg{
+	height:auto; 
+	width:180px;
+	border:0;
+	
 }
