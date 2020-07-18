@@ -33,26 +33,42 @@ public class EquipmentRentSelectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String day = request.getParameter("rentDate");
+		String rentDate = request.getParameter("rentDate");
+		//String rentDate = request.getParameter("rentDate");
 		String equipCode = request.getParameter("equipCode");
 		String company = request.getParameter("company");
 		String backOk = request.getParameter("backOk");
 		EquipmentRent equipmentRent = new EquipmentRent();
 		//문자열 date로 바꾸기
 		
-		java.sql.Date rentDate = null;
+		/*java.sql.Date rentDate = null;
 		if(day != "") {
 			rentDate = java.sql.Date.valueOf(day);
-		}
+		}*/
 		
 		if(rentDate != null) {equipmentRent.setRentDate(rentDate);}
 		if(equipCode != null) {equipmentRent.setEquipCode(equipCode);}
 		if(company != null) {equipmentRent.setCompany(company);}
 		if(backOk != null) {equipmentRent.setStatus(backOk);}
 		ArrayList<EquipmentRent> list = new EquipmentRentService().selectRentList(equipmentRent);
+		
+		
+		
+		if(list == null) {
+			String page = "views/common/errorPage.jsp";
+			request.setAttribute("errorCode", "equipmentList");
+			request.getRequestDispatcher(page).forward(request, response);
+			
+		}
+		//리스트 통으로 전송
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
+		System.out.println("servlet list : " + list);
+		//알아서 자바 객체를 바꿔서 넘겨줌
+		//별도 디코딩할필요 없음
 		new Gson().toJson(list,response.getWriter());
+		
+		
 		
 	}
 

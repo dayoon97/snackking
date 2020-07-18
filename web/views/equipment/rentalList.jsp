@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.equipment.model.vo.EquipmentRent, java.util.*"%>
+<% ArrayList<EquipmentRent> list = (ArrayList<EquipmentRent>) request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,12 +174,6 @@ align-items: center;
 color: #000000;
 }
 
-/*적용 버튼*/
-#apply{
-position:absolute;	
-top:300px;
-right:90px;
-}
 
 #listTable{
 border-collapse:collapse;
@@ -323,7 +318,6 @@ height: 25px;
 				<div id="subSubTitle1">대여내역 검색</div>
 					<!-- searchBox start -->
 					<div id="searchBox">
-						<form id="searchForm">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
@@ -342,14 +336,13 @@ height: 25px;
                           				 <input type="radio" name="backOk" value="N" id="N"><label for="N">N</label>
                            			</td>
                            			
-									<td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
-								
+									<td><button class="searchBtn">검색하기</button></td>
+									
 
 								
 								
 								</tr>
 							</table>
-						</form>
 					</div> <!-- searchBox end -->
 			</div>	<!-- search-area end -->
 			
@@ -359,34 +352,26 @@ height: 25px;
 					<div id="subSubTitle2" style="width:120px;">대여내역 조회</div>
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
-					<span id="apply">조회 결과 수 :</span>
-					
+			
 					<!-- 조회 리스트 테이블 -->
 					<table id="listTable">
 						<!-- 테이블 헤드 -->
-						<tr id="listHead">
-							<th width="40px">순번</th>
-							<th width="80px">대여일</th>
-							<th width="80px">회수일</th>
-							<th width="100px">설비코드</th>
-							<th width="100px">설비타입</th>
-							<th width="100px">모델명</th>
-							<th width="60px">제조사</th>
-							<th width="60px">대여 회사명</th>
-						
-						</tr>
-						
+						<thead>
+							<tr id="listHead">
+								<th width="40px">순번</th>
+								<th width="80px">대여일</th>
+								<th width="80px">회수일</th>
+								<th width="100px">설비코드</th>
+								<th width="100px">설비타입</th>
+								<th width="100px">모델명</th>
+								<th width="60px">제조사</th>
+								<th width="60px">대여 회사명</th>
+							
+							</tr>
+						</thead>
+						<tbody>	
 						<!-- 리스트 바디  -->
-						<tr class="listBody" onclick="location.href='rentalDetail.jsp';">
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-							<td>내용</td>
-						</tr>
+						</tbody>
 					</table>
 				</div>
 		</div>	<!-- background-box end -->
@@ -413,13 +398,13 @@ height: 25px;
 		/*End Dropdown Menu*/
 
 		$('.dropdown-menu li')
-				.click(
-						function() {
-							var input = '<strong>'
-									+ $(this).parents('.dropdown')
-											.find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
-							$('.msg').html(msg + input + '</span>');
-						});
+		.click(
+				function() {
+					var input = '<strong>'
+							+ $(this).parents('.dropdown')
+									.find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+					$('.msg').html(msg + input + '</span>');
+				});
 	
 	      
 		
@@ -427,36 +412,47 @@ height: 25px;
 		
 		
 	//검색 버튼 클릭시 내용 조회하기
-	$(function() {
+$(function() {
 		$(".searchBtn").click(function(){
 			var rentDate = $("input[name=rentDate]").val();
 			var equipCode = $("input[name=equipCode]").val();
 			var company = $("input[name=company]").val();
 			//check 된 radio 버튼
 			var backOk = $("input[name=backOk]:checked").val();
-			
-			var array = {
+			var rent = {
 					"rentDate" : rentDate,
 					"equipCode": equipCode,
 					"company" : company,
 					"backOk" : backOk
 			};
-				
+			//console.log(array);
+			//출력됨
 				$.ajax({
 					url: "<%=request.getContextPath()%>/equipmentRentSelect",
-					data: array,
+					data: rent,
 					type: "get",
 					success: function(data){
 						$tableBody = $("#listTable tbody");
 						$tableBody.html('');
 						$tableBody.find("tr").remove();
 						
+						
+						
+						var num = 1;
+						
 	 						for(var key in data){
-	 							//클래스 속성 추가
 	 							var $tr =  $("<tr>").attr('class','listBody');
-	 							var $td1 = $("<td>").text(순번1);
+	 							var $td1 = $("<td>").text(num);
+	 							num += 1;
+	 							var backDate = "";
+	 							if((data[key].backDate)==('9999-12-31')){
+	 								backDate = "미회수";
+	 							}else{
+	 								backDate = data[key].backDate;
+	 							}
+	 							
 	 							var $td2 = $("<td>").text(data[key].rentDate);
-	 							var $td3 = $("<td>").text(data[key].backDate);
+	 							var $td3 = $("<td>").text(backDate);
 	 							var $td4 = $("<td>").text(data[key].equipCode);
 	 	 						var $td5 = $("<td>").text(data[key].equipType);
 	 	 						var $td6 = $("<td>").text(data[key].equipName);
@@ -471,16 +467,20 @@ height: 25px;
 	 	 						$tr.append($td7);
 	 	 						$tr.append($td8);
 	 							$tableBody.append($tr);
-	 						}	
+	 						}	 
+	 						
+	 						<%System.out.println("성공4");%>
+	 						
 	 				},
+	 				
+	 				
 	 				error: function(error){
 	 					console.log("에러!" + error);
 	 				}
 				});
 			});
-		});  	
-		
-		
+		});
+
 		
 	</script>	
 	
