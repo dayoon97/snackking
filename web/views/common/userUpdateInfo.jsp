@@ -114,6 +114,87 @@ span {
 #userId:focus{
 	outline: none;
 }
+#delete-btn{
+	  padding-top:10px;
+      width: 332px;
+      height: 40px;
+      left: 38%;
+      top: 30%;
+      background: #FFFFFF;
+      border: 1px solid rgba(255, 168, 0, 0.42);
+      box-sizing: border-box;
+      color: rgba(255, 168, 0, 0.42);
+      margin: 0 auto;
+       
+}
+#delete-btn:hover{
+      background: #ff9100;
+      border: 1px solid rgba(255, 168, 0, 0.42);
+      color: white;
+      border: 0;
+      outline: 0;
+      cursor: pointer;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 40px;
+  border: 1px solid #888;
+  width: 20%; /* Could be more or less, depending on screen size */
+  z-index:1;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.yes-btn, .no-btn{
+	border:0;
+	outline:0;
+	width: 92px;
+	height: 22px;
+	background: #F0BB00;
+	display:inline-block;
+	font-family: NanumSquare_ac;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 17px;
+	line-height: 19px;
+	text-align: center;
+	color: #FFFFFF;
+	padding-top: 5px;
+}
+.yes-btn:hover, .no-btn:hover{
+	cursor: pointer;
+}
+.yes-btn{
+	margin-left: 50px;
+}
 
 </style>
 </head>
@@ -190,7 +271,23 @@ span {
 						</table>
 						<div class="btn-div" align="center">
 							<div class="update-btn" id="update-btn" onclick="updateCheck();">수정하기</div><br>
-							<div class="cancel-btn" id="cancel-btn" onclick="">취소하기</div>
+							<div class="cancel-btn" id="cancel-btn" onclick="">취소하기</div><br>
+							<div class="delete-btn" id="delete-btn" onclick="deleteCheck();">탈퇴하기</div>
+						</div>
+						<!-- The Modal -->
+						<div id="myModal" class="modal">
+						  <!-- Modal content -->
+						  <div class="modal-content">
+						    <span class="close">&times;</span><br><br>
+						    <p align="center" class ="modaltitle" style="font-size:30px;">탈퇴하시겠습니까?</p>
+						    <div class="titleLine"></div>
+						    <table align="center" class="modalTable">
+						    	
+						    </table>
+						    <div class="yes-btn" id="yes-btn">예</div>
+						    <div class="no-btn" id="no-btn">아니오</div>
+						  </div>
+						
 						</div>
 						</form>				
 				
@@ -380,7 +477,46 @@ span {
 		}
 		
 	}
+	//모달 스크립트
+	// Get the modal
+	var modal = document.getElementById("myModal");
+
+	// Get the button that opens the modal
+	var btn = document.getElementById("delete-btn");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
 	
+	// When the user clicks on the button, open the modal
+	btn.onclick = function() {
+	  modal.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	  modal.style.display = "none";
+	}
+	
+	$(function(){
+		$("#no-btn").click(function(){
+			modal.style.display="none";
+		});
+	});
+	
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	  if (event.target == modal) {
+	    modal.style.display = "none";
+	  }
+	};
+	
+	
+	$(function(){
+		$("#yes-btn").click(function(){
+			location.href="<%=request.getContextPath()%>/deleteUser.us?num=<%=loginUser.getUserNo()%>";
+		});
+	});
 </script>
 	
 </body>

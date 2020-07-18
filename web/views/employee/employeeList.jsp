@@ -654,7 +654,7 @@ td {
 			});
 		});
  	});
-    <!-- 스크롤 이벤트 -->
+    	//스크롤 이벤트(아직 못함)
     
    	
     
@@ -670,7 +670,7 @@ td {
 	    });
     });
 
-    
+    //체크박스 여러개 체크 못하게 하는거
     var obj = document.getElementsByName("chk");
     	
      function only(chk){ 

@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-
+import com.kh.snackking.adjustment.model.vo.Adjustment;
 import com.kh.snackking.user.model.vo.User;
 
 public class UserDao {
@@ -615,44 +615,74 @@ public class UserDao {
 		return result;
 	}
 
-//	public ArrayList<User> changedEmployeeSelect(Connection con, int userNo) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		ArrayList<User> list = null;
-//		
-//		String query = prop.getProperty("changedEmployeeSelect");
-//		
-//		try {
-//			pstmt = con.prepareStatement(query);
-//			pstmt.setInt(1, userNo);
-//			
-//			rset = pstmt.executeQuery();
-//			
-//			list = new ArrayList<User>();
-//			
-//			if(rset.next()) {
-//				User u = new User();
-//				u.setUserNo(rset.getInt("USER_NO"));
-//				u.settCode(rset.getString("TCODE"));
-//				u.setUserName(rset.getString("USER_NAME"));
-//				u.setAddress(rset.getString("ADDRESS"));
-//				u.setPhone(rset.getString("PHONE"));
-//				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
-//				u.setStatus(rset.getString("STATUS"));
-//			
-//				list.add(u);
-//				
-//				System.out.println("업데이트 직원 조회 : " + list);
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(pstmt);
-//			close(rset);
-//		}
-//		
-//		
-//		return list;
-//	}
+	public ArrayList<Adjustment> deleteUserSelect(Connection con, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Adjustment> list = null;
+		
+		System.out.println("dao userNo : " + userNo);
+		
+		String query = prop.getProperty("deleteUserSelect");
+		
+		System.out.println(query);
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Adjustment>();
+			
+			
+			if(rset.next()) {
+				
+				Adjustment ad = new Adjustment();
+				ad.setAdJustmentAmount(rset.getInt("ADJUSTMENT_AMOUNT"));
+				ad.setAdJustmentComplete(rset.getString("ADJUSTMENT_COMPLETE"));
+				ad.setAdJustmentCode(rset.getInt("ADJUSTMENT_CODE"));
+				ad.setTradingCode(rset.getInt("TRADING_CODE"));
+				ad.setUserNo(rset.getInt("USER_NO"));
+				
+				System.out.println(ad);
+				
+				list.add(ad);
+				
+				System.out.println("delete user : " + list);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public int deleteUser(Connection con, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteUser");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+
 }
