@@ -1,9 +1,12 @@
 package com.kh.snackking.contract.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.snackking.contract.model.dao.ContractDao;
 import com.kh.snackking.contract.model.vo.Contract;
+import com.kh.snackking.contract.model.vo.PageInfo;
+
 //JDBCTemplate 에 만들었던 getConnection메소드 쓰기 위해서 임포트 구문 직접 작성함.
 //static 으로 만들어서 프로그램 시작~종료 내내 사용. 
 //JDBCTemplate에 있는 특정 메소드만 사용할거면 그렇게 적고 전체 다 사용할거면 * 쓴다.
@@ -35,4 +38,74 @@ public class ContractService {
 		return result;
 	}
 
+	//전체 목록 갯수 조회
+	public int getListCount() {
+
+		Connection con = getConnection();
+		
+		int listCount = new ContractDao().getListCount(con);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	//페이징 처리 전 게시물 목록 조회용 메소드
+	public ArrayList<Contract> selectList() {
+		
+		Connection con = getConnection();
+		
+		ArrayList<Contract> list = new ContractDao().selectList(con);
+		
+		close(con);
+		
+		
+		return list;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

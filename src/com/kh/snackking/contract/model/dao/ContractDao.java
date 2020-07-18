@@ -1,17 +1,20 @@
 package com.kh.snackking.contract.model.dao;
 
+//여기서는 close 메소드 쓰기 위해서 JDBCTemplate 임포트했다.
+import static com.kh.snackking.common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.snackking.contract.model.vo.Contract;
-
-//여기서는 close 메소드 쓰기 위해서 JDBCTemplate 임포트했다.
-import static com.kh.snackking.common.JDBCTemplate.*;
 
 
 public class ContractDao {
@@ -44,11 +47,12 @@ public class ContractDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			
+			//String썼다가 Date로 고침
 			pstmt.setString(1, contract.getCorpName());
 			pstmt.setString(2, contract.getConCode());
-			pstmt.setString(3, contract.getConDate());
-			pstmt.setString(4, contract.getStartDate());
-			pstmt.setString(5, contract.getEndDate());
+			pstmt.setDate(3, contract.getConDate());
+			pstmt.setDate(4, contract.getStartDate());
+			pstmt.setDate(5, contract.getEndDate());
 			pstmt.setInt(6, contract.getDelivCount());
 			pstmt.setInt(7, contract.getAmountPDeliv());
 			pstmt.setInt(8, contract.getTtlAmount());
@@ -76,5 +80,91 @@ public class ContractDao {
 		
 		return result;
 	}
+
+	
+	//페이징 처리 하기 전 게시물 목록 조회용 메소드
+	//아직 넘길 값 없어서 statement로 씀?
+	public ArrayList<Contract> selectList(Connection con) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Contract> list = null;
+		
+		String query = prop.getProperty("selectList");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Contract>();
+			
+			while(rset.next()) {
+				Contract c = new Contract();
+				
+				c.setConCode(rset.getString("CONTRACT_CODE"));
+				c.setCorpName(rset.getString("CORP_NAME"));
+				c.setConDate(rset.getDate("CONTRACT_DATE"));
+				c.setStartDate(rset.getDate("START_DATE"));
+				c.setEndDate(rset.getDate("END_DATE"));
+				c.setDelivCount(rset.getInt("DELIV_COUNT"));
+				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVE"));
+				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));
+				
+				list.add(c);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		System.out.println("dao list : " + list);
+		
+		return list;
+	}
+
+	
+	//페이징 처리 할 때 목록갯수 조회
+	public int getListCount(Connection con) {
+
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return listCount;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
