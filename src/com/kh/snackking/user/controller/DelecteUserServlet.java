@@ -38,6 +38,7 @@ public class DelecteUserServlet extends HttpServlet {
 		
 		
 		if(result > 0) {
+			request.getSession().invalidate();
 	    	response.sendRedirect("index.jsp");
 		} else {
 			

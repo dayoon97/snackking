@@ -582,6 +582,7 @@ public class UserDao {
 				
 				list.add(u);
 
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
