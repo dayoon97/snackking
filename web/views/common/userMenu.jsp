@@ -585,7 +585,6 @@
 									<li><a href="<%=request.getContextPath()%>/adminUserSelect.ad?num=<%=loginUser.getUserNo()%>">회원 리스트</a></li>
 									<li><a href="../question/cmquestion.jsp">문의 게시판 관리</a></li>
 									<li><a href="../chiefManager/cmContractMember.jsp">계약 회원 관리</a></li>
-									<li><a href="<%=request.getContextPath()%>/adminUserDelete.ad?num=<%=loginUser.getUserNo()%>">회원 탈퇴 승인</a></li>
 								</ul>
 						</li>
 						<li>

@@ -202,19 +202,18 @@ public class UserService {
 	}
 
 	public int deleteUserSelect(int userNo) {
-		Connection con = null;
+		Connection con = getConnection();
 		int result = 0;
 		
 		System.out.println("service userNo : " + userNo);
 		ArrayList<Adjustment> list = new UserDao().deleteUserSelect(con, userNo);
 		
 		
-		
 		if(list != null) {
-			rollback(con);
-		} else {
 			result = new UserDao().deleteUser(con, userNo);
 			commit(con);
+		} else {
+			rollback(con);
 		}
 		
 		return result;
