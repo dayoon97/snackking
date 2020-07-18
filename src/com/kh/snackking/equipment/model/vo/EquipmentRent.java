@@ -6,8 +6,9 @@ import java.sql.Date;
 public class EquipmentRent implements Serializable{
 	
 	private int rentCode; //설비 대여번호 문자열 + 시퀀스 
-	private Date rentDate; //대여일 /보여줄 것
-	private Date backDate; //회수일
+	//private Date rentDate; //대여일 /보여줄 것
+	private String rentDate;
+	private String backDate; //회수일
 	private String equipCode; //설비코드
 	private String equipType; //설비 테이블과 조인해서 가져올 설비 타입 /보여줄 것
 	private String equipName; //설비 테이블과 조인해서 가져올 설비 모델명 /보여줄 것
@@ -20,7 +21,7 @@ public class EquipmentRent implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public EquipmentRent(int rentCode, Date rentDate, Date backDate, String equipCode, String equipType,
+	public EquipmentRent(int rentCode, String rentDate, String backDate, String equipCode, String equipType,
 			String equipName, String equipMake, int userNo, String company, String status) {
 		super();
 		this.rentCode = rentCode;
@@ -40,16 +41,16 @@ public class EquipmentRent implements Serializable{
 	public void setRentCode(int rentCode) {
 		this.rentCode = rentCode;
 	}
-	public Date getRentDate() {
+	public String getRentDate() {
 		return rentDate;
 	}
-	public void setRentDate(Date rentDate) {
+	public void setRentDate(String rentDate) {
 		this.rentDate = rentDate;
 	}
-	public Date getBackDate() {
+	public String getBackDate() {
 		return backDate;
 	}
-	public void setBackDate(Date backDate) {
+	public void setBackDate(String backDate) {
 		this.backDate = backDate;
 	}
 	public String getEquipCode() {

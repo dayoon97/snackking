@@ -8,9 +8,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mine.css">
-
 <style type="text/css">
-
 </style>
 </head>
 <body>
@@ -326,12 +324,11 @@
  							
  						}	
  							
- 						/*	var $tr = $("<tr class="listBody">");
  						
  						
  						
  						
- 						}; */
+ 						
  					
 			
  				},
