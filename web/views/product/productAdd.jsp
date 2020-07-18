@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 추가</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../../resources/css/mine.css">
 </head>
@@ -23,49 +23,39 @@
 					<div id="mainTitle">상품 관리</div>
 					<div id="line1"></div>
 					<div id="subTitle">상품 추가</div>
+					<div class="searchBtn center right top5" id="add">등록</div>
+					<div class="searchBtn center right top4" id="back">뒤로가기</div>
 				</div>	<!--title-area end -->
-			
+		
 			<!-- 폼시작 -->
-			<form id="addForm">
-				<table id="addProductTable">	
+
+				<table id="addProductTable" >	
 					<tr style="height: 80px;">
-						<td rowspan="5" colspan="2" class="pictureTd" ><div id="picture"></div></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
+						<td rowspan="5" colspan="2" class="pictureTd" ><div id="picture"><img id="productImg"></div></td>
+						<td colspan="8" style="width:10%;"><div id="fileArea" ><input type="file" id="pictureHidden" name="pictureHidden" onchange="loadImg(this);" style="width:250px !important; height: 30px !important;"></div></td>
+						
+					</tr>
+					<tr>
+						<td colspan="4" style="width:10%;"></td>
+						<td colspan="4" style="width:10%; height: 35px;"></td>
+						
+					</tr>
+					<tr>
+						<td colspan="4" style="width:10%; height: 45px;">상품명 : <input type="text" name="pName" class="searchTextBox" style="font-weight: bold;" size="18"></td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 					</tr>
 					<tr>
-						<td colspan="3" style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-					</tr>
-					<tr>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-						<td style="width:10%;"></td>
-					</tr>
-					<tr>
-						<td colspan="4" style="width:10%; height: 45px;">상품명 : <input type="text" class="searchTextBox" style="font-weight: bold;" size="24"></td>
+						<td colspan="4" style="width:10%; height: 45px;">상품업체명 : <input type="text" class="searchTextBox" style="font-weight: bold;" size="14" name="pVendor"></td>
 						<td colspan="3" style="width:10%;">상품종류 :
 							<div class="dropdown" style="width:170px; text-align:center;">
      							<div class="select">
        								<span>선택</span>
 							          <i class="fa fa-chevron-left"></i>
 							        </div>
-							        <input type="hidden" name="productKinds">
+							        <input type="hidden" name="ptName" value="">
 							        <ul class="dropdown-menu">
 				                           <li id="선택">선택</li>
 				                           <li id="과자">과자</li>
@@ -90,8 +80,8 @@
 					</tr>
 					<tr>
 						
-						<td colspan="4" style="width:10%; height: 45px;">가격 : <input type="text" class="searchTextBox" style="font-weight: bold;" size="22">&nbsp;원</td>
-						<td colspan="3" style="width:10%;">기본 유통기한 : <input type="text" class="searchTextBox" style="font-weight: bold;" size="12">&nbsp;개월</td>
+						<td colspan="4" style="width:10%; height: 45px;">가격 : <input type="text" class="searchTextBox" style="font-weight: bold;" size="18" name="price">&nbsp;원</td>
+						<td colspan="3" style="width:10%;">기본 유통기한 : <input type="text" class="searchTextBox" style="font-weight: bold;" size="12" name="pExp">&nbsp;개월</td>
 						<td style="width:10%;"></td>
 					</tr>
 
@@ -99,7 +89,7 @@
 					
 
 					<tr>
-						<td colspan="2" style="width:10%; height: 35px;">파일찾기</td>
+						<td colspan="2" style="width:10%; height: 35px;"><각 선택사항 중복가능></td>
 						<td colspan="2" style="width:10%;"></td>
 						<td colspan="2" style="width:10%;"></td>
 						<td colspan="2" style="width:10%;"></td>
@@ -107,58 +97,68 @@
 					</tr>
 					
 					<tr>
-						<td colspan="2" style="width:10%; text-align:center;">맛 선택<br>(중복 가능)</td>
-						<td style="width:10%;"><input type="checkbox" class="a">달콤</td>
-						<td style="width:10%;"><input type="checkbox" class="a">짭짤</td>
-						<td style="width:10%;"><input type="checkbox" class="a">고소</td>
-						<td style="width:10%;"><input type="checkbox" class="a">담백</td>
-						<td style="width:10%;"><input type="checkbox" class="a">새콤</td>
-						<td style="width:10%;"><input type="checkbox" class="a">매콤</td>
+						<td colspan="2" style="width:10%; height:35px;">나이 선택</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="age" value="20">20대</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="age" value="30">30대</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="age" value="40">40대</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="age" value="50">50대</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="age" value="60">60대</td>
+						<td style="width:10%;"></td>
+						<td style="width:10%;"></td>
+						<td style="width:10%;"></td>
+					</tr>
+					
+					<tr>
+						<td colspan="2" style="width:10%; height:35px;">맛 선택</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="taste" value="달콤">달콤</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="taste" value="짭짤">짭짤</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="taste" value="고소">고소</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="taste" value="담백">담백</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="taste" value="새콤">새콤</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="taste" value="매콤">매콤</td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 					</tr>
 
 					<tr>
-						<td colspan="2" rowspan="2" style="width:10%; text-align:center;">향 선택<br>(중복 가능)</td>
-						<td style="width:10%;"><input type="checkbox" class="a">초코</td>
-						<td style="width:10%;"><input type="checkbox" class="a">딸기</td>
-						<td style="width:10%;"><input type="checkbox" class="a">바닐라</td>
-						<td style="width:10%;"><input type="checkbox" class="a">민트</td>
-						<td style="width:10%;"><input type="checkbox" class="a">청포도</td>
-						<td style="width:10%;"><input type="checkbox" class="a">바나나</td>
+						<td colspan="2" rowspan="2" style="width:10%; height:60px;">향 선택</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="flavor" value="초코">초코</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="flavor" value="딸기">딸기</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="flavor" value="바닐라">바닐라</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="flavor" value="민트">민트</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="flavor" value="청포도">청포도</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="flavor" value="바나나">바나나</td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 					</tr>
 					
 					<tr>
-						<td style="width:10%;"><input type="checkbox" class="a">땅콩</td>
-						<td style="width:10%;"><input type="checkbox" class="a">커피</td>
-						<td style="width:10%;"><input type="checkbox" class="a">소다</td>
-						<td style="width:10%;"><input type="checkbox" class="a">시나몬</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="flavor" value="땅콩">땅콩</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="flavor" value="커피">커피</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="flavor" value="소다">소다</td>
+						<td style="width:10%;"><input type="checkbox" class="a" name="flavor" value="시나몬">시나몬</td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 					</tr>	
 					<tr>
-						<td colspan="2" rowspan="2" style="width:10%; text-align:center;">알레르기 성분 선택<br>(중복 가능)</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">밀</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">계란</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">대두</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">갑각류</td>
-					</tr>	
-					<tr>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">메밀</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">유제품</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">땅콩</td>
-						<td colspan="2" style="width:10%;"><input type="checkbox" class="a">해당없음</td>
+						<td colspan="2" style="width:10%;  height:35px;">알레르기 성분</td>
+						<td colspan="1" style="width:10%;"><input type="checkbox" class="a" name="allergy" value="밀">밀</td>
+						<td colspan="1" style="width:10%;"><input type="checkbox" class="a" name="allergy" value="계란">계란</td>
+						<td colspan="1" style="width:10%;"><input type="checkbox" class="a" name="allergy" value="대두">대두</td>
+						<td colspan="1" style="width:10%;"><input type="checkbox" class="a" name="allergy" value="갑각류">갑각류</td>
+						<td colspan="1" style="width:10%;"><input type="checkbox" class="a" name="allergy" value="메밀">메밀</td>
+						<td colspan="1" style="width:10%;"><input type="checkbox" class="a" name="allergy" value="유제품">유제품</td>
+						<td colspan="1" style="width:10%;"><input type="checkbox" class="a" name="allergy" value="땅콩">땅콩</td>
+						<td colspan="1" style="width:10%;"><input type="checkbox" class="a" name="allergy" value="해당없음">해당없음</td>
 					</tr>	
 					<tr>
 						<td colspan="2" style="width:10%;"></td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
-						<td colspan="2" style="width:10%;"><input type="submit" class="searchBtn" value="등록"></td>
-						<td colspan="2" style="width:10%;"><input type="reset" class="searchBtn" value="취소"></td>
+						<td colspan="2" style="width:10%;"></td>
+						<td colspan="2" style="width:10%;"></td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 
@@ -173,16 +173,9 @@
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
 						<td style="width:10%;"></td>
-						<td style="width:10%;">k</td>
+						<td style="width:10%;"></td>
 					</tr>
-					
-					
-														
 				</table>
-			</form>
-		
-		
-		
 			</div>	
 		</div>	
 	</div>	
@@ -217,7 +210,111 @@ $('.dropdown-menu li').click(function () {
 }); 
 
 
+//취소 버튼 클릭시 상품 조회 메뉴로 돌아가시
 
+	$("#back").click(function() {
+		location.href="<%=request.getContextPath()%>/views/product/productManagement.jsp"
+	}); 
+
+//하단 input type =file 은 숨겨준다
+	$("#fileArea").hide();
+	
+	
+	//사진 클릭시 파일을 등록 가능하게 하기
+	$(function() {
+	//input 박스 있는 td 요소 안보이게하기
+		$("#picture").click(function(){
+			$("#pictureHidden").click();
+		});
+	});
+
+
+	//file type input 박스에 이미지 파일 로드시 실행될 함수 
+	function loadImg(value) {
+		if(value.files && value.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				//상단 회색 div 안에 있는 img 태그 productImg
+				$("#productImg").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(value.files[0]);
+			//사진 가로길이 180으로 하고 세로는 auto로 해서 비율 맞춤.
+			//사진 틀은 182로 하고 틀 테두리 2로 함
+			//사진 넣고 하단에 남는 여백은 사진 등록하자마자 흰색으로 바꿈
+			$("#picture").css({"background":"white"});
+		}
+	}
+
+	$(function() {
+		$("#add").click(function() {
+			
+			var pName = $("input[name=pName]").val();
+			var pExp = $("input[name=pExp]").val();
+			var pVendor = $("input[name=pVendor]").val();
+			var ptName = $("input[name=ptName]").val();
+			var price = $("input[name=price]").val();
+			var flavor = $("input[name=flavor]:checked").val(); //배열
+			//var taste = $("input[name=taste]:checked").val(); //배열
+			var allergy = $("input[name=allergy]:checked").val(); //배열
+			var age = $("input[name=age]:checked").val(); //배열
+	
+			$("input[name=taste]:checked").each(function() { var test = $(this).val(); });
+			console.log(test);
+
+			//$("input[name=taste]:checked").each(function() { var test = $(this).val(); }
+			
+			var arr = {
+					"pName" : pName,
+					"pExp": pExp,
+					"pVendor" : pVendor,
+					"ptName" : ptName,
+					"price" : price,
+					"flavor" : flavor,
+					"taste" : taste,
+					"allergy" : allergy,
+					"age" : age
+			};
+			console.log(arr);
+			
+		<%-- 	$.ajax({
+				url: "<%=request.getContextPath()%>/selectEquipment",
+				data: arr,
+				type: "get",
+				success: function(data){
+					$tableBody = $("#listTable tbody");
+					$tableBody.html('');
+					$tableBody.find("tr").remove();
+					
+ 						for(var key in data){
+ 							//클래스 속성 추가
+ 							var $tr =  $("<tr>").attr('class','listBody');
+ 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+ 							var $td2 = $("<td>").text(data[key].equipCode);
+ 							var $td3 = $("<td>").text(data[key].equipType);
+ 							var $td4 = $("<td>").text(data[key].equipName);
+ 	 						var $td5 = $("<td>").text(data[key].possible);
+ 	 						var $td6 = $("<td>").text(data[key].equipMake);
+ 							$tr.append($td1);
+ 							$tr.append($td2);
+ 							$tr.append($td3);
+ 	 						$tr.append($td4);
+ 	 						$tr.append($td5);
+ 	 						$tr.append($td6);
+ 							$tableBody.append($tr);
+ 						}	
+ 				},
+ 				error: function(error){
+ 					console.log("에러!" + error);
+ 				}
+			});
+			
+			
+			 --%>
+			
+			
+		});
+	});
+	
 
 
 </script>
