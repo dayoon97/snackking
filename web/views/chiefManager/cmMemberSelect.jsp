@@ -224,7 +224,7 @@ height: 25px;
 }
 #mainWrapper {
 	margin-left: auto;
-	margin-right: auto;
+	margin-right: auto; 
 	display: table;
 }
 

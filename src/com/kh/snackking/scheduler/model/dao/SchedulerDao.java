@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.snackking.scheduler.model.vo.Scheduler;
-import static com.kh.snackking.common.JDBCTemplate.close;
+import static com.kh.snackking.common.JDBCTemplate.*;
 
 public class SchedulerDao {
 	private Properties prop = new Properties();
@@ -25,36 +25,39 @@ public class SchedulerDao {
 		}
 	}
 
-	public static ArrayList<Scheduler> shedulerSearch(Connection conn, String userid) {
+	public ArrayList<Scheduler> shedulerSearch(Connection conn, int manager) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Scheduler sc = new Scheduler();
-		ArrayList<Scheduler> slist = new ArrayList<>();
-		String query = null;
+		ArrayList<Scheduler> slist = null;
+		System.out.println("dao : " +manager);
 		
-		if(userid.equals("admin")) {
-			query = "SELECT * FROM USER_INFO ";
-		}else {
-			query = "SELECT * FROM USER_INFO WHERE USER_ID='"+userid+"'";
-		}
+		String query = prop.getProperty("shedulerSearch");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, manager);
+			
+			slist = new ArrayList<Scheduler>();
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				sc = new Scheduler(rset.getString("USER_NAME"));
+				Scheduler s = new Scheduler();
+				s.settCode(rset.getString("TCODE"));
+				s.setMngId(rset.getInt("MANAGER"));
+				s.setUserName(rset.getString("USER_NAME"));
 				
-				slist.add(sc);
+				slist.add(s);
+				
+				System.out.println(slist);
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally{
+		} finally {
 			close(pstmt);
 			close(rset);
-			
 		}
+		
 		return slist;
 	}
 

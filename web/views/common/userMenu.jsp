@@ -695,7 +695,7 @@
 						<li>
 							<p class="title">스케줄관리</p>
 								<ul class="con">
-									<li><a href="">개인 스케줄 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/views/calen.jsp">개인 스케줄 관리</a></li>
 								</ul>
 						</li>
 						<li>
