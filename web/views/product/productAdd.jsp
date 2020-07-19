@@ -32,7 +32,7 @@
 				</div>	<!--title-area end -->
 		
 			<!-- 폼시작 -->
-			<form id="addProductForm" action="<%=request.getContextPath()%>/productInsert" method="get">
+			<form id="addProductForm" action="<%=request.getContextPath()%>/productInsert" method="post" encType="multipart/form-data">
 				<table id="addProductTable" >	
 					<tr style="height: 80px;">
 						<td rowspan="5" colspan="2" class="pictureTd" ><div id="picture"><img id="productImg"></div></td>

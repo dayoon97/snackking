@@ -12,30 +12,25 @@ import com.kh.snackking.equipment.model.dao.EquipmentDao;
 import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.dao.ProductDao;
 import com.kh.snackking.product.model.vo.Product;
+import com.kh.snackking.product.model.vo.ProductAttachment;
 
 public class ProductService {
 
 	public int insertProduct(Product product) {
 		Connection con = getConnection();
-		int result = 0;
+		// Dao에서  등록 하고 오기
+		int result = new ProductDao().insertProduct(con, product);
 		//상품명 기존에 있는지 중복 확인
-		int num = new ProductDao().checkProductName(con, product);
-		//num이 -1이면 이미 이름이 있다는 거라서 롤백 (중복임)
-		if(num == -1) {
-			result = -1; //상품명 중복
-			rollback(con);
+		if(result > 0) {
+			commit(con);
 		}else { 
-			//num이 -1이 아니면 이름이 있는게 아니라서 Dao에서  등록 하고 오기
-			result = new ProductDao().insertProduct(con, product);
-			if(result > 0) {
-				commit(con); //result = 1 상품 등록 성공
-			} else {
 				rollback(con); //result = 0 상품 등록 실패 (상품명은 중복되지 않음)
-			}
 		}
 		close(con);
 		return result;
 	}
+	
+	
 	
 	public ArrayList<Product> CuratorSelectProduct(Preference curatingProduct) {
 		Connection con = getConnection();
@@ -47,7 +42,42 @@ public class ProductService {
 		}else {
 			rollback(con);
 		}
-		
 		return product;
 	}
+
+	
+	//첨부파일(사진등록) insert 메소드
+	public int insertProductAttachment(ProductAttachment pAttachment) {
+		Connection con = getConnection();
+		// Dao에서  등록 하고 오기
+		int attachmentResult = new ProductDao().insertProductAttachment(con, pAttachment);
+		if(attachmentResult > 0) {
+			commit(con);
+		}else { 
+			rollback(con); 
+		}
+		close(con);
+		return attachmentResult;
+	}
+	
+	public int checkProductName(Product product) {
+		Connection con = getConnection();
+		int num = new ProductDao().checkProductName(con, product);
+		//num =1 돌아오면 상품명이 중복이 아니고, num = -1 이 돌아오면 상품명 중복임
+		close(con);
+		return num;  //servlet으로 다시 num을 보낸다
+	}
+
+
+
+	public String selectProductCode(Product product) {
+		Connection con = getConnection();
+		String pCode = new ProductDao().selectProductCode(con, product);
+		close(con);
+		return pCode;
+	}
+	
+	
+	
+	
 }

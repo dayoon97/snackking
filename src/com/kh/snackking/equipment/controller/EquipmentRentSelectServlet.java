@@ -63,7 +63,6 @@ public class EquipmentRentSelectServlet extends HttpServlet {
 		//리스트 통으로 전송
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		System.out.println("servlet list : " + list);
 		//알아서 자바 객체를 바꿔서 넘겨줌
 		//별도 디코딩할필요 없음
 		new Gson().toJson(list,response.getWriter());
