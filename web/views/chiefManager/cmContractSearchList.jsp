@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.snackking.contract.model.vo.*, java.util.*"%>
-<%-- <%
+<%
 	ArrayList<Contract> list = (ArrayList<Contract>) request.getAttribute("list");
-	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	/* PageInfo pi = (PageInfo) request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
+	int endPage = pi.getEndPage(); */
 	
-%> --%>
+%>
     
     
 <!DOCTYPE html>
@@ -541,16 +541,45 @@ overflow-y: auto !important;
 									<tr style="height:34px !important;">
 									
 										<td style="width:200px; padding-left: 15px" colspan="2" >거래처명 :
-											<input type="text" class="searchTextBox" size="20" name="">
+											<input type="text" class="searchTextBox" size="20" name="" id="corpName">
 										</td>
 										<td></td>
 										<td style="width:200px"></td>
 										<td style="width:200px"></td>			
 										<td rowspan="3" align="center">
-										<button class="searchBtn" id="submit" style="width:85px;" 
-										onclick="location.href='<%=request.getContextPath()%>/selectContract.co'">검색</button>
-										
 										<!-- <input type="submit" class="searchBtn" value="검색" id="submit" style="width:85px;"></td> -->
+										<button class="searchBtn" id="submit" style="width:85px;" 
+										<%-- onclick="location.href='<%=request.getContextPath()%>/selectContract.co '" --%>>검색</button>
+										
+										<!-- <script>
+											$(function(){
+												$("#submit").click(function(){
+													/* var corpName = $("#corpName").val();
+													var conCode = $("#conCode").val();
+													var conDate = $("#conDate").val(); */
+													
+													$.ajax({
+														url: "selectDatailContract.co",
+														data: {userIndexes: #("")},
+														type: "get",
+														success: function(data) {
+															
+														},
+														error: function(data) {
+															console.log("실패!");
+														}
+														
+														
+													});
+												});
+											});
+										
+										
+										</script> -->
+										
+										
+										
+										
 										
 									</tr>
 									<tr>
@@ -616,20 +645,23 @@ overflow-y: auto !important;
 						</thead>
 						<tbody>
 						<!-- 리스트 바디  -->
-  						<%-- <% for(Contract c : list) { %> --%>
+  						<% 
+  						int num = 1;
+  						for(Contract c : list) { %>
 							<tr class="hover">
-							<%-- <input type="hidden" value="<%= c.getConNo()%>"> --%>
-								<td><%-- <%= c.getConCode() %> --%></td>
-								<td><%-- <%= c.getCorpName() %> --%></td>
-								<td><%-- <%= c.getConDate() %> --%></td>
-								<td><%-- <%= c.getStartDate() %> --%></td>
-								<td><%-- <%= c.getEndDate() %> --%></td>
-								<td><%-- <%= c.getDelivCount() %> --%></td>
-								<td><%-- <%= c.getAmountPDeliv() %> --%></td>
-								<td><%-- <%= c.getTtlAmount() %> --%></td>
+								<td><%= num  %></td>
+								<% num += 1; %>
+								<td><%= c.getConCode() %></td>
+								<td><%= c.getCorpName() %></td>
+								<td><%= c.getConDate() %></td>
+								<td><%= c.getStartDate() %></td>
+								<td><%= c.getEndDate() %></td>
+								<td><%= c.getDelivCount() %></td>
+								<td><%= c.getAmountPDeliv() %></td>
+								<td><%= c.getTtlAmount() %></td>
 								<td>수정</td>
 							</tr>
-						<%-- <% } %> --%>
+						 <% } %>
 							 <!-- <tr class="hover">
 								<td>내용</td>
 								<td>내용</td>
