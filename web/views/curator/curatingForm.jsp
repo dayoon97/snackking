@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference"%>
-<% Preference insertPre = (Preference) request.getAttribute("insertPre"); %>
+    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference, com.kh.snackking.product.model.vo.Product, java.util.*"%>
+<% Preference insertPre = (Preference) request.getAttribute("insertPre"); 
+	ArrayList<Product> Product = (ArrayList<Product>) request.getAttribute("Product");
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -499,18 +503,18 @@ height: 25px;
                   </tr>
                  
                   <!-- 리스트 바디  -->
-<%-- 				<% for(Preference n : List) { %>
+ 				<% for(Product n : Product) { %>
                   <tr class="listBody">
 						<td><input type="checkbox"></td>
-						<td><%= n.getPreNo() %></td>
-						<td><%= n.getUserCom() %></td>
-						<td><%= n.getUserName()%></td>
-						<td><%= n.getPreDate() %></td>
-						<td><%= n.getStatus() %></td>
-						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="/snackkking/resources/image/search.png" width="15px" alt="My Image"></a></td>
-						<td><button onclick="location.href='<%= request.getContextPath()%>/delicatePre.pre?num=<%=n.getPreNo()%>'">삭제</button></td>
+						<td><%= n.getpName() %></td>
+						<td><%= n.getPtName() %></td>
+						<td><%= n.getTaste()%></td>
+						<td><%= n.getFlavor() %></td>
+						<td><%= n.getAllergy() %></td>
+						<td></td>
+						<td><button onclick="">추가하기</button></td>
 					</tr>
-				<%} %> --%>
+				<%} %>
                </table>
                 </div>
                 

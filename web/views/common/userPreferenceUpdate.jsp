@@ -504,6 +504,7 @@ $(function(){
 		for(var i = 0; i < ProductTypes.length; i++){
 			if($(this).val() === ProductTypes[i]){
 				$(this).attr("checked", true);
+				
 			} 
 		}
 	});

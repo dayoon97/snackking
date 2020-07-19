@@ -52,11 +52,11 @@ public class UpdatePreference extends HttpServlet {
 		if(kinds != null) {
 			for(int i = 0; i < kinds.length; i++) {
 				if(i == 0) {
-					kindsList += kinds[i] + ",";
-				}else if(i == kinds.length-1) {
 					kindsList += kinds[i];
+				}else if(i == kinds.length-1) {
+					kindsList += "," + kinds[i];
 				}else {
-					kindsList += kinds[i] + ",";
+					kindsList += "," + kinds[i];
 				}
 				
 			}
@@ -66,11 +66,11 @@ public class UpdatePreference extends HttpServlet {
 		if(flavor != null) {
 			for(int i = 0; i < flavor.length; i++) {
 				if(i == 0) {
-					flavorList += flavor[i] + ",";
-				}else if(i == flavor.length-1) {
 					flavorList += flavor[i];
+				}else if(i == flavor.length-1) {
+					flavorList += "," + flavor[i];
 				}else {
-					flavorList += flavor[i] + ",";
+					flavorList += "," + flavor[i];
 				}
 				
 			}
@@ -81,11 +81,11 @@ public class UpdatePreference extends HttpServlet {
 		if(smell != null) {
 			for(int i = 0; i < smell.length; i++) {
 				if(i == 0) {
-					smellList += smell[i] + ",";
-				}else if(i == kinds.length-1) {
 					smellList += smell[i];
+				}else if(i == kinds.length-1) {
+					smellList += "," + smell[i];
 				}else {
-					smellList += smell[i] + ",";
+					smellList += "," + smell[i];
 				}
 				
 			}
@@ -98,11 +98,11 @@ public class UpdatePreference extends HttpServlet {
 		if(allergy != null) {
 			for(int i = 0; i < allergy.length; i++) {
 				if(i == 0) {
-					allergyList += allergy[i] + ",";
-				}else if(i == allergy.length-1) {
 					allergyList += allergy[i];
+				}else if(i == allergy.length-1) {
+					allergyList += "," + allergy[i];
 				}else {
-					allergyList += allergy[i] + ",";
+					allergyList += "," + allergy[i];
 				}
 				
 			}
@@ -115,11 +115,11 @@ public class UpdatePreference extends HttpServlet {
 		if(equipment != null) {
 			for(int i = 0; i < equipment.length; i++) {
 				if(i == 0) {
-					equipmentList += equipment[i] + ",";
-				}else if(i == kinds.length-1) {
 					equipmentList += equipment[i];
+				}else if(i == kinds.length-1) {
+					equipmentList += "," + equipment[i];
 				}else {
-					equipmentList += equipment[i] + ",";
+					equipmentList += "," + equipment[i];
 				}
 				
 			}
