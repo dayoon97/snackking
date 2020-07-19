@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.snackking.board.model.vo.*"%>
+<%
+	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,7 +140,7 @@
    
    
    /*검색 내용 타이핑하는 부분, input 태그*/
-    .searchTextBox{
+    .searchDate{
       border:0;
       outline:0;
       height: 20px;
@@ -298,8 +307,21 @@ height: 25px;
    margin-right: auto;
    display: table;
 }
-
-
+.pagingArea {
+	position: absolute;
+    top: 645px;
+    left: 420px;
+}
+.pagingArea button {
+	border: 0;
+	outline: 0;
+	font-size: 15px;
+	background-color: rgba(0, 0, 0, 0);
+}
+.pagingArea button:hover {
+	cursor: pointer;
+	color: #F0BB00;
+}
 
 </script>
 
@@ -309,7 +331,7 @@ height: 25px;
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-<%@ include file="../common/cmMain.jsp" %>
+<%@ include file="../common/userMenu.jsp" %>
    <!-- outer start -->
    <div id="outer">
       <!-- background-box start -->
@@ -329,63 +351,47 @@ height: 25px;
             <div id="subSubTitle1">내역 조회</div>
                <!-- searchBox start -->
                <div id="searchBox">
-                  <form id="searchForm">
+                  <form id="searchForm" action="<%= request.getContextPath()%>/searchBoard.bo" method="post">
                      <table class="memberTable">
                         <tr>
-                           <!-- 검색 내용 타이핑하는 부분 -->
-                           
-                          <!--  <td><input type="text" class="searchTextBox" size="7">
-                           </td> -->
                            
                            <td>회원 ID</td>
-                           <td><input type="text" name="회원아이디" size="5"></td>
+                           <td><input type="text" id="userId" name="userId" size="7"></td>
                            <td>문의타입</td>                     
                            <td width="100px">
-                              <!-- <select id="searchCondition" name="searchCondition">
-                                 <option value="none">==선택==</option>
-                                 <option value="continue">진행중</option>
-                                 <option value="endContract">종료</option>
-                              </select> -->
-                              <div class="dropdown">
+                              <div id="boardTypeDrop" class="dropdown">
                                  <div class="select">
                                     <span>전체</span>
                                     <i class="fa fa-chevron-left"></i>
                                  </div>
-                                 <input type="hidden" name="Job-code">
-                                 <ul class="dropdown-menu">
-                                    <li id="change-que">교환문의</li>
-                                    <li id="feedback-que">피드백문의</li>
-                                    <li id="one-que">1:1문의</li>
-                                 </ul>
+                                 <input type="hidden" name="boardType" id="boardType" value="">
+									<ul class="dropdown-menu">
+										<li id="BT1">기타문의</li>
+										<li id="BT2">교환문의</li>
+										<li id="BT3">피드백문의</li>
+									</ul>
                               </div>
                            </td>
-                           
-                           
                                                        
-                           <td><input type="date" class="searchTextBox" size="7"></td>
-                          
-                          
                            
                            <td>답변상태</td>
                            <td width="100px">
-                              <!-- <select id="searchCondition" name="searchCondition">
-                                 <option value="none">==선택==</option>
-                                 <option value="continue">진행중</option>
-                                 <option value="endContract">종료</option>
-                              </select> -->
-                              <div class="dropdown">
+                              <div id="answerCheckDrop" class="dropdown">
                                  <div class="select">
                                     <span>전체</span>
                                     <i class="fa fa-chevron-left"></i>
                                  </div>
-                                 <input type="hidden" name="Job-code">
+                                 <input type="hidden" name="checkType" id="checkType" value="">
                                  <ul class="dropdown-menu">
-                                    <li id="change-que">답변대기</li>
-                                    <li id="feedback-que">답변완료</li>
+                                    <li id="answerCheckY">답변대기</li>
+                                    <li id="answerCheckN">답변완료</li>
                                  </ul>
                               </div>
                            </td>
-                           <td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
+                           <td>날짜</td>
+                           <td><input type="date" id="searchDate" name="searchDate" class="searchDate" size="7"></td>
+                           <!-- <td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td> -->
+                           <td><input type="button" class="searchBtn" value="검색하기" id="searchBtn"></td>
                         
                         </tr>
                      </table>
@@ -406,90 +412,56 @@ height: 25px;
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
                      <th width="20px"><input type="checkbox" id="checkall"></th>
-                     <th width="60px">번호</th>
-                     <th width="60px">회원ID</th>
-                     <th width="80px">제목</th>
-                     <th width="50px">문의타입</th>
-                     <th width="80px">답변상태</th>               
-                     <th width="80px">날짜</th>               
+                     <th width="20px">번호</th>
+                     <th width="30px">회원ID</th>
+                     <th width="200px">제목</th>
+                     <th width="40px">문의타입</th>
+                     <th width="30px">답변상태</th>               
+                     <th width="50px">날짜</th>               
                   </tr>
                   
                   <!-- 리스트 바디  -->
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>                
-                     <td>내용</td>                
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
-                  <tr class="listBody">
-                     <td><input type="checkbox" name="chk"></td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                     <td>내용</td>
-                  </tr>
+					<% for(Board b : list) { %>
+						<tr class="listBody">
+							<input id="cBid" name="cBid" type="hidden" value="<%=b.getBid()%>">
+							<td><input type="checkbox"></td>
+							<td><%= b.getrNum() %></td>
+							<td><%= b.getUserId() %></td>
+							<td><%= b.getbTitle() %></td>
+							<td><%= b.getBtName() %></td>
+							<td><%= b.getAnswerCheck() %></td>
+							<td><%= b.getbDate() %></td>
+						</tr>
+					<% } %>                 
                </table>
+      		<!-- pagingArea(페이징 처리 버튼) start -->
+			<div class="pagingArea" align="center">
+				<button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=1'"><<</button>
+				
+				<% if(currentPage <= 1) { %>
+					<button disabled><</button>
+				<% } else { %>
+					<button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=currentPage - 1%>'"><</button>
+				<% } %>
+				
+				<% for(int p = startPage; p <= endPage; p++) {
+					if(p == currentPage) { %>
+						<button disabled><%= p %></button>
+					<% } else { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=p%>'"><%= p %></button>
+					<% }
+				} %>
+				
+				
+				<% if(currentPage >= maxPage) { %>
+					<button disabled>></button>
+				<% } else { %>
+					<button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=currentPage + 1%>'">></button>
+				<% } %>
+				
+				<button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=maxPage%>'">>></button>
+			</div>	<!-- pagingArea end -->
             </div>
-      
       </div>   <!-- background-box end -->
    </div>   <!-- outer end -->
 </div>   <!-- mainWrapper end -->
@@ -504,7 +476,14 @@ height: 25px;
          $(this).removeClass('active');
          $(this).find('.dropdown-menu').slideUp(300);
       });
-      $('.dropdown .dropdown-menu li').click(
+      $('#boardTypeDrop .dropdown-menu li').click(
+            function() {
+               $(this).parents('.dropdown').find('span').text(
+                     $(this).text());
+               $(this).parents('.dropdown').find('input').attr('value',
+                     $(this).attr('id'));
+            });
+      $('#answerCheckDrop .dropdown-menu li').click(
             function() {
                $(this).parents('.dropdown').find('span').text(
                      $(this).text());
@@ -522,22 +501,27 @@ height: 25px;
                      $('.msg').html(msg + input + '</span>');
                   });
       
-      <!-- check박스 전체선택 -->
-      
-      $(document).ready(function(){
-   	   /*  //최상단 체크박스 클릭 */
-   	    $("#checkall").click(function(){
-   	        /* //클릭되었으면 */
-   	        if($("#checkall").prop("checked")){
-   	            //* /input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의 */
-   	            $("input[name=chk]").prop("checked",true);
-   	            /* //클릭이 안되있으면 */
-   	        }else{
-   	            /* //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의 */
-   	            $("input[name=chk]").prop("checked",false);
-   	        }
-   	    })
-   	})
+	
+	$("#searchBtn").click(function() {
+		var id = $("#userId").val();
+		var type = $("#boardType").val();
+		var check = $("#checkType").val();
+		var sdate = $("#searchDate").val();
+		
+		if(id == "" && type == "" && check == "" && sdate == ""){
+			alert("검색 조건이 없습니다.");
+		} else {
+			$("#searchForm").submit();
+		}
+		
+	});
+
+  	$(function() {
+		$("#listTable td").click(function() {
+			var num = $(this).parent().children("input").val();
+			location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+		});
+	});
       
    </script>   
    

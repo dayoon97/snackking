@@ -278,7 +278,7 @@ img {
 							<div class="content-box-title">내용 등록</div>
 							<!-- 텍스트 올라가는 공간 -->
 							<div class="content-text-box">
-								<textarea name="content" style="resize: none;" rows="20" cols="131"></textarea>
+								<textarea id="content" name="content" style="resize: none;" rows="20" cols="131"></textarea>
 							</div>
 							
 							<div class="content-submit-area">
@@ -358,7 +358,23 @@ function loadImg(value, num) {
 }
 
 $(".submit-btn").click(function() {
-	$("#articleForm").submit();
+	
+	var btype = $("#boardType").val();
+	var btitle = $("#bTitle").val();
+	var bcontent = $("#content").val();
+	
+	if(btype != "" && btitle != "" && bcontent != "") {
+		$("#articleForm").submit();
+	} else {
+		if(btype == ""){
+			alert("게시물 타입을 설정해주세요!");
+		} else if (btitle == ""){
+			alert("제목을 입력해주세요!");
+		} else {
+			alert("내용을 입력해주세요!");
+		}
+	}
+	
 });
 </script>
 	

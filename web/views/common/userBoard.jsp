@@ -70,7 +70,7 @@ td{
 	height: 50px;
 	text-align: center;
 }
-#order-td:hover{
+.order-td:hover{
 	background: white;
 	cursor: pointer;
 }
@@ -139,6 +139,16 @@ input[type='checkbox']{
 	width:1200px;
 	margin:0 auto;
 }
+.pagingArea button {
+	border: 0;
+	outline: 0;
+	font-size: 20px;
+	background-color: rgba(0, 0, 0, 0);
+}
+.pagingArea button:hover {
+	cursor: pointer;
+	color: #F0BB00;
+}
 </style>
 </head>
 <body>
@@ -155,7 +165,7 @@ input[type='checkbox']{
 			<div class="order-table">
 				<p class="order-History">문의 내역</p>
 				<div class="line"></div>
-				<table class="order-history-table" align="center">
+				<table id="boardList" class="order-history-table" align="center">
 					<tr>
 						<th width="40px;"><input type="checkbox"></th>
 						<th width="60px;">번호</th>
@@ -165,8 +175,8 @@ input[type='checkbox']{
 						<th width="80px;">상태</th>
 					</tr>
 					<% for(Board b : list) { %>
-						<tr id="order-td">
-							<input type="hidden" value="<%=b.getBid()%>">
+						<tr class="order-td">
+							<input id="cBid" name="cBid" type="hidden" value="<%=b.getBid()%>">
 							<td><input type="checkbox"></td>
 							<td><%= b.getrNum() %></td>
 							<td><%= b.getBtName() %></td>
@@ -179,31 +189,31 @@ input[type='checkbox']{
 			</div>
 			<!-- pagingArea(페이징 처리 버튼) start -->
 			<div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=1'"><<</button>
-			
-			<% if(currentPage <= 1) { %>
-				<button disabled><</button>
-			<% } else { %>
-				<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=currentPage - 1%>'"><</button>
-			<% } %>
-			
-			<% for(int p = startPage; p <= endPage; p++) {
-				if(p == currentPage) { %>
-					<button disabled><%= p %></button>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=1'"><<</button>
+				
+				<% if(currentPage <= 1) { %>
+					<button disabled><</button>
 				<% } else { %>
-					<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=p%>'"><%= p %></button>
-				<% }
-			} %>
-			
-			
-			<% if(currentPage >= maxPage) { %>
-				<button disabled>></button>
-			<% } else { %>
-				<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=currentPage + 1%>'">></button>
-			<% } %>
-			
-			<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=maxPage%>'">>></button>
-		</div>	<!-- pagingArea end -->
+					<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=currentPage - 1%>'"><</button>
+				<% } %>
+				
+				<% for(int p = startPage; p <= endPage; p++) {
+					if(p == currentPage) { %>
+						<button disabled><%= p %></button>
+					<% } else { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=p%>'"><%= p %></button>
+					<% }
+				} %>
+				
+				
+				<% if(currentPage >= maxPage) { %>
+					<button disabled>></button>
+				<% } else { %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=currentPage + 1%>'">></button>
+				<% } %>
+				
+				<button onclick="location.href='<%=request.getContextPath()%>/selectBoardList.bo?currentPage=<%=maxPage%>'">>></button>
+			</div>	<!-- pagingArea end -->
 			<div class="btnArea">
 				<input type="button" value="글쓰기" id="write-btn" class="submit-btn write">
 				<input type="button" value="삭제" class="submit-btn delete">
@@ -220,6 +230,13 @@ input[type='checkbox']{
 <script>
 	$("#write-btn").click(function() {
 		location.href='/snackking/views/common/userBoardinsertForm.jsp';
+	});
+	
+	$(function() {
+		$("#boardList td").click(function() {
+			var num = $(this).parent().children("input").val();
+			location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+		});
 	});
 	
 </script>
