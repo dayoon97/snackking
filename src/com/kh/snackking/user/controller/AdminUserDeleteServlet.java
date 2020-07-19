@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class adminUserDeleteServlet
  */
 @WebServlet("/adminUserDelete.ad")
-public class adminUserDeleteServlet extends HttpServlet {
+public class AdminUserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminUserDeleteServlet() {
+    public AdminUserDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

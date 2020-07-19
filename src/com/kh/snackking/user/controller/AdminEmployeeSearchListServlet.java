@@ -11,18 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.snackking.user.model.service.UserService;
+import com.kh.snackking.user.model.vo.User;
 
 /**
- * Servlet implementation class DelecteUserServlet
+ * Servlet implementation class AdminSearchListServlet
  */
-@WebServlet("/deleteUser.us")
-public class DelecteUserServlet extends HttpServlet {
+@WebServlet("/adminSearchList.ad")
+public class AdminEmployeeSearchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DelecteUserServlet() {
+    public AdminEmployeeSearchListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +32,34 @@ public class DelecteUserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("num"));
+		String[] member = request.getParameterValues("list");
+		String name = member[0];
+		String company = member[1];
+		String id = member[2];
+		String phone = member[3];
 		
-		System.out.println("userNo : " + userNo);
+		System.out.println(name);
+		System.out.println(company);
+		System.out.println(id);
+		System.out.println(phone);
 		
-		int result = new UserService().deleteUserSelect(userNo);
+		User user = new User();
 		
-		if(result > 0) {
-			request.getSession().invalidate();
-	    	response.sendRedirect("index.jsp");
-		} else {
-			request.setAttribute("msg", "탈퇴실패");
-			request.getRequestDispatcher("views/common/userUpdateInfo.jsp").forward(request, response);
-
-		}
+		if(name != null) {user.setUserName(name);}
+		if(company != null) {user.setCompany(company);}
+		if(id != null) {user.setUserId(id);}
+		if(phone != null) {user.setPhone(phone);}
+		
+		ArrayList<User> searchMember = null;
+		
+		searchMember = new UserService().searchUserList(user);
+	
+		
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		new Gson().toJson(searchMember, response.getWriter());
 	}
 
 	/**

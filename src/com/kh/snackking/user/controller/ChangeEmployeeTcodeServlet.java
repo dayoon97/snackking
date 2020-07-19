@@ -3,6 +3,7 @@ package com.kh.snackking.user.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,10 +42,14 @@ public class ChangeEmployeeTcodeServlet extends HttpServlet {
 		
 		ArrayList<User> list = new UserService().changeEmployeeTcode(userNo, tcode);
 		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
 		
-		new Gson().toJson(list, response.getWriter());
+		if(list != null) {
+			request.getRequestDispatcher("/adminEmpSelect.ad");
+		}
+//		response.setContentType("application/json");
+//		response.setCharacterEncoding("UTF-8");
+//		
+//		new Gson().toJson(list, response.getWriter());
 		System.out.println(list);
 	}
 

@@ -34,7 +34,7 @@ public class AdminEmployeeSelectServlet extends HttpServlet {
 		
 		ArrayList<User> Employeelist = new UserService().adminEmployeeSelect(); 
 		
-		System.out.println("회원 리스트 : " + Employeelist);
+		System.out.println("직원 리스트 : " + Employeelist);
 		
 		String page = "";
 		if(Employeelist != null) {

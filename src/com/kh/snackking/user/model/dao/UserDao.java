@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.snackking.adjustment.model.vo.Adjustment;
+import com.kh.snackking.equipment.model.vo.EquipmentRent;
 import com.kh.snackking.user.model.vo.User;
 
 public class UserDao {
@@ -135,21 +136,47 @@ public class UserDao {
 
 
 
-	public ArrayList<User> selectUserNameList(String userName, int nno, Connection con) {
+	public ArrayList<User> selectUserNameList(User user, int nno, Connection con) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		int count = 0;
 		ArrayList<User> list = null;
+		String query = "";
+		if(user.getUserName() == "") {count += 1;}
+		if(user.getCompany() == "") {count += 1;}
+		if(user.getUserId() == "") {count += 1;}
+		if(user.getPhone() == "") {count += 1;}
 		
-		String query = prop.getProperty("selectUserNameList");
+		if(count == 4) {
+			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE FROM USER_INFO WHERE MANAGER = ?";
+		}else {
+			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE FROM USER_INFO WHERE MANAGER = ? AND ";
 		
+			
+			if(user.getUserName() != "") {
+				//날짜를 그냥 where 조건문에 넣었더니 계속 조회가 안됨
+				//날짜 YY/MM/DD 형식으로 바꾸기
+				
+				query += "USER_NAME LIKE '%'||'" + user.getUserName() + "'||'%' AND ";}
+			
+			if(user.getCompany() != "") { query += "COMPANY LIKE '%'||'" + user.getCompany() + "'||'%' AND ";}
+			if(user.getUserId() != "") { query += "USER_ID LIKE '%'||'" + user.getUserId() + "'||'%' AND ";}
+			if(user.getPhone() != null) { query += "PHONE LIKE '%'||'" + user.getPhone() + "'||'%' AND ";}
+
+			if(query.substring(query.length()-5).equals(" AND ")) {
+				query = query.substring(0, query.length()-5);
+				//query += ";";
+			}
+			//query += "STATUS = 'Y'";
+		}
+		//쿼리문 실행
+		System.out.println(query);
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, nno);
-			pstmt.setString(2, userName);
+			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<User>();
-			
-			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				User u = new User();
@@ -163,15 +190,16 @@ public class UserDao {
 				
 				list.add(u);
 				
-				System.out.println("UserNameList : " + list);
-			}
+				System.out.println("회원  검색:" + list);
+			}	
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
-		}  finally {
-			close(pstmt);
-			close(rset);
+		e.printStackTrace();
+		}finally {
+		close(pstmt);
+		close(rset);
 		}
-		
+		//System.out.println("DAO: " + list);
 		return list;
 	}
 
@@ -399,125 +427,6 @@ public class UserDao {
 		
 	}
 	
-	public ArrayList<User> selectUserCompanyList(String userCompany, int nno, Connection con) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<User> list = null;
-		
-		String query = prop.getProperty("selectUserCompanyList");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, nno);
-			pstmt.setString(2, userCompany);
-			
-			list = new ArrayList<User>();
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				User u = new User();
-				u.setUserNo(rset.getInt("USER_NO"));
-				u.setUserId(rset.getString("USER_ID"));
-				u.setCompany(rset.getString("COMPANY"));
-				u.setUserName(rset.getString("USER_NAME"));
-				u.setAddress(rset.getString("ADDRESS"));
-				u.setPhone(rset.getString("PHONE"));
-				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				
-				list.add(u);
-				
-				System.out.println("UserCompanyList : " + list);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}  finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return list;
-	}
-
-	public ArrayList<User> selectUserIdList(String userId, int nno, Connection con) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<User> list = null;
-		
-		String query = prop.getProperty("selectUserIdList");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, nno);
-			pstmt.setString(2, userId);
-			
-			list = new ArrayList<User>();
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				User u = new User();
-				u.setUserNo(rset.getInt("USER_NO"));
-				u.setUserId(rset.getString("USER_ID"));
-				u.setCompany(rset.getString("COMPANY"));
-				u.setUserName(rset.getString("USER_NAME"));
-				u.setAddress(rset.getString("ADDRESS"));
-				u.setPhone(rset.getString("PHONE"));
-				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				
-				list.add(u);
-				
-				System.out.println("UserIdList : " + list);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}  finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return list;
-	}
-
-	public ArrayList<User> selectUserPhoneList(String userPhone, int nno, Connection con) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<User> list = null;
-		
-		String query = prop.getProperty("selectUserPhoneList");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, nno);
-			pstmt.setString(2, userPhone);
-			
-			list = new ArrayList<User>();
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				User u = new User();
-				u.setUserNo(rset.getInt("USER_NO"));
-				u.setUserId(rset.getString("USER_ID"));
-				u.setCompany(rset.getString("COMPANY"));
-				u.setUserName(rset.getString("USER_NAME"));
-				u.setAddress(rset.getString("ADDRESS"));
-				u.setPhone(rset.getString("PHONE"));
-				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
-				
-				list.add(u);
-				
-				System.out.println("UserPhoneList : " + list);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}  finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		return list;
-	}
 
 	public ArrayList<User> adminUserList(Connection con) {
 		Statement stmt = null;
@@ -616,52 +525,6 @@ public class UserDao {
 		return result;
 	}
 
-	public ArrayList<Adjustment> deleteUserSelect(Connection con, int userNo) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Adjustment> list = null;
-		
-		System.out.println("dao userNo : " + userNo);
-		
-		String query = prop.getProperty("deleteUserSelect");
-		
-		System.out.println(query);
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, userNo);
-			
-			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<Adjustment>();
-			
-			
-			if(rset.next()) {
-				
-				Adjustment ad = new Adjustment();
-				ad.setAdJustmentAmount(rset.getInt("ADJUSTMENT_AMOUNT"));
-				ad.setAdJustmentComplete(rset.getString("ADJUSTMENT_COMPLETE"));
-				ad.setAdJustmentCode(rset.getInt("ADJUSTMENT_CODE"));
-				ad.setTradingCode(rset.getInt("TRADING_CODE"));
-				ad.setUserNo(rset.getInt("USER_NO"));
-				
-				System.out.println(ad);
-				
-				list.add(ad);
-				
-				System.out.println("delete user : " + list);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
-		}
-		
-		
-		return list;
-	}
-
 	public int deleteUser(Connection con, int userNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -683,6 +546,72 @@ public class UserDao {
 		
 		
 		return result;
+	}
+
+	public ArrayList<User> searchUserList(User user, Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		ArrayList<User> list = null;
+		String query = "";
+		if(user.getUserName() == "") {count += 1;}
+		if(user.getCompany() == "") {count += 1;}
+		if(user.getUserId() == "") {count += 1;}
+		if(user.getPhone() == "") {count += 1;}
+		
+		if(count == 4) {
+			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE FROM USER_INFO WHERE TCODE IN ('T1', 'T2')";
+		}else {
+			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE FROM USER_INFO WHERE TCODE IN ('T1', 'T2') AND ";
+		
+			
+			if(user.getUserName() != "") {
+				//날짜를 그냥 where 조건문에 넣었더니 계속 조회가 안됨
+				//날짜 YY/MM/DD 형식으로 바꾸기
+				
+				query += "USER_NAME LIKE '%'||'" + user.getUserName() + "'||'%' AND ";}
+			
+			if(user.getCompany() != "") { query += "COMPANY LIKE '%'||'" + user.getCompany() + "'||'%' AND ";}
+			if(user.getUserId() != "") { query += "USER_ID LIKE '%'||'" + user.getUserId() + "'||'%' AND ";}
+			if(user.getPhone() != "") { query += "PHONE LIKE '%'||'" + user.getPhone() + "'||'%' AND ";}
+
+			if(query.substring(query.length()-5).equals(" AND ")) {
+				query = query.substring(0, query.length()-5);
+				//query += ";";
+			}
+			//query += "STATUS = 'Y'";
+		}
+		//쿼리문 실행
+		//System.out.println(query);
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<User>();
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserNo(rset.getInt("USER_NO"));
+				u.setUserId(rset.getString("USER_ID"));
+				u.setCompany(rset.getString("COMPANY"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setAddress(rset.getString("ADDRESS"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				
+				list.add(u);
+				
+				System.out.println("회원  검색:" + list);
+			}	
+			
+		} catch (SQLException e) {
+		e.printStackTrace();
+		}finally {
+		close(stmt);
+		close(rset);
+		}
+		System.out.println("DAO: " + list);
+		return list;
 	}
 
 
