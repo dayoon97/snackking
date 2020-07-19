@@ -6,8 +6,10 @@ import static com.kh.snackking.common.JDBCTemplate.getConnection;
 import static com.kh.snackking.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.snackking.equipment.model.dao.EquipmentDao;
+import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.dao.ProductDao;
 import com.kh.snackking.product.model.vo.Product;
 
@@ -33,5 +35,19 @@ public class ProductService {
 		}
 		close(con);
 		return result;
+	}
+	
+	public ArrayList<Product> CuratorSelectProduct(Preference curatingProduct) {
+		Connection con = getConnection();
+		
+		ArrayList<Product> product = new ProductDao().CuratorSelectProduct(con, curatingProduct);
+		
+		if(product != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return product;
 	}
 }
