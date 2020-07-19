@@ -9,8 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.vo.Product;
 
 public class ProductDao {
@@ -88,6 +91,82 @@ public class ProductDao {
 		}
 		return num;
 	}
+
+	public ArrayList<Product> CuratorSelectProduct(Connection con, Preference curatingProduct) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Product> product = null;
+		int count = 0;
+		String[] taste = curatingProduct.getPreTaste().split(","); //맛
+		String[] flavor = curatingProduct.getPreFlavor().split(",");//향
+		String[] protypes = curatingProduct.getPreProductTypes().split(",");//종류
+		String[] alname = curatingProduct.getPreAlName().split(",");//알레르기
+		
+		String query = "SELECT "
+			              	+ "P.PCODE, P.PNAME, P.PVENDOR, PT.PT_NAME, P.TASTE"
+			              + ", P.FLAVOR, P.ALLERGY, P.PPRICE  "
+			            + "FROM PRODUCT P JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE) "
+			           + "WHERE";
+		
+		for(int i = 0; i < taste.length; i++) {//상품종류
+			if(i == 0) {
+				query += " PT.PT_NAME LIKE '%" + protypes[i] +"%' " ;
+			}else {
+				query += "OR PT.PT_NAME LIKE '%"+ protypes[i] +"%' ";
+			}
+		}
+		for(int i = 0; i < taste.length; i++) {//맛
+			if(i == 0) {
+				query += "OR P.TASTE LIKE '%"+ taste[i] +"%' ";
+			}
+			
+		}
+		for(int i = 0; i < flavor.length; i++) {//향
+			if(i == 0) {
+				query += "OR P.FLAVOR LIKE '%"+ flavor[i] +"%' ";
+			}
+		}
+		if(alname != null) {
+			for(int i = 0; i < alname.length; i++) {
+				if(i == 0) {
+					query += "OR NOT P.ALLERGY LIKE '%"+ alname[i] +"%' ";
+				}
+			}
+		}
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			product = new ArrayList<Product>();
+			
+			while(rset.next()) {
+				Product p = new Product();
+				p.setpCode(rset.getString("PCODE"));
+				p.setpName(rset.getString("PNAME"));
+				p.setpVendor(rset.getString("PVENDOR"));
+				p.setPtName(rset.getString("PT_NAME"));
+				p.setTaste(rset.getString("TASTE"));
+				p.setFlavor(rset.getString("FLAVOR"));
+				p.setAllergy(rset.getString("ALLERGY"));
+				
+				
+				product.add(p);
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+			
+		}
+		
+		return product;
+	}
+
 
 
 	
