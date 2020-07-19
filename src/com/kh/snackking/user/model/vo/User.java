@@ -6,6 +6,7 @@ public class User implements java.io.Serializable {
 	
 	private int userNo;
 	private String tCode;
+	private String tName;
 	private String userId;
 	private String userPwd;
 	private String userName;
@@ -21,11 +22,13 @@ public class User implements java.io.Serializable {
 	
 	public User() {}
 
-	public User(int userNo, String tCode, String userId, String userPwd, String userName, String company, String phone,
-			String email, int zipNo, String address, int mngId, Date enrollDate, Date withdrawalDate, String status) {
+	public User(int userNo, String tCode, String tName, String userId, String userPwd, String userName, String company,
+			String phone, String email, int zipNo, String address, int mngId, Date enrollDate, Date withdrawalDate,
+			String status) {
 		super();
 		this.userNo = userNo;
 		this.tCode = tCode;
+		this.tName = tName;
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.userName = userName;
@@ -54,6 +57,14 @@ public class User implements java.io.Serializable {
 
 	public void settCode(String tCode) {
 		this.tCode = tCode;
+	}
+
+	public String gettName() {
+		return tName;
+	}
+
+	public void settName(String tName) {
+		this.tName = tName;
 	}
 
 	public String getUserId() {
@@ -154,8 +165,8 @@ public class User implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "User [userNo=" + userNo + ", tCode=" + tCode + ", userId=" + userId + ", userPwd=" + userPwd
-				+ ", userName=" + userName + ", company=" + company + ", phone=" + phone + ", email=" + email
+		return "User [userNo=" + userNo + ", tCode=" + tCode + ", tName=" + tName + ", userId=" + userId + ", userPwd="
+				+ userPwd + ", userName=" + userName + ", company=" + company + ", phone=" + phone + ", email=" + email
 				+ ", zipNo=" + zipNo + ", address=" + address + ", mngId=" + mngId + ", enrollDate=" + enrollDate
 				+ ", withdrawalDate=" + withdrawalDate + ", status=" + status + "]";
 	}

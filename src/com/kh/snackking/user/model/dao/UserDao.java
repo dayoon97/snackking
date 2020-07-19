@@ -77,6 +77,7 @@ public class UserDao {
 				loginUser = new User();
 				loginUser.setUserNo(rset.getInt("USER_NO"));
 				loginUser.settCode(rset.getString("TCODE"));
+				loginUser.settName(rset.getString("TNAME"));
 				loginUser.setUserId(rset.getString("USER_ID"));
 				loginUser.setUserPwd(rset.getString("USER_PWD"));
 				loginUser.setUserName(rset.getString("USER_NAME"));
@@ -100,7 +101,6 @@ public class UserDao {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return loginUser;
 	}
 
