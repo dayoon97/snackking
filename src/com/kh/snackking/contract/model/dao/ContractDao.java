@@ -43,6 +43,7 @@ public class ContractDao {
 		
 		String query = prop.getProperty("insertContract");
 		
+		System.out.println(query);
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -50,14 +51,16 @@ public class ContractDao {
 			//String썼다가 Date로 고침
 			pstmt.setString(1, contract.getCorpName());
 			pstmt.setString(2, contract.getConCode());
-			pstmt.setDate(3, contract.getConDate());
-			pstmt.setDate(4, contract.getStartDate());
-			pstmt.setDate(5, contract.getEndDate());
+			pstmt.setString(3, contract.getConDate());
+			pstmt.setString(4, contract.getStartDate());
+			pstmt.setString(5, contract.getEndDate());
 			pstmt.setInt(6, contract.getDelivCount());
 			pstmt.setInt(7, contract.getAmountPDeliv());
 			pstmt.setInt(8, contract.getTtlAmount());
 			
 			result = pstmt.executeUpdate();
+			
+			System.out.println("으앙");
 			
 			/* String corpName = request.getParameter("corpName");
 			String conCode = request.getParameter("conCode");
@@ -85,6 +88,7 @@ public class ContractDao {
 	//페이징 처리 하기 전 게시물 목록 조회용 메소드
 	//아직 넘길 값 없어서 statement로 씀?
 	public ArrayList<Contract> selectList(Connection con) {
+//		System.out.println(con);
 		
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -93,23 +97,30 @@ public class ContractDao {
 		
 		String query = prop.getProperty("selectList");
 		
+//		System.out.println(query);
+		
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
 			
 			list = new ArrayList<Contract>();
 			
+//			System.out.println("dd");
 			while(rset.next()) {
+				
+//				System.out.println("넹");
 				Contract c = new Contract();
 				
 				c.setConCode(rset.getString("CONTRACT_CODE"));
 				c.setCorpName(rset.getString("CORP_NAME"));
-				c.setConDate(rset.getDate("CONTRACT_DATE"));
-				c.setStartDate(rset.getDate("START_DATE"));
-				c.setEndDate(rset.getDate("END_DATE"));
+				c.setConDate(rset.getString("CONTRACT_DATE"));
+				c.setStartDate(rset.getString("START_DATE"));
+//				c.setEndDate(rset.getDate("END_DATE"));
 				c.setDelivCount(rset.getInt("DELIV_COUNT"));
 				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVE"));
 				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));
+				
+//				System.out.println("contract : " + c);
 				
 				list.add(c);
 				
@@ -122,7 +133,7 @@ public class ContractDao {
 			close(rset);
 		}
 		
-		System.out.println("dao list : " + list);
+//		System.out.println("select dao list : " + list);
 		
 		return list;
 	}
