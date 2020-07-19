@@ -1,6 +1,8 @@
 package com.kh.snackking.preference.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.snackking.preference.model.service.PreferenceService;
 import com.kh.snackking.preference.model.vo.Preference;
+import com.kh.snackking.product.model.service.ProductService;
+import com.kh.snackking.product.model.vo.Product;
 
 /**
  * Servlet implementation class SelectCurating
@@ -35,11 +39,16 @@ public class SelectCurating extends HttpServlet {
 		System.out.println("num : " + num);
 		Preference p = new PreferenceService().selectCurating(num);
 		
+		ArrayList<Product> selectProduct = new ProductService().CuratorSelectProduct(p);
+		
+		System.out.println(" selectProduct :" + selectProduct);
+		
 		System.out.println("p : " + p);
 		String page = "";
 		if(p != null) {
 			page = "views/curator/curatingForm.jsp";
 			request.setAttribute("insertPre", p);
+			request.setAttribute("Product", selectProduct);
 		}else {
 			System.out.println("에러");
 		}
