@@ -18,6 +18,7 @@ public class Scheduler implements java.io.Serializable {
 	private Date enrollDate;
 	private Date withdrawalDate;
 	private String status;
+	private int delivCount;
 	
 	public Scheduler() {}
 	
