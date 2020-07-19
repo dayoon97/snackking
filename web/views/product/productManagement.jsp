@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>상품 조회</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../../resources/css/mine.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/mine.css">
 <style type="text/css">
 #apply{
 	position:absolute;	
@@ -260,6 +260,13 @@ $('.dropdown-menu li').click(function () {
       msg = '<span class="msg">Hidden input value: ';
   $('.msg').html(msg + input + '</span>');
 }); 
+
+
+
+
+
+
+
 </script>
 
 

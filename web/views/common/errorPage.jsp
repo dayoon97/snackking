@@ -52,7 +52,9 @@
 				case "selectContractList" : 
 					errorsMessage = "계약 내역 조회에 실패했습니다!!";
 					movePath = "<%= request.getContextPath() %>/views/chiefManager/cmContractSelect.jsp";
+					break;
 					
+			
 			}
 			alert(errorsMessage);
 			
