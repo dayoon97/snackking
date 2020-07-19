@@ -76,6 +76,15 @@ public class ProductService {
 		close(con);
 		return pCode;
 	}
+
+
+
+	public ArrayList<Product> selectProductAllList(ArrayList<Product> conditionList) {
+		Connection con = getConnection();
+		ArrayList<Product> productList = new ProductDao().selectProductAllList(con, conditionList);
+		close(con);
+		return productList;
+	}
 	
 	
 	

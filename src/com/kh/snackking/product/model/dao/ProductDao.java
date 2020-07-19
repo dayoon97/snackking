@@ -220,6 +220,38 @@ public class ProductDao {
 		}
 		return attachmentResult;
 	}
+
+
+	//상품 기본정보 검색용 메소드(사진 x)
+	public ArrayList<Product> selectProductAllList(Connection con, ArrayList<Product> conditionList) {
+		ArrayList<Product> productList = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		int count  = 0;
+		String query = "";
+		
+		//arrayList 에서 값 꺼내기
+		//if(equipmentRent.getRentDate() == "") {count += 1;}
+		//if(equipmentRent.getEquipCode() == "") {count += 1;}
+		//if(equipmentRent.getCompany() == "") {count += 1;}
+		//if(equipmentRent.getStatus() == null) {count += 1;}
+		//검색어 갯수 출력
+		
+		
+		try {
+			stmt = con.createStatement();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return productList;
+	}
 	
 	
 	
