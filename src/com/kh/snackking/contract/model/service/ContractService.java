@@ -32,13 +32,12 @@ public class ContractService {
 		close(con);
 		
 		//dao까지 작성 아직 안 했으면 dao에 있는 return 0 값이 돌아와서 0으로 결과 나온다.
-//		System.out.println("insert service result : " + result);
-		
+		System.out.println("insert service result : " + result);
 		
 		return result;
 	}
 
-	//전체 목록 갯수 조회
+	//전체 목록 갯수 조회 (페이징)
 	public int getListCount() {
 
 		Connection con = getConnection();
@@ -47,10 +46,12 @@ public class ContractService {
 		
 		close(con);
 		
+		
 		return listCount;
 	}
 
 	//페이징 처리 전 게시물 목록 조회용 메소드
+	//계약 select 전체 목록 조회
 	public ArrayList<Contract> selectList() {
 		
 		Connection con = getConnection();
@@ -59,53 +60,21 @@ public class ContractService {
 		
 		close(con);
 		
+//		System.out.println("select service list : " + list);
 		
 		return list;
 	}
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//계약 select 상세 목록 조회
+	public ArrayList<Contract> selectDetail() {
+		
+		
+		
+		return null;
+	}
+
+
+
 	
 }
