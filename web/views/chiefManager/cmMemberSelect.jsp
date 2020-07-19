@@ -184,10 +184,8 @@ right:90px;
 
 #listTable{
 border-collapse:collapse;
-position: absolute;
-top:350px;
-left:45px;
 text-align:center;
+width: 1000px;
 }
 
 
@@ -226,6 +224,16 @@ height: 25px;
 	margin-left: auto;
 	margin-right: auto;
 	display: table;
+}
+
+#listTable{
+	
+}
+.table-scroll{
+	height:300px;
+	position: absolute;
+	margin-top: 200px;
+	margin-left: 30px;
 }
 
 </style>
@@ -286,9 +294,9 @@ height: 25px;
 					<div id="subSubTitle2">회원 리스트</div>
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
-					<span id="apply">조회 결과 수 :</span>
 					
 					<!-- 조회 리스트 테이블 -->
+					<div class="table-scroll" style="overflow: auto;">
 					<table id="listTable" name="listTable">
 						<!-- 테이블 헤드 -->
 						<thead>
@@ -319,8 +327,8 @@ height: 25px;
 						</tr> 
 						<% } %>
 					</tbody>
-						
 					</table>
+					</div>
 				</div>
 		
 		</div>	<!-- background-box end -->
@@ -353,8 +361,11 @@ height: 25px;
 	});
 	
 	
-	
+	//큐레이터 회원 조건 검색
+	if(<%=loginUser.gettCode().equals("T4")%>){
 	$(function(){
+		
+		
 		$("#submit").click(function(){
 		
 			$("#listTable td").remove();
@@ -384,7 +395,6 @@ height: 25px;
 			};
 			
 			console.log(arr);
-			
 			$.ajax({
 				url: "<%=request.getContextPath()%>/selectName.us",
 				data: member,
@@ -418,7 +428,90 @@ height: 25px;
  						$tr.append($enrollDateTd);
  						
  						
- 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "25px"});
+ 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
+ 						
+ 						$tableBody.append($tr);
+ 					}); 
+ 					
+ 					
+ 				},
+ 				error: function(data){
+ 					console.log("에러!");
+ 				}
+				
+				
+			});
+			
+		});
+	});
+	}
+	//최고관리자 회원 조건검색
+	else {
+	$(function(){
+		 $("#submit").click(function(){
+		
+			$("#listTable td").remove();
+			
+			var arr = [];
+			
+			var name = document.getElementsByName("member")[0].value;
+			var company = document.getElementsByName("member")[1].value;
+			var id = document.getElementsByName("member")[2].value;
+			var phone = document.getElementsByName("member")[3].value;
+			
+			$('input[name="member"]:text').each(function(i){
+				arr.push($(this).val());
+			});
+			
+			for(i in arr){
+				console.log(arr[i])
+				if(arr[i] == null) {
+					
+				} 	
+			}
+			
+			var member = {
+				"user" : $("#mngNo").val(),
+				"list" : arr
+					
+			};
+			
+			console.log(arr);
+			
+			$.ajax({
+				url: "<%=request.getContextPath()%>/adminSearchList.ad",
+				data: member,
+				type: "get",
+				traditional:true,
+				success: function(data){
+					
+					console.log(data);
+					$tableBody = $("#listTable tbody");
+ 					
+ 					$tableBody.html('');
+ 					
+ 					$.each(data, function(index, value){
+ 						var $tr = $("<tr>");
+ 						var $Td = $("<td>").html("<input type='checkbox'>");
+ 						var $noTd = $("<td>").text(value.userNo);
+ 						var $idTd = $("<td>").text(decodeURIComponent(value.userId));
+ 						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
+ 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
+ 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
+ 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
+ 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
+ 						
+ 						$tr.append($Td);
+ 						$tr.append($noTd);
+ 						$tr.append($idTd);
+ 						$tr.append($companyTd);
+ 						$tr.append($userNameTd);
+ 						$tr.append($addressTd);
+ 						$tr.append($phoneTd);
+ 						$tr.append($enrollDateTd);
+ 						
+ 						
+ 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
  						
  						$tableBody.append($tr);
  					}); 
@@ -433,7 +526,7 @@ height: 25px;
 			});
 		});
 	});
-
+	}
 	
    	</script>
 	

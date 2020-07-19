@@ -763,12 +763,23 @@ td {
     //권한변경 모달안에서 변경하기 버튼 눌렀을 때
     $(function(){
     	$("#chCodeBtn").click(function(){
+    		modal.style.display = "none";
+
     		
-	    	var userNo = $(".modalTable td").eq(0).text();
-	    	console.log(userNo);
-	    	
-	    	var Tcode = $("#tCode").text();
+    		var userNo = $('.modalTable td').eq(0).text();
+    		console.log(userNo);
+    		var Tcode = $('#tCode').text();
 	    	console.log(Tcode);
+
+	    	<%-- var url = "<%=request.getContextPath()%>/changeTcode.ad";
+	    	url = encodeURIComponent(url);
+	    	console.log(url);
+	    	
+    		window.location.href="<%=request.getContextPath()%>/changeTcode.ad?userNo=userNo&Tcode=Tcode"; --%>
+	    	//var userNo = $(".modalTable td").eq(0).text();
+	    	
+	    	
+	    	
 	    	
 	    	var arr = {
 	    			"userNo" : userNo,
@@ -781,48 +792,76 @@ td {
 	    		type: "get",
 	    		traditional:true,
 	    		success: function(data){
-	    			modal.style.display = "none";
-					$tableBody = $("#listTable tbody");
- 					
- 					$tableBody.html('');
- 					
- 					$.each(data, function(index, value){
- 						var $tr = $("<tr>");
- 						var $Td = $("<td>").html("<input type='checkbox'>");
- 						var $noTd = $("<td>").text(value.userNo);
- 						var $TcodeTd = $("<td>").text(decodeURIComponent(value.tCode));
- 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
- 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
- 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
- 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
- 						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
- 						
- 						
- 						
- 						$tr.append($Td);
- 						$tr.append($noTd);
- 						$tr.append($TcodeTd);
- 						$tr.append($userNameTd);
- 						$tr.append($addressTd);
- 						$tr.append($phoneTd);
- 						$tr.append($enrollDateTd);
- 						$tr.append($statusTd);
- 						
- 						
- 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "25px"});
- 						
- 						$tableBody.append($tr);
- 					}); 
- 					
-	    		},
-	    		error:function(data){
 	    			
-	    		}
+	    			$.ajax({
+	    				url:"<%=request.getContextPath()%>/adminEmpSelect.ad",
+	    				type:"get",
+	    				success: function(data){
+	    					
+	    					location.reload(true);
+	    					/* $tableBody = $("#listTable tbody");
+							$tableBody.html('');
+							$tableBody.find("tr").remove();
+							
+							for(var key in data){
+	 							//클래스 속성 추가
+	 							var $tr =  $("<tr>").attr('class','listBody');
+	 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+	 							var $td2 = $("<td>").text(data[key].tCode);
+	 							var $td3 = $("<td>").text(data[key].userName);
+	 							var $td4 = $("<td>").text(data[key].address);
+	 	 						var $td5 = $("<td>").text(data[key].phone);
+	 	 						var $td6 = $("<td>").text(data[key].enrollDate);
+	 	 						var $td7 = $("<td>").text(data[key].status);
+	 							$tr.append($td1);
+	 							$tr.append($td2);
+	 							$tr.append($td3);
+	 	 						$tr.append($td4);
+	 	 						$tr.append($td5);
+	 	 						$tr.append($td6);
+	 	 						$tr.append($td7);
+	 							$tableBody.append($tr);
+	 						} */
+							
+		 					/* $.each(data, function(index, value){
+		 						var $tr = $("<tr>");
+		 						var $Td = $("<td>").html("<input type='checkbox'>");
+		 						var $noTd = $("<td>").text(value.userNo);
+		 						var $TcodeTd = $("<td>").text(decodeURIComponent(value.tCode));
+		 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
+		 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
+		 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
+		 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
+		 						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
+		 						
+		 						
+		 						
+		 						$tr.append($Td);
+		 						$tr.append($noTd);
+		 						$tr.append($TcodeTd);
+		 						$tr.append($userNameTd);
+		 						$tr.append($addressTd);
+		 						$tr.append($phoneTd);
+		 						$tr.append($enrollDateTd);
+		 						$tr.append($statusTd);
+		 						
+		 						
+		 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
+		 						
+		 						$tableBody.append($tr);
+		 					});  */
+		 					
+			    		},
+			    		error:function(data){
+			    			
+			    		}
+			    		
+	    				});
+	    				
+	    				}	
+	    		});
 	    	});
-	    	
-	    	
     	});
-    });
 	
 	
 	</script>
