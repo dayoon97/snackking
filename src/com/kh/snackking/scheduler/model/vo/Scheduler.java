@@ -31,18 +31,9 @@ public class Scheduler implements java.io.Serializable {
 
 
 
-	public Scheduler(int userNo, String userId, String company, String phone) {
-		super();
-		this.userNo = userNo;
-		this.userId = userId;
-		this.company = company;
-		this.phone = phone;
-	}
-
-
-
-	public Scheduler(int userNo, String tCode, String userId, String userPwd, String userName, String company, String phone,
-			String email, int zipNo, String address, int mngId, Date enrollDate, Date withdrawalDate, String status) {
+	public Scheduler(int userNo, String tCode, String userId, String userPwd, String userName, String company,
+			String phone, String email, int zipNo, String address, int mngId, Date enrollDate, Date withdrawalDate,
+			String status, int delivCount) {
 		super();
 		this.userNo = userNo;
 		this.tCode = tCode;
@@ -58,126 +49,201 @@ public class Scheduler implements java.io.Serializable {
 		this.enrollDate = enrollDate;
 		this.withdrawalDate = withdrawalDate;
 		this.status = status;
+		this.delivCount = delivCount;
 	}
+
+
 
 	public int getUserNo() {
 		return userNo;
 	}
 
+
+
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+
+
 
 	public String gettCode() {
 		return tCode;
 	}
 
+
+
 	public void settCode(String tCode) {
 		this.tCode = tCode;
 	}
+
+
 
 	public String getUserId() {
 		return userId;
 	}
 
+
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+
 
 	public String getUserPwd() {
 		return userPwd;
 	}
 
+
+
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
+
+
 
 	public String getUserName() {
 		return userName;
 	}
 
+
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+
 
 	public String getCompany() {
 		return company;
 	}
 
+
+
 	public void setCompany(String company) {
 		this.company = company;
 	}
+
+
 
 	public String getPhone() {
 		return phone;
 	}
 
+
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
 
 	public int getZipNo() {
 		return zipNo;
 	}
 
+
+
 	public void setZipNo(int zipNo) {
 		this.zipNo = zipNo;
 	}
+
+
 
 	public String getAddress() {
 		return address;
 	}
 
+
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+
 
 	public int getMngId() {
 		return mngId;
 	}
 
+
+
 	public void setMngId(int mngId) {
 		this.mngId = mngId;
 	}
+
+
 
 	public Date getEnrollDate() {
 		return enrollDate;
 	}
 
+
+
 	public void setEnrollDate(Date enrollDate) {
 		this.enrollDate = enrollDate;
 	}
+
+
 
 	public Date getWithdrawalDate() {
 		return withdrawalDate;
 	}
 
+
+
 	public void setWithdrawalDate(Date withdrawalDate) {
 		this.withdrawalDate = withdrawalDate;
 	}
+
+
 
 	public String getStatus() {
 		return status;
 	}
 
+
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
+
+
+	public int getDelivCount() {
+		return delivCount;
+	}
+
+
+
+	public void setDelivCount(int delivCount) {
+		this.delivCount = delivCount;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "User [userNo=" + userNo + ", tCode=" + tCode + ", userId=" + userId + ", userPwd=" + userPwd
+		return "Scheduler [userNo=" + userNo + ", tCode=" + tCode + ", userId=" + userId + ", userPwd=" + userPwd
 				+ ", userName=" + userName + ", company=" + company + ", phone=" + phone + ", email=" + email
 				+ ", zipNo=" + zipNo + ", address=" + address + ", mngId=" + mngId + ", enrollDate=" + enrollDate
-				+ ", withdrawalDate=" + withdrawalDate + ", status=" + status + "]";
+				+ ", withdrawalDate=" + withdrawalDate + ", status=" + status + ", delivCount=" + delivCount + "]";
 	}
+
+
+
+	
 	
 }

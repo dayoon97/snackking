@@ -46,10 +46,12 @@ public class SchedulerSearchServlet extends HttpServlet {
 		sList = new SchedulerService().schedulerSearch(manager);
 		
 		
-		System.out.println("servlet schedulersearch " + sList); 
+		
 
 		request.setAttribute("sList", sList);
 		request.getRequestDispatcher("views/calen2.jsp").forward(request, response);
+		
+		System.out.println("servlet schedulersearch " + sList); 
 		
 	}
 
