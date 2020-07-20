@@ -90,8 +90,17 @@ public class InsertContractServlet extends HttpServlet {
 		
 		
 		//if문 써서 result > 0  쓰는 부분은 dao 갔다가 돌아올 때 쓰는 부분인 듯.
-		//지금 dao 쿼리문에서 막힘 ㅜㅜ insert 말고 select 조회하러 감미다
+		String page = "";
+		if(result > 0) {
+			page = "views/chiefManager/cmContractInsert.jsp";
+			request.setAttribute("contract", contract);
+			
+			System.out.println("ddd");
+		} else {
+			System.out.println("계약 등록 실패!");
+		}
 		
+		request.getRequestDispatcher(page).forward(request, response);
 		
 	}
 		
