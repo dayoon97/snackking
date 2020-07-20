@@ -14,16 +14,16 @@ import com.kh.snackking.user.model.service.UserService;
 import com.kh.snackking.user.model.vo.User;
 
 /**
- * Servlet implementation class AdminSearchListServlet
+ * Servlet implementation class AdminEmployeeSearchServlet
  */
-@WebServlet("/adminSearchList.ad")
-public class AdminEmployeeSearchListServlet extends HttpServlet {
+@WebServlet("/adminEmpSearch.ad")
+public class AdminEmployeeSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminEmployeeSearchListServlet() {
+    public AdminEmployeeSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,34 +32,38 @@ public class AdminEmployeeSearchListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] member = request.getParameterValues("list");
-		String name = member[0];
-		String company = member[1];
-		String id = member[2];
-		String phone = member[3];
+		String name = request.getParameter("name");
+		String tCode = request.getParameter("tCode");
+		String userNo = request.getParameter("num");
+		String status = request.getParameter("status");
 		
-		System.out.println(name);
-		System.out.println(company);
-		System.out.println(id);
-		System.out.println(phone);
+		int no = 0;
+		if(userNo !="" && userNo != null) {
+			no = Integer.parseInt(userNo);
+		}
 		
 		User user = new User();
 		
-		if(name != null) {user.setUserName(name);}
-		if(company != null) {user.setCompany(company);}
-		if(id != null) {user.setUserId(id);}
-		if(phone != null) {user.setPhone(phone);}
+		if(name != "") {user.setUserName(name);}
+		if(tCode != "") {user.settCode(tCode);}
+		if(no != 0) {user.setUserNo(no);}
+		if(status != "") {user.setStatus(status);}
 		
 		ArrayList<User> searchMember = null;
 		
-		searchMember = new UserService().searchUserList(user);
-	
+		searchMember = new UserService().selectEmpSearch(user);
 		
-		
+
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
 		new Gson().toJson(searchMember, response.getWriter());
+	
+		System.out.println(name);
+		System.out.println(tCode);
+		System.out.println(userNo);
+		System.out.println(status);
+		System.out.println(no);
 	}
 
 	/**

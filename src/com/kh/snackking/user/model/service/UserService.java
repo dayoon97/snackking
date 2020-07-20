@@ -199,4 +199,14 @@ public class UserService {
 		return list;
 	}
 
+	public ArrayList<User> selectEmpSearch(User user) {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().searchEmpSearch(user, con);
+		
+		close(con);
+		
+		return list;
+	}
+
 }

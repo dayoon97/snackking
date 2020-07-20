@@ -605,12 +605,80 @@ public class UserDao {
 			}	
 			
 		} catch (SQLException e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}finally {
-		close(stmt);
-		close(rset);
+			close(stmt);
+			close(rset);
 		}
 		System.out.println("DAO: " + list);
+		
+		return list;
+	}
+
+	public ArrayList<User> searchEmpSearch(User user, Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		ArrayList<User> list = null;
+		String query = "";
+		if(user.getUserName() == null) {count += 1;}
+		if(user.gettCode() == null) {count += 1;}
+		if(user.getUserNo() == 0) {count += 1;}
+		if(user.getStatus() == null) {count += 1;}
+		
+		System.out.println(user.getUserName());
+		System.out.println(user.gettCode());
+		System.out.println(user.getUserNo());
+		System.out.println(user.getStatus());
+		
+		
+		if(count == 4) {
+			query = "SELECT USER_NO , TCODE , USER_NAME , ADDRESS, PHONE, ENROLL_DATE, STATUS FROM USER_INFO WHERE TCODE IN('T4', 'T5') ";
+		}else {
+			query = "SELECT USER_NO , TCODE , USER_NAME , ADDRESS, PHONE, ENROLL_DATE, STATUS FROM USER_INFO WHERE TCODE IN('T4', 'T5') AND ";
+		
+			
+			if(user.getUserName() != null) {query += "USER_NAME LIKE '%'||'" + user.getUserName() + "'||'%' AND ";}
+			if(user.gettCode() != null) { query += "TCODE = '" + user.gettCode() + "' AND ";}
+			if(user.getUserNo() != 0) { query += "USER_NO = " + user.getUserNo() + " AND ";}
+			if(user.getStatus() != null) { query += "STATUS LIKE '%'||'" + user.getStatus() + "'||'%' AND ";}
+
+			if(query.substring(query.length()-5).equals(" AND ")) {
+				query = query.substring(0, query.length()-5);
+				//query += ";";
+			}
+			//query += "STATUS = 'Y'";
+		}
+		//쿼리문 실행
+		System.out.println(query);
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<User>();
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserNo(rset.getInt("USER_NO"));
+				u.settCode(rset.getString("TCODE"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setAddress(rset.getString("ADDRESS"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				u.setStatus(rset.getString("STATUS"));
+				
+				list.add(u);
+				
+				System.out.println("검색 직원 리스트 : " + list);
+			}	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
 		return list;
 	}
 
