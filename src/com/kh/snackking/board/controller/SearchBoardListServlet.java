@@ -39,22 +39,23 @@ public class SearchBoardListServlet extends HttpServlet {
 		String checkType = request.getParameter("checkType");
 		String searchDate = request.getParameter("searchDate");
 		
-//		System.out.println("userId : " + userId);
-//		System.out.println("boardType : " + boardType);
-//		System.out.println("checkType : " + checkType);
-//		System.out.println("searchDate : " + searchDate);
+		System.out.println("servlet userId : " + userId);
+		System.out.println("servlet boardType : " + boardType);
+		System.out.println("servlet checkType : " + checkType);
+		System.out.println("servlet searchDate : " + searchDate);
 		
 		HashMap<String, String> hmap = new HashMap<>();
 		if(userId != null) {
 			hmap.put("userId", userId);
-		} else if(boardType != null) {
+		}
+		if(boardType != null) {
 			hmap.put("boardType", boardType);
-		} else if(checkType != null) {
+		} 
+		if(checkType != null) {
 			hmap.put("checkType", checkType);
-		} else if(searchDate != null) {
+		}
+		if(searchDate != null) {
 			hmap.put("searchDate", searchDate);
-		} else {
-			hmap = null;
 		}
 		
 		int currentPage;                 
@@ -73,9 +74,9 @@ public class SearchBoardListServlet extends HttpServlet {
 		int listCount = 0;
 		
 		String page = "";
-		if(list != null) {
+		if(hmap != null) {
 			listCount = new BoardService().getListCount(hmap);
-	//		System.out.println("list count : " + listCount);
+			System.out.println("list count : " + listCount);
 			maxPage = (int)((double) listCount / limit + 0.9);
 			
 			startPage = (((int) ((double) currentPage / 10 + 0.9)) - 1 ) * 10 + 1;
@@ -88,11 +89,10 @@ public class SearchBoardListServlet extends HttpServlet {
 			
 			PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 			
-			ArrayList<Board> list = new BoardService().selectList(pi);
+			/*ArrayList<Board> list = new BoardService().selectList(pi);
 			
 //			System.out.println("select board list : " + list);
 			
-			String page = "";
 			if(list != null) {
 				page = "views/chiefManager/cmBoardMain.jsp";
 				request.setAttribute("list", list);
@@ -100,10 +100,10 @@ public class SearchBoardListServlet extends HttpServlet {
 			} else {
 				page = "views/common/errorPage.jsp";
 				request.setAttribute("errorCode", "selectBoardList");
-			}
+			}*/
 		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("errorCode", "selectBoardList");
+//			page = "views/common/errorPage.jsp";
+//			request.setAttribute("errorCode", "selectBoardList");
 		}
 		request.getRequestDispatcher(page).forward(request, response);		
 	}

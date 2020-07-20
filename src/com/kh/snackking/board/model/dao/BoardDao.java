@@ -450,10 +450,32 @@ public class BoardDao {
 		String checkType = hmap.get("checkType");
 		String searchDate = hmap.get("searchDate");
 		
-		String query = "SELECT COUNT(*) FROM BOARD WHERE STATUS = 'Y' AND 1 = 1";
+		System.out.println("dao userId : " + userId);
+		System.out.println("dao btype : " + boardType);
+		System.out.println("dao check : " + checkType);
+		System.out.println("dao date : " + searchDate);
+		
+		String query = "SELECT COUNT(*) FROM (SELECT B.BID , B.BTYPE , UI.USER_ID , B.BDATE , B.STATUS , NVL2(R.RID, 'Y', 'N') "
+				+ "AS CHECKED FROM BOARD B JOIN BOARD_TYPE BT ON(B.BTYPE = BT.BTYPE) JOIN USER_INFO UI ON(B.BWRITER = UI.USER_NO) "
+				+ "LEFT JOIN REPLY R ON(B.BID = R.BID) ORDER BY BID DESC) WHERE STATUS = 'Y'";
+		if(userId != null || !userId.equals("")) {
+			query += " AND USER_ID  = '" +  userId + "'";
+		}
+		if(boardType != null || !boardType.equals("")) {
+			query += " AND CHECKED  = '" +  boardType + "'";
+		}
+		if(checkType != null || checkType.equals("")) {
+			query += " AND BTYPE  = '" +  checkType + "'";
+		}
+		if(searchDate != null || searchDate.equals("")) {
+			query += " AND TO_CHAR(BDATE) = TO_DATE('" +  checkType + "')";
+		}
+		
+		System.out.println("dao query : " + query);
 		
 		try {
-			
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
 			
 			if(rset.next()) {
 				listCount = rset.getInt(1);
