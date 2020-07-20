@@ -166,4 +166,14 @@ public class BoardService {
 		return listCount;
 	}
 
+	public ArrayList<Board> selectSearchList(PageInfo pi, HashMap<String,String> hmap) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectSearchList(con, pi, hmap);
+		
+		close(con);
+		
+		return list;
+	}
+
 }

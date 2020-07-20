@@ -450,28 +450,28 @@ public class BoardDao {
 		String checkType = hmap.get("checkType");
 		String searchDate = hmap.get("searchDate");
 		
-		System.out.println("dao userId : " + userId);
-		System.out.println("dao btype : " + boardType);
-		System.out.println("dao check : " + checkType);
-		System.out.println("dao date : " + searchDate);
+//		System.out.println("dao userId : " + userId);
+//		System.out.println("dao btype : " + boardType);
+//		System.out.println("dao check : " + checkType);
+//		System.out.println("dao date : " + searchDate);
 		
 		String query = "SELECT COUNT(*) FROM (SELECT B.BID , B.BTYPE , UI.USER_ID , B.BDATE , B.STATUS , NVL2(R.RID, 'Y', 'N') "
 				+ "AS CHECKED FROM BOARD B JOIN BOARD_TYPE BT ON(B.BTYPE = BT.BTYPE) JOIN USER_INFO UI ON(B.BWRITER = UI.USER_NO) "
 				+ "LEFT JOIN REPLY R ON(B.BID = R.BID) ORDER BY BID DESC) WHERE STATUS = 'Y'";
-		if(userId != null || !userId.equals("")) {
+		if(!userId.equals("")) {
 			query += " AND USER_ID  = '" +  userId + "'";
 		}
-		if(boardType != null || !boardType.equals("")) {
-			query += " AND CHECKED  = '" +  boardType + "'";
+		if(!boardType.equals("")) {
+			query += " AND BTYPE  = '" +  boardType + "'";
 		}
-		if(checkType != null || checkType.equals("")) {
-			query += " AND BTYPE  = '" +  checkType + "'";
+		if(!checkType.equals("")) {
+			query += " AND CHECKED  = '" +  checkType + "'";
 		}
-		if(searchDate != null || searchDate.equals("")) {
-			query += " AND TO_CHAR(BDATE) = TO_DATE('" +  checkType + "')";
+		if(!searchDate.equals("")) {
+			query += " AND TO_CHAR(BDATE) = TO_DATE('" +  searchDate + "')";
 		}
 		
-		System.out.println("dao query : " + query);
+//		System.out.println("dao query : " + query);
 		
 		try {
 			stmt = con.createStatement();
@@ -488,6 +488,90 @@ public class BoardDao {
 			close(stmt);
 		}
 		return listCount;
+	}
+
+	public ArrayList<Board> selectSearchList(Connection con, PageInfo pi, HashMap<String, String> hmap) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		String userId = hmap.get("userId");
+		String boardType = hmap.get("boardType");
+		String checkType = hmap.get("checkType");
+		String searchDate = hmap.get("searchDate");
+		
+		String query = "SELECT HNUM, RNUM, BID, BTYPE, BTYPE_NAME , BNO , BTITLE, BCONTENT, BWRITER, USER_NAME , "
+				+ "USER_ID , BCOUNT, BDATE, STATUS, RID, ANSWER FROM ( SELECT ROWNUM HNUM, RNUM, BID, BTYPE, BTYPE_NAME , "
+				+ "BNO , BTITLE, BCONTENT, BWRITER, USER_NAME , USER_ID , BCOUNT, BDATE, STATUS, RID, "
+				+ "ANSWER FROM (SELECT RNUM, BID, BTYPE, BTYPE_NAME, BNO , BTITLE, BCONTENT, BWRITER, "
+				+ "USER_NAME , USER_ID , BCOUNT, BDATE, STATUS, RID, ANSWER FROM (SELECT ROWNUM RNUM, BID, BTYPE, BTYPE_NAME, "
+				+ "BNO , BTITLE, BCONTENT, BWRITER, USER_NAME , USER_ID , BCOUNT, BDATE, STATUS, RID, ANSWER "
+				+ "FROM (SELECT B.BID , B.BTYPE , BT.BTYPE_NAME , B.BNO , B.BTITLE , B.BCONTENT , B.BWRITER , UI.USER_NAME ,"
+				+ " UI.USER_ID , B.BCOUNT , B.BDATE , B.STATUS , R.RID , NVL2(R.RID, 'Y', 'N') AS ANSWER "
+				+ "FROM BOARD B JOIN BOARD_TYPE BT ON(B.BTYPE = BT.BTYPE) JOIN USER_INFO UI ON(B.BWRITER = UI.USER_NO) "
+				+ "LEFT JOIN REPLY R ON(B.BID = R.BID) ORDER BY BID ASC) WHERE STATUS = 'Y' ";
+		
+		if(!userId.equals("")) {
+			query += " AND USER_ID  = '" +  userId + "'";
+		}
+		if(!boardType.equals("")) {
+			query += " AND BTYPE  = '" +  boardType + "'";
+		}
+		if(!checkType.equals("")) {
+			query += " AND ANSWER  = '" +  checkType + "'";
+		}
+		if(!searchDate.equals("")) {
+			query += " AND TO_CHAR(BDATE) = TO_DATE('" +  searchDate + "')";
+		}
+		
+		query += ") ORDER BY RNUM DESC) ORDER BY HNUM ASC) WHERE HNUM BETWEEN ";
+		query += startRow;
+		query += " AND ";
+		query += endRow;
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board b = new Board();
+				b.setrNum(rset.getInt("RNUM"));
+				b.setBid(rset.getInt("BID"));
+				b.setbType(rset.getString("BTYPE"));
+				b.setBtName(rset.getString("BTYPE_NAME"));
+				b.setBno(rset.getInt("BNO"));
+				b.setbTitle(rset.getString("BTITLE"));
+				b.setbContent(rset.getString("BCONTENT"));
+				b.setbWriter(rset.getInt("BWRITER"));
+				b.setUserName(rset.getString("USER_NAME"));
+				b.setUserId(rset.getString("USER_ID"));
+				b.setbCount(rset.getInt("BCOUNT"));
+				b.setbDate(rset.getDate("BDATE"));
+				b.setStatus(rset.getString("STATUS"));
+				b.setRid(rset.getInt("RID"));
+				if(rset.getString("ANSWER").equals("Y")) {
+					b.setAnswerCheck("답변완료");
+				} else {
+					b.setAnswerCheck("미답변");
+				}
+				
+				list.add(b);
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
 	}
 
 
