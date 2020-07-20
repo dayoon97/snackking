@@ -405,6 +405,7 @@ height: 25px;
     background: #eee;
     overflow-y: scroll;
     cursor: move;
+    display: none; /* 디폴트값 일단 안보이게 하고 각 유저 클릭했을 때 해당하는 정보 끌어오기 */
   }
  
   .demo-topbar + #external-events { /* will get stripped out */
@@ -448,17 +449,21 @@ height: 25px;
 	<!-- draagle box -->
 <div id="external-events">
     <p>
-      <strong><%for(int i=0;i< slist.size(); i++) { %>
+      <strong><%-- <%for(int i=0;i< slist.size(); i++) { %>
       		  <%=slist.get(i).getUserName()%>
-      		  <%}%>
+      		  <%}%> --%>
+      		  <%for(int i=0;i<slist.size(); i++) { %>
+      		  <% } %>
+      		  <%=slist.get(0).getUserName() %>
       </strong>
     </p>
-    <div class="content-count" <%int count=5;/* 월배송회차 가져올 것 */ %>></div>
-    <div class="fc-event">My Event 1</div>
-    <div class="fc-event">My Event 2</div>
-    <div class="fc-event">My Event 3</div>
-    <div class="fc-event">My Event 4</div>
-    <div class="fc-event">My Event 5</div>
+    <%System.out.println(loginUser.getUserNo()); %>
+    <%-- <div class="content-count" /* 월배송회차 가져올 것 */ ><%=(slist.get(0).getDelivCount())%></div> --%>
+    <%int j = 1;%>
+    <%while(j <= slist.get(0).getDelivCount()) {%>
+    <div class="fc-event"><%=j%>회차</div>
+    <% j++; }%>
+
     <p>
       <input type="checkbox" id="drop-remove" checked="checked">
       <label for="drop-remove">remove after drop</label>
@@ -470,10 +475,10 @@ height: 25px;
 <table>
 	<tr class="userlist">
 	<td><input type="checkbox">전체일정</td>
-	<td><input type="checkbox">1</td>
-	<td><input type="checkbox">2</td>
-	<td><input type="checkbox">3</td>
-	
+	<%for(int i=0; i< slist.size(); i++) { %>
+	<td><input type="checkbox" value="check<%=i%>" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
+	<%} %>
+
 	</tr>
 </table>
 </div>
@@ -490,5 +495,17 @@ height: 25px;
           <script>
           $( '#external-events' ).draggable();
           </script>
+          
+<!-- 유저 리스트 체크 이벤트 -->
+<script>
+function check(box) {
+	if(box.checked == true)
+		console.log(box.value + "체크박스 클릭")
+		if()
+		
+		else
+			console.log(box.value + "체크박스 해제")
+}
+</script>          
           
 </html>

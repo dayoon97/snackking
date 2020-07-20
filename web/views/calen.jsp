@@ -335,7 +335,7 @@ height: 25px;
   <form action="<%=request.getContextPath()%>/search.da" method="get">
   <label>회원 이름 : </label>
   <input type="hidden" name="manager" value="<%=loginUser.getUserNo()%>">
-  <%System.out.println(loginUser.getUserNo()); %>
+  <%System.out.println("curator Number" + loginUser.getUserNo()); %>
   <!-- <input type="hidden" name="userName">
   <input type="hidden" name="userNo"> -->
 <!--   <iRnput type="hidden" name="deliv_count"> -->
@@ -346,7 +346,6 @@ height: 25px;
   <input type="hidden" name="con_no">
   <input type="hidden" name="s_count"> -->
 
-  
   <button type="submit">가져오기</button>
   
   

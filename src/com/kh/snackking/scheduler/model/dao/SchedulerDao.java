@@ -31,7 +31,8 @@ public class SchedulerDao {
 		ArrayList<Scheduler> slist = null;
 		System.out.println("dao : " +manager);
 		
-		String query = prop.getProperty("shedulerSearch");
+		
+		String query = prop.getProperty("schedulerSearch");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -43,20 +44,22 @@ public class SchedulerDao {
 			
 			while(rset.next()) {
 				Scheduler s = new Scheduler();
-				s.settCode(rset.getString("TCODE"));
-				s.setMngId(rset.getInt("MANAGER"));
+				s.setDelivCount(rset.getInt("DELIV_COUNT"));
 				s.setUserName(rset.getString("USER_NAME"));
+				s.setUserNo(rset.getInt("USER_NO"));
+				
 				
 				slist.add(s);
-				
-				System.out.println(slist);
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 			close(rset);
 		}
+		
+		System.out.println(slist);
 		
 		return slist;
 	}
