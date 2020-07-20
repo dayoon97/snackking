@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.vo.Product;
+import com.kh.snackking.product.model.vo.ProductAttachment;
 
 public class ProductDao {
 	private Properties prop = new Properties();
@@ -31,7 +32,7 @@ public class ProductDao {
 	}
 	
 	
-	
+	//상품 등록용 메소드
 	public int insertProduct(Connection con, Product product) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -56,16 +57,16 @@ public class ProductDao {
 			close(pstmt);
 		}
 		if(result > 0) {
-			System.out.println("dao에서 insert 성공했음 : " + result);
+			System.out.println("dao에서 상품 insert 성공했음 : " + result);
 		}else {
-			System.out.println("dao에서 insert 실패했음 : " + result);
+			System.out.println("dao에서 상품 insert 실패했음 : " + result);
 		}
 		
 		return result;
 	}
 
 
-	//상품 등록시 상품명 중복되는지 확인
+	//상품 등록시 상품명 중복되는지 확인용 메소드
 	public int checkProductName(Connection con, Product product) {
 		PreparedStatement pstmt = null;
 		Product p = null;
@@ -168,7 +169,90 @@ public class ProductDao {
 	}
 
 
+	//상품 정보 등록 후 자동 생성되는 상품 코드 가져오는 메소드(사진 등록에 상품코드 필요해서 작성)
+	public String selectProductCode(Connection con, Product product) {
+		String pCode = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectProductCode");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			//이름 기준으로 insert 하며 자동생성한 pCode 가져옴 
+			pstmt.setString(1, product.getpName());
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				pCode = rset.getString("PCODE");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		//System.out.println("Dao : insert 한" + pCode);
+		return pCode;
+	}
 
+
+
+	
+	
+	//사진 등록용 메소드
+	public int insertProductAttachment(Connection con, ProductAttachment pAttachment) {
+		PreparedStatement pstmt = null;
+		int attachmentResult = 0;
+		String query = prop.getProperty("insertProductAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, pAttachment.getpCode());
+			pstmt.setString(2, pAttachment.getOriginName());
+			pstmt.setString(3, pAttachment.getChangeName());
+			pstmt.setString(4, pAttachment.getFilePath());
+			attachmentResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return attachmentResult;
+	}
+
+
+	//상품 기본정보 검색용 메소드(사진 x)
+	public ArrayList<Product> selectProductAllList(Connection con, ArrayList<Product> conditionList) {
+		ArrayList<Product> productList = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		int count  = 0;
+		String query = "";
+		
+		//arrayList 에서 값 꺼내기
+		//if(equipmentRent.getRentDate() == "") {count += 1;}
+		//if(equipmentRent.getEquipCode() == "") {count += 1;}
+		//if(equipmentRent.getCompany() == "") {count += 1;}
+		//if(equipmentRent.getStatus() == null) {count += 1;}
+		//검색어 갯수 출력
+		
+		
+		try {
+			stmt = con.createStatement();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return productList;
+	}
+	
 	
 	
 }

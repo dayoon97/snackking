@@ -56,8 +56,8 @@ public class EquipmentRentDao {
 				String rentDate = equipmentRent.getRentDate().substring(2).replace("-", "/");
 				query += "R.RENT_DATE = '" + rentDate + "' AND ";}
 			
-			if(equipmentRent.getEquipCode() != "") { query += "R.EQUIP_CODE = '" + equipmentRent.getEquipCode() + "' AND ";}
-			if(equipmentRent.getCompany() != "") { query += "U.COMPANY = '" + equipmentRent.getCompany() + "' AND ";}
+			if(equipmentRent.getEquipCode() != "") { query += "R.EQUIP_CODE LIKE '%'||'" +  equipmentRent.getEquipCode() + "'||'%' AND ";}
+			if(equipmentRent.getCompany() != "") { query += "U.COMPANY  LIKE '%'||'" + equipmentRent.getCompany() + "'||'%' AND ";}
 			if(equipmentRent.getStatus() != null) { query += "R.STATUS = '" + equipmentRent.getStatus() + "' AND ";}
 
 			if(query.substring(query.length()-5).equals(" AND ")) {

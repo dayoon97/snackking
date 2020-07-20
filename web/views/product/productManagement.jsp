@@ -27,7 +27,6 @@
 	<div id="outer">
 		<!-- background-box start -->
 		<div id="background-box">
-		
 			<!-- title-area start ---------------------------------------------------------------------------->
 			<div id="titleArea">
 				<div id="mainTitle">상품 관리</div>
@@ -40,21 +39,19 @@
 				<!-- 조회 제목 -->
 				<div id="subSubTitle1">상품 검색</div>
 					<!-- searchBox start -->
-						<div id="searchBox" style="height: 90px !important; display: table;">
-							<form id="searchForm" style="display:table-cell; vertical-align:middle">
-								<div >
+						<div id="searchBox" style="height:75px !important;">
 								<table id="searchProduct">
 									<tr style="height:34px !important;">
 										<!-- 검색 내용 타이핑하는 부분 -->	
 										<td style="width:170px">상품코드  :
-										<input type="text" class="searchTextBox" size="7"></td>                        					
-										<td style="width:220px">상품종류  :
+										<input type="text" class="searchTextBox" size="7" name="pCode"></td>                        					
+										<td style="width:220px">종류  :
 										<div class="dropdown">
         										<div class="select">
           											<span>선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
-										        <input type="hidden" name="productKinds">
+										        <input type="hidden" name="ptName">
 										        <ul class="dropdown-menu">
 							                           <li id="선택">선택</li>
 							                           <li id="과자">과자</li>
@@ -77,7 +74,7 @@
           											<span>선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
-										        <input type="hidden" name="productKinds">
+										        <input type="hidden" name="flavor">
 										        <ul class="dropdown-menu">
 							                           <li id="선택">선택</li>
 							                           <li id="초코">초코</li>
@@ -99,7 +96,7 @@
           											<span>선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
-										        <input type="hidden" name="productKinds">
+										        <input type="hidden" name="taste">
 										        <ul class="dropdown-menu">
 							                           <li id="달콤">달콤</li>
 							                           <li id="짭짤">짭짤</li>
@@ -112,22 +109,20 @@
 										</td>
 											
 											<td style="width:210px">기본 유통기한  :
-												<input type="text" class="searchTextBox" size="2"> 개월
+												<input type="text" class="searchTextBox" size="2" name="pExp"> 개월
 											</td>	
 									</tr>
 									<tr>	
 										<td>상품명  :
-											<input type="text" class="searchTextBox" size="9">
+											<input type="text" class="searchTextBox" size="9" name="pName">
 										</td>
-									
-								
-                       					<td>알레르기 성분 :
+                       					<td colspan="4">알레르기 :
 											<div class="dropdown">
         										<div class="select">
           											<span>선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
-										        <input type="hidden" name="stockKinds">
+										        <input type="hidden" name="allergy">
 										        <ul class="dropdown-menu">
 							                           <li id="선택">선택</li>
 							                           <li id="밀">밀</li>
@@ -140,20 +135,31 @@
 							                           <li id="해당없음">해당없음</li>					                         
 										    	    </ul>
 										      </div>
-                        				</td>
-										
-										<td colspan="2">가격  :
-											<input type="text" class="searchTextBox" size="10"> ~
-											<input type="text" class="searchTextBox" size="10"> 원
-										</td>
-										<td>
-											<input type="submit" class="searchBtn" value="검색하기" id="searchBtn" style="margin-left:85px;">
+										      <label style="margin-left: 30px;">가격  :</label>
+                        					
+											<input type="text" class="searchTextBox" size="7" name="price1"> ~
+											<input type="text" class="searchTextBox" size="7" name="price2"> 원
+											 <label style="margin-left: 30px;">나이  :</label>
+											<div class="dropdown">
+        										<div class="select">
+          											<span>선택</span>
+										          <i class="fa fa-chevron-left"></i>
+										        </div>
+										        <input type="hidden" name="age">
+										        <ul class="dropdown-menu">
+							                           <li id="선택">선택</li>
+							                           <li id="20대">20대</li>
+							                           <li id="30대">30대</li>
+							                           <li id="40대">40대</li>
+							                           <li id="50대">50대</li>
+							                           <li id="60대">60대</li>
+										    	    </ul>
+										      </div>
+											<button class="searchBtn" id="searchBtn" style="margin-left:10px;">검색하기</button>
 										</td>
 																	
 									</tr>
 								</table>
-							</div>
-						</form>
 					</div>
 				</div><!-- search-area end ---------------------------------------------------------------------------->
 
@@ -169,7 +175,7 @@
 					<span id="apply">조회 결과 수 :</span>
 						<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
-					<table id="listTable10" class="productSearchListTable">
+					<table id="listTable11" class="productSearchListTable">
 						<thead>
 							<!-- 테이블 헤드 -->
 							<tr>
@@ -183,12 +189,14 @@
 								<th>맛</th>
 								<th>알레르기</th>
 								<th>기본 유통기한</th>
+								<th>나이</th>
 							</tr>
 						</thead>
 						<tbody style="height: 230px !important;">
 						<!-- 리스트 바디  -->
 							<tr>
-								<td><input type="radio" name="ok"></td>
+								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
+								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
@@ -200,7 +208,73 @@
 								<td>내용</td>
 							</tr>
 							<tr>
-								<td><input type="radio" name="ok"></td>
+								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+								<td>내용</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
+								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
@@ -215,7 +289,7 @@
 							<tfoot style="float: right;">
 								<tr>
 									<td>
-										<button onclick="" class="searchBtn" id="btnAddProduct"><a href="productAdd.jsp">추가</a></button>
+										<button onclick="addProduct();" class="searchBtn" id="btnAddProduct">추가</button>
 									</td>
 									<td>
 										<button onclick="" class="searchBtn" id="btnUpdateProduct">수정</button>
@@ -262,7 +336,66 @@ $('.dropdown-menu li').click(function () {
 }); 
 
 
+/************************************************************************************/
+function only(chk){ 
+	var obj = document.getElementsByName("chk");
+    for(var i=0; i<obj.length; i++){
+        if(obj[i] != chk){
+            obj[i].checked = false;
+        }
+    }
+}
+/************************************************************************************/
+	
+//검색 버튼 클릭시 내용 조회하기
+$(function() {
+		$(".searchBtn").click(function(){
+			var pCode = $("input[name=pCode]").val();
+			var pName = $("input[name=pName]").val();
+			var pExp = $("input[name=pExp]").val();
+			var ptName = $("input[name=ptName]").val();
+			var price1 = $("input[name=price1]").val();
+			var price2 = $("input[name=price2]").val();
+			var flavor = $("input[name=flavor]").val();
+			var taste = $("input[name=taste]").val();
+			var allergy = $("input[name=allergy]").val();
+			var age = $("input[name=age]").val();
+			var arr = {
+					"pCode" : pCode,
+					"pName": pName,
+					"pExp" : pExp,
+					"ptName" : ptName,
+					"price1" : price1,
+					"price2" : price2,
+					"flavor" : flavor,
+					"taste" : taste,
+					"allergy" : allergy,
+					"age" : age
+			};
+			//console.log(arr);
+			//출력됨
+				 $.ajax({
+					url: "<%=request.getContextPath()%>/selectProductAllList",
+					data: arr,
+					type: "get",
+					success: function(data){
+					console.log("성공");
+	 						
+	 				},
+	 				error: function(error){
+	 					console.log("에러!" + error);
+	 				}
+				}); 
+			});
+		});
 
+
+
+
+
+	function addProduct() {
+		location.href="<%=request.getContextPath() %>/views/product/productAdd.jsp";
+	};
 
 
 

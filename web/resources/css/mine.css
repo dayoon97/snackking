@@ -152,7 +152,19 @@
 		border-radius: 33.5px;
 	}
 	
-	
+	#searchBox1{
+		position: absolute;
+		width: 980px;
+		height: 100px;
+		left: 40px;
+		right: 40px;
+		margin: 0 auto;
+		top: 190px;
+		border: 1px solid rgba(75, 75, 75, 0.23);
+		box-sizing: border-box;
+		border-radius: 33.5px;
+	}
+
 	
 	
 	/*폼 기본 서식*/
@@ -555,7 +567,10 @@ border: 2px dashed #E7E7E7;
 background:#F6F1F1;
 vertical-align: middle;
 }
-
+#searchBox1{
+	height: 100px;
+	
+}
 
 .hover:hover{
 	cursor:pointer;
