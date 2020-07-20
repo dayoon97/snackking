@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User, java.util.*"%>
 <% ArrayList<User> adminlist = (ArrayList<User>) request.getAttribute("list"); %>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,6 +102,8 @@
 		border: 1px solid rgba(75, 75, 75, 0.23);
 		box-sizing: border-box;
 		border-radius: 33.5px;
+		padding-top: 8px;
+		padding-left: 10px;
 	}
 	/*폼 기본 서식*/
 	#searchForm{
@@ -411,17 +412,16 @@ td {
 						<div id="subSubTitle1">직원 검색</div>
 						<!-- 조회 상자 테두리-->
 						<div id="searchBox">
-							<form id="searchForm">
 								<table>
 									<tr>
 										<!-- 검색 내용 타이핑하는 부분 -->
 										<td>이름  :</td>
-										<td><input type="text" class="searchTextBox" size="7" name="employee" id="employeeName"></td>
+										<td><input type="text" class="searchTextBox" size="7" name="employee" onfocus="this.value=''; return true" id="employeeName"></td>
 																			
 										<td>직급코드  :</td>
 										<td><div class="dropdown">
         										<div class="select">
-          											<span name="employee" id="employeeTcode">선택</span>
+          											<span id="employeeTcode">선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
 										        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
@@ -433,16 +433,28 @@ td {
                         				</td>
 										
 										<td>사원코드  :</td>
-										<td><input type="text" class="searchTextBox" size="7" name="employee" id="employeeNo"></td>
+										<td><input type="text" class="searchTextBox" size="7" name="employee" onfocus="this.value=''; return true" id="employeeNo"></td>
 										
 										<td>근무상태  :</td>
-										<td><input type="text" class="searchTextBox" size="10" name="employee" id="employeeStatus"></td>
+										<td>
+											<div class="dropdown">
+        										<div class="select">
+          											<span id="employeeStatus">선택</span>
+										          <i class="fa fa-chevron-left"></i>
+										        </div>
+										        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
+										        <ul class="dropdown-menu">
+										          <li id="work">근무중</li>
+										          <li id="rest">휴가중</li>
+										          <li id="travel">퇴사</li>
+										        </ul>
+										      </div>
+										</td>
 										
-										<td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
+										<td><button class="searchBtn" id="submit">검색하기</button></td>
 									
 									</tr>
 								</table>
-							</form>
 						</div>
 				</div>
 				
@@ -492,7 +504,7 @@ td {
 						<tbody>
 						<!-- 리스트 바디  -->
 						<% for(User u : adminlist) {%>
-						<tr class="listBody" name="">
+						<tr class="listBody">
 							<td><input type="checkbox" name="chk" onclick="only(this)"></td>
 							<td><%= u.getUserNo() %></td>
 							<td><%= u.gettCode() %></td>
@@ -555,14 +567,27 @@ td {
 	var span = document.getElementsByClassName("close")[0];
 
 	// When the user clicks on the button, open the modal
+	
+	$(document).on('click','btn',function(){
+		modal.style.display = "block";
+	});
+	//ajax 실행후 엘리먼트 함수 안돼서 바꿈
 	btn.onclick = function() {
-	  modal.style.display = "block";
+		modal.style.display = "block";
 	}
 
+	
+	//
+	$(document).on('click','span',function(){
+		modal.style.display = "none";
+	});
+	
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
 	  modal.style.display = "none";
 	}
+	
+	
 
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
@@ -572,67 +597,88 @@ td {
 	};
 	
 	
+	$(document).on('click', 'input[type=checkbox]', function(){
+		if($(this).prop('checked')){
+			$('input[type=checkbox]').prop("checked",false);
+    		$(this).prop("checked",true);
+    	}
+	});
+    
+	
 	//검색 결과 ajax
  	$(function(){
  		$("#submit").click(function(){
  			
 			$("#listTable td").remove();
 			
-			var arr = [];
-			
 			var name = document.getElementsByName("employee")[0].value;
-			var tCode = document.getElementsByName("employee")[1].value;
-			var num = document.getElementsByName("employee")[2].value;
-			var status = document.getElementsByName("employee")[3].value;
 			
+			var tCode = $("span").eq(0).text();
+			if(tCode == "선택"){
+				tCode = "";
+			}
+			var num = document.getElementsByName("employee")[1].value;
+			var status = $("span").eq(1).text();
+			if(status == "선택"){
+				status = "";
+			}
 			
-			
-			var member = {
-				"user" : $("#mngNo").val(),
-				"list" : arr
-					
+			var employee = {
+				name : name,
+				tCode : tCode,
+				num : num,
+				status : status
 			};
+			
+			console.log(employee);
+			
+			console.log(name);
+			console.log(tCode);
+			console.log(num);
+			console.log(status);
 			
 			
 			$.ajax({
-				url: "<%=request.getContextPath()%>/selectName.us",
-				data: member,
+				url: "<%=request.getContextPath()%>/adminEmpSearch.ad",
+				data: employee,
 				type: "get",
-				traditional:true,
+				async:false,
+				traditional: true,
 				success: function(data){
 					
-					console.log(data);
+					
 					$tableBody = $("#listTable tbody");
  					
  					$tableBody.html('');
  					
  					$.each(data, function(index, value){
- 						var $tr = $("<tr>");
+ 						
+ 						var $tr = $("<tr class='listBody'>");
  						var $Td = $("<td>").html("<input type='checkbox'>");
  						var $noTd = $("<td>").text(value.userNo);
- 						var $idTd = $("<td>").text(decodeURIComponent(value.userId));
- 						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
+ 						var $tCodeTd = $("<td>").text(decodeURIComponent(value.tCode));
  						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
  						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
  						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
  						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
+ 						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
+ 						var $endTr = $("</tr>");
  						
  						$tr.append($Td);
  						$tr.append($noTd);
- 						$tr.append($idTd);
- 						$tr.append($companyTd);
+ 						$tr.append($tCodeTd);
  						$tr.append($userNameTd);
  						$tr.append($addressTd);
  						$tr.append($phoneTd);
  						$tr.append($enrollDateTd);
+ 						$tr.append($statusTd);
+ 						$tr.append($endTr);
  						
- 						
- 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "25px"});
+ 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
  						
  						$tableBody.append($tr);
- 					}); 
- 					
- 					
+ 					});  
+ 					 
  				},
  				error: function(data){
  					console.log("에러!");
@@ -642,33 +688,18 @@ td {
 			});
 		});
  	});
-    	//스크롤 이벤트(아직 못함)
-    
-   	
-    
-    $(document).ready(function(){
-	    $('.scroll').scroll(function(){
-	        //scroll 에서 스크롤변화가 발생할때 호출
-	        var scrollT = $(this).scrollTop(); //스크롤바의 상단위치
-	        var scrollH = $(this).height(); //스크롤바를 갖는 div의 높이
-	        var contentH = $('.scrollInside').height(); //문서 전체 내용을 갖는 div의 높이
-	        if(scrollT + scrollH +1 >= contentH) { // 스크롤바가 아래 쪽에 위치할 때
-            	$('.scrollInside').append(".listBody");
-	        }
-	    });
-    });
 
     //체크박스 여러개 체크 못하게 하는거
     var obj = document.getElementsByName("chk");
     	
-     function only(chk){ 
-          for(var i=0; i<obj.length; i++){
-              if(obj[i] != chk){
-                  obj[i].checked = false;
-              }
-          }
-     };
-    
+    $(document).ready(function(){
+    	$("input[type='checkbox'][name='chk']").click(function(){
+    		if($(this).prop('checked')){
+    			$('input[type="checkbox"][name="chk"]').prop("checked",false);
+    			$(this).prop("checked",true);
+    		}
+    	})
+    });
     
     //직원권한 변경 버튼 눌렀을 때
     	$("#apply").click(function(){
@@ -682,6 +713,8 @@ td {
     		console.log(checkbox);
     	    //체크된 체크박스의 값을 반복해 불러옴.
     	    checkbox.each(function(i){
+    	    	
+    	    	
     	    	//checkbox.parent() : checkbox의 부모는 td.
     	    	//checkbox.parent().parent() : td의 부모는 tr.
     	    	var tr = checkbox.parent().parent().eq(i);
@@ -759,16 +792,6 @@ td {
     		var Tcode = $('#tCode').text();
 	    	console.log(Tcode);
 
-	    	<%-- var url = "<%=request.getContextPath()%>/changeTcode.ad";
-	    	url = encodeURIComponent(url);
-	    	console.log(url);
-	    	
-    		window.location.href="<%=request.getContextPath()%>/changeTcode.ad?userNo=userNo&Tcode=Tcode"; --%>
-	    	//var userNo = $(".modalTable td").eq(0).text();
-	    	
-	    	
-	    	
-	    	
 	    	var arr = {
 	    			"userNo" : userNo,
 	    			"Tcode" : Tcode
@@ -787,57 +810,7 @@ td {
 	    				success: function(data){
 	    					
 	    					location.reload(true);
-	    					/* $tableBody = $("#listTable tbody");
-							$tableBody.html('');
-							$tableBody.find("tr").remove();
-							
-							for(var key in data){
-	 							//클래스 속성 추가
-	 							var $tr =  $("<tr>").attr('class','listBody');
-	 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
-	 							var $td2 = $("<td>").text(data[key].tCode);
-	 							var $td3 = $("<td>").text(data[key].userName);
-	 							var $td4 = $("<td>").text(data[key].address);
-	 	 						var $td5 = $("<td>").text(data[key].phone);
-	 	 						var $td6 = $("<td>").text(data[key].enrollDate);
-	 	 						var $td7 = $("<td>").text(data[key].status);
-	 							$tr.append($td1);
-	 							$tr.append($td2);
-	 							$tr.append($td3);
-	 	 						$tr.append($td4);
-	 	 						$tr.append($td5);
-	 	 						$tr.append($td6);
-	 	 						$tr.append($td7);
-	 							$tableBody.append($tr);
-	 						} */
-							
-		 					/* $.each(data, function(index, value){
-		 						var $tr = $("<tr>");
-		 						var $Td = $("<td>").html("<input type='checkbox'>");
-		 						var $noTd = $("<td>").text(value.userNo);
-		 						var $TcodeTd = $("<td>").text(decodeURIComponent(value.tCode));
-		 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
-		 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
-		 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
-		 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
-		 						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
-		 						
-		 						
-		 						
-		 						$tr.append($Td);
-		 						$tr.append($noTd);
-		 						$tr.append($TcodeTd);
-		 						$tr.append($userNameTd);
-		 						$tr.append($addressTd);
-		 						$tr.append($phoneTd);
-		 						$tr.append($enrollDateTd);
-		 						$tr.append($statusTd);
-		 						
-		 						
-		 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
-		 						
-		 						$tableBody.append($tr);
-		 					});  */
+	    					
 		 					
 			    		},
 			    		error:function(data){
