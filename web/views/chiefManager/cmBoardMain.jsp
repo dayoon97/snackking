@@ -351,7 +351,7 @@ height: 25px;
             <div id="subSubTitle1">내역 조회</div>
                <!-- searchBox start -->
                <div id="searchBox">
-                  <form id="searchForm" action="<%= request.getContextPath()%>/searchBoard.bo" method="post">
+                 <form id="searchForm" <%-- action="<%= request.getContextPath()%>/searchBoard.bo" method="post" --%>>
                      <table class="memberTable">
                         <tr>
                            
@@ -410,17 +410,20 @@ height: 25px;
                <!-- 조회 리스트 테이블 -->
                <table id="listTable">
                   <!-- 테이블 헤드 -->
-                  <tr id="listHead">
-                     <th width="20px"><input type="checkbox" id="checkall"></th>
-                     <th width="20px">번호</th>
-                     <th width="30px">회원ID</th>
-                     <th width="200px">제목</th>
-                     <th width="40px">문의타입</th>
-                     <th width="30px">답변상태</th>               
-                     <th width="50px">날짜</th>               
-                  </tr>
+                  <thead>
+	                  <tr id="listHead">
+	                     <th width="20px"><input type="checkbox" id="checkall"></th>
+	                     <th width="20px">번호</th>
+	                     <th width="30px">회원ID</th>
+	                     <th width="200px">제목</th>
+	                     <th width="40px">문의타입</th>
+	                     <th width="30px">답변상태</th>               
+	                     <th width="50px">날짜</th>               
+	                  </tr>
+                  </thead>
                   
                   <!-- 리스트 바디  -->
+                  <tbody>
 					<% for(Board b : list) { %>
 						<tr class="listBody">
 							<input id="cBid" name="cBid" type="hidden" value="<%=b.getBid()%>">
@@ -433,6 +436,7 @@ height: 25px;
 							<td><%= b.getbDate() %></td>
 						</tr>
 					<% } %>                 
+                  </tbody>
                </table>
       		<!-- pagingArea(페이징 처리 버튼) start -->
 			<div class="pagingArea" align="center">
@@ -500,8 +504,8 @@ height: 25px;
                                  .find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
                      $('.msg').html(msg + input + '</span>');
                   });
-      
-	
+     
+
 	$("#searchBtn").click(function() {
 		var id = $("#userId").val();
 		var type = $("#boardType").val();
@@ -511,18 +515,70 @@ height: 25px;
 		if(id == "" && type == "" && check == "" && sdate == ""){
 			alert("검색 조건이 없습니다.");
 		} else {
-			$("#searchForm").submit();
+			/* $("#searchForm").submit(); */
+			$.ajax({
+				url: "<%= request.getContextPath()%>/searchBoard.bo",
+				type: "get",
+				data: {
+					userId: id,
+					boardType: type,
+					checkType: check,
+					searchDate: sdate,
+					currentPage: <%=currentPage%>
+				},
+				success: function(data) {
+					/* console.log(data); */
+					
+					$tableBody = $("#listTable tbody");
+					$tableBody.html('');
+					
+					for(var key in data) {
+						var $tr = $("<tr>").attr('class', 'listBody');
+						<%-- var $hiddenId = '<input id="cBid" name="cBid" type="hidden" value="<%=b.getBid()%>">'; --%>
+						var $hiddenId = $("<input>").attr('id', 'cBid').attr('name', 'cBid').attr('type', 'hidden').attr('value', data[key].bid);
+						var $ckBoxTd = $("<td>").html('<input type="checkbox">');
+						var $noTd = $("<td>").text(data[key].rNum);
+						var $idTd = $("<td>").text(data[key].userId);
+						var $titleTd = $("<td>").text(data[key].bTitle);
+						var $nameTd = $("<td>").text(data[key].btName);
+						var $answerTd = $("<td>").text(data[key].answerCheck);
+						var $dateTd = $("<td>").text(data[key].bDate);
+						
+						$tr.append($hiddenId);
+						$tr.append($ckBoxTd);
+						$tr.append($noTd);
+						$tr.append($idTd);
+						$tr.append($titleTd);
+						$tr.append($nameTd);
+						$tr.append($answerTd);
+						$tr.append($dateTd);
+						
+						$tableBody.append($tr);
+					}
+					
+				},
+				error: function() {
+					alert("Error!");
+				}
+			});
+			
 		}
-		
 	});
 
   	$(function() {
 		$("#listTable td").click(function() {
 			var num = $(this).parent().children("input").val();
 			location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+			/* console.log("num : " + num); */
 		});
 	});
-      
+  	
+  	$(document).on("click", '#listTable td', function() {
+  		var num2 = $(this).parent().children("input").val();
+  		location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num2;
+  		/* console.log("num2 : " + num2); */
+	});
+  	
    </script>   
    
 </body>

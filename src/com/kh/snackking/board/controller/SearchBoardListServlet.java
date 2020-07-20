@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.snackking.board.model.service.BoardService;
 import com.kh.snackking.board.model.vo.Board;
 import com.kh.snackking.board.model.vo.PageInfo;
@@ -39,10 +40,10 @@ public class SearchBoardListServlet extends HttpServlet {
 		String checkType = request.getParameter("checkType");
 		String searchDate = request.getParameter("searchDate");
 		
-		System.out.println("servlet userId : " + userId);
-		System.out.println("servlet boardType : " + boardType);
-		System.out.println("servlet checkType : " + checkType);
-		System.out.println("servlet searchDate : " + searchDate);
+//		System.out.println("servlet userId : " + userId);
+//		System.out.println("servlet boardType : " + boardType);
+//		System.out.println("servlet checkType : " + checkType);
+//		System.out.println("servlet searchDate : " + searchDate);
 		
 		HashMap<String, String> hmap = new HashMap<>();
 		if(userId != null) {
@@ -73,10 +74,11 @@ public class SearchBoardListServlet extends HttpServlet {
 		limit = 8;
 		int listCount = 0;
 		
-		String page = "";
+		ArrayList<Board> list = null;
+//		String page = "";
 		if(hmap != null) {
 			listCount = new BoardService().getListCount(hmap);
-			System.out.println("list count : " + listCount);
+//			System.out.println("list count : " + listCount);
 			maxPage = (int)((double) listCount / limit + 0.9);
 			
 			startPage = (((int) ((double) currentPage / 10 + 0.9)) - 1 ) * 10 + 1;
@@ -89,23 +91,30 @@ public class SearchBoardListServlet extends HttpServlet {
 			
 			PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 			
-			/*ArrayList<Board> list = new BoardService().selectList(pi);
+			list = new BoardService().selectSearchList(pi, hmap);
 			
 //			System.out.println("select board list : " + list);
+//			System.out.println("board list size : " + list.size());
 			
-			if(list != null) {
-				page = "views/chiefManager/cmBoardMain.jsp";
-				request.setAttribute("list", list);
-				request.setAttribute("pi", pi);
-			} else {
-				page = "views/common/errorPage.jsp";
-				request.setAttribute("errorCode", "selectBoardList");
-			}*/
-		} else {
+//			if(list != null) {
+//				page = "views/chiefManager/cmBoardMain.jsp";
+//				request.setAttribute("list", list);
+//				request.setAttribute("pi", pi);
+//			} else {
+//				page = "views/common/errorPage.jsp";
+//				request.setAttribute("errorCode", "selectBoardList");
+//			}
+		}
+//		else {
 //			page = "views/common/errorPage.jsp";
 //			request.setAttribute("errorCode", "selectBoardList");
-		}
-		request.getRequestDispatcher(page).forward(request, response);		
+//		}
+//		request.getRequestDispatcher(page).forward(request, response);		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		new Gson().toJson(list, response.getWriter());
+		new Gson().toJson(pi, response.getWriter());
 	}
 
 	/**
