@@ -7,6 +7,7 @@ import static com.kh.snackking.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.snackking.equipment.model.dao.EquipmentDao;
 import com.kh.snackking.preference.model.vo.Preference;
@@ -78,8 +79,8 @@ public class ProductService {
 	}
 
 
-
-	public ArrayList<Product> selectProductAllList(ArrayList<Product> conditionList) {
+	public ArrayList<Product> selectProductAllList(HashMap<String, Product> conditionList) {
+		// TODO Auto-generated method stub
 		Connection con = getConnection();
 		ArrayList<Product> productList = new ProductDao().selectProductAllList(con, conditionList);
 		close(con);

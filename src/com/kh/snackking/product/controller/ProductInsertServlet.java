@@ -141,6 +141,7 @@ public class ProductInsertServlet extends HttpServlet {
 						
 						//첨부파일 등록도 최종적으로 성공하면 !!
 						if(attachmentResult > 0) {
+						System.out.println("첨부파일 등록 성공 !");
 						response.sendRedirect(request.getContextPath() + "/views/product/productManagement.jsp");
 						}else {
 						//첨부파일(사진) 등록에 실패하면	
@@ -154,6 +155,7 @@ public class ProductInsertServlet extends HttpServlet {
 					}
 					
 			}else{  //num = -1 이 온 경우 (상품명 중복으로)
+				System.out.println("상품명 중복되서 상품 등록 안됨!");
 				request.setAttribute("product", product);
 				request.setAttribute("result", "-1");
 				response.sendRedirect(request.getContextPath() + "/views/product/productAdd.jsp");

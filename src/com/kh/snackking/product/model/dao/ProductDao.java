@@ -11,8 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.snackking.equipment.model.vo.Equipment;
 import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.vo.Product;
 import com.kh.snackking.product.model.vo.ProductAttachment;
@@ -223,36 +225,79 @@ public class ProductDao {
 
 
 	//상품 기본정보 검색용 메소드(사진 x)
-	public ArrayList<Product> selectProductAllList(Connection con, ArrayList<Product> conditionList) {
+	public ArrayList<Product> selectProductAllList(Connection con, HashMap<String, Product> conditionList) {
 		ArrayList<Product> productList = null;
 		Statement stmt = null;
 		ResultSet rset = null;
 		
 		int count  = 0;
 		String query = "";
+		//해시맵 꺼내기
+		Product p1 = conditionList.get("p1"); //price2 외 검색조건 전부 담아옴
+		Product p2 = conditionList.get("p2"); //price2만 담아옴
+		//System.out.println("p1" + p1);
+		//System.out.println("p2" + p2);
+		//조건 꺼내기
+		if(p1.getpCode()== ""){count += 1;}
+		if(p1.getpName()== ""){count += 1;}
+		if(p1.getpExp()== 0){count += 1;}
+		if(p1.getPtName()== ""){count += 1;}
+		if(p1.getPrice()== 0){count += 1;}
+		if(p2.getPrice()== 0){count += 1;}
+		if(p1.getFlavor()== ""){count += 1;}
+		if(p1.getTaste()== ""){count += 1;}
+		if(p1.getAllergy()== ""){count += 1;}
+		if(p1.getAge()== ""){count += 1;}
+
 		
-		//arrayList 에서 값 꺼내기
-		//if(equipmentRent.getRentDate() == "") {count += 1;}
-		//if(equipmentRent.getEquipCode() == "") {count += 1;}
-		//if(equipmentRent.getCompany() == "") {count += 1;}
-		//if(equipmentRent.getStatus() == null) {count += 1;}
-		//검색어 갯수 출력
-		
-		
-		try {
-			stmt = con.createStatement();
-			
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(stmt);
+		if(count == 10) {
+			query = "SELECT P.PCODE, P.PNAME, P.PEXP, P.DELETE_YN, P.SEARCH_YN, P.PVENDOR, P.PT_CODE, PT.PT_NAME, P.PPRICE, P.FLAVOR, P.TASTE, P.ALLERGY, P.AGE FROM PRODUCT P JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE) WHERE DELETE_YN = 'N' AND SEARCH_YN = 'Y'";
+		}else {
+			query = "SELECT P.PCODE, P.PNAME, P.PEXP, P.DELETE_YN, P.SEARCH_YN, P.PVENDOR, P.PT_CODE, PT.PT_NAME, P.PPRICE, P.FLAVOR, P.TASTE, P.ALLERGY, P.AGE FROM PRODUCT P JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE) WHERE ";
+			if(p1.getpCode() != "") { query += "PCODE LIKE '%'||'" + p1.getpCode() + "'||'%' AND ";}
+			if(p1.getpName() != "") { query += "PNAME LIKE '%'||'" + p1.getpName() + "'||'%' AND ";}
+			if(p1.getpExp() != 0) { query += "PEXP ='" + p1.getpExp() + "' AND ";}
+			if(p1.getPtName() != "") { query += "PT_NAME = '" + p1.getPtName() + "' AND ";}
+			if(p1.getPrice()!= 0) { query += "PPRICE >= " + p1.getPrice() + " AND ";}
+			if(p2.getPrice()!= 0 && (p1.getPrice()<= p2.getPrice())) { query += "PPRICE <= " + p2.getPrice() + " AND ";}
+			if(p1.getFlavor()!= "") { query += "FLAVOR = '" + p1.getFlavor() + "' AND ";}
+			if(p1.getTaste()!= "") { query += "TASTE = '" + p1.getTaste() + "' AND ";}
+			if(p1.getAllergy()!= "") { query += "ALLERGY = '" + p1.getAllergy() + "' AND ";}
+			if(p1.getAge()!= "") { query += "AGE LIKE '%'||'" + p1.getAge() + "'||'%' AND ";}
+
+			query += "DELETE_YN = 'N' AND SEARCH_YN = 'Y' ";
+			System.out.println("query " + query);
+			try {
+				stmt = con.createStatement();
+				rset = stmt.executeQuery(query);
+				productList = new ArrayList<Product>();
+				while(rset.next()) {
+					Product p = new Product();
+					p.setpCode(rset.getString("PCODE"));
+					p.setpName(rset.getString("PNAME"));
+					p.setpVendor(rset.getString("PVENDOR"));
+					p.setPtName(rset.getString("PT_NAME"));
+					p.setTaste(rset.getString("TASTE"));
+					p.setFlavor(rset.getString("FLAVOR"));
+					p.setAllergy(rset.getString("ALLERGY"));
+					p.setAge(rset.getString("AGE"));
+					p.setPrice(rset.getInt("PPRICE"));
+					p.setDelete_YN(rset.getString("DELETE_YN"));
+					p.setSearch_YN(rset.getString("SEARCH_YN"));
+					p.setpExp(rset.getInt("PEXP"));
+					p.setPtName(rset.getString("PT_NAME"));
+					productList.add(p);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(stmt);
+			}
 		}
 		return productList;
 	}
 	
-	
-	
 }
+	
+
