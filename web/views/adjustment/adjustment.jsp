@@ -19,7 +19,7 @@
 <!-- mainWrapper start -->
 	<div id="mainWrapper">
 	
-		<%@ include file="../common/cmMain.jsp" %>
+		<%@ include file="../common/userMenu.jsp" %>
 		
 		<!-- outer start -->
 		<div id="outer">
@@ -407,7 +407,7 @@ $('.dropdown-menu li').click(function () {
    
  //정산 내역 추가하기 버튼 누르면 등록 페이지로 이동
    $("#addBtn").click(function() {
-   	location.href="adjustmentAdd.jsp";
+   	location.href="<%=request.getContextPath()%>/views/adjustment/adjustmentAdd.jsp";
    });
 
 
