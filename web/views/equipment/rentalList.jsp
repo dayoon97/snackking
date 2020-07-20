@@ -468,9 +468,6 @@ $(function() {
 	 	 						$tr.append($td8);
 	 							$tableBody.append($tr);
 	 						}	 
-	 						
-	 						<%System.out.println("성공4");%>
-	 						
 	 				},
 	 				
 	 				

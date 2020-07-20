@@ -2,6 +2,7 @@ package com.kh.snackking.product.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,13 +35,12 @@ public class SelectProductListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("출력");
 		String pCode = request.getParameter("pCode");
 		String pName = request.getParameter("pName");
-		String pExp = request.getParameter("pExp");
+		String pexp = request.getParameter("pExp");
 		String ptName = request.getParameter("ptName");
-		String price1 = request.getParameter("price1");
-		String price2 = request.getParameter("price2");
+		String pr1 = request.getParameter("price1");
+		String pr2 = request.getParameter("price2");
 		String flavor = request.getParameter("flavor");
 		String taste = request.getParameter("taste");
 		String allergy = request.getParameter("allergy");
@@ -48,42 +48,60 @@ public class SelectProductListServlet extends HttpServlet {
 		Product p1 = new Product();
 		if(pCode != null || pCode != "") {p1.setpCode(pCode);}
 		if(pName != null || pName != "") {p1.setpName(pName);}
-		if(pExp != null || pExp != "") {p1.setpExp(Integer.parseInt(pExp));}
+		//숫자
+		int pExp = 0;
+		if(pexp != "") {
+			pExp = Integer.parseInt(pexp);
+			p1.setpExp(pExp);
+		}
+		
 		if(ptName != null || ptName != "") {p1.setPtName(ptName);}
-		if(price1 != null || price1 != "") {p1.setPrice(Integer.parseInt(price1));}
+		
+		//숫자
+		int price1 = 0;
+		if(pr1 != "") {
+			price1 = Integer.parseInt(pr1);
+			p1.setPrice(price1);
+		}
+		
 		if(flavor != null || flavor != "") {p1.setFlavor(flavor);}
 		if(taste != null || taste != "") {p1.setTaste(taste);}
-		if(allergy != null || allergy != "") {p1.setAllergy(pCode);}
+		if(allergy != null || allergy != "") {p1.setAllergy(allergy);}
 		if(age != null || age != "") {p1.setAge(age);}
-		
+	
 		//price1 ~ price2 범위까지 가격 찾을 건데, product 객체 price는 int형이라 한가지만 담을 수 있어서
 		//product2 생성하여 price2정보만 담음
 		Product p2 = new Product();
-		if(price2 != null || price2 != "") {p2.setPrice(Integer.parseInt(price2));}
+		//숫자
+		int price2 = 0;
+		if(pr2 != "") {
+			price2 = Integer.parseInt(pr2);
+			p2.setPrice(price2);
+		}
 		
 		//검색 조건 정보 p1, p2를 모두 list에 담는다.
-		ArrayList<Product> conditionList = new ArrayList<Product>(); //검색 조건 리스트
-		conditionList.add(p1);
-		conditionList.add(p2);
-		//System.out.println("검색정보 p1 + p2 " + conditionList);
+		//해시맵에 담기
+		HashMap<String, Product> conditionList = new HashMap<String, Product>();
+		conditionList.put("p1", p1);
+		conditionList.put("p2", p2);
+		//System.out.println(p1);
+		//System.out.println(p2);
 		//조건에 맞는 상품 검색하여 상품 정보 담아오기
 		ArrayList<Product> productList = new ProductService().selectProductAllList(conditionList);
 		//new ProductService().selectProductList(equipment);
 		
-		System.out.println("servlet selectProductAllList : " + productList);
+		//System.out.println("servlet selectProductAllList : " + productList);
 		/*if(list == null) {
 			String page = "views/common/errorPage.jsp";
 			request.setAttribute("errorCode", "equipmentList");
 			request.getRequestDispatcher(page).forward(request, response);
 			
 		}*/
-		
-		
 		//리스트 통으로 전송
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 	
-		new Gson().toJson(p2,response.getWriter());
+		new Gson().toJson(productList,response.getWriter());
 		
 	}
 

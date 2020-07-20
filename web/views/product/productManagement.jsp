@@ -53,7 +53,7 @@
 										        </div>
 										        <input type="hidden" name="ptName">
 										        <ul class="dropdown-menu">
-							                           <li id="선택">선택</li>
+							                           <li id="">선택</li>
 							                           <li id="과자">과자</li>
 							                           <li id="캔디">캔디</li>
 							                           <li id="껌">껌</li>
@@ -76,7 +76,7 @@
 										        </div>
 										        <input type="hidden" name="flavor">
 										        <ul class="dropdown-menu">
-							                           <li id="선택">선택</li>
+							                           <li id="">선택</li>
 							                           <li id="초코">초코</li>
 							                           <li id="딸기">딸기</li>
 							                           <li id="바나나">바나나</li>
@@ -98,6 +98,7 @@
 										        </div>
 										        <input type="hidden" name="taste">
 										        <ul class="dropdown-menu">
+							                           <li id="">선택</li>
 							                           <li id="달콤">달콤</li>
 							                           <li id="짭짤">짭짤</li>
 							                           <li id="고소">고소</li>
@@ -124,7 +125,7 @@
 										        </div>
 										        <input type="hidden" name="allergy">
 										        <ul class="dropdown-menu">
-							                           <li id="선택">선택</li>
+							                           <li id="">선택</li>
 							                           <li id="밀">밀</li>
 							                           <li id="대두">대두</li>
 							                           <li id="계란">계란</li>
@@ -147,12 +148,12 @@
 										        </div>
 										        <input type="hidden" name="age">
 										        <ul class="dropdown-menu">
-							                           <li id="선택">선택</li>
-							                           <li id="20대">20대</li>
-							                           <li id="30대">30대</li>
-							                           <li id="40대">40대</li>
-							                           <li id="50대">50대</li>
-							                           <li id="60대">60대</li>
+							                           <li id="">선택</li>
+							                           <li id="20">20대</li>
+							                           <li id="30">30대</li>
+							                           <li id="40">40대</li>
+							                           <li id="50">50대</li>
+							                           <li id="60">60대</li>
 										    	    </ul>
 										      </div>
 											<button class="searchBtn" id="searchBtn" style="margin-left:10px;">검색하기</button>
@@ -207,85 +208,8 @@
 								<td>내용</td>
 								<td>내용</td>
 							</tr>
-							<tr>
-								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
 						</tbody>
+						
 							<tfoot style="float: right;">
 								<tr>
 									<td>
@@ -295,7 +219,7 @@
 										<button onclick="" class="searchBtn" id="btnUpdateProduct">수정</button>
 									</td>
 									<td>
-										<button onclick="" class="searchBtn" id="btnDeleteProduct">삭제</button>
+										<button onclick="delProduct();" class="searchBtn" id="btnDeleteProduct">삭제</button>
 									</td>
 								</tr>
 							</tfoot>
@@ -372,15 +296,45 @@ $(function() {
 					"allergy" : allergy,
 					"age" : age
 			};
-			//console.log(arr);
+			console.log(arr);
 			//출력됨
 				 $.ajax({
 					url: "<%=request.getContextPath()%>/selectProductAllList",
 					data: arr,
 					type: "get",
 					success: function(data){
-					console.log("성공");
-	 						
+					//console.log("성공");
+					$tableBody = $(".productSearchListTable tbody");
+					$tableBody.html('');
+					$tableBody.find("tr").remove();
+					var num = 1;
+ 						for(var key in data){
+ 							var $tr =  $("<tr>").attr('class','listBody');
+ 							var $td0 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+ 							var $td1 = $("<td>").text(data[key].pCode);
+ 							var $td2 = $("<td>").text(data[key].pName);
+ 							var $td3 = $("<td>").text(" 사진 넣기 ");
+ 							var $td4 = $("<td>").text(data[key].ptName);
+ 	 						var $td5 = $("<td>").text(data[key].price);
+ 	 						var $td6 = $("<td>").text(data[key].flavor);
+ 	 						var $td7 = $("<td>").text(data[key].taste);
+ 							var $td8 = $("<td>").text(data[key].allergy);
+ 							var $td9 = $("<td>").text(data[key].pExp);
+ 							var $td10 = $("<td>").text(data[key].age);
+ 							$tr.append($td0);
+ 							$tr.append($td1);
+ 	 						$tr.append($td2);
+ 	 						$tr.append($td3);
+ 	 						$tr.append($td4);
+ 	 						$tr.append($td5);
+ 	 						$tr.append($td6);
+ 	 						$tr.append($td7);
+ 	 						$tr.append($td8);
+ 	 						$tr.append($td9);
+ 	 						$tr.append($td10);
+ 							$tableBody.append($tr);
+ 						}	
+ 						
 	 				},
 	 				error: function(error){
 	 					console.log("에러!" + error);
@@ -392,13 +346,16 @@ $(function() {
 
 
 
-
+	//추가 버튼 클릭시
 	function addProduct() {
 		location.href="<%=request.getContextPath() %>/views/product/productAdd.jsp";
 	};
 
 
-
+	//삭제 버튼 클릭시 상품 조회 안되게 update 하기
+	function delProduct() {
+		location.href="<%=request.getContextPath() %>/productDel";
+	});
 
 </script>
 
