@@ -359,6 +359,8 @@ $(function(){
 						<form id="searchForm" action="<%= request.getContextPath() %>/curatingSelectProduct.pro" method="post">
 							<%-- <input type="hidden" id="userid" name="userid" value="<%=loginUser.getUserNo()%>">
 							<input type="hidden" id="username" name="userName" value="<%=loginUser.getUserName()%>"> --%>
+							<input type="hidden" id="userNo" name="userNo" value="<%=insertPre.getUserNo()%>">
+							<input type="hidden" id="preNo" name="preNo" value="<%=insertPre.getPreNo()%>">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
@@ -574,7 +576,7 @@ $(function(){
 				<div id="snackList">
 				<br>
 				<h3 style="margin-left: 50px;">과자 리스트</h3>
-               <table id="listTable">
+               <table id="listTable" class="snackTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
                      <th width="20px"><input type="checkbox" id="checkall"></th>
@@ -588,6 +590,7 @@ $(function(){
                   </tr>
                  
                   <!-- 리스트 바디  -->
+                  <tbody id="tbody">
  				<% for(Product n : Product) { %>
                   <tr class="listBody">
 						<td><input type="checkbox"></td>
@@ -600,6 +603,7 @@ $(function(){
 						<td><button onclick="">추가하기</button></td>
 					</tr>
 				<%} %>
+				</tbody>
                </table>
                 </div>
                 
@@ -658,7 +662,10 @@ function preference(){
 }
 
 $(function(){
-	
+	var preNo = $("#preNo").val();
+	var userNo = $("#userNo").val();
+	console.log(preNo);
+	console.log(userNo);
 	$("input[name=kinds]").click(function(){
 		var kinds = "";
 		var flavor = "";
@@ -707,8 +714,31 @@ $(function(){
 		
 		$.ajax({
 			url: "curatingSelectProduct.pro",
-			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy},
-			success:function(){
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
+			success:function(data){
+				
+				console.log(data);
+				$tableBody = $(".snackTable #tbody");
+				$tableBody.html('');
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr>");
+					var $pCodeTd = $("<td>").text(decodeURIComponent(value.pCode));
+					
+					$tr.append($pCodeTd);
+					$tableBody.append($tr);
+					
+				});
+				
+				
+				/* 
+				$.each(data, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.userNo);
+					var $nameTd = $("<td>").text(decodeURIComponent(value.userName));
+					var $nationTd = $("<td>").text(decodeURIComponent(value.userNation)); */
+				
 				console.log("성공!");
 			},
 			error:function(){
@@ -766,8 +796,10 @@ $(function(){
 		
 		$.ajax({
 			url: "curatingSelectProduct.pro",
-			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy},
-			success:function(){
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
+			success:function(data){
+				$tableBody = $(".snackTable #tbody");
+				$tableBody.html('');
 				console.log("성공!");
 			},
 			error:function(){
@@ -826,8 +858,10 @@ $(function(){
 		
 		$.ajax({
 			url: "curatingSelectProduct.pro",
-			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy},
-			success:function(){
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
+			success:function(data){
+				$tableBody = $(".snackTable #tbody");
+				$tableBody.html('');
 				console.log("성공!");
 			},
 			error:function(){
@@ -875,18 +909,19 @@ $(function(){
 		if( $(this).prop("checked")){
 			$("input[name=allergy]:checked").each(function() { 
 				allergy += $(this).val() + ",";
-			});// 향
+			});// 알레르기
 		}else{
 			$("input[name=allergy]:checked").each(function() { 
 				allergy += $(this).val() + ",";
-			});// 향
+			});// 알레르기
 		}
-		
-		
+
 		$.ajax({
 			url: "curatingSelectProduct.pro",
-			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy},
-			success:function(){
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
+			success:function(data){
+				$tableBody = $(".snackTable #tbody");
+				$tableBody.html('');
 				console.log("성공!");
 			},
 			error:function(){
