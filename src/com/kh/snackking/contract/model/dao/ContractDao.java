@@ -43,10 +43,12 @@ public class ContractDao {
 		
 		String query = prop.getProperty("insertContract");
 		
-		System.out.println(query);
+		System.out.println("query : " + query);
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			
+			System.out.println("pstmt : " + pstmt);
 			
 			//String썼다가 Date로 고침
 			pstmt.setString(1, contract.getCorpName());
@@ -62,14 +64,17 @@ public class ContractDao {
 			
 			System.out.println("으앙");
 			
-			/* String corpName = request.getParameter("corpName");
-			String conCode = request.getParameter("conCode");
-			String conDate = request.getParameter("conDate");
-			String startDate = request.getParameter("startDate"); 
-			String endDate = request.getParameter("endDate");
-			int delivCount = Integer.parseInt(request.getParameter("delivCount"));
-			int amountPDeliv = Integer.parseInt(request.getParameter("amountPDeliv"));
-			int ttlAmount = Integer.parseInt(request.getParameter("ttlAmout")); */
+			/*private String conCode;    //계약코드
+			private String startDate;    //계약시작일
+			private String endDate;      //계약종료일 
+			private String conDate;      //계약일
+			private int delivCount;    //월배송횟수
+			private int amountPDeliv;  //회차당 금액
+			private String denYN;      //계약종료여부YN. 체크 제약조건
+			private int userNo;        //회원번호. foriegn key
+			private String corpName;   //거래처명 
+			private int ttlAmount;     //월 계약금액
+			private int conNo;*/
 		
 			
 		} catch (SQLException e) {
@@ -115,7 +120,7 @@ public class ContractDao {
 				c.setCorpName(rset.getString("CORP_NAME"));
 				c.setConDate(rset.getString("CONTRACT_DATE"));
 				c.setStartDate(rset.getString("START_DATE"));
-//				c.setEndDate(rset.getDate("END_DATE"));
+				c.setEndDate(rset.getString("END_DATE"));
 				c.setDelivCount(rset.getInt("DELIV_COUNT"));
 				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVE"));
 				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));

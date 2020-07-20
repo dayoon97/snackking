@@ -18,7 +18,7 @@ public class Contract implements java.io.Serializable {
 	private int conNo;         //계약번호. 시퀀스 nextval로 숫자 순차적으로 나열. primary key
 
 	public Contract() {}
-	
+
 	public Contract(String conCode, String startDate, String endDate, String conDate, int delivCount, int amountPDeliv,
 			String denYN, int userNo, String corpName, int ttlAmount, int conNo) {
 		super();
@@ -132,7 +132,7 @@ public class Contract implements java.io.Serializable {
 	}
 	
 	
-	
+
 	
 	
 }
