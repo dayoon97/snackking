@@ -43,26 +43,31 @@ public class ContractDao {
 		
 		String query = prop.getProperty("insertContract");
 		
-		System.out.println("query : " + query);
+//		System.out.println("query : " + query);
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			System.out.println("pstmt : " + pstmt);
+//			System.out.println("pstmt : " + pstmt);
 			
 			//String썼다가 Date로 고침
-			pstmt.setString(1, contract.getCorpName());
-			pstmt.setString(2, contract.getConCode());
-			pstmt.setString(3, contract.getConDate());
-			pstmt.setString(4, contract.getStartDate());
-			pstmt.setString(5, contract.getEndDate());
-			pstmt.setInt(6, contract.getDelivCount());
-			pstmt.setInt(7, contract.getAmountPDeliv());
-			pstmt.setInt(8, contract.getTtlAmount());
+			//오라클 데이터베이스 테이블 순서와 자바 이클립스 preparedstatement ?의 순서가 일치해야한다
+			//쿼리문에서 USER_NO 를 CORP_NAME 회사명으로 다른 테이블과 서브쿼리 조인했음
+			//?에 들어갈 값이 회사명이므로 ?에 들어가는 값 기준으로 작성해줬다.
+			//corpName 회사명을  디비에 등록된 것으로 써야 함 
+			pstmt.setString(1, contract.getConCode());
+			pstmt.setString(2, contract.getStartDate());
+			pstmt.setString(3, contract.getEndDate());
+			pstmt.setString(4, contract.getConDate());
+			pstmt.setInt(5, contract.getDelivCount());
+			pstmt.setInt(6, contract.getAmountPDeliv());
+			pstmt.setString(7, contract.getCorpName());
+			pstmt.setString(8, contract.getCorpName());
+			pstmt.setInt(9, contract.getTtlAmount());
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println("으앙");
+		
 			
 			/*private String conCode;    //계약코드
 			private String startDate;    //계약시작일
@@ -84,7 +89,7 @@ public class ContractDao {
 			
 		}
 		
-		System.out.println("insert dao result : " +  result);
+//		System.out.println("insert dao result : " +  result);
 		
 		return result;
 	}
