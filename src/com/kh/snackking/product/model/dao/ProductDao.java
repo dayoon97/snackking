@@ -251,7 +251,7 @@ public class ProductDao {
 
 		
 		if(count == 10) {
-			query = "SELECT P.PCODE, P.PNAME, P.PEXP, P.DELETE_YN, P.SEARCH_YN, P.PVENDOR, P.PT_CODE, PT.PT_NAME, P.PPRICE, P.FLAVOR, P.TASTE, P.ALLERGY, P.AGE FROM PRODUCT P JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE) WHERE DELETE_YN = 'N' AND SEARCH_YN = 'Y'";
+			query = "SELECT P.PCODE, P.PNAME, P.PEXP, P.DELETE_YN, P.SEARCH_YN, P.PVENDOR, P.PT_CODE, PT.PT_NAME, P.PPRICE, P.FLAVOR, P.TASTE, P.ALLERGY, P.AGE FROM PRODUCT P JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE) WHERE DELETE_YN = 'N' AND SEARCH_YN = 'Y' ORDER BY PCODE";
 		}else {
 			query = "SELECT P.PCODE, P.PNAME, P.PEXP, P.DELETE_YN, P.SEARCH_YN, P.PVENDOR, P.PT_CODE, PT.PT_NAME, P.PPRICE, P.FLAVOR, P.TASTE, P.ALLERGY, P.AGE FROM PRODUCT P JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE) WHERE ";
 			if(p1.getpCode() != "") { query += "PCODE LIKE '%'||'" + p1.getpCode() + "'||'%' AND ";}
@@ -265,8 +265,10 @@ public class ProductDao {
 			if(p1.getAllergy()!= "") { query += "ALLERGY = '" + p1.getAllergy() + "' AND ";}
 			if(p1.getAge()!= "") { query += "AGE LIKE '%'||'" + p1.getAge() + "'||'%' AND ";}
 
-			query += "DELETE_YN = 'N' AND SEARCH_YN = 'Y' ";
-			System.out.println("query " + query);
+			query += "DELETE_YN = 'N' AND SEARCH_YN = 'Y' ORDER BY PCODE";
+			//System.out.println("query " + query);
+			
+		}
 			try {
 				stmt = con.createStatement();
 				rset = stmt.executeQuery(query);
@@ -276,7 +278,7 @@ public class ProductDao {
 					p.setpCode(rset.getString("PCODE"));
 					p.setpName(rset.getString("PNAME"));
 					p.setpVendor(rset.getString("PVENDOR"));
-					p.setPtName(rset.getString("PT_NAME"));
+					p.setPtCode(rset.getString("PT_CODE"));
 					p.setTaste(rset.getString("TASTE"));
 					p.setFlavor(rset.getString("FLAVOR"));
 					p.setAllergy(rset.getString("ALLERGY"));
@@ -294,9 +296,63 @@ public class ProductDao {
 				close(rset);
 				close(stmt);
 			}
-		}
+		
 		return productList;
 	}
+
+
+	public int deleteProduct(Connection con, String pCode) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteProduct");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, pCode);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public ArrayList<Product> selectProductRenewList(Connection con) {
+		ArrayList<Product> productListRenew = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("productListRenew");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			productListRenew = new ArrayList<Product>();
+			while(rset.next()) {
+				Product p = new Product();
+				p.setpCode(rset.getString("PCODE"));
+				p.setpName(rset.getString("PNAME"));
+				p.setpVendor(rset.getString("PVENDOR"));
+				p.setPtCode(rset.getString("PT_CODE"));
+				p.setTaste(rset.getString("TASTE"));
+				p.setFlavor(rset.getString("FLAVOR"));
+				p.setAllergy(rset.getString("ALLERGY"));
+				p.setAge(rset.getString("AGE"));
+				p.setPrice(rset.getInt("PPRICE"));
+				p.setDelete_YN(rset.getString("DELETE_YN"));
+				p.setSearch_YN(rset.getString("SEARCH_YN"));
+				p.setpExp(rset.getInt("PEXP"));
+				p.setPtName(rset.getString("PT_NAME"));
+				productListRenew.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		return productListRenew;
+	}
+	
 	
 }
 	

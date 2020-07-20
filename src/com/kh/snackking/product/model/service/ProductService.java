@@ -86,6 +86,30 @@ public class ProductService {
 		close(con);
 		return productList;
 	}
+
+
+
+	public int deleteProduct(String pCode) {
+		Connection con = getConnection();
+		int result = new ProductDao().deleteProduct(con, pCode);
+		if(result > 0) {
+			commit(con);
+		}else { 
+			rollback(con);
+		}
+		close(con);
+		return result;
+		
+	}
+
+
+	//삭제 후에 전체 상품 내역 다시 조회해오기
+	public ArrayList<Product> selectProductRenewList() {
+		Connection con = getConnection();
+		ArrayList<Product> productListRenew = new ProductDao().selectProductRenewList(con);
+		close(con);
+		return productListRenew;
+	}
 	
 	
 	
