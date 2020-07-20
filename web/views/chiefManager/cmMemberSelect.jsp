@@ -226,9 +226,6 @@ height: 25px;
 	display: table;
 }
 
-#listTable{
-	
-}
 .table-scroll{
 	height:300px;
 	position: absolute;
