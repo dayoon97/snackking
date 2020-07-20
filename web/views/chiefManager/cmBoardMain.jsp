@@ -383,8 +383,8 @@ height: 25px;
                                  </div>
                                  <input type="hidden" name="checkType" id="checkType" value="">
                                  <ul class="dropdown-menu">
-                                    <li id="answerCheckY">답변대기</li>
-                                    <li id="answerCheckN">답변완료</li>
+                                    <li id="N">답변대기</li>
+                                    <li id="Y">답변완료</li>
                                  </ul>
                               </div>
                            </td>
