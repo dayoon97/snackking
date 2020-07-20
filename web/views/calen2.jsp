@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.kh.snackking.scheduler.model.vo.*" %>
-<% ArrayList<Scheduler> slist = (ArrayList)request.getAttribute("sList"); %>
+<% ArrayList<Scheduler> slist = (ArrayList)request.getAttribute("sList"); %>/
 <% ArrayList<SchedulerInfo> silist = (ArrayList)request.getAttribute("slist"); %>
 <!DOCTYPE html>
 <html>
@@ -57,13 +57,28 @@ document.addEventListener('DOMContentLoaded', function() {
     selectable: true,   // 선택가능 옵션
     editable: true,
     droppable: true, // this allows things to be dropped onto the calendar
+    
     drop: function(info) {
       // is the "remove after drop" checkbox checked?
       if (checkbox.checked) {
         // if so, remove the element from the "Draggable Events" list
         info.draggedEl.parentNode.removeChild(info.draggedEl);
-        
+        console.log("일정 드랍(인서트)")
       }
+     /*  var date = info.dateStr;
+      var name = info.draggedEl.innerText;
+      //to update data using ajax
+      $.ajax({
+    	  type: 'POST',
+      	  url: '/getinfo.da',
+      	  data: '{date : "' + info.dateStr + '",name:"' + name +'"}',
+      	  contentType: 'application/json; charset=utf-8',
+      	  dateType: 'json',
+      	  success: function (result) {
+      		  alert(result.d);
+      	  }
+      }); */
+      
     },
  
     //일정 변경 할때 alert
@@ -72,7 +87,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!confirm("일정을 변경하시겠습니까?")) {
           info.revert();//취소했을때 이전으로 돌림.
+        } else {
+        	console.log(info.event.title + " 변경성공!")
         }
+        
       },
     
     locale: 'ko',
@@ -86,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <%}%>  --%>
     ],
     
+    //일정 클릭시 이벤트
     eventClick: function(info){
          alert('Event: ' + info.event.title);
   		//모달창 추가 해서 정보 가져와야함....ㅁㄴㅇㄻㄴㅇㄹㄴㅁㅇㄻㄴㄻㄴㅇㄻㄴㄹㅇ
@@ -405,7 +424,7 @@ height: 25px;
     background: #eee;
     overflow-y: scroll;
     cursor: move;
-    display: none; /* 디폴트값 일단 안보이게 하고 각 유저 클릭했을 때 해당하는 정보 끌어오기 */
+     display: none; /* 디폴트값 일단 안보이게 하고 각 유저 클릭했을 때 해당하는 정보 끌어오기 */ 
   }
  
   .demo-topbar + #external-events { /* will get stripped out */
@@ -454,16 +473,28 @@ height: 25px;
       		  <%}%> --%>
       		  <%for(int i=0;i<slist.size(); i++) { %>
       		  <% } %>
-      		  <%=slist.get(0).getUserName() %>
+      		  <%-- <%=slist.get(0).getUserName() %> --%>
       </strong>
     </p>
     <%System.out.println(loginUser.getUserNo()); %>
     <%-- <div class="content-count" /* 월배송회차 가져올 것 */ ><%=(slist.get(0).getDelivCount())%></div> --%>
+   
+
     <%int j = 1;%>
     <%while(j <= slist.get(0).getDelivCount()) {%>
     <div class="fc-event"><%=j%>회차</div>
     <% j++; }%>
+   
+   <%--   <%for(int i=0; i < slist.size(); i++) { %>
+   		<%int j = 1; %>
+   		<%while(j <= slist.get(i).getDelivCount()) {%>
+   		<div class="fc-event"><%=j%>회차</div>
+   		<% j++; }%>
+   	<% } %>   --%>
+   	
 
+   	<div id="a"></div>
+	
     <p>
       <input type="checkbox" id="drop-remove" checked="checked">
       <label for="drop-remove">remove after drop</label>
@@ -476,7 +507,7 @@ height: 25px;
 	<tr class="userlist">
 	<td><input type="checkbox">전체일정</td>
 	<%for(int i=0; i< slist.size(); i++) { %>
-	<td><input type="checkbox" value="check<%=i%>" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
+	<td><input type="checkbox" value="check<%=i%>" name = "ccc" class="ccc" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
 	<%} %>
 
 	</tr>
@@ -490,22 +521,95 @@ height: 25px;
 </body>
 
 <!-- external-events 이동가능 -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
           <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
           <script>
           $( '#external-events' ).draggable();
-          </script>
+          </script> -->
           
 <!-- 유저 리스트 체크 이벤트 -->
 <script>
 function check(box) {
-	if(box.checked == true)
-		console.log(box.value + "체크박스 클릭")
-		if()
+
+/* 	for(int i=0; i < slist.size(); i++) { 
+		int j = 1; 
+		while(j <= slist.get(i).getDelivCount()) {
+		<div class="fc-event">=j회차</div>
+		 j++; }
+	    }   */ 
 		
-		else
-			console.log(box.value + "체크박스 해제")
+		/* var [] Array = new Arraynum();
+		
+	
+	 	var nums = $("input:checkbox[name=ccc]:checked").val();
+	   	console.log(nums); */
+
+		
+	
+  	if(box.checked == true){
+		console.log(box.value + "체크박스 클릭")
+		
+		
+		if(box.value == "check0"){
+			 console.log("1번 유저정보 클릭!")
+			 $('#external-events' ).show(); 
+		} else if(box.value == "check1") {
+			console.log("2번 유저정보 클릭!")
+			$("#external-events").show();
+		}
+}		
+	else{
+		console.log(box.value + "체크박스 해제")
+		
+		if(box.value == "check0"){
+			console.log("1번 해제")
+		$('#external-events').hide();
+		check == true
+		}
+	} 
+	 
+	
+	
 }
-</script>          
+
+$(function() {
+
+    $(document).on("click", ".ccc", function() {
+    	alert("클릭!");
+    	
+    	var member = {
+    			"email":"test@naver.com",
+    			"password":"1234"
+    	}
+	
+        $.ajax({
+        	  url: "/getinfo.da", // 클라이언트가 요청을 보낼 서버의 URL 주소
+        	    dataType: 'json',                
+        	    type: "POST",                             // HTTP 요청 방식(GET, POST)
+        	    data: JSON.stringify(member), //json을 String으로 파싱
+        	    contentType: "<%=request.getContextPath()%>apllication/json; charset=UTF-8",
+        	    success: function(result) {
+        	    	if (result) {
+        	    		alert("저장되었습니다.");
+        	    		console.log(result);
+        	    	} else {
+        	    		alert("잠시 후에 시도해주세요.");
+        	    	}
+        	    },
+        	    error: function() {
+        	    	alert("에러 발생");
+        	    }
+        })
+
+        
+
+
+    });
+
+});
+</script>  
+   <script>
+  
+   </script>        
           
 </html>
