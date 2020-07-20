@@ -88,8 +88,20 @@ public class SelectProductListServlet extends HttpServlet {
 		//System.out.println(p2);
 		//조건에 맞는 상품 검색하여 상품 정보 담아오기
 		ArrayList<Product> productList = new ProductService().selectProductAllList(conditionList);
-		//new ProductService().selectProductList(equipment);
+		//list 조회해 온것이 null이 아니면, 사진도 조회하러 간다.
 		
+		//사이즈만큼 배열 만들어주고 
+		String [] pCodeArray = new String [productList.size()];
+		
+			//배열에 코드 이름을 담는다.
+	      for(int i = 0; i < productList.size(); i++){
+	    	  pCodeArray[i] = productList.get(i).getpCode();
+		      System.out.println("selectProductServlet : CodeArray : " + pCodeArray[i]);
+	      }
+	      
+
+	      
+	      
 		//System.out.println("servlet selectProductAllList : " + productList);
 		/*if(list == null) {
 			String page = "views/common/errorPage.jsp";

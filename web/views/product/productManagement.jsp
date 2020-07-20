@@ -156,7 +156,7 @@
 							                           <li id="60">60대</li>
 										    	    </ul>
 										      </div>
-											<button class="searchBtn" id="searchBtn" style="margin-left:10px;">검색하기</button>
+											<button class="searchBtn search" id="searchBtn" style="margin-left:10px;">검색하기</button>
 										</td>
 																	
 									</tr>
@@ -176,11 +176,12 @@
 					<span id="apply">조회 결과 수 :</span>
 						<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
-					<table id="listTable11" class="productSearchListTable">
+					<table id="listTable12" class="productSearchListTable">
 						<thead>
 							<!-- 테이블 헤드 -->
 							<tr>
 								<th>선택</th>
+								<th>순번</th>
 								<th>상품코드</th>
 								<th>상품명</th>
 								<th>사진 </th>
@@ -189,25 +190,12 @@
 								<th>향</th>
 								<th>맛</th>
 								<th>알레르기</th>
-								<th>기본 유통기한</th>
+								<th>기본유통기한</th>
 								<th>나이</th>
 							</tr>
 						</thead>
 						<tbody style="height: 230px !important;">
 						<!-- 리스트 바디  -->
-							<tr>
-								<td><input type="checkbox" name="chk" onclick="only(this)"></td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
 						</tbody>
 						
 							<tfoot style="float: right;">
@@ -219,7 +207,7 @@
 										<button onclick="" class="searchBtn" id="btnUpdateProduct">수정</button>
 									</td>
 									<td>
-										<button onclick="delProduct();" class="searchBtn" id="btnDeleteProduct">삭제</button>
+										<button class="searchBtn" id="btnDeleteProduct">삭제</button>
 									</td>
 								</tr>
 							</tfoot>
@@ -273,7 +261,7 @@ function only(chk){
 	
 //검색 버튼 클릭시 내용 조회하기
 $(function() {
-		$(".searchBtn").click(function(){
+		$(".search").click(function(){
 			var pCode = $("input[name=pCode]").val();
 			var pName = $("input[name=pName]").val();
 			var pExp = $("input[name=pExp]").val();
@@ -296,45 +284,54 @@ $(function() {
 					"allergy" : allergy,
 					"age" : age
 			};
-			console.log(arr);
+			//console.log(arr);
 			//출력됨
 				 $.ajax({
 					url: "<%=request.getContextPath()%>/selectProductAllList",
 					data: arr,
 					type: "get",
 					success: function(data){
-					//console.log("성공");
-					$tableBody = $(".productSearchListTable tbody");
-					$tableBody.html('');
-					$tableBody.find("tr").remove();
-					var num = 1;
- 						for(var key in data){
- 							var $tr =  $("<tr>").attr('class','listBody');
- 							var $td0 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
- 							var $td1 = $("<td>").text(data[key].pCode);
- 							var $td2 = $("<td>").text(data[key].pName);
- 							var $td3 = $("<td>").text(" 사진 넣기 ");
- 							var $td4 = $("<td>").text(data[key].ptName);
- 	 						var $td5 = $("<td>").text(data[key].price);
- 	 						var $td6 = $("<td>").text(data[key].flavor);
- 	 						var $td7 = $("<td>").text(data[key].taste);
- 							var $td8 = $("<td>").text(data[key].allergy);
- 							var $td9 = $("<td>").text(data[key].pExp);
- 							var $td10 = $("<td>").text(data[key].age);
- 							$tr.append($td0);
- 							$tr.append($td1);
- 	 						$tr.append($td2);
- 	 						$tr.append($td3);
- 	 						$tr.append($td4);
- 	 						$tr.append($td5);
- 	 						$tr.append($td6);
- 	 						$tr.append($td7);
- 	 						$tr.append($td8);
- 	 						$tr.append($td9);
- 	 						$tr.append($td10);
- 							$tableBody.append($tr);
- 						}	
- 						
+							//console.log("성공");
+							$tableBody = $(".productSearchListTable tbody");
+							$tableBody.html('');
+							$tableBody.find("tr").remove();
+							var num = 1;
+							var pCodeArray = [];
+		 						for(var key in data){
+		 							var $tr =  $("<tr>").attr('class','listBody');
+		 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+		 							var $td2 = $("<td>").text(num);
+		 							num += 1;
+		 							var $td3 = $("<td>").text(data[key].pCode);
+		 							var $td4 = $("<td>").text(data[key].pName);
+		 							var $td5 = $("<td>").text(" 사진 넣기 ");
+		 							var $td6 = $("<td>").text(data[key].ptName);
+		 	 						var $td7 = $("<td>").text(data[key].price);
+		 	 						var $td8 = $("<td>").text(data[key].flavor);
+		 	 						var $td9 = $("<td>").text(data[key].taste);
+		 							var $td10 = $("<td>").text(data[key].allergy);
+		 							var $td11 = $("<td>").text(data[key].pExp);
+		 							var $td12 = $("<td>").text(data[key].age);
+		 							$tr.append($td1);
+		 	 						$tr.append($td2);
+		 	 						$tr.append($td3);
+		 	 						$tr.append($td4);
+		 	 						$tr.append($td5);
+		 	 						$tr.append($td6);
+		 	 						$tr.append($td7);
+		 	 						$tr.append($td8);
+		 	 						$tr.append($td9);
+		 	 						$tr.append($td10);
+		 	 						$tr.append($td11);
+		 							$tr.append($td12);
+		 							$tableBody.append($tr);
+		 							pCodeArray = data[key].pCode;
+		 						}	
+		 					
+		 						
+		 					console.log(pCodeArray);
+		 						
+		 						
 	 				},
 	 				error: function(error){
 	 					console.log("에러!" + error);
@@ -352,10 +349,95 @@ $(function() {
 	};
 
 
-	//삭제 버튼 클릭시 상품 조회 안되게 update 하기
-	function delProduct() {
-		location.href="<%=request.getContextPath() %>/productDel";
+	
+	
+/***************************************************************************************/
+//삭제 버튼 클릭시 상품 조회 안되게 update 하기
+	$(function() {
+		$("#btnDeleteProduct").click(function(){
+			//체크 된 것 조회 불가능하게 상태 UPDATE
+			var str = "";
+			var checkbox = $("input[name=chk]:checked");
+				checkbox.each(function(i){
+					var tr = checkbox.parent().parent().eq(i);
+					var td = tr.children();
+					str = td.eq(2).text();
+				});
+			var pCode = str;
+			//console.log(str);
+			 $.ajax({
+				url: "<%=request.getContextPath()%>/delProduct",
+				data: {"pCode" : pCode},
+				type: "get",
+				success: function(data){
+				//console.log("성공");
+					if(data > 0){
+						alert("삭제 성공!");
+						//조회하러 다시 갔다오기
+						
+						
+						/************************************************************/
+						 //삭제 성공하고 ajax 한번 더 갔다옴
+						$.ajax({
+								url: "<%=request.getContextPath()%>/selectProductRenewList",
+								type: "get",
+								success: function(data){
+									//조회 내용으로 다시 출력해주기
+									//console.log("성공");
+									$tableBody = $(".productSearchListTable tbody");
+									$tableBody.html('');
+									$tableBody.find("tr").remove();
+									var num = 1;
+				 						for(var key in data){
+				 							var $tr =  $("<tr>").attr('class','listBody');
+				 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+				 							var $td2 = $("<td>").text(num);
+				 							num += 1;
+				 							var $td3 = $("<td>").text(data[key].pCode);
+				 							var $td4 = $("<td>").text(data[key].pName);
+				 							var $td5 = $("<td>").text(" 사진 넣기 ");
+				 							var $td6 = $("<td>").text(data[key].ptName);
+				 	 						var $td7 = $("<td>").text(data[key].price);
+				 	 						var $td8 = $("<td>").text(data[key].flavor);
+				 	 						var $td9 = $("<td>").text(data[key].taste);
+				 							var $td10 = $("<td>").text(data[key].allergy);
+				 							var $td11 = $("<td>").text(data[key].pExp);
+				 							var $td12 = $("<td>").text(data[key].age);
+				 							$tr.append($td1);
+				 	 						$tr.append($td2);
+				 	 						$tr.append($td3);
+				 	 						$tr.append($td4);
+				 	 						$tr.append($td5);
+				 	 						$tr.append($td6);
+				 	 						$tr.append($td7);
+				 	 						$tr.append($td8);
+				 	 						$tr.append($td9);
+				 	 						$tr.append($td10);
+				 	 						$tr.append($td11);
+				 							$tr.append($td12);
+				 							$tableBody.append($tr);
+				 						}	
+					 			},
+				 				error: function(error){
+				 					console.log("에러!" + error);
+				 				}
+							}); 
+					
+						/************************************************************/
+
+						
+						
+					}else{
+						alert("삭제 실패!");
+					}
+ 				},
+ 				error: function(error){
+ 					console.log("에러!" + error);
+ 				}
+			}); 
+		});
 	});
+
 
 </script>
 
