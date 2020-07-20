@@ -187,10 +187,8 @@ right:90px;
 
 #listTable{
 border-collapse:collapse;
-position: absolute;
-top:350px;
-left:45px;
 text-align:center;
+width: 1000px;
 }
 
 
@@ -375,7 +373,12 @@ td {
   border-bottom: 5px solid #F0BB00;
   margin-right: 10px;
 }
-
+.table-scroll{
+	height:300px;
+	position: absolute;
+	margin-top: 200px;
+	margin-left: 30px;
+}
 </style>
 <!-- <link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/> -->
 </head>
@@ -413,15 +416,15 @@ td {
 									<tr>
 										<!-- 검색 내용 타이핑하는 부분 -->
 										<td>이름  :</td>
-										<td><input type="text" class="searchTextBox" size="7"></td>
+										<td><input type="text" class="searchTextBox" size="7" name="employee" id="employeeName"></td>
 																			
 										<td>직급코드  :</td>
 										<td><div class="dropdown">
         										<div class="select">
-          											<span>선택</span>
+          											<span name="employee" id="employeeTcode">선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
-										        <input type="hidden" name="Tcode">
+										        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
 										        <ul class="dropdown-menu">
 										          <li id="T4">T4</li>
 										          <li id="T5">T5</li>
@@ -430,10 +433,10 @@ td {
                         				</td>
 										
 										<td>사원코드  :</td>
-										<td><input type="text" class="searchTextBox" size="7"></td>
+										<td><input type="text" class="searchTextBox" size="7" name="employee" id="employeeNo"></td>
 										
 										<td>근무상태  :</td>
-										<td><input type="text" class="searchTextBox" size="10"></td>
+										<td><input type="text" class="searchTextBox" size="10" name="employee" id="employeeStatus"></td>
 										
 										<td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
 									
@@ -471,8 +474,7 @@ td {
 					
 					<!-- 조회 리스트 테이블 -->
 					
-				<div class="scroll">
-						<div class="scrollInside">
+				<div class="table-scroll" style="overflow: auto;">
 					<table id="listTable">
 						<!-- 테이블 헤드 -->
 						<thead>
@@ -511,10 +513,6 @@ td {
 					</table>
 						</div>
 					</div>
-				</div>
-				
-			
-			
 			</div>
 			<!-- 본문영역 중앙부 끝 -->
 		
@@ -582,21 +580,12 @@ td {
 			
 			var arr = [];
 			
-			var name = document.getElementsByName("member")[0].value;
-			var company = document.getElementsByName("member")[1].value;
-			var id = document.getElementsByName("member")[2].value;
-			var phone = document.getElementsByName("member")[3].value;
+			var name = document.getElementsByName("employee")[0].value;
+			var tCode = document.getElementsByName("employee")[1].value;
+			var num = document.getElementsByName("employee")[2].value;
+			var status = document.getElementsByName("employee")[3].value;
 			
-			$('input[name="member"]:text').each(function(i){
-				arr.push($(this).val());
-			});
 			
-			for(i in arr){
-				console.log(arr[i])
-				if(arr[i] == null) {
-					
-				} 	
-			}
 			
 			var member = {
 				"user" : $("#mngNo").val(),
@@ -604,7 +593,6 @@ td {
 					
 			};
 			
-			console.log(arr);
 			
 			$.ajax({
 				url: "<%=request.getContextPath()%>/selectName.us",
