@@ -405,7 +405,7 @@ height: 25px;
     background: #eee;
     overflow-y: scroll;
     cursor: move;
-    display: none; /* 디폴트값 일단 안보이게 하고 각 유저 클릭했을 때 해당하는 정보 끌어오기 */
+     display: none; /* 디폴트값 일단 안보이게 하고 각 유저 클릭했을 때 해당하는 정보 끌어오기 */ 
   }
  
   .demo-topbar + #external-events { /* will get stripped out */
@@ -454,14 +454,14 @@ height: 25px;
       		  <%}%> --%>
       		  <%for(int i=0;i<slist.size(); i++) { %>
       		  <% } %>
-      		  <%=slist.get(0).getUserName() %>
+      		  <%-- <%=slist.get(0).getUserName() %> --%>
       </strong>
     </p>
     <%System.out.println(loginUser.getUserNo()); %>
     <%-- <div class="content-count" /* 월배송회차 가져올 것 */ ><%=(slist.get(0).getDelivCount())%></div> --%>
     <%int j = 1;%>
     <%while(j <= slist.get(0).getDelivCount()) {%>
-    <div class="fc-event"><%=j%>회차</div>
+    <%-- <div class="fc-event"><%=j%>회차</div> --%>
     <% j++; }%>
 
     <p>
@@ -476,7 +476,7 @@ height: 25px;
 	<tr class="userlist">
 	<td><input type="checkbox">전체일정</td>
 	<%for(int i=0; i< slist.size(); i++) { %>
-	<td><input type="checkbox" value="check<%=i%>" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
+	<td><input type="checkbox" value="check<%=i%>" class="ccc" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
 	<%} %>
 
 	</tr>
@@ -490,22 +490,68 @@ height: 25px;
 </body>
 
 <!-- external-events 이동가능 -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
           <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
           <script>
           $( '#external-events' ).draggable();
-          </script>
+          </script> -->
           
 <!-- 유저 리스트 체크 이벤트 -->
 <script>
 function check(box) {
-	if(box.checked == true)
+	if(box.checked == true){
 		console.log(box.value + "체크박스 클릭")
-		if()
+		 
+		if(box.value == "check0"){
+			 console.log("1번 클릭!")
+			 $('#external-events' ).show(); 
+		} 
+}		
+	else{
+		console.log(box.value + "체크박스 해제")
 		
-		else
-			console.log(box.value + "체크박스 해제")
+		if(box.value == "check0"){
+			console.log("1번 해제")
+		$('#external-events').hide();
+		check == true
+		}
+	}
 }
+
+$(function() {
+
+    $(".ccc").on("click", function() {
+    	
+    	var member = {
+    			"email":"test@naver.com",
+    			"password":"1234"
+    	}
+	
+        $.ajax({
+        	  url: "getinfo.da", // 클라이언트가 요청을 보낼 서버의 URL 주소
+        	    dataType: 'json',                
+        	    type: "POST",                             // HTTP 요청 방식(GET, POST)
+        	    data: JSON.stringify(member), //json을 String으로 파싱
+        	    contentType: "<%=request.getContextPath()%>apllication/json; charset=UTF-8",
+        	    success: function(result) {
+        	    	if (result) {
+        	    		alert("저장되었습니다.");
+        	    		console.log(result);
+        	    	} else {
+        	    		alert("잠시 후에 시도해주세요.");
+        	    	}
+        	    },
+        	    error: function() {
+        	    	alert("에러 발생");
+        	    }
+        })
+
+        
+
+
+    });
+
+});
 </script>          
           
 </html>
