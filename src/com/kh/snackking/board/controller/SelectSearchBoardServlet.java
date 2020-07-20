@@ -10,22 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.snackking.board.model.service.BoardService;
 import com.kh.snackking.board.model.vo.Board;
 import com.kh.snackking.board.model.vo.PageInfo;
-import com.kh.snackking.user.model.vo.User;
 
 /**
- * Servlet implementation class CmSelectBoardListServlet
+ * Servlet implementation class SelectSearchBoardServlet
  */
-@WebServlet("/cmBoardList.bo")
-public class CmSelectBoardListServlet extends HttpServlet {
+@WebServlet("/searchList.bo")
+public class SelectSearchBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CmSelectBoardListServlet() {
+    public SelectSearchBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,6 +34,30 @@ public class CmSelectBoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String userId = request.getParameter("userId");
+		String boardType = request.getParameter("boardType");
+		String checkType = request.getParameter("checkType");
+		String searchDate = request.getParameter("searchDate");
+		
+//		System.out.println("servlet userId : " + userId);
+//		System.out.println("servlet boardType : " + boardType);
+//		System.out.println("servlet checkType : " + checkType);
+//		System.out.println("servlet searchDate : " + searchDate);
+		
+		HashMap<String, String> hmap = new HashMap<>();
+		if(userId != null) {
+			hmap.put("userId", userId);
+		}
+		if(boardType != null) {
+			hmap.put("boardType", boardType);
+		} 
+		if(checkType != null) {
+			hmap.put("checkType", checkType);
+		}
+		if(searchDate != null) {
+			hmap.put("searchDate", searchDate);
+		}
 		
 		int currentPage;                 
 		int limit;                       
@@ -48,37 +72,31 @@ public class CmSelectBoardListServlet extends HttpServlet {
 		}
 
 		limit = 8;
-				
-		int listCount = new BoardService().getListCount();
+		int listCount = 0;
+		
+		ArrayList<Board> list = null;
+		PageInfo pi = null;
+		String page = "";
+		listCount = new BoardService().getListCount(hmap);
 //		System.out.println("list count : " + listCount);
-				
 		maxPage = (int)((double) listCount / limit + 0.9);
-				
+		
 		startPage = (((int) ((double) currentPage / 10 + 0.9)) - 1 ) * 10 + 1;
-				
+		
 		endPage = startPage + 10 - 1;
-				
+		
 		if(maxPage < endPage) {
 			endPage = maxPage;
 		}
-			
-		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
-				
-		ArrayList<Board> list = new BoardService().selectList(pi);
+		
+		pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+		
+		list = new BoardService().selectSearchList(pi, hmap);
 		
 //		System.out.println("select board list : " + list);
+//		System.out.println("board list size : " + list.size());
 		
-		String page = "";
-		int ck = 0;
-		HashMap<String, String> hmap = new HashMap<>();
-		String userId = "";
-		String boardType = "";
-		String checkType = "";
-		String searchDate = "";
-		hmap.put("userId", userId);
-		hmap.put("boardType", boardType);
-		hmap.put("checkType", checkType);
-		hmap.put("searchDate", searchDate);
+		int ck = 1;
 		if(list != null) {
 			page = "views/chiefManager/cmBoardMain.jsp";
 			request.setAttribute("list", list);
@@ -89,8 +107,7 @@ public class CmSelectBoardListServlet extends HttpServlet {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("errorCode", "selectBoardList");
 		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);		
 		
 	}
 

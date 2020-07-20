@@ -75,6 +75,7 @@ public class SearchBoardListServlet extends HttpServlet {
 		int listCount = 0;
 		
 		ArrayList<Board> list = null;
+		PageInfo pi = null;
 //		String page = "";
 		if(hmap != null) {
 			listCount = new BoardService().getListCount(hmap);
@@ -89,7 +90,7 @@ public class SearchBoardListServlet extends HttpServlet {
 				endPage = maxPage;
 			}
 			
-			PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+			pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 			
 			list = new BoardService().selectSearchList(pi, hmap);
 			
@@ -110,11 +111,15 @@ public class SearchBoardListServlet extends HttpServlet {
 //			request.setAttribute("errorCode", "selectBoardList");
 //		}
 //		request.getRequestDispatcher(page).forward(request, response);		
+		
+		HashMap<String, Object> resMap = new HashMap<>();
+		resMap.put("list", list);
+		resMap.put("pi", pi);
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
-		new Gson().toJson(list, response.getWriter());
-		new Gson().toJson(pi, response.getWriter());
+		new Gson().toJson(resMap, response.getWriter());
 	}
 
 	/**
