@@ -460,15 +460,23 @@ public class BoardDao {
 				+ "LEFT JOIN REPLY R ON(B.BID = R.BID) ORDER BY BID DESC) WHERE STATUS = 'Y'";
 		if(!userId.equals("")) {
 			query += " AND USER_ID  = '" +  userId + "'";
+		} else {
+			query += "";
 		}
 		if(!boardType.equals("")) {
 			query += " AND BTYPE  = '" +  boardType + "'";
+		} else {
+			query += "";
 		}
 		if(!checkType.equals("")) {
 			query += " AND CHECKED  = '" +  checkType + "'";
+		} else {
+			query += "";
 		}
 		if(!searchDate.equals("")) {
 			query += " AND TO_CHAR(BDATE) = TO_DATE('" +  searchDate + "')";
+		} else {
+			query += "";
 		}
 		
 //		System.out.println("dao query : " + query);
