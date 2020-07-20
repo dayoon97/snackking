@@ -505,7 +505,7 @@ td {
 						<!-- 리스트 바디  -->
 						<% for(User u : adminlist) {%>
 						<tr class="listBody">
-							<td><input type="checkbox" name="chk" onclick="only(this)"></td>
+							<td><input type="checkbox" name="chk"></td>
 							<td><%= u.getUserNo() %></td>
 							<td><%= u.gettCode() %></td>
 							<td><%= u.getUserName() %></td>
@@ -534,28 +534,33 @@ td {
 
 <script>
 	<!-- 드롭다운  -->
-	$('.dropdown').click(function () {
-        $(this).attr('tabindex', 1).focus();
-        $(this).toggleClass('active');
-        $(this).find('.dropdown-menu').slideToggle(300);
-    });
-    $('.dropdown').focusout(function () {
-        $(this).removeClass('active');
-        $(this).find('.dropdown-menu').slideUp(300);
-    });
-    $('.dropdown .dropdown-menu li').click(function () {
-        $(this).parents('.dropdown').find('span').text($(this).text());
-        $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-    });
+	$('.dropdown').click(function() {
+		$(this).attr('tabindex', 1).focus();
+		$(this).toggleClass('active');
+		$(this).find('.dropdown-menu').slideToggle(300);
+	});
+	$('.dropdown').focusout(function() {
+		$(this).removeClass('active');
+		$(this).find('.dropdown-menu').slideUp(300);
+	});
+	$('.dropdown .dropdown-menu li').click(
+		function() {
+			$(this).parents('.dropdown').find('span').text(
+					$(this).text());
+			$(this).parents('.dropdown').find('input').attr('value',
+					$(this).attr('id'));
+		});
 	/*End Dropdown Menu*/
 
+	$('.dropdown-menu li')
+			.click(
+					function() {
+						var input = '<strong>'
+								+ $(this).parents('.dropdown')
+										.find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+						$('.msg').html(msg + input + '</span>');
+					});
 
-	$('.dropdown-menu li').click(function () {
-	  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-	      msg = '<span class="msg">Hidden input value: ';
-	  $('.msg').html(msg + input + '</span>');
-	}); 
-	
 	//모달 스크립트
 	// Get the modal
 	var modal = document.getElementById("myModal");
@@ -568,7 +573,7 @@ td {
 
 	// When the user clicks on the button, open the modal
 	
-	$(document).on('click','btn',function(){
+	$(document).on('click','btn',function(e){
 		modal.style.display = "block";
 	});
 	//ajax 실행후 엘리먼트 함수 안돼서 바꿈
@@ -578,7 +583,7 @@ td {
 
 	
 	//
-	$(document).on('click','span',function(){
+	$(document).on('click','span',function(e){
 		modal.style.display = "none";
 	});
 	
@@ -597,7 +602,7 @@ td {
 	};
 	
 	
-	$(document).on('click', 'input[type=checkbox]', function(){
+	$(document).on('click', 'input[type=checkbox]', function(e){
 		if($(this).prop('checked')){
 			$('input[type=checkbox]').prop("checked",false);
     		$(this).prop("checked",true);
@@ -606,94 +611,92 @@ td {
     
 	
 	//검색 결과 ajax
- 	$(function(){
- 		$("#submit").click(function(){
- 			
-			$("#listTable td").remove();
-			
-			var name = document.getElementsByName("employee")[0].value;
-			
-			var tCode = $("span").eq(0).text();
-			if(tCode == "선택"){
-				tCode = "";
-			}
-			var num = document.getElementsByName("employee")[1].value;
-			var status = $("span").eq(1).text();
-			if(status == "선택"){
-				status = "";
-			}
-			
-			var employee = {
-				name : name,
-				tCode : tCode,
-				num : num,
-				status : status
-			};
-			
-			console.log(employee);
-			
-			console.log(name);
-			console.log(tCode);
-			console.log(num);
-			console.log(status);
-			
-			
-			$.ajax({
-				url: "<%=request.getContextPath()%>/adminEmpSearch.ad",
-				data: employee,
-				type: "get",
-				async:false,
-				traditional: true,
-				success: function(data){
-					
-					
-					$tableBody = $("#listTable tbody");
- 					
- 					$tableBody.html('');
- 					
- 					$.each(data, function(index, value){
- 						
- 						var $tr = $("<tr class='listBody'>");
- 						var $Td = $("<td>").html("<input type='checkbox'>");
- 						var $noTd = $("<td>").text(value.userNo);
- 						var $tCodeTd = $("<td>").text(decodeURIComponent(value.tCode));
- 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
- 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
- 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
- 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
- 						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
- 						var $endTr = $("</tr>");
- 						
- 						$tr.append($Td);
- 						$tr.append($noTd);
- 						$tr.append($tCodeTd);
- 						$tr.append($userNameTd);
- 						$tr.append($addressTd);
- 						$tr.append($phoneTd);
- 						$tr.append($enrollDateTd);
- 						$tr.append($statusTd);
- 						$tr.append($endTr);
- 						
- 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
- 						
- 						$tableBody.append($tr);
- 					});  
- 					 
- 				},
- 				error: function(data){
- 					console.log("에러!");
- 				}
-				
-				
-			});
-		});
- 	});
+	$(document).on('click', '#submit', function(e){
 
+		$("#listTable td").remove();
+		
+		var name = document.getElementsByName("employee")[0].value;
+		
+		var tCode = $("span").eq(0).text();
+		if(tCode == "선택"){
+			tCode = "";
+		}
+		var num = document.getElementsByName("employee")[1].value;
+		var status = $("span").eq(1).text();
+		if(status == "선택"){
+			status = "";
+		}
+		
+		var employee = {
+			name : name,
+			tCode : tCode,
+			num : num,
+			status : status
+		};
+		
+		console.log(employee);
+		
+		console.log(name);
+		console.log(tCode);
+		console.log(num);
+		console.log(status);
+		
+		
+		$.ajax({
+			url: "<%=request.getContextPath()%>/adminEmpSearch.ad",
+			data: employee,
+			type: "get",
+			async:false,
+			traditional: true,
+			success: function(data){
+				
+				
+				$tableBody = $("#listTable tbody");
+					
+					$tableBody.html('');
+					
+					$.each(data, function(index, value){
+						
+						var $tr = $("<tr class='listBody'>");
+						var $Td = $("<td>").html("<input type='checkbox' name='chk'>");
+						var $noTd = $("<td>").text(value.userNo);
+						var $tCodeTd = $("<td>").text(decodeURIComponent(value.tCode));
+						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
+						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
+						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
+						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
+						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
+						var $endTr = $("</tr>");
+						
+						$tr.append($Td);
+						$tr.append($noTd);
+						$tr.append($tCodeTd);
+						$tr.append($userNameTd);
+						$tr.append($addressTd);
+						$tr.append($phoneTd);
+						$tr.append($enrollDateTd);
+						$tr.append($statusTd);
+						$tr.append($endTr);
+						
+						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
+						
+						$tableBody.append($tr);
+					});  
+					 
+				},
+				error: function(data){
+					console.log("에러!");
+				}
+			
+			
+		});
+	});
+	
     //체크박스 여러개 체크 못하게 하는거
     var obj = document.getElementsByName("chk");
     	
     $(document).ready(function(){
-    	$("input[type='checkbox'][name='chk']").click(function(){
+    	$("input[type='checkbox'][name='chk']").click(function(e){
     		if($(this).prop('checked')){
     			$('input[type="checkbox"][name="chk"]').prop("checked",false);
     			$(this).prop("checked",true);
@@ -701,130 +704,133 @@ td {
     	})
     });
     
-    //직원권한 변경 버튼 눌렀을 때
-    	$("#apply").click(function(){
-    		$(".modalTable").empty();
-    		var rowData = new Array();
-    		var tdArr = new Array();
-    		
-    		 //체크된 체크박스를 가져온다.
-    	    var checkbox = $("input:checkbox[name=chk]:checked");
-    	    
-    		console.log(checkbox);
-    	    //체크된 체크박스의 값을 반복해 불러옴.
-    	    checkbox.each(function(i){
-    	    	
-    	    	
-    	    	//checkbox.parent() : checkbox의 부모는 td.
-    	    	//checkbox.parent().parent() : td의 부모는 tr.
-    	    	var tr = checkbox.parent().parent().eq(i);
-    	    	var td = tr.children();
-    	    	
-    	    	var html = "";
-    	    	rowData.push(tr.text());
-    	    	
-    	    	
-    	    	var id = td.eq(1).text();
-    	    	var name = td.eq(3).text();
-    	    	var address = td.eq(4).text();
-    	    	var phone = td.eq(5).text();
-    	    	var enrolldate = td.eq(6).text();
-    	    	var status = td.eq(7).text();
-    	   
-    	    	
-    	    	html += '<tr>';
-    	    	html += '<th width="40px !important;"> 사원 </th>';
-    	    	html += '<th width="30px !important;"> 직급코드 </th>';
-    	    	html += '<th width="70px !important;"> 이름 </th>';
-    	    	html += '<th width="400px !important;"> 주소 </th>';
-    	    	html += '<th width="200px !important;"> 연락처 </th>';
-    	    	html += '<th width="100px !important;"> 입사일 </th>';
-    	    	html += '<th width="70px !important;"> 상태 </th>';
-    	    	html += '</tr>';
-    	    	html += '<tr>';
-    	    	html += '<td>' + id + '</td>';
-    	    	html += '<td><div class="dropdown"> <div class="select"> <span id="tCode"> 선택  </span> <i class="fa fa-chevron-left"></i> </div>'
-    	    	+ '<input type="hidden" name="Tcode"> <ul class="dropdown-menu"> <li id="T4">T4</li> <li id="T5">T5'
-    	    	+ '</li> </ul> </div> </td>';
-    	    	html += '<td>' + name + '</td>';
-    	    	html += '<td>' + address + '</td>';
-    	    	html += '<td>' + phone + '</td>';
-    	    	html += '<td>' + enrolldate + '</td>';
-    	    	html += '<td>' + status + '</td>';
-
-    	    	
-    	    	$(".modalTable").empty();
-    	    	$(".modalTable").append(html);
-    	    	
-    	    	$('.dropdown').click(function () {
-    	            $(this).attr('tabindex', 1).focus();
-    	            $(this).toggleClass('active');
-    	            $(this).find('.dropdown-menu').slideToggle(300);
-    	        });
-    	        $('.dropdown').focusout(function () {
-    	            $(this).removeClass('active');
-    	            $(this).find('.dropdown-menu').slideUp(300);
-    	        });
-    	        $('.dropdown .dropdown-menu li').click(function () {
-    	            $(this).parents('.dropdown').find('span').text($(this).text());
-    	            $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-    	        });
-    	    	/*End Dropdown Menu*/
-
-
-    	    	$('.dropdown-menu li').click(function () {
-    	    	  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-    	    	      msg = '<span class="msg">Hidden input value: ';
-    	    	  $('.msg').html(msg + input + '</span>');
-    	    	}); 
-    	    });
-    	});
+   
     
-
-    //권한변경 모달안에서 변경하기 버튼 눌렀을 때
-    $(function(){
-    	$("#chCodeBtn").click(function(){
-    		modal.style.display = "none";
-
-    		
-    		var userNo = $('.modalTable td').eq(0).text();
-    		console.log(userNo);
-    		var Tcode = $('#tCode').text();
-	    	console.log(Tcode);
-
-	    	var arr = {
-	    			"userNo" : userNo,
-	    			"Tcode" : Tcode
-	    	};
+    //직원권한 변경 버튼 눌렀을 때
+    $(document).on('click','#apply',function(e){
+    	//$(".modalTable").empty();
+		var rowData = new Array();
+		var tdArr = new Array();
+		
+		 //체크된 체크박스를 가져온다.
+	    var checkbox = $("input:checkbox[name=chk]:checked");
+	    
+		console.log(checkbox);
+	    //체크된 체크박스의 값을 반복해 불러옴.
+	    checkbox.each(function(i){
 	    	
-	    	$.ajax({
-	    		url:"<%=request.getContextPath()%>/changeTcode.ad",
-	    		data: arr,
-	    		type: "get",
-	    		traditional:true,
-	    		success: function(data){
-	    			
-	    			$.ajax({
-	    				url:"<%=request.getContextPath()%>/adminEmpSelect.ad",
-	    				type:"get",
-	    				success: function(data){
-	    					
-	    					location.reload(true);
-	    					
-		 					
-			    		},
-			    		error:function(data){
-			    			
-			    		}
-			    		
-	    				});
-	    				
-	    				}	
-	    		});
+	    	
+	    	//checkbox.parent() : checkbox의 부모는 td.
+	    	//checkbox.parent().parent() : td의 부모는 tr.
+	    	var tr = checkbox.parent().parent().eq(i);
+	    	var td = tr.children();
+	    	
+	    	var html = "";
+	    	rowData.push(tr.text());
+	    	
+	    	
+	    	var id = td.eq(1).text();
+	    	var name = td.eq(3).text();
+	    	var address = td.eq(4).text();
+	    	var phone = td.eq(5).text();
+	    	var enrolldate = td.eq(6).text();
+	    	var status = td.eq(7).text();
+	   
+	    	
+	    	html += '<tr>';
+	    	html += '<th width="40px !important;"> 사원 </th>';
+	    	html += '<th width="30px !important;"> 직급코드 </th>';
+	    	html += '<th width="70px !important;"> 이름 </th>';
+	    	html += '<th width="400px !important;"> 주소 </th>';
+	    	html += '<th width="200px !important;"> 연락처 </th>';
+	    	html += '<th width="100px !important;"> 입사일 </th>';
+	    	html += '<th width="70px !important;"> 상태 </th>';
+	    	html += '</tr>';
+	    	html += '<tr>';
+	    	html += '<td>' + id + '</td>';
+	    	html += '<td><div class="dropdown"> <div class="select"> <span id="tCode"> 선택  </span> <i class="fa fa-chevron-left"></i> </div>'
+	    	+ '<input type="hidden" name="Tcode"> <ul class="dropdown-menu"> <li id="T4">T4</li> <li id="T5">T5'
+	    	+ '</li> </ul> </div> </td>';
+	    	html += '<td>' + name + '</td>';
+	    	html += '<td>' + address + '</td>';
+	    	html += '<td>' + phone + '</td>';
+	    	html += '<td>' + enrolldate + '</td>';
+	    	html += '<td>' + status + '</td>';
+
+	    	
+	    	$(".modalTable").empty();
+	    	$(".modalTable").append(html);
+	    	
+	    	//드롭다운 
+	    	$('.dropdown').click(function() {
+	    		$(this).attr('tabindex', 1).focus();
+	    		$(this).toggleClass('active');
+	    		$(this).find('.dropdown-menu').slideToggle(300);
 	    	});
+	    	$('.dropdown').focusout(function() {
+	    		$(this).removeClass('active');
+	    		$(this).find('.dropdown-menu').slideUp(300);
+	    	});
+	    	$('.dropdown .dropdown-menu li').click(
+	    		function() {
+	    			$(this).parents('.dropdown').find('span').text(
+	    					$(this).text());
+	    			$(this).parents('.dropdown').find('input').attr('value',
+	    					$(this).attr('id'));
+	    		});
+	    	/*End Dropdown Menu*/
+
+	    	$('.dropdown-menu li').click(function() {
+	    		var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+	    		$('.msg').html(msg + input + '</span>');
+	    	});
+	    	 
+	    	
+	    });
+    });
+    
+    //권한변경 모달안에서 변경하기 버튼 눌렀을 때
+    $(document).on('click','#chCodeBtn',function(e){
+    	modal.style.display = "none";
+
+		
+		var userNo = $('.modalTable td').eq(0).text();
+		console.log(userNo);
+		var Tcode = $('#tCode').text();
+    	console.log(Tcode);
+
+    	var arr = {
+    			"userNo" : userNo,
+    			"Tcode" : Tcode
+    	};
+    	
+    	$.ajax({
+    		url:"<%=request.getContextPath()%>/changeTcode.ad",
+    		data: arr,
+    		type: "get",
+    		traditional:true,
+    		success: function(data){
+    			
+    			$.ajax({
+    				url:"<%=request.getContextPath()%>/adminEmpSelect.ad",
+    				type:"get",
+    				success: function(data){
+    					
+    					location.reload(true);
+    					
+	 					
+		    		},
+		    		error:function(data){
+		    			
+		    		}
+		    		
+    				});
+    				
+    				}	
+    		});
     	});
-	
-	
+  
+    
 	</script>
 	
 </body>
