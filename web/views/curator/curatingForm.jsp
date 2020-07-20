@@ -246,6 +246,91 @@ height: 25px;
 	margin-top: 50px;
 }
 </style>
+
+<script>
+function amountclick(am){
+    var obj = document.getElementsByName("perstyle");
+    for(var i=0; i<obj.length; i++){
+        if(obj[i] != am){
+            obj[i].checked = false;
+        }
+    }
+}
+
+function deliveryclick(de){
+    var obj = document.getElementsByName("delivery");
+    for(var i=0; i<obj.length; i++){
+        if(obj[i] != de){
+            obj[i].checked = false;
+        }
+    }
+}
+function packingclick(pack){
+    var obj = document.getElementsByName("packing");
+    for(var i=0; i<obj.length; i++){
+        if(obj[i] != pack){
+            obj[i].checked = false;
+        }
+    }
+}
+
+$(function(){
+	var ProductTypes = '<%=insertPre.getPreProductTypes()%>'.split(",");
+	var flavor = '<%=insertPre.getPreTaste()%>'.split(",");
+	var smell = '<%=insertPre.getPreFlavor()%>'.split(",");
+	var allergy = '<%=insertPre.getPreAlName()%>'.split(",");
+	var perstyle = '<%=insertPre.getPreStyle()%>'.split(",");
+	var equipment = '<%=insertPre.getPreEquipment()%>'.split(",");
+	
+	$("input[name=kinds]").each(function(){ //상품 종류
+		for(var i = 0; i < ProductTypes.length; i++){
+			if($(this).val() === ProductTypes[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=flavor]").each(function(){ //맛
+		for(var i = 0; i < flavor.length; i++){
+			if($(this).val() === flavor[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=smell]").each(function(){ //향
+		for(var i = 0; i < smell.length; i++){
+			if($(this).val() === smell[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=allergy]").each(function(){ //알레르기
+		for(var i = 0; i < allergy.length; i++){
+			if($(this).val() === allergy[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=perstyle]").each(function(){ //구성스타일
+		for(var i = 0; i < perstyle.length; i++){
+			if($(this).val() === perstyle[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=equipment]").each(function(){ //설비
+		for(var i = 0; i < equipment.length; i++){
+			if($(this).val() === equipment[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+});
+</script>
 </head>
 <body>
 <!-- mainWrapper start -->
@@ -271,7 +356,7 @@ height: 25px;
 					<div id="searchBox">
 					<!-- 조회 제목 -->
 						<div id="subSubTitle1"><h2>선호도 입력 정보</h2></div>
-						<form id="searchForm" action="<%= request.getContextPath() %>/insertPer.per" method="post">
+						<form id="searchForm" action="<%= request.getContextPath() %>/curatingSelectProduct.pro" method="post">
 							<%-- <input type="hidden" id="userid" name="userid" value="<%=loginUser.getUserNo()%>">
 							<input type="hidden" id="username" name="userName" value="<%=loginUser.getUserName()%>"> --%>
 							<table class="memberTable">
@@ -562,88 +647,7 @@ height: 25px;
 </div>	<!-- mainWrapper end -->
 
 <script type="text/javascript">
-function amountclick(am){
-    var obj = document.getElementsByName("perstyle");
-    for(var i=0; i<obj.length; i++){
-        if(obj[i] != am){
-            obj[i].checked = false;
-        }
-    }
-}
 
-function deliveryclick(de){
-    var obj = document.getElementsByName("delivery");
-    for(var i=0; i<obj.length; i++){
-        if(obj[i] != de){
-            obj[i].checked = false;
-        }
-    }
-}
-function packingclick(pack){
-    var obj = document.getElementsByName("packing");
-    for(var i=0; i<obj.length; i++){
-        if(obj[i] != pack){
-            obj[i].checked = false;
-        }
-    }
-}
-
-$(function(){
-	var ProductTypes = '<%=insertPre.getPreProductTypes()%>'.split(",");
-	var flavor = '<%=insertPre.getPreTaste()%>'.split(",");
-	var smell = '<%=insertPre.getPreFlavor()%>'.split(",");
-	var allergy = '<%=insertPre.getPreAlName()%>'.split(",");
-	var perstyle = '<%=insertPre.getPreStyle()%>'.split(",");
-	var equipment = '<%=insertPre.getPreEquipment()%>'.split(",");
-	
-	$("input[name=kinds]").each(function(){ //상품 종류
-		for(var i = 0; i < ProductTypes.length; i++){
-			if($(this).val() === ProductTypes[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-	
-	$("input[name=flavor]").each(function(){ //맛
-		for(var i = 0; i < flavor.length; i++){
-			if($(this).val() === flavor[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-	
-	$("input[name=smell]").each(function(){ //향
-		for(var i = 0; i < smell.length; i++){
-			if($(this).val() === smell[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-	
-	$("input[name=allergy]").each(function(){ //알레르기
-		for(var i = 0; i < allergy.length; i++){
-			if($(this).val() === allergy[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-	
-	$("input[name=perstyle]").each(function(){ //구성스타일
-		for(var i = 0; i < perstyle.length; i++){
-			if($(this).val() === perstyle[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-	
-	$("input[name=equipment]").each(function(){ //설비
-		for(var i = 0; i < equipment.length; i++){
-			if($(this).val() === equipment[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-});
 
 function preference(){
 	var userId = $("#userid").val();
@@ -652,6 +656,247 @@ function preference(){
 	
 	$("#searchForm").submit();
 }
+
+$(function(){
+	
+	$("input[name=kinds]").click(function(){
+		var kinds = "";
+		var flavor = "";
+		var smell = "";
+		var allergy = "";
+		if( $(this).prop("checked")){
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}else{
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}else{
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}else{
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}else{
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}
+		
+		
+		$.ajax({
+			url: "curatingSelectProduct.pro",
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy},
+			success:function(){
+				console.log("성공!");
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		
+	});
+	
+	$("input[name=flavor]").click(function(){
+		var kinds = "";
+		var flavor = "";
+		var smell = "";
+		var allergy = "";
+		if( $(this).prop("checked")){
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}else{
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}else{
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}else{
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}else{
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}
+		
+		
+		$.ajax({
+			url: "curatingSelectProduct.pro",
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy},
+			success:function(){
+				console.log("성공!");
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		
+	});
+	
+
+	$("input[name=smell]").click(function(){
+		var kinds = "";
+		var flavor = "";
+		var smell = "";
+		var allergy = "";
+		if( $(this).prop("checked")){
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}else{
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}else{
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}else{
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}else{
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}
+		
+		
+		$.ajax({
+			url: "curatingSelectProduct.pro",
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy},
+			success:function(){
+				console.log("성공!");
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		
+	});
+	
+	$("input[name=allergy]").click(function(){
+		var kinds = "";
+		var flavor = "";
+		var smell = "";
+		var allergy = "";
+		if( $(this).prop("checked")){
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}else{
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}else{
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}else{
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}else{
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}
+		
+		
+		$.ajax({
+			url: "curatingSelectProduct.pro",
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy},
+			success:function(){
+				console.log("성공!");
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		
+	});
+});
+
 </script>
 
 	
