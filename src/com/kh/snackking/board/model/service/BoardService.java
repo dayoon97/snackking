@@ -186,4 +186,34 @@ public class BoardService {
 		return listCount;
 	}
 
+	public ArrayList<Board> selectCuList(int userNo, PageInfo pi) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectCuList(con, userNo, pi);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int getListCount(HashMap<String, String> hmap, int cuNum) {
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getListCount(con, hmap, cuNum);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> selectSearchList(PageInfo pi, HashMap<String, String> hmap, int cuNum) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectSearchList(con, pi, hmap, cuNum);
+		
+		close(con);
+		
+		return list;
+	}
+
 }
