@@ -343,8 +343,8 @@ height: 25px;
 								<td></td>
 							</tr>
 							<tr>
-								<td>계약코드 :</td>
-								<td><input type="text" class="searchTextBox" size="15" name="conCode">
+								<td>사업자등록번호:</td>
+								<td><input type="text" class="searchTextBox" size="15" name="businessNo">
 								</td>
 								<td style="text-align:center">계약일 :</td>
 								<td><input type="date" class="searchTextBox" size="10" name="conDate"></td>
@@ -400,7 +400,7 @@ height: 25px;
 </div>	<!-- mainWrapper end -->
 	
 	<script>
-	//Get the modal
+	   //Get the modal
 	   var modal = document.getElementById("myModal");
 
 	   // Get the button that opens the modal
