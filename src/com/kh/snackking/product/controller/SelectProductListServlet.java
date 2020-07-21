@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.snackking.equipment.model.vo.Equipment;
 import com.kh.snackking.product.model.service.ProductService;
 import com.kh.snackking.product.model.vo.Product;
+import com.kh.snackking.product.model.vo.ProductAndAttachment;
+import com.kh.snackking.product.model.vo.ProductAttachment;
 
 /**
  * Servlet implementation class SelectProductListServlet
@@ -86,21 +87,59 @@ public class SelectProductListServlet extends HttpServlet {
 		conditionList.put("p2", p2);
 		//System.out.println(p1);
 		//System.out.println(p2);
-		//조건에 맞는 상품 검색하여 상품 정보 담아오기
+		
+		//검색박스에 입력했던 조건에 맞는 상품 검색하여 상품 정보 담아오기
 		ArrayList<Product> productList = new ProductService().selectProductAllList(conditionList);
 		//list 조회해 온것이 null이 아니면, 사진도 조회하러 간다.
+		///////////////////////////////////////////조건문 넣어주기
 		
-		//사이즈만큼 배열 만들어주고 
+		
+		//리스트 사이즈만큼 배열 만들어주고 
 		String [] pCodeArray = new String [productList.size()];
-		
-			//배열에 코드 이름을 담는다.
+		//배열에 코드 이름을 담는다. (코드 이름으로 attachment 가져올거라서!)
 	      for(int i = 0; i < productList.size(); i++){
 	    	  pCodeArray[i] = productList.get(i).getpCode();
-		      System.out.println("selectProductServlet : CodeArray : " + pCodeArray[i]);
+		      //System.out.println("selectProductServlet : CodeArray : " + pCodeArray[i]);
 	      }
 	      
+	      
+	     //상품코드에 맞는 attachment 파일을 가져온다. 
+	     ArrayList<ProductAttachment> attachmentList = new ProductService().selectAttachment(pCodeArray);
+	    // System.out.println("serlvet" + attachmentList);
 
 	      
+	    //조건에 맞는 상품과 첨부사진을 모두 조회해오면 
+	    //PRODUCT, PRODUCTATTACHMENT 를 합쳐놓은 새로운 VO(PRODUCT'AND'ATTACHMENT)에 한꺼번에 다 담아서 값을 AJAX로 넘겨준다.
+	     ArrayList<ProductAndAttachment> totalList = new ArrayList<ProductAndAttachment>();
+	     for(int i = 0; i < attachmentList.size(); i++) {
+	    	 //일단 반복문 돌때마다 담을 객체 새로 하나 생성한다.
+	         ProductAndAttachment p = new ProductAndAttachment();
+		     p.setChangeName(attachmentList.get(i).getChangeName());
+		     p.setUploadDate(attachmentList.get(i).getUploadDate());
+		     p.setOriginName(attachmentList.get(i).getOriginName());
+		     p.setFilePath(attachmentList.get(i).getFilePath());
+		     p.setFid(attachmentList.get(i).getFid());
+		     p.setStatus(attachmentList.get(i).getStatus());
+		     //p코드는 겹치는데 product에서 가져옴.
+		     
+		     p.setAge(productList.get(i).getAge());
+		     p.setAllergy(productList.get(i).getAllergy());
+		     p.setDelete_YN(productList.get(i).getDelete_YN());
+		     p.setFlavor(productList.get(i).getFlavor());
+		     p.setpCode(productList.get(i).getpCode());
+		     p.setpExp(productList.get(i).getpExp());
+		     p.setpName(productList.get(i).getpName());
+		     p.setPrice(productList.get(i).getPrice());
+		     p.setPtCode(productList.get(i).getPtCode());
+		     p.setPtName(productList.get(i).getPtName());
+		     p.setpVendor(productList.get(i).getpVendor());
+		     p.setSearch_YN(productList.get(i).getSearch_YN());
+		     p.setTaste(productList.get(i).getTaste());
+		     //System.out.println("servlet all vo " + p);
+		     totalList.add(p);
+	     }
+	
+	  
 	      
 		//System.out.println("servlet selectProductAllList : " + productList);
 		/*if(list == null) {
@@ -113,7 +152,7 @@ public class SelectProductListServlet extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 	
-		new Gson().toJson(productList,response.getWriter());
+		new Gson().toJson(totalList,response.getWriter());
 		
 	}
 

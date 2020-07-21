@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.snackking.board.model.vo.Attachment;
 import com.kh.snackking.equipment.model.dao.EquipmentDao;
 import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.dao.ProductDao;
@@ -109,6 +110,13 @@ public class ProductService {
 		ArrayList<Product> productListRenew = new ProductDao().selectProductRenewList(con);
 		close(con);
 		return productListRenew;
+	}
+
+	public ArrayList<ProductAttachment> selectAttachment(String[] pCodeArray) {
+		Connection con = getConnection();
+		ArrayList<ProductAttachment> attachmentList = new ProductDao().selectAttachment(con, pCodeArray);
+		close(con);
+		return attachmentList;
 	}
 	
 	

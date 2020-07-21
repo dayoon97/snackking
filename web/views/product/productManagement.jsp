@@ -197,7 +197,6 @@
 						<tbody style="height: 230px !important;">
 						<!-- 리스트 바디  -->
 						</tbody>
-						
 							<tfoot style="float: right;">
 								<tr>
 									<td>
@@ -296,15 +295,17 @@ $(function() {
 							$tableBody.html('');
 							$tableBody.find("tr").remove();
 							var num = 1;
-							var pCodeArray = [];
 		 						for(var key in data){
 		 							var $tr =  $("<tr>").attr('class','listBody');
 		 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+		 							console.log("확인" + data[key].changeName);
 		 							var $td2 = $("<td>").text(num);
 		 							num += 1;
 		 							var $td3 = $("<td>").text(data[key].pCode);
 		 							var $td4 = $("<td>").text(data[key].pName);
-		 							var $td5 = $("<td>").text(" 사진 넣기 ");
+		 							var imageName = data[key].changeName;
+		 							console.log("이미지 이름 : " + imageName);
+		 							var $td5 = $("<td>").html('<img src="<%=request.getContextPath()%>/product_uploadImages/' + imageName + '" width="20px" height="auto">');
 		 							var $td6 = $("<td>").text(data[key].ptName);
 		 	 						var $td7 = $("<td>").text(data[key].price);
 		 	 						var $td8 = $("<td>").text(data[key].flavor);
@@ -325,16 +326,15 @@ $(function() {
 		 	 						$tr.append($td11);
 		 							$tr.append($td12);
 		 							$tableBody.append($tr);
-		 							pCodeArray = data[key].pCode;
 		 						}	
 		 					
 		 						
-		 					console.log(pCodeArray);
+		 					alert("조회에 성공했네욤 ^-^!!");
 		 						
 		 						
 	 				},
 	 				error: function(error){
-	 					console.log("에러!" + error);
+	 					alert("조회에 실패했습니다 ^-^!!");
 	 				}
 				}); 
 			});
