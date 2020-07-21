@@ -42,6 +42,12 @@ public class AdminEmployeeSearchServlet extends HttpServlet {
 			no = Integer.parseInt(userNo);
 		}
 		
+		if(status.equals("근무중")) {
+			status = "Y";
+		} else if(status.equals("퇴사")) {
+			status = "N";
+		}
+		
 		User user = new User();
 		
 		if(name != "") {user.setUserName(name);}
