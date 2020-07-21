@@ -191,6 +191,7 @@ right:90px;
 border-collapse:collapse;
 position: absolute;
 text-align:center;
+width: 900px;
 }
 
 
@@ -579,13 +580,15 @@ $(function(){
                <table id="listTable" class="snackTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
-                     <th width="20px"><input type="checkbox" id="checkall"></th>
+                     <th width="130px">상품코드</th>
                      <th width="70px">상품명</th>
+                     <th width="70px">업체명</th>
                      <th width="150px">상품 종류</th>
                      <th width="150px">상품 맛</th>
                      <th width="150px">상품 향</th>
                      <th width="150px">알레르기</th>
                      <th width="50px">갯수</th>
+                     <th width="50px">가격</th>
                      <th width="50px">추가</th>
                   </tr>
                  
@@ -593,14 +596,16 @@ $(function(){
                   <tbody id="tbody">
  				<% for(Product n : Product) { %>
                   <tr class="listBody">
-						<td><input type="checkbox"></td>
+						<td><%= n.getpCode() %></td>
 						<td><%= n.getpName() %></td>
+						<td><%= n.getpVendor() %></td>
 						<td><%= n.getPtName() %></td>
 						<td><%= n.getTaste()%></td>
 						<td><%= n.getFlavor() %></td>
 						<td><%= n.getAllergy() %></td>
 						<td></td>
-						<td><button onclick="">추가하기</button></td>
+						<td><%= n.getPrice() %></td>
+						<td><button id="proAdd" value="<%= n.getpCode() %>" >추가</button></td>
 					</tr>
 				<%} %>
 				</tbody>
@@ -616,7 +621,7 @@ $(function(){
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
-                     <th width="20px"><input type="checkbox" id="checkall"></th>
+                     <th width="100px">상품코드</th>
                      <th width="70px">상품명</th>
                      <th width="150px">상품 종류</th>
                      <th width="150px">상품 맛</th>
@@ -662,10 +667,12 @@ function preference(){
 }
 
 $(function(){
+	
 	var preNo = $("#preNo").val();
 	var userNo = $("#userNo").val();
 	console.log(preNo);
 	console.log(userNo);
+	//상품 체크하면 리스트 바뀌는 구문
 	$("input[name=kinds]").click(function(){
 		var kinds = "";
 		var flavor = "";
@@ -723,11 +730,51 @@ $(function(){
 				
 				$.each(data, function(index, value){
 					
-					var $tr = $("<tr>");
-					var $pCodeTd = $("<td>").text(decodeURIComponent(value.pCode));
+					var $tr = $("<tr>").attr('class', 'listBody');
+					var $pCodeTd = $("<td>").text(decodeURIComponent(value.pCode)); //상품 코드
+					var $pNameTd = $("<td>").text(decodeURIComponent(value.pName)); //상품명
+					var $ptNameTd = $("<td>").text(decodeURIComponent(value.ptName)); //상품 종류명
+					var $pVendorTd = $("<td>").text(decodeURIComponent(value.pVendor)); //업체명
+					var $priceTd = $("<td>").text(decodeURIComponent(value.price)); //가격
+					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
+					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
+					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
+					var $CountTd = $("<td>"); //개수
+					
+					
+					var $button = $("<button>").attr('id','proAdd').html("추가");
+					$button.val(decodeURIComponent(value.pCode));
+					var $inputTd = $("<td>");
+					$inputTd.append($button);
 					
 					$tr.append($pCodeTd);
+					$tr.append($pNameTd);
+					$tr.append($pVendorTd);
+					$tr.append($ptNameTd);
+					$tr.append($taste);
+					$tr.append($flavor);
+					$tr.append($allergy);
+					$tr.append($CountTd);
+					$tr.append($priceTd);
+					$tr.append($inputTd);
 					$tableBody.append($tr);
+					
+						if(){
+							$("#proAdd").click(function(){
+								$.ajax({
+									url: "curatingBasket.pro",
+									data: {proCode:$("#proAdd").val()},
+									success:function(data){
+										console.log("성공");
+										console.log(data);
+								
+									},
+									error:function(){
+										console.log("실패!");
+									}
+								});	
+							});
+						}
 					
 				});
 				
@@ -798,9 +845,40 @@ $(function(){
 			url: "curatingSelectProduct.pro",
 			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
 			success:function(data){
+
+				console.log(data);
 				$tableBody = $(".snackTable #tbody");
 				$tableBody.html('');
-				console.log("성공!");
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr>").attr('class', 'listBody');
+					var $pCodeTd = $("<td>").text(decodeURIComponent(value.pCode)); //상품 코드
+					var $pNameTd = $("<td>").text(decodeURIComponent(value.pName)); //상품명
+					var $ptNameTd = $("<td>").text(decodeURIComponent(value.ptName)); //상품 종류명
+					var $pVendorTd = $("<td>").text(decodeURIComponent(value.pVendor)); //업체명
+					var $priceTd = $("<td>").text(decodeURIComponent(value.price)); //가격
+					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
+					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
+					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
+					var $CountTd = $("<td>"); //개수
+					
+					var $inputTd = $("<td>").html("<input type='button' value='추가' id='proAdd'>");
+					
+					$tr.append($pCodeTd);
+					$tr.append($pNameTd);
+					$tr.append($pVendorTd);
+					$tr.append($ptNameTd);
+					$tr.append($taste);
+					$tr.append($flavor);
+					$tr.append($allergy);
+					$tr.append($CountTd);
+					$tr.append($priceTd);
+					$tr.append($inputTd);
+					$tableBody.append($tr);
+					
+					
+				});
 			},
 			error:function(){
 				console.log("실패!");
@@ -860,9 +938,40 @@ $(function(){
 			url: "curatingSelectProduct.pro",
 			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
 			success:function(data){
+
+				console.log(data);
 				$tableBody = $(".snackTable #tbody");
 				$tableBody.html('');
-				console.log("성공!");
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr>").attr('class', 'listBody');
+					var $pCodeTd = $("<td>").text(decodeURIComponent(value.pCode)); //상품 코드
+					var $pNameTd = $("<td>").text(decodeURIComponent(value.pName)); //상품명
+					var $ptNameTd = $("<td>").text(decodeURIComponent(value.ptName)); //상품 종류명
+					var $pVendorTd = $("<td>").text(decodeURIComponent(value.pVendor)); //업체명
+					var $priceTd = $("<td>").text(decodeURIComponent(value.price)); //가격
+					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
+					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
+					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
+					var $CountTd = $("<td>"); //개수
+					
+					var $inputTd = $("<td>").html("<input type='button' value='추가' id='proAdd'>");
+					
+					$tr.append($pCodeTd);
+					$tr.append($pNameTd);
+					$tr.append($pVendorTd);
+					$tr.append($ptNameTd);
+					$tr.append($taste);
+					$tr.append($flavor);
+					$tr.append($allergy);
+					$tr.append($CountTd);
+					$tr.append($priceTd);
+					$tr.append($inputTd);
+					$tableBody.append($tr);
+					
+					
+				});
 			},
 			error:function(){
 				console.log("실패!");
@@ -920,9 +1029,40 @@ $(function(){
 			url: "curatingSelectProduct.pro",
 			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
 			success:function(data){
+
+				console.log(data);
 				$tableBody = $(".snackTable #tbody");
 				$tableBody.html('');
-				console.log("성공!");
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr>").attr('class', 'listBody');
+					var $pCodeTd = $("<td>").text(decodeURIComponent(value.pCode)); //상품 코드
+					var $pNameTd = $("<td>").text(decodeURIComponent(value.pName)); //상품명
+					var $ptNameTd = $("<td>").text(decodeURIComponent(value.ptName)); //상품 종류명
+					var $pVendorTd = $("<td>").text(decodeURIComponent(value.pVendor)); //업체명
+					var $priceTd = $("<td>").text(decodeURIComponent(value.price)); //가격
+					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
+					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
+					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
+					var $CountTd = $("<td>"); //개수
+					
+					var $inputTd = $("<td>").html("<input type='button' value='추가' id='proAdd'>");
+					
+					$tr.append($pCodeTd);
+					$tr.append($pNameTd);
+					$tr.append($pVendorTd);
+					$tr.append($ptNameTd);
+					$tr.append($taste);
+					$tr.append($flavor);
+					$tr.append($allergy);
+					$tr.append($CountTd);
+					$tr.append($priceTd);
+					$tr.append($inputTd);
+					$tableBody.append($tr);
+					
+					
+				});
 			},
 			error:function(){
 				console.log("실패!");
@@ -932,6 +1072,7 @@ $(function(){
 	});
 });
 
+	
 </script>
 
 	
