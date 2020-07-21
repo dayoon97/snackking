@@ -64,13 +64,17 @@ public class InsertContractServlet extends HttpServlet {
 		
 		int delivCount = Integer.parseInt(request.getParameter("delivCount"));
 		int amountPDeliv = Integer.parseInt(request.getParameter("amountPDeliv"));
-		String endYN = request.getParameter("endYN");
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String corpName = request.getParameter("corpName");
 		int ttlAmount = Integer.parseInt(request.getParameter("ttlAmount"));
-		int conNo = Integer.parseInt(request.getParameter("conNo"));
 		
-	
+
+		//뷰 페이지에서 키(name) 값을 쓴다. userNo
+		//키밸류는 값을 String으로 가져오기 때문에 int로 쓸 때 parsing을 해줘야 한다.
+		int num = Integer.parseInt(request.getParameter("userNo"));
+		System.out.println("num : " + num);
+		
+		
+		
 		//크롬열고 뷰페이지에서 값 대충 입력하고 잘 넘어왔는지 잘 나오는지 확인
 		System.out.println("businessNo : " + businessNo);
 		System.out.println("startDate : " + startDate);
@@ -78,23 +82,21 @@ public class InsertContractServlet extends HttpServlet {
 		System.out.println("conDate : " + conDate);
 		System.out.println("delivCount : " + delivCount);
 		System.out.println("amountPDeliv : " + amountPDeliv);
-		System.out.println("endYN : " + endYN);
-		System.out.println("userNo : " + userNo);
 		System.out.println("corpName : " + corpName);
 		System.out.println("ttlAmount : " + ttlAmount);
-		System.out.println("conNo : " + conNo);
 		
 		
 		//계약 객체 만들어서 값 담았다.
 		Contract contract = new Contract();
-		contract.setCorpName(corpName);
+		contract.setBusinessNo(businessNo);
 		contract.setStartDate(startDate);
 		contract.setEndDate(endDate);
 		contract.setConDate(conDate);
 		contract.setDelivCount(delivCount);
 		contract.setAmountPDeliv(amountPDeliv);
-		//ing
+		contract.setCorpName(corpName);
 		contract.setTtlAmount(ttlAmount);
+		contract.setUserNo(num);
 		
 		//date 타입 날짜 3개를 String으로 바꿨는데 잘 나오는지 확인했다. 잘 나온다.
 //		System.out.println(contract);
@@ -110,10 +112,16 @@ public class InsertContractServlet extends HttpServlet {
 		//if문 써서 result > 0  쓰는 부분은 dao 갔다가 돌아올 때 쓰는 부분인 듯.
 		String page = "";
 		if(result > 0) {
-			page = "views/chiefManager/cmContractInsert.jsp";
+			//성공했을 때 이 뷰페이지로 넘어오면 
+			//<% int num = (int) request.getAttribute("num"); 
+			//%>    
+			//가 있는데 이건 꼭 이 값을 넘겨줘야 한다. 값 넘겨주고 나서 다시 이 페이지로 돌아오면 
+			//값을 또 넘겨줘야 함으로 여기로 돌아올 수 없음. 그래서 계약 조회페이지로 넘긴당.
+			//page = "views/chiefManager/cmContractInsert.jsp";
+			page = "views/chiefManager/cmContractSearchList.jsp";
 			request.setAttribute("contract", contract);
 			
-			System.out.println("ddd");
+			System.out.println("계약 등록 성공쓰!!!");
 		} else {
 			System.out.println("계약 등록 실패!");
 		}

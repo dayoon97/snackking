@@ -632,7 +632,7 @@ overflow-y: auto !important;
 							<!-- 테이블 헤드 -->
 							<tr>
 								<th>계약번호</th>
-								<th>계약코드</th>
+								<th>사업자등록번호</th>
 								<th>거래처명</th>
 								<th>계약일자</th>
 								<th>계약시작일</th>
@@ -651,7 +651,7 @@ overflow-y: auto !important;
 							<tr class="hover">
 								<td><%= num  %></td>
 								<% num += 1; %>
-								<td><%= c.getConCode() %></td>
+								<td><%= c.getBusinessNo() %></td>
 								<td><%= c.getCorpName() %></td>
 								<td><%= c.getConDate() %></td>
 								<td><%= c.getStartDate() %></td>

@@ -32,7 +32,7 @@ public class ContractService {
 		close(con);
 		
 		//dao까지 작성 아직 안 했으면 dao에 있는 return 0 값이 돌아와서 0으로 결과 나온다.
-//		System.out.println("insert service result : " + result);
+		System.out.println("insert service result : " + result);
 		
 		return result;
 	}
