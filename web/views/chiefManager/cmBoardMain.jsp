@@ -3,17 +3,13 @@
 <%
 	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
-	int ck = (int) request.getAttribute("ck");
-	HashMap<String, String> hmap = (HashMap<String, String>) request.getAttribute("hmap");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	String userId = hmap.get("userId");
-	String boardType = hmap.get("boardType");
-	String checkType = hmap.get("checkType");
-	String searchDate = hmap.get("searchDate");
+	int pre = currentPage - 1;
+	int later = currentPage + 1;
 %>
 <!DOCTYPE html>
 <html>
@@ -21,14 +17,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$("#userId").val(<%=userId%>);
-		$("#boardType").val(<%=boardType%>);
-		$("#checkType").val(<%=checkType%>);
-		$("#searchDate").val(<%=searchDate%>);
-	});
-</script>
 <style type="text/css">
    #outer {
       margin-left: 265px;
@@ -335,6 +323,10 @@ height: 25px;
 	cursor: pointer;
 	color: #F0BB00;
 }
+#subTitle:hover {
+	cursor: pointer;
+	color: #F0BB00;
+}
 
 </script>
 
@@ -364,7 +356,7 @@ height: 25px;
             <div id="subSubTitle1">내역 조회</div>
                <!-- searchBox start -->
                <div id="searchBox">
-                 <form id="searchForm" action="<%= request.getContextPath()%>/searchList.bo" method="post">
+                 <form id="searchForm"<%--  action="<%= request.getContextPath()%>/searchList.bo" method="post" --%>>
                      <table class="memberTable">
                         <tr>
                            
@@ -453,70 +445,45 @@ height: 25px;
                </table>
       		<!-- pagingArea(페이징 처리 버튼) start -->
 			<div class="pagingArea" align="center">
-				<% if(ck == 0) { %>
-					<button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=1'"><<</button>				
-				<% } else { %>
-					<button onclick="location.href='<%=request.getContextPath()%>/searchList.bo?currentPage=1'"><<</button>				
-				<% } %>
+					<%-- <button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=1'"><<</button> --%>				
+					<button value="1"><<</button>				
 				
 				<% if(currentPage <= 1) { %>
 					<button disabled><</button>
 				<% } else { %>
-					<% if(ck == 0) { %>
-					<button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=currentPage - 1%>'"><</button>
-					<% } else { %>
-					<button onclick="location.href='<%=request.getContextPath()%>/searchList.bo?currentPage=<%=currentPage - 1%>'"><</button>
-					<% } %>
+					<%-- <button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=currentPage - 1%>'"><</button> --%>
+					<button value="<%=pre%>"><</button>
 				<% } %>
 				
 				<% for(int p = startPage; p <= endPage; p++) {
 					if(p == currentPage) { %>
-						<button disabled><%= p %></button>
+						<%-- <button disabled><%= p %></button> --%>
+						<button value="<%=p%>" disabled><%=p%></button>
 					<% } else { %>
-						<% if(ck == 0) { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=p%>'"><%= p %></button>
-						<% } else { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/searchList.bo?currentPage=<%=p%>'"><%= p %></button>
-						<% } %>
+						<%-- <button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=p%>'"><%= p %></button> --%>
+						<button value="<%=p%>"><%=p%></button>
 					<% }
 				} %>
 				
 				<% if(currentPage >= maxPage) { %>
 					<button disabled>></button>
 				<% } else { %>
-					<% if(ck == 0) { %>
-					<button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=currentPage + 1%>'">></button>
-					<% } else { %>
-					<button onclick="location.href='<%=request.getContextPath()%>/searchList.bo?currentPage=<%=currentPage + 1%>'">></button>
-					<% } %>
+					<%-- <button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=currentPage + 1%>'">></button> --%>
+					<button value="<%=later%>">></button>
 				<% } %>
-				<% if(ck == 0) { %>
-				<button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=maxPage%>'">>></button>
-				<% } else { %>
-				<button onclick="location.href='<%=request.getContextPath()%>/searchList.bo?currentPage=<%=maxPage%>'">>></button>
-				<% } %>
+				<%-- <button onclick="location.href='<%=request.getContextPath()%>/cmBoardList.bo?currentPage=<%=maxPage%>'">>></button> --%>
+				<button value="<%=maxPage%>">>></button>
 			</div>	<!-- pagingArea end -->
             </div>
       </div>   <!-- background-box end -->
    </div>   <!-- outer end -->
 </div>   <!-- mainWrapper end -->
 
-   <script type="text/javascript">
-		$(function() {
-			$("#userId").val('<%=userId%>');
-			<%-- $("#boardType").val('<%=boardType%>'); --%>
-			<%-- $('#boardTypeDrop .dropdown').find('span').text($('<%=boardType%>').text());
-			$('#boardTypeDrop .dropdown').find('input').attr('value', '<%=boardType%>');
-			$('#answerCheckDrop .dropdown').find('span').text($('<%=checkType%>').text());
-			$('#answerCheckDrop .dropdown').find('input').attr('value', '<%=checkType%>'); --%>
-			<%-- $("#checkType").val('<%=checkType%>'); --%>
-			$("#boardType span").html("");
-			$("#boardType span").html("<%=boardType%>");			
-			$("#boardType #checkType").attr("value", "<%=boardType%>");			
-			$("#answerCheckDrop span").html("");
-			$("#answerCheckDrop span").html("<%=checkType%>");			
-			$("#searchDate").val('<%=searchDate%>');
-		});
+	<script type="text/javascript">
+   	$("#subTitle").click(function() {
+		location.href = "<%=request.getContextPath()%>/cmBoardList.bo";
+	});
+   
    
       $('.dropdown').click(function() {
          $(this).attr('tabindex', 1).focus();
@@ -562,8 +529,8 @@ height: 25px;
 		if(id == "" && type == "" && check == "" && sdate == ""){
 			alert("검색 조건이 없습니다.");
 		} else {
-			$("#searchForm").submit();
-			<%-- $.ajax({
+			/* $("#searchForm").submit(); */
+			$.ajax({
 				url: "<%= request.getContextPath()%>/searchBoard.bo",
 				type: "get",
 				data: {
@@ -615,6 +582,8 @@ height: 25px;
 					var startPage = data.pi.startPage;
 					var endPage = data.pi.endPage;
 					var path = <%=request.getContextPath()%>/;
+					var pre = currentPage - 1;
+					var later = currentPage + 1;
 					console.log(currentPage);
 					console.log(listCount);
 					console.log(limit);
@@ -624,25 +593,25 @@ height: 25px;
 					
 					var str = "";
 					
-					str += "<button onclick='location.href=" + path + "searchBoard.bo?currentPage=1'><<</button>";
+					str += "<button value='1'><<</button>";
 					if(data.pi.currentPage <= 1) {
 						str += "<button disabled><</button>"; 
 					} else {
-						str += "<button onclick='location.href=" + path + "searchBoard.bo?currentPage=" + currentPage + " - 1'><</button>";
+						str += "<button value='" + pre + "'><</button>";
 					}
 					for(var p = startPage; p <= endPage; p++) {
 						if(p == currentPage) {
-							str += "<button disabled>" + p + "</button>";
+							str += "<button value='" + p + "' disabled>" + p + "</button>";
 						} else {
-							str += "<button onclick='location.href=" + path + "searchBoard.bo?currentPage=" + p + "'>" + p + "</button>";
+							str += "<button value='" + p + "'>" + p + "</button>";
 						}
 					}
 					if(currentPage >= maxPage) {
 						str += "<button disabled>></button>";
 					} else {
-						str += "<button onclick='location.href=" + path + "searchBoard.bo?currentPage=" + currentPage + " + 1'>></button>";
+						str += "<button value='" + later + "'>></button>";
 					}
-					str += "<button onclick='location.href=" + path + "searchBoard.bo?currentPage=" + maxPage + "'>>></button>";
+					str += "<button value='" + maxPage + "'>>></button>";
 					
 					$pagingArea.append(str);
 						 
@@ -650,9 +619,109 @@ height: 25px;
 				error: function() {
 					alert("Error!");
 				}
-			}); --%>
+			});
 			
 		}
+	});
+	
+	$(document).on("click", ".pagingArea button", function() {
+		console.log("버튼클릭");
+		var btnNum = $(this).val();
+		console.log("btn val : " + btnNum);
+		var id = $("#userId").val();
+		var type = $("#boardType").val();
+		var check = $("#checkType").val();
+		var sdate = $("#searchDate").val();
+		$.ajax({
+			url: "<%= request.getContextPath()%>/searchBoard.bo",
+			type: "get",
+			data: {
+				userId: id,
+				boardType: type,
+				checkType: check,
+				searchDate: sdate,
+				currentPage: btnNum
+			},
+			success: function(data) {
+				console.log(data);
+						            
+	            console.log(data.list);
+	            console.log(data.pi);
+				
+				$tableBody = $("#listTable tbody");
+				$tableBody.html('');
+				
+				for(var key in data.list) {
+					var $tr = $("<tr>").attr('class', 'listBody');
+					var $hiddenId = $("<input>").attr('id', 'cBid').attr('name', 'cBid').attr('type', 'hidden').attr('value', data.list[key].bid);
+					var $ckBoxTd = $("<td>").html('<input type="checkbox">');
+					var $noTd = $("<td>").text(data.list[key].rNum);
+					var $idTd = $("<td>").text(data.list[key].userId);
+					var $titleTd = $("<td>").text(data.list[key].bTitle);
+					var $nameTd = $("<td>").text(data.list[key].btName);
+					var $answerTd = $("<td>").text(data.list[key].answerCheck);
+					var $dateTd = $("<td>").text(data.list[key].bDate);
+					
+					$tr.append($hiddenId);
+					$tr.append($ckBoxTd);
+					$tr.append($noTd);
+					$tr.append($idTd);
+					$tr.append($titleTd);
+					$tr.append($nameTd);
+					$tr.append($answerTd);
+					$tr.append($dateTd);
+					
+					$tableBody.append($tr);
+				}
+				
+				$pagingArea = $(".pagingArea");
+				$pagingArea.html("");
+				
+				var currentPage = data.pi.currentPage;
+				var listCount = data.pi.listCount;
+				var limit = data.pi.limit;
+				var maxPage = data.pi.maxPage;
+				var startPage = data.pi.startPage;
+				var endPage = data.pi.endPage;
+				var path = <%=request.getContextPath()%>/;
+				var pre = currentPage - 1;
+				var later = currentPage + 1;
+				console.log(currentPage);
+				console.log(listCount);
+				console.log(limit);
+				console.log(maxPage);
+				console.log(startPage);
+				console.log(endPage);
+				
+				var str = "";
+				
+				str += "<button value='1'><<</button>";
+				if(data.pi.currentPage <= 1) {
+					str += "<button disabled><</button>"; 
+				} else {
+					str += "<button value='" + pre + "'><</button>";
+				}
+				for(var p = startPage; p <= endPage; p++) {
+					if(p == currentPage) {
+						str += "<button value='" + p + "' disabled>" + p + "</button>";
+					} else {
+						str += "<button value='" + p + "'>" + p + "</button>";
+					}
+				}
+				if(currentPage >= maxPage) {
+					str += "<button disabled>></button>";
+				} else {
+					str += "<button value='" + later + "'>></button>";
+				}
+				str += "<button value='" + maxPage + "'>>></button>";
+				
+				$pagingArea.append(str);
+					 
+			},
+			error: function() {
+				alert("Error!");
+			}
+		});
 	});
 
   	$(function() {

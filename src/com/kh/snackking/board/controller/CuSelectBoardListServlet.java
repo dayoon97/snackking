@@ -18,14 +18,14 @@ import com.kh.snackking.user.model.vo.User;
 /**
  * Servlet implementation class CmSelectBoardListServlet
  */
-@WebServlet("/cmBoardList.bo")
-public class CmSelectBoardListServlet extends HttpServlet {
+@WebServlet("/cuBoardList.bo")
+public class CuSelectBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CmSelectBoardListServlet() {
+    public CuSelectBoardListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,6 +34,10 @@ public class CmSelectBoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int userNo = Integer.parseInt(request.getParameter("num"));
+		
+		System.out.println(userNo);
 		
 		int currentPage;                 
 		int limit;                       
@@ -49,7 +53,7 @@ public class CmSelectBoardListServlet extends HttpServlet {
 
 		limit = 8;
 				
-		int listCount = new BoardService().getListCount();
+		int listCount = new BoardService().getCuListCount(userNo);
 //		System.out.println("list count : " + listCount);
 				
 		maxPage = (int)((double) listCount / limit + 0.9);
@@ -67,19 +71,19 @@ public class CmSelectBoardListServlet extends HttpServlet {
 		ArrayList<Board> list = new BoardService().selectList(pi);
 		
 //		System.out.println("select board list : " + list);
-		
-		String page = "";
-		if(list != null) {
-			page = "views/chiefManager/cmBoardMain.jsp";
-			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("errorCode", "selectBoardList");
-		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
-		
+//		
+//		String page = "";
+//		if(list != null) {
+//			page = "views/chiefManager/cmBoardMain.jsp";
+//			request.setAttribute("list", list);
+//			request.setAttribute("pi", pi);
+//		} else {
+//			page = "views/common/errorPage.jsp";
+//			request.setAttribute("errorCode", "selectBoardList");
+//		}
+//		
+//		request.getRequestDispatcher(page).forward(request, response);
+//		
 	}
 
 	/**
