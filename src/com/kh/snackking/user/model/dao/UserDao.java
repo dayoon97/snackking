@@ -451,6 +451,7 @@ public class UserDao {
 				u.setAddress(rset.getString("ADDRESS"));
 				u.setPhone(rset.getString("PHONE"));
 				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				u.settCode(rset.getString("TCODE"));
 				
 				list.add(u);
 				
@@ -558,31 +559,32 @@ public class UserDao {
 		if(user.getCompany() == "") {count += 1;}
 		if(user.getUserId() == "") {count += 1;}
 		if(user.getPhone() == "") {count += 1;}
+		if(user.gettCode() == "") {count += 1;}
 		
-		if(count == 4) {
-			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE FROM USER_INFO WHERE TCODE IN ('T1', 'T2')";
+		System.out.println(user.gettCode());
+		
+		if(count == 5) {
+			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE, TCODE FROM USER_INFO WHERE TCODE IN ('T1', 'T2')";
 		}else {
-			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE FROM USER_INFO WHERE TCODE IN ('T1', 'T2') AND ";
+			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE, TCODE FROM USER_INFO WHERE TCODE IN ('T1', 'T2') AND ";
 		
 			
 			if(user.getUserName() != "") {
-				//날짜를 그냥 where 조건문에 넣었더니 계속 조회가 안됨
-				//날짜 YY/MM/DD 형식으로 바꾸기
-				
 				query += "USER_NAME LIKE '%'||'" + user.getUserName() + "'||'%' AND ";}
 			
 			if(user.getCompany() != "") { query += "COMPANY LIKE '%'||'" + user.getCompany() + "'||'%' AND ";}
 			if(user.getUserId() != "") { query += "USER_ID LIKE '%'||'" + user.getUserId() + "'||'%' AND ";}
 			if(user.getPhone() != "") { query += "PHONE LIKE '%'||'" + user.getPhone() + "'||'%' AND ";}
+			if(user.gettCode() != "") { query += "TCODE = '" + user.gettCode() + "' ";}
 
-			if(query.substring(query.length()-5).equals(" AND ")) {
-				query = query.substring(0, query.length()-5);
+			if(query.substring(query.length()-6).equals(" AND ")) {
+				query = query.substring(0, query.length()-6);
 				//query += ";";
 			}
 			//query += "STATUS = 'Y'";
 		}
 		//쿼리문 실행
-		//System.out.println(query);
+		System.out.println(query);
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
@@ -598,6 +600,7 @@ public class UserDao {
 				u.setAddress(rset.getString("ADDRESS"));
 				u.setPhone(rset.getString("PHONE"));
 				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				u.settCode(rset.getString("TCODE"));
 				
 				list.add(u);
 				

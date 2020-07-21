@@ -37,11 +37,18 @@ public class AdminUserSearchListServlet extends HttpServlet {
 		String company = member[1];
 		String id = member[2];
 		String phone = member[3];
+		String userTcode = request.getParameter("userTcode");
+		
+		if(userTcode.equals("선택")) {
+			userTcode = "";
+		}
+		
 		
 		System.out.println(name);
 		System.out.println(company);
 		System.out.println(id);
 		System.out.println(phone);
+		System.out.println(userTcode);
 		
 		User user = new User();
 		
@@ -49,6 +56,7 @@ public class AdminUserSearchListServlet extends HttpServlet {
 		if(company != null) {user.setCompany(company);}
 		if(id != null) {user.setUserId(id);}
 		if(phone != null) {user.setPhone(phone);}
+		if(userTcode != null) {user.settCode(userTcode);}
 		
 		ArrayList<User> searchMember = null;
 		
