@@ -668,6 +668,34 @@ td {
 						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
 						var $endTr = $("</tr>");
 						
+						
+						//근무상태 형태 바꾸기
+						var sta;
+						if(value.status == 'Y'){
+							sta = '근무중';
+						} else if(value.status == 'N'){
+							sta = '퇴사';
+						}
+						
+						$statusTd = sta;
+						
+						
+						
+						//입사일 형태 바꾸기
+						var year = (value.enrollDate).substr(7, 8);
+ 						var mon = (value.enrollDate).substr(0, 1);
+ 						if(mon.indexOf(" ", 0)){
+ 							var mon1 = "0";
+ 						}
+ 						var day = (value.enrollDate).substr(3, 2);
+ 						var code;
+ 						
+ 						var nal = year.concat("-", mon1, mon,"-",day);
+ 						
+ 						$enrollDateTd = $("<td>").text(nal);
+						
+						
+						
 						$tr.append($Td);
 						$tr.append($noTd);
 						$tr.append($tCodeTd);
@@ -810,23 +838,11 @@ td {
     		type: "get",
     		traditional:true,
     		success: function(data){
-    			
-    			$.ajax({
-    				url:"<%=request.getContextPath()%>/adminEmpSelect.ad",
-    				type:"get",
-    				success: function(data){
-    					
-    					location.reload(true);
-    					
-	 					
-		    		},
-		    		error:function(data){
-		    			
-		    		}
-		    		
-    				});
-    				
-    				}	
+    			location.reload(true);
+    		},
+    		error: function(data){
+    			console.log("에러");
+    		}
     		});
     	});
   
