@@ -176,4 +176,14 @@ public class BoardService {
 		return list;
 	}
 
+	public int getCuListCount(int userNo) {
+		Connection con = getConnection();
+		
+		int listCount = new BoardDao().getCuListCount(con, userNo);
+		
+		close(con);
+		
+		return listCount;
+	}
+
 }

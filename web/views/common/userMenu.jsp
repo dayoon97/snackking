@@ -689,7 +689,7 @@
 							<p class="title">회원 관리</p>
 								<ul class="con">
 									<li><a href="<%=request.getContextPath()%>/selectUserList.us?num=<%=loginUser.getUserNo()%>">담당회원 리스트</a></li>
-									<li><a href="">회원 문의 내역</a></li>
+									<li><a href="<%=request.getContextPath()%>/cuBoardList.bo?num=<%=loginUser.getUserNo()%>">회원 문의 내역</a></li>
 								</ul>
 						</li>
 						<li>
