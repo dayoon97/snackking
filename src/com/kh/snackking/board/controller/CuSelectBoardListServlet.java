@@ -54,7 +54,7 @@ public class CuSelectBoardListServlet extends HttpServlet {
 		limit = 8;
 				
 		int listCount = new BoardService().getCuListCount(userNo);
-//		System.out.println("list count : " + listCount);
+		System.out.println("list count : " + listCount);
 				
 		maxPage = (int)((double) listCount / limit + 0.9);
 				
@@ -67,23 +67,23 @@ public class CuSelectBoardListServlet extends HttpServlet {
 		}
 			
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
-				
-		ArrayList<Board> list = new BoardService().selectList(pi);
+		System.out.println("pageInfo : " + pi);
+		ArrayList<Board> list = new BoardService().selectCuList(userNo, pi);
 		
-//		System.out.println("select board list : " + list);
-//		
-//		String page = "";
-//		if(list != null) {
-//			page = "views/chiefManager/cmBoardMain.jsp";
-//			request.setAttribute("list", list);
-//			request.setAttribute("pi", pi);
-//		} else {
-//			page = "views/common/errorPage.jsp";
-//			request.setAttribute("errorCode", "selectBoardList");
-//		}
-//		
-//		request.getRequestDispatcher(page).forward(request, response);
-//		
+		System.out.println("select board list : " + list);
+		
+		String page = "";
+		if(list != null) {
+			page = "views/curator/curatorBoardMain.jsp";
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+		} else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("errorCode", "selectBoardList");
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
+		
 	}
 
 	/**
