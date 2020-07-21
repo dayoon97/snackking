@@ -656,8 +656,9 @@ $(function(){
 </div>	<!-- mainWrapper end -->
 
 <script type="text/javascript">
+console.log(<%=insertPre.getPreNo()%>);
 
-
+var no = <%=insertPre.getPreNo()%>;
 function preference(){
 	var userId = $("#userid").val();
 	
@@ -667,11 +668,11 @@ function preference(){
 }
 
 $(function(){
-	
-	var preNo = $("#preNo").val();
+	var preNo = <%=insertPre.getPreNo()%>;
 	var userNo = $("#userNo").val();
 	console.log(preNo);
 	console.log(userNo);
+	
 	//상품 체크하면 리스트 바뀌는 구문
 	$("input[name=kinds]").click(function(){
 		var kinds = "";
@@ -711,11 +712,11 @@ $(function(){
 		if( $(this).prop("checked")){
 			$("input[name=allergy]:checked").each(function() { 
 				allergy += $(this).val() + ",";
-			});// 향
+			});// 알레르기
 		}else{
 			$("input[name=allergy]:checked").each(function() { 
 				allergy += $(this).val() + ",";
-			});// 향
+			});// 알레르기
 		}
 		
 		
@@ -758,24 +759,6 @@ $(function(){
 					$tr.append($priceTd);
 					$tr.append($inputTd);
 					$tableBody.append($tr);
-					
-						if(){
-							$("#proAdd").click(function(){
-								$.ajax({
-									url: "curatingBasket.pro",
-									data: {proCode:$("#proAdd").val()},
-									success:function(data){
-										console.log("성공");
-										console.log(data);
-								
-									},
-									error:function(){
-										console.log("실패!");
-									}
-								});	
-							});
-						}
-					
 				});
 				
 				
@@ -833,11 +816,11 @@ $(function(){
 		if( $(this).prop("checked")){
 			$("input[name=allergy]:checked").each(function() { 
 				allergy += $(this).val() + ",";
-			});// 향
+			});// 알레르기
 		}else{
 			$("input[name=allergy]:checked").each(function() { 
 				allergy += $(this).val() + ",";
-			});// 향
+			});// 알레르기
 		}
 		
 		
@@ -863,7 +846,11 @@ $(function(){
 					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
 					var $CountTd = $("<td>"); //개수
 					
-					var $inputTd = $("<td>").html("<input type='button' value='추가' id='proAdd'>");
+					
+					var $button = $("<button>").attr('id','proAdd').html("추가");
+					$button.val(decodeURIComponent(value.pCode));
+					var $inputTd = $("<td>");
+					$inputTd.append($button);
 					
 					$tr.append($pCodeTd);
 					$tr.append($pNameTd);
@@ -926,11 +913,11 @@ $(function(){
 		if( $(this).prop("checked")){
 			$("input[name=allergy]:checked").each(function() { 
 				allergy += $(this).val() + ",";
-			});// 향
+			});// 알레르기
 		}else{
 			$("input[name=allergy]:checked").each(function() { 
 				allergy += $(this).val() + ",";
-			});// 향
+			});// 알레르기
 		}
 		
 		
@@ -956,7 +943,11 @@ $(function(){
 					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
 					var $CountTd = $("<td>"); //개수
 					
-					var $inputTd = $("<td>").html("<input type='button' value='추가' id='proAdd'>");
+					
+					var $button = $("<button>").attr('id','proAdd').html("추가");
+					$button.val(decodeURIComponent(value.pCode));
+					var $inputTd = $("<td>");
+					$inputTd.append($button);
 					
 					$tr.append($pCodeTd);
 					$tr.append($pNameTd);
@@ -1047,7 +1038,11 @@ $(function(){
 					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
 					var $CountTd = $("<td>"); //개수
 					
-					var $inputTd = $("<td>").html("<input type='button' value='추가' id='proAdd'>");
+					
+					var $button = $("<button>").attr('id','proAdd').html("추가");
+					$button.val(decodeURIComponent(value.pCode));
+					var $inputTd = $("<td>");
+					$inputTd.append($button);
 					
 					$tr.append($pCodeTd);
 					$tr.append($pNameTd);
@@ -1061,7 +1056,6 @@ $(function(){
 					$tr.append($inputTd);
 					$tableBody.append($tr);
 					
-					
 				});
 			},
 			error:function(){
@@ -1071,6 +1065,38 @@ $(function(){
 		
 	});
 });
+
+$(document).on("click", "#proAdd", (function(){
+	var proAdd = $(this).val();
+	
+	console.log(proAdd);
+	
+	$.ajax({
+		url: "curatingInsert.pro",
+		data: {proAdd:proAdd, no:no},
+		success: function(data){
+			console.log("성공");
+		},
+		error: function(data){
+			console.log("실패");
+		}
+	});
+	
+	
+})); 
+/* 	$.ajax({
+		url: "curatingBasket.pro",
+		data: {proCode:$("#proAdd").val()},
+		success:function(data){
+			console.log("성공");
+			console.log(data);
+	
+		},
+		error:function(){
+			console.log("실패!");
+		}
+	});	
+}) */
 
 	
 </script>
