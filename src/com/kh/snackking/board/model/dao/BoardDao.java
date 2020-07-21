@@ -450,10 +450,10 @@ public class BoardDao {
 		String checkType = hmap.get("checkType");
 		String searchDate = hmap.get("searchDate");
 		
-//		System.out.println("dao userId : " + userId);
-//		System.out.println("dao btype : " + boardType);
-//		System.out.println("dao check : " + checkType);
-//		System.out.println("dao date : " + searchDate);
+		System.out.println("dao userId : " + userId);
+		System.out.println("dao btype : " + boardType);
+		System.out.println("dao check : " + checkType);
+		System.out.println("dao date : " + searchDate);
 		
 		String query = "SELECT COUNT(*) FROM (SELECT B.BID , B.BTYPE , UI.USER_ID , B.BDATE , B.STATUS , NVL2(R.RID, 'Y', 'N') "
 				+ "AS CHECKED FROM BOARD B JOIN BOARD_TYPE BT ON(B.BTYPE = BT.BTYPE) JOIN USER_INFO UI ON(B.BWRITER = UI.USER_NO) "
@@ -479,7 +479,7 @@ public class BoardDao {
 			query += "";
 		}
 		
-//		System.out.println("dao query : " + query);
+		System.out.println("dao query : " + query);
 		
 		try {
 			stmt = con.createStatement();
@@ -525,22 +525,30 @@ public class BoardDao {
 		
 		if(!userId.equals("")) {
 			query += " AND USER_ID  = '" +  userId + "'";
+		} else {
+			query += "";
 		}
 		if(!boardType.equals("")) {
 			query += " AND BTYPE  = '" +  boardType + "'";
+		} else {
+			query += "";
 		}
 		if(!checkType.equals("")) {
 			query += " AND ANSWER  = '" +  checkType + "'";
+		} else {
+			query += "";
 		}
 		if(!searchDate.equals("")) {
 			query += " AND TO_CHAR(BDATE) = TO_DATE('" +  searchDate + "')";
+		} else {
+			query += "";
 		}
 		
 		query += ") ORDER BY RNUM DESC) ORDER BY HNUM ASC) WHERE HNUM BETWEEN ";
 		query += startRow;
 		query += " AND ";
 		query += endRow;
-		
+		System.out.println("select query : " + query);
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);

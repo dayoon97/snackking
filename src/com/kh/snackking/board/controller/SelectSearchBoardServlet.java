@@ -34,16 +34,16 @@ public class SelectSearchBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("검색 서블릿 호출");
 		String userId = request.getParameter("userId");
 		String boardType = request.getParameter("boardType");
 		String checkType = request.getParameter("checkType");
 		String searchDate = request.getParameter("searchDate");
 		
-//		System.out.println("servlet userId : " + userId);
-//		System.out.println("servlet boardType : " + boardType);
-//		System.out.println("servlet checkType : " + checkType);
-//		System.out.println("servlet searchDate : " + searchDate);
+		System.out.println("servlet userId : " + userId);
+		System.out.println("servlet boardType : " + boardType);
+		System.out.println("servlet checkType : " + checkType);
+		System.out.println("servlet searchDate : " + searchDate);
 		
 		HashMap<String, String> hmap = new HashMap<>();
 		if(userId != null) {
@@ -58,7 +58,7 @@ public class SelectSearchBoardServlet extends HttpServlet {
 		if(searchDate != null) {
 			hmap.put("searchDate", searchDate);
 		}
-		
+		System.out.println("servlet hmap : " + hmap);
 		int currentPage;                 
 		int limit;                       
 		int maxPage;                     
@@ -78,7 +78,7 @@ public class SelectSearchBoardServlet extends HttpServlet {
 		PageInfo pi = null;
 		String page = "";
 		listCount = new BoardService().getListCount(hmap);
-//		System.out.println("list count : " + listCount);
+		System.out.println("list count : " + listCount);
 		maxPage = (int)((double) listCount / limit + 0.9);
 		
 		startPage = (((int) ((double) currentPage / 10 + 0.9)) - 1 ) * 10 + 1;
@@ -93,20 +93,15 @@ public class SelectSearchBoardServlet extends HttpServlet {
 		
 		list = new BoardService().selectSearchList(pi, hmap);
 		
-//		System.out.println("select board list : " + list);
-//		System.out.println("board list size : " + list.size());
+		System.out.println("select board list : " + list);
+		System.out.println("board list size : " + list.size());
 		
 		int ck = 1;
-		if(list != null) {
-			page = "views/chiefManager/cmBoardMain.jsp";
-			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);
-			request.setAttribute("ck", ck);
-			request.setAttribute("hmap", hmap);
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("errorCode", "selectBoardList");
-		}
+		page = "views/chiefManager/cmBoardMain.jsp";
+		request.setAttribute("list", list);
+		request.setAttribute("pi", pi);
+		request.setAttribute("ck", ck);
+		request.setAttribute("hmap", hmap);
 		request.getRequestDispatcher(page).forward(request, response);		
 		
 	}

@@ -11,9 +11,9 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	String userId = hmap.get("userId");
-	String boardType = hmap.get("boardType");;
-	String checkType = hmap.get("checkType");;
-	String searchDate = hmap.get("searchDate");;
+	String boardType = hmap.get("boardType");
+	String checkType = hmap.get("checkType");
+	String searchDate = hmap.get("searchDate");
 %>
 <!DOCTYPE html>
 <html>
@@ -502,6 +502,22 @@ height: 25px;
 </div>   <!-- mainWrapper end -->
 
    <script type="text/javascript">
+		$(function() {
+			$("#userId").val('<%=userId%>');
+			<%-- $("#boardType").val('<%=boardType%>'); --%>
+			<%-- $('#boardTypeDrop .dropdown').find('span').text($('<%=boardType%>').text());
+			$('#boardTypeDrop .dropdown').find('input').attr('value', '<%=boardType%>');
+			$('#answerCheckDrop .dropdown').find('span').text($('<%=checkType%>').text());
+			$('#answerCheckDrop .dropdown').find('input').attr('value', '<%=checkType%>'); --%>
+			<%-- $("#checkType").val('<%=checkType%>'); --%>
+			$("#boardType span").html("");
+			$("#boardType span").html("<%=boardType%>");			
+			$("#boardType #checkType").attr("value", "<%=boardType%>");			
+			$("#answerCheckDrop span").html("");
+			$("#answerCheckDrop span").html("<%=checkType%>");			
+			$("#searchDate").val('<%=searchDate%>');
+		});
+   
       $('.dropdown').click(function() {
          $(this).attr('tabindex', 1).focus();
          $(this).toggleClass('active');
