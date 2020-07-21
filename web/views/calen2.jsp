@@ -177,6 +177,7 @@ function getCalendarDataInDB(){
         }
     });
     
+    
     return arr;
 }
  
