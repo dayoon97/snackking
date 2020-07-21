@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.kh.snackking.scheduler.model.vo.*" %>
-<% ArrayList<Scheduler> slist = (ArrayList)request.getAttribute("sList"); %>
+<% ArrayList<Scheduler> slist = (ArrayList)request.getAttribute("sList"); %>/
 <% ArrayList<SchedulerInfo> silist = (ArrayList)request.getAttribute("slist"); %>
 <!DOCTYPE html>
 <html>
@@ -57,13 +57,28 @@ document.addEventListener('DOMContentLoaded', function() {
     selectable: true,   // 선택가능 옵션
     editable: true,
     droppable: true, // this allows things to be dropped onto the calendar
+    
     drop: function(info) {
       // is the "remove after drop" checkbox checked?
       if (checkbox.checked) {
         // if so, remove the element from the "Draggable Events" list
         info.draggedEl.parentNode.removeChild(info.draggedEl);
-        
+        console.log("일정 드랍(인서트)")
       }
+     /*  var date = info.dateStr;
+      var name = info.draggedEl.innerText;
+      //to update data using ajax
+      $.ajax({
+    	  type: 'POST',
+      	  url: '/getinfo.da',
+      	  data: '{date : "' + info.dateStr + '",name:"' + name +'"}',
+      	  contentType: 'application/json; charset=utf-8',
+      	  dateType: 'json',
+      	  success: function (result) {
+      		  alert(result.d);
+      	  }
+      }); */
+      
     },
  
     //일정 변경 할때 alert
@@ -72,7 +87,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!confirm("일정을 변경하시겠습니까?")) {
           info.revert();//취소했을때 이전으로 돌림.
+        } else {
+        	console.log(info.event.title + " 변경성공!")
         }
+        
       },
     
     locale: 'ko',
@@ -86,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <%}%>  --%>
     ],
     
+    //일정 클릭시 이벤트
     eventClick: function(info){
          alert('Event: ' + info.event.title);
   		//모달창 추가 해서 정보 가져와야함....ㅁㄴㅇㄻㄴㅇㄹㄴㅁㅇㄻㄴㄻㄴㅇㄻㄴㄹㅇ
@@ -157,6 +176,7 @@ function getCalendarDataInDB(){
             alert('저장 중 에러가 발생했습니다. 다시 시도해 주세요.');
         }
     });
+    
     
     return arr;
 }
@@ -459,11 +479,23 @@ height: 25px;
     </p>
     <%System.out.println(loginUser.getUserNo()); %>
     <%-- <div class="content-count" /* 월배송회차 가져올 것 */ ><%=(slist.get(0).getDelivCount())%></div> --%>
+   
+
     <%int j = 1;%>
     <%while(j <= slist.get(0).getDelivCount()) {%>
     <%-- <div class="fc-event"><%=j%>회차</div> --%>
     <% j++; }%>
+   
+   <%--   <%for(int i=0; i < slist.size(); i++) { %>
+   		<%int j = 1; %>
+   		<%while(j <= slist.get(i).getDelivCount()) {%>
+   		<div class="fc-event"><%=j%>회차</div>
+   		<% j++; }%>
+   	<% } %>   --%>
+   	
 
+   	<div id="a"></div>
+	
     <p>
       <input type="checkbox" id="drop-remove" checked="checked">
       <label for="drop-remove">remove after drop</label>
@@ -476,7 +508,11 @@ height: 25px;
 	<tr class="userlist">
 	<td><input type="checkbox">전체일정</td>
 	<%for(int i=0; i< slist.size(); i++) { %>
+<<<<<<< web/views/calen2.jsp
+	<td><input type="checkbox" value="check<%=i%>" name = "ccc" class="ccc" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
+=======
 	<td><input type="checkbox" value="check<%=i%>" class="ccc" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
+>>>>>>> web/views/calen2.jsp
 	<%} %>
 
 	</tr>
@@ -499,6 +535,39 @@ height: 25px;
 <!-- 유저 리스트 체크 이벤트 -->
 <script>
 function check(box) {
+<<<<<<< web/views/calen2.jsp
+
+/* 	for(int i=0; i < slist.size(); i++) { 
+		int j = 1; 
+		while(j <= slist.get(i).getDelivCount()) {
+		<div class="fc-event">=j회차</div>
+		 j++; }
+	    }   */ 
+		
+		/* var [] Array = new Arraynum();
+		
+	
+	 	var nums = $("input:checkbox[name=ccc]:checked").val();
+	   	console.log(nums); */
+
+		
+	
+  	if(box.checked == true){
+		console.log(box.value + "체크박스 클릭")
+		
+		
+		if(box.value == "check0"){
+			 console.log("1번 유저정보 클릭!")
+			 $('#external-events' ).show(); 
+		} else if(box.value == "check1") {
+			console.log("2번 유저정보 클릭!")
+			$("#external-events").show();
+		}
+}		
+	else{
+		console.log(box.value + "체크박스 해제")
+		
+=======
 	if(box.checked == true){
 		console.log(box.value + "체크박스 클릭")
 		 
@@ -510,17 +579,30 @@ function check(box) {
 	else{
 		console.log(box.value + "체크박스 해제")
 		
+>>>>>>> web/views/calen2.jsp
 		if(box.value == "check0"){
 			console.log("1번 해제")
 		$('#external-events').hide();
 		check == true
 		}
+<<<<<<< web/views/calen2.jsp
+	} 
+	 
+	
+	
+=======
 	}
+>>>>>>> web/views/calen2.jsp
 }
 
 $(function() {
 
+<<<<<<< web/views/calen2.jsp
+    $(document).on("click", ".ccc", function() {
+    	alert("클릭!");
+=======
     $(".ccc").on("click", function() {
+>>>>>>> web/views/calen2.jsp
     	
     	var member = {
     			"email":"test@naver.com",
@@ -528,7 +610,11 @@ $(function() {
     	}
 	
         $.ajax({
+<<<<<<< web/views/calen2.jsp
+        	  url: "/getinfo.da", // 클라이언트가 요청을 보낼 서버의 URL 주소
+=======
         	  url: "getinfo.da", // 클라이언트가 요청을 보낼 서버의 URL 주소
+>>>>>>> web/views/calen2.jsp
         	    dataType: 'json',                
         	    type: "POST",                             // HTTP 요청 방식(GET, POST)
         	    data: JSON.stringify(member), //json을 String으로 파싱
@@ -552,6 +638,13 @@ $(function() {
     });
 
 });
+<<<<<<< web/views/calen2.jsp
+</script>  
+   <script>
+  
+   </script>        
+=======
 </script>          
+>>>>>>> web/views/calen2.jsp
           
 </html>

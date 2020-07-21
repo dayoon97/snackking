@@ -29,6 +29,8 @@ public class Schedulergetinfo extends HttpServlet {
 		String member = request.getParameter("member");
 		
 		System.out.println("member : " + member);
+		
+		
 	}
 
 	/**
