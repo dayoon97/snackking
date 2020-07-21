@@ -641,7 +641,7 @@ public class UserDao {
 			if(user.getUserName() != null) {query += "USER_NAME LIKE '%'||'" + user.getUserName() + "'||'%' AND ";}
 			if(user.gettCode() != null) { query += "TCODE = '" + user.gettCode() + "' AND ";}
 			if(user.getUserNo() != 0) { query += "USER_NO = " + user.getUserNo() + " AND ";}
-			if(user.getStatus() != null) { query += "STATUS LIKE '%'||'" + user.getStatus() + "'||'%' AND ";}
+			if(user.getStatus() != null) { query += "STATUS = '" + user.getStatus() + "' AND ";}
 
 			if(query.substring(query.length()-5).equals(" AND ")) {
 				query = query.substring(0, query.length()-5);
