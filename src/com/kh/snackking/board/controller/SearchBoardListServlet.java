@@ -40,10 +40,10 @@ public class SearchBoardListServlet extends HttpServlet {
 		String checkType = request.getParameter("checkType");
 		String searchDate = request.getParameter("searchDate");
 		
-//		System.out.println("servlet userId : " + userId);
-//		System.out.println("servlet boardType : " + boardType);
-//		System.out.println("servlet checkType : " + checkType);
-//		System.out.println("servlet searchDate : " + searchDate);
+		System.out.println("servlet userId : " + userId);
+		System.out.println("servlet boardType : " + boardType);
+		System.out.println("servlet checkType : " + checkType);
+		System.out.println("servlet searchDate : " + searchDate);
 		
 		HashMap<String, String> hmap = new HashMap<>();
 		if(userId != null) {
@@ -79,7 +79,7 @@ public class SearchBoardListServlet extends HttpServlet {
 //		String page = "";
 		if(hmap != null) {
 			listCount = new BoardService().getListCount(hmap);
-//			System.out.println("list count : " + listCount);
+			System.out.println("list count : " + listCount);
 			maxPage = (int)((double) listCount / limit + 0.9);
 			
 			startPage = (((int) ((double) currentPage / 10 + 0.9)) - 1 ) * 10 + 1;
