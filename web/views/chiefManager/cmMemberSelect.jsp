@@ -398,6 +398,7 @@ height: 25px;
 						<!-- 리스트 바디  -->
 						<tbody>
 							<% for(User u : list) {%>
+							
 						<tr class="listBody">
 							<td><%= u.getUserNo() %></td>
 							<td><%= u.getUserId() %></td>

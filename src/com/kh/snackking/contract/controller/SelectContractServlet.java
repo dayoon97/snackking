@@ -35,7 +35,7 @@ public class SelectContractServlet extends HttpServlet {
 		
 		ArrayList<Contract> list = new ContractService().selectList();
 		
-//		System.out.println("select controller list : " + list);
+		System.out.println("select controller list : " + list);
 		
 		String page = "";
 		if(list != null) {

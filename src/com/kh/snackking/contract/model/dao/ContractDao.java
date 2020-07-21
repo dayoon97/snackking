@@ -37,6 +37,9 @@ public class ContractDao {
 	//계약 insert
 	public int insertContract(Connection con, Contract contract) {
 
+		
+//		System.out.println(contract.getUserNo());
+		
 		PreparedStatement pstmt = null;
 		
 		int result = 0;
@@ -52,17 +55,22 @@ public class ContractDao {
 			
 			//String썼다가 Date로 고침
 			//오라클 데이터베이스 테이블 순서와 자바 이클립스 preparedstatement ?의 순서가 일치해야한다
-			//쿼리문에서 USER_NO 를 CORP_NAME 회사명으로 다른 테이블과 서브쿼리 조인했음
-			//?에 들어갈 값이 회사명이므로 ?에 들어가는 값 기준으로 작성해줬다.
 			//corpName 회사명을  디비에 등록된 것으로 써야 함 
-			pstmt.setString(1, contract.getConCode());
+			
+			/*VALUES('20207015-06','2020-07-21','2020-09-18','2020-07-21',3,400000,'Y',111,
+                    (SELECT COMPANY
+                       FROM USER_INFO
+                      WHERE USER_NO = 111),1200000,SEQ_CONNO.NEXTVAL);*/
+			
+			
+			pstmt.setString(1, contract.getBusinessNo());
 			pstmt.setString(2, contract.getStartDate());
 			pstmt.setString(3, contract.getEndDate());
 			pstmt.setString(4, contract.getConDate());
 			pstmt.setInt(5, contract.getDelivCount());
 			pstmt.setInt(6, contract.getAmountPDeliv());
-			pstmt.setString(7, contract.getCorpName());
-			pstmt.setString(8, contract.getCorpName());
+			pstmt.setInt(7, contract.getUserNo());
+			pstmt.setInt(8, contract.getUserNo());
 			pstmt.setInt(9, contract.getTtlAmount());
 			
 			result = pstmt.executeUpdate();
@@ -89,7 +97,7 @@ public class ContractDao {
 			
 		}
 		
-//		System.out.println("insert dao result : " +  result);
+		System.out.println("insert dao result : " +  result);
 		
 		return result;
 	}
@@ -121,6 +129,7 @@ public class ContractDao {
 //				System.out.println("넹");
 				Contract c = new Contract();
 				
+				/////////진행중ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
 				c.setConCode(rset.getString("CONTRACT_CODE"));
 				c.setCorpName(rset.getString("CORP_NAME"));
 				c.setConDate(rset.getString("CONTRACT_DATE"));

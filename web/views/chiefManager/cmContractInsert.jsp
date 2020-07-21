@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% int num = (int) request.getAttribute("num"); 
+	
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -321,7 +324,8 @@ height: 25px;
 			<div id="titleArea">
 				<div id="mainTitle">계약 관리</div>
 				<div id="line1"></div>
-				<div id="subTitle">계약 내역 등록</div>
+				<div id="subTitle">계약 내역 등록
+				</div>
 			</div>	<!--title-area end -->
 			
 			<!-- search-area start -->
@@ -331,6 +335,7 @@ height: 25px;
 					<!-- searchBox start -->
 					<div id="searchBox">
 						<form id="searchForm" action="<%= request.getContextPath()%>/insertContract.co" method="post">
+						<input type="hidden" name="userNo" value="<%= num%>">
 							<table class="memberTable">
 							<tr>
 								<td>거래처명 :</td>
