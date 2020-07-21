@@ -1,6 +1,8 @@
 package com.kh.snackking.preference.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.snackking.preference.model.service.PreferenceService;
 import com.kh.snackking.preference.model.vo.Preference;
+import com.kh.snackking.product.model.service.ProductService;
+import com.kh.snackking.product.model.vo.Product;
 
 /**
  * Servlet implementation class SelectDetail
@@ -41,9 +45,12 @@ public class SelectDetail extends HttpServlet {
 		Pre.setPreNo(userNo);
 		
 		Preference selectPre = new PreferenceService().cmSelectOne(userNo);
-		System.out.println("userPreference: " + selectPre);
+
+//		ArrayList<Product> selectProduct = new ProductService().CuratorSelectProduct(selectPre);
+		
+		System.out.println("userPreference: " + selectPre );
 		String page = "";
-		if(selectPre != null) {
+		if(selectPre != null/* && selectProduct != null*/) {
 			page = "views/order/cmOrderfavoriteDetail.jsp";
 			request.setAttribute("insertPre", selectPre);
 		}else {

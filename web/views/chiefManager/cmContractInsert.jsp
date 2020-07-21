@@ -343,8 +343,8 @@ height: 25px;
 								<td></td>
 							</tr>
 							<tr>
-								<td>계약코드 :</td>
-								<td><input type="text" class="searchTextBox" size="15" name="conCode">
+								<td>사업자등록번호:</td>
+								<td><input type="text" class="searchTextBox" size="15" name="businessNo">
 								</td>
 								<td style="text-align:center">계약일 :</td>
 								<td><input type="date" class="searchTextBox" size="10" name="conDate"></td>
@@ -353,8 +353,8 @@ height: 25px;
 							</tr>
 							<tr>
 								<td>계약기간 :</td>
-								<td colspan="2"><input type="date" class="searchTextBox" size=""
-									name="startDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
+								<td colspan="2">
+									<input type="date" class="searchTextBox" size="" name="startDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
 									<input type="date" class="searchTextBox" name="endDate"></td>
 								<td></td>
 								<td></td>
@@ -362,19 +362,16 @@ height: 25px;
 							</tr>
 							<tr>
 								<td>배송횟수 :</td>
-								<td>월 <input type="text" class="searchTextBox" size="10"
-									name="delivCount"> 회
-								</td>
+								<td>월 <input type="text" class="searchTextBox" size="10" name="delivCount">회</td>
 								<td style="text-align:center">회차당 금액 :</td>
 								<td><input type="text" class="searchTextBox" size="10" name="amountPDeliv">원</td>
 								<td>월 계약금액 :</td>
-								<td><input type="text" class="searchTextBox" size="10" name="ttlAmout">원</td>
+								<td><input type="text" class="searchTextBox" size="10" name="ttlAmount">원</td>
 							</tr>
 									
 						</table>
 								
-							<div><button type="submit" class="insertBtn" value="등록" id="submit" 
-									style="margin-left:860px; top:500px;">등록</button>
+							<div><button type="submit" class="insertBtn"  id="submit" style="margin-left:860px; top:500px;">등록</button>
 							</div>
 								
 									
@@ -403,7 +400,7 @@ height: 25px;
 </div>	<!-- mainWrapper end -->
 	
 	<script>
-	//Get the modal
+	   //Get the modal
 	   var modal = document.getElementById("myModal");
 
 	   // Get the button that opens the modal

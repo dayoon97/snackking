@@ -37,51 +37,28 @@ public class SelectUserNameListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] member = request.getParameterValues("list");
 		int nno = (Integer.parseInt(request.getParameter("user")));
-//		String list = "";
-//		if(member != null) {
-//			for(int i = 0; i < member.length; i++) {
-//				if(i == 0) {
-//					list += member[i];
-//				} else {
-//					list += ", " + member[i];
-//				}
-//			}
-//		}
+		String name = member[0];
+		String company = member[1];
+		String id = member[2];
+		String phone = member[3];
 		
+		System.out.println(name);
+		System.out.println(company);
+		System.out.println(id);
+		System.out.println(phone);
 		System.out.println(nno);
-		//System.out.println(list);
 		
-		System.out.println(member[0]);
-		System.out.println(member[1]);
-		System.out.println(member[2]);
-		System.out.println(member[3]);
+		User user = new User();
 		
-		//ArrayList<User> list = new UserService().selectUserNameList(nno);
+		if(name != null) {user.setUserName(name);}
+		if(company != null) {user.setCompany(company);}
+		if(id != null) {user.setUserId(id);}
+		if(phone != null) {user.setPhone(phone);}
 		
 		ArrayList<User> searchMember = null;
 		
-		
-		if(member[0] != "") {
-			String userName = member[0];
-			
-			searchMember = new UserService().selectUserNameList(userName, nno);
-		} 
-			
-		if(member[1] != "") {
-			String userCompany = member[1];
-			
-			searchMember = new UserService().selectUserCompanyList(userCompany, nno);
-		}
-		if(member[2] != "") {
-			String userId = member[2];
-			
-			searchMember = new UserService().selectUserIdList(userId, nno);
-		}
-		if(member[3] != "") {
-			String userPhone = member[3];
-			
-			searchMember = new UserService().selectUserPhoneList(userPhone, nno);
-		}
+		searchMember = new UserService().selectUserNameList(user, nno);
+	
 		
 		
 		response.setContentType("application/json");

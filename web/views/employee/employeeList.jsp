@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User, java.util.*"%>
 <% ArrayList<User> adminlist = (ArrayList<User>) request.getAttribute("list"); %>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,6 +102,8 @@
 		border: 1px solid rgba(75, 75, 75, 0.23);
 		box-sizing: border-box;
 		border-radius: 33.5px;
+		padding-top: 8px;
+		padding-left: 10px;
 	}
 	/*폼 기본 서식*/
 	#searchForm{
@@ -187,10 +188,8 @@ right:90px;
 
 #listTable{
 border-collapse:collapse;
-position: absolute;
-top:350px;
-left:45px;
 text-align:center;
+width: 1000px;
 }
 
 
@@ -375,7 +374,12 @@ td {
   border-bottom: 5px solid #F0BB00;
   margin-right: 10px;
 }
-
+.table-scroll{
+	height:300px;
+	position: absolute;
+	margin-top: 200px;
+	margin-left: 30px;
+}
 </style>
 <!-- <link rel="stylesheet" type="text/css" href="../../resources/css/all.css"/> -->
 </head>
@@ -408,20 +412,19 @@ td {
 						<div id="subSubTitle1">직원 검색</div>
 						<!-- 조회 상자 테두리-->
 						<div id="searchBox">
-							<form id="searchForm">
 								<table>
 									<tr>
 										<!-- 검색 내용 타이핑하는 부분 -->
 										<td>이름  :</td>
-										<td><input type="text" class="searchTextBox" size="7"></td>
+										<td><input type="text" class="searchTextBox" size="7" name="employee" onfocus="this.value=''; return true" id="employeeName"></td>
 																			
 										<td>직급코드  :</td>
 										<td><div class="dropdown">
         										<div class="select">
-          											<span>선택</span>
+          											<span id="employeeTcode">선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
-										        <input type="hidden" name="Tcode">
+										        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
 										        <ul class="dropdown-menu">
 										          <li id="T4">T4</li>
 										          <li id="T5">T5</li>
@@ -430,16 +433,28 @@ td {
                         				</td>
 										
 										<td>사원코드  :</td>
-										<td><input type="text" class="searchTextBox" size="7"></td>
+										<td><input type="text" class="searchTextBox" size="7" name="employee" onfocus="this.value=''; return true" id="employeeNo"></td>
 										
 										<td>근무상태  :</td>
-										<td><input type="text" class="searchTextBox" size="10"></td>
+										<td>
+											<div class="dropdown">
+        										<div class="select">
+          											<span id="employeeStatus">선택</span>
+										          <i class="fa fa-chevron-left"></i>
+										        </div>
+										        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
+										        <ul class="dropdown-menu">
+										          <li id="work">근무중</li>
+										          <li id="rest">휴가중</li>
+										          <li id="travel">퇴사</li>
+										        </ul>
+										      </div>
+										</td>
 										
-										<td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
+										<td><button class="searchBtn" id="submit">검색하기</button></td>
 									
 									</tr>
 								</table>
-							</form>
 						</div>
 				</div>
 				
@@ -471,8 +486,7 @@ td {
 					
 					<!-- 조회 리스트 테이블 -->
 					
-				<div class="scroll">
-						<div class="scrollInside">
+				<div class="table-scroll" style="overflow: auto;">
 					<table id="listTable">
 						<!-- 테이블 헤드 -->
 						<thead>
@@ -490,8 +504,8 @@ td {
 						<tbody>
 						<!-- 리스트 바디  -->
 						<% for(User u : adminlist) {%>
-						<tr class="listBody" name="">
-							<td><input type="checkbox" name="chk" onclick="only(this)"></td>
+						<tr class="listBody">
+							<td><input type="checkbox" name="chk"></td>
 							<td><%= u.getUserNo() %></td>
 							<td><%= u.gettCode() %></td>
 							<td><%= u.getUserName() %></td>
@@ -511,10 +525,6 @@ td {
 					</table>
 						</div>
 					</div>
-				</div>
-				
-			
-			
 			</div>
 			<!-- 본문영역 중앙부 끝 -->
 		
@@ -524,28 +534,33 @@ td {
 
 <script>
 	<!-- 드롭다운  -->
-	$('.dropdown').click(function () {
-        $(this).attr('tabindex', 1).focus();
-        $(this).toggleClass('active');
-        $(this).find('.dropdown-menu').slideToggle(300);
-    });
-    $('.dropdown').focusout(function () {
-        $(this).removeClass('active');
-        $(this).find('.dropdown-menu').slideUp(300);
-    });
-    $('.dropdown .dropdown-menu li').click(function () {
-        $(this).parents('.dropdown').find('span').text($(this).text());
-        $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-    });
+	$('.dropdown').click(function() {
+		$(this).attr('tabindex', 1).focus();
+		$(this).toggleClass('active');
+		$(this).find('.dropdown-menu').slideToggle(300);
+	});
+	$('.dropdown').focusout(function() {
+		$(this).removeClass('active');
+		$(this).find('.dropdown-menu').slideUp(300);
+	});
+	$('.dropdown .dropdown-menu li').click(
+		function() {
+			$(this).parents('.dropdown').find('span').text(
+					$(this).text());
+			$(this).parents('.dropdown').find('input').attr('value',
+					$(this).attr('id'));
+		});
 	/*End Dropdown Menu*/
 
+	$('.dropdown-menu li')
+			.click(
+					function() {
+						var input = '<strong>'
+								+ $(this).parents('.dropdown')
+										.find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+						$('.msg').html(msg + input + '</span>');
+					});
 
-	$('.dropdown-menu li').click(function () {
-	  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-	      msg = '<span class="msg">Hidden input value: ';
-	  $('.msg').html(msg + input + '</span>');
-	}); 
-	
 	//모달 스크립트
 	// Get the modal
 	var modal = document.getElementById("myModal");
@@ -557,14 +572,27 @@ td {
 	var span = document.getElementsByClassName("close")[0];
 
 	// When the user clicks on the button, open the modal
+	
+	$(document).on('click','btn',function(e){
+		modal.style.display = "block";
+	});
+	//ajax 실행후 엘리먼트 함수 안돼서 바꿈
 	btn.onclick = function() {
-	  modal.style.display = "block";
+		modal.style.display = "block";
 	}
 
+	
+	//
+	$(document).on('click','span',function(e){
+		modal.style.display = "none";
+	});
+	
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
 	  modal.style.display = "none";
 	}
+	
+	
 
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
@@ -574,257 +602,235 @@ td {
 	};
 	
 	
+	$(document).on('click', 'input[type=checkbox]', function(e){
+		if($(this).prop('checked')){
+			$('input[type=checkbox]').prop("checked",false);
+    		$(this).prop("checked",true);
+    	}
+	});
+    
+	
 	//검색 결과 ajax
- 	$(function(){
- 		$("#submit").click(function(){
- 			
-			$("#listTable td").remove();
-			
-			var arr = [];
-			
-			var name = document.getElementsByName("member")[0].value;
-			var company = document.getElementsByName("member")[1].value;
-			var id = document.getElementsByName("member")[2].value;
-			var phone = document.getElementsByName("member")[3].value;
-			
-			$('input[name="member"]:text').each(function(i){
-				arr.push($(this).val());
-			});
-			
-			for(i in arr){
-				console.log(arr[i])
-				if(arr[i] == null) {
-					
-				} 	
-			}
-			
-			var member = {
-				"user" : $("#mngNo").val(),
-				"list" : arr
-					
-			};
-			
-			console.log(arr);
-			
-			$.ajax({
-				url: "<%=request.getContextPath()%>/selectName.us",
-				data: member,
-				type: "get",
-				traditional:true,
-				success: function(data){
-					
-					console.log(data);
-					$tableBody = $("#listTable tbody");
- 					
- 					$tableBody.html('');
- 					
- 					$.each(data, function(index, value){
- 						var $tr = $("<tr>");
- 						var $Td = $("<td>").html("<input type='checkbox'>");
- 						var $noTd = $("<td>").text(value.userNo);
- 						var $idTd = $("<td>").text(decodeURIComponent(value.userId));
- 						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
- 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
- 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
- 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
- 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
- 						
- 						$tr.append($Td);
- 						$tr.append($noTd);
- 						$tr.append($idTd);
- 						$tr.append($companyTd);
- 						$tr.append($userNameTd);
- 						$tr.append($addressTd);
- 						$tr.append($phoneTd);
- 						$tr.append($enrollDateTd);
- 						
- 						
- 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "25px"});
- 						
- 						$tableBody.append($tr);
- 					}); 
- 					
- 					
- 				},
- 				error: function(data){
- 					console.log("에러!");
- 				}
-				
-				
-			});
-		});
- 	});
-    	//스크롤 이벤트(아직 못함)
-    
-   	
-    
-    $(document).ready(function(){
-	    $('.scroll').scroll(function(){
-	        //scroll 에서 스크롤변화가 발생할때 호출
-	        var scrollT = $(this).scrollTop(); //스크롤바의 상단위치
-	        var scrollH = $(this).height(); //스크롤바를 갖는 div의 높이
-	        var contentH = $('.scrollInside').height(); //문서 전체 내용을 갖는 div의 높이
-	        if(scrollT + scrollH +1 >= contentH) { // 스크롤바가 아래 쪽에 위치할 때
-            	$('.scrollInside').append(".listBody");
-	        }
-	    });
-    });
+	$(document).on('click', '#submit', function(e){
 
+		$("#listTable td").remove();
+		
+		var name = document.getElementsByName("employee")[0].value;
+		
+		var tCode = $("span").eq(0).text();
+		if(tCode == "선택"){
+			tCode = "";
+		}
+		var num = document.getElementsByName("employee")[1].value;
+		var status = $("span").eq(1).text();
+		if(status == "선택"){
+			status = "";
+		}
+		
+		var employee = {
+			name : name,
+			tCode : tCode,
+			num : num,
+			status : status
+		};
+		
+		console.log(employee);
+		
+		console.log(name);
+		console.log(tCode);
+		console.log(num);
+		console.log(status);
+		
+		
+		$.ajax({
+			url: "<%=request.getContextPath()%>/adminEmpSearch.ad",
+			data: employee,
+			type: "get",
+			async:false,
+			traditional: true,
+			success: function(data){
+				
+				
+				$tableBody = $("#listTable tbody");
+					
+					$tableBody.html('');
+					
+					$.each(data, function(index, value){
+						
+						var $tr = $("<tr class='listBody'>");
+						var $Td = $("<td>").html("<input type='checkbox' name='chk'>");
+						var $noTd = $("<td>").text(value.userNo);
+						var $tCodeTd = $("<td>").text(decodeURIComponent(value.tCode));
+						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
+						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
+						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
+						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
+						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
+						var $endTr = $("</tr>");
+						
+						$tr.append($Td);
+						$tr.append($noTd);
+						$tr.append($tCodeTd);
+						$tr.append($userNameTd);
+						$tr.append($addressTd);
+						$tr.append($phoneTd);
+						$tr.append($enrollDateTd);
+						$tr.append($statusTd);
+						$tr.append($endTr);
+						
+						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
+						
+						$tableBody.append($tr);
+					});  
+					 
+				},
+				error: function(data){
+					console.log("에러!");
+				}
+			
+			
+		});
+	});
+	
     //체크박스 여러개 체크 못하게 하는거
     var obj = document.getElementsByName("chk");
     	
-     function only(chk){ 
-          for(var i=0; i<obj.length; i++){
-              if(obj[i] != chk){
-                  obj[i].checked = false;
-              }
-          }
-     };
+    $(document).ready(function(){
+    	$("input[type='checkbox'][name='chk']").click(function(e){
+    		if($(this).prop('checked')){
+    			$('input[type="checkbox"][name="chk"]').prop("checked",false);
+    			$(this).prop("checked",true);
+    		}
+    	})
+    });
     
+   
     
     //직원권한 변경 버튼 눌렀을 때
-    	$("#apply").click(function(){
-    		$(".modalTable").empty();
-    		var rowData = new Array();
-    		var tdArr = new Array();
-    		
-    		 //체크된 체크박스를 가져온다.
-    	    var checkbox = $("input:checkbox[name=chk]:checked");
-    	    
-    		console.log(checkbox);
-    	    //체크된 체크박스의 값을 반복해 불러옴.
-    	    checkbox.each(function(i){
-    	    	//checkbox.parent() : checkbox의 부모는 td.
-    	    	//checkbox.parent().parent() : td의 부모는 tr.
-    	    	var tr = checkbox.parent().parent().eq(i);
-    	    	var td = tr.children();
-    	    	
-    	    	var html = "";
-    	    	rowData.push(tr.text());
-    	    	
-    	    	
-    	    	var id = td.eq(1).text();
-    	    	var name = td.eq(3).text();
-    	    	var address = td.eq(4).text();
-    	    	var phone = td.eq(5).text();
-    	    	var enrolldate = td.eq(6).text();
-    	    	var status = td.eq(7).text();
-    	   
-    	    	
-    	    	html += '<tr>';
-    	    	html += '<th width="40px !important;"> 사원 </th>';
-    	    	html += '<th width="30px !important;"> 직급코드 </th>';
-    	    	html += '<th width="70px !important;"> 이름 </th>';
-    	    	html += '<th width="400px !important;"> 주소 </th>';
-    	    	html += '<th width="200px !important;"> 연락처 </th>';
-    	    	html += '<th width="100px !important;"> 입사일 </th>';
-    	    	html += '<th width="70px !important;"> 상태 </th>';
-    	    	html += '</tr>';
-    	    	html += '<tr>';
-    	    	html += '<td>' + id + '</td>';
-    	    	html += '<td><div class="dropdown"> <div class="select"> <span id="tCode"> 선택  </span> <i class="fa fa-chevron-left"></i> </div>'
-    	    	+ '<input type="hidden" name="Tcode"> <ul class="dropdown-menu"> <li id="T4">T4</li> <li id="T5">T5'
-    	    	+ '</li> </ul> </div> </td>';
-    	    	html += '<td>' + name + '</td>';
-    	    	html += '<td>' + address + '</td>';
-    	    	html += '<td>' + phone + '</td>';
-    	    	html += '<td>' + enrolldate + '</td>';
-    	    	html += '<td>' + status + '</td>';
-
-    	    	
-    	    	$(".modalTable").empty();
-    	    	$(".modalTable").append(html);
-    	    	
-    	    	$('.dropdown').click(function () {
-    	            $(this).attr('tabindex', 1).focus();
-    	            $(this).toggleClass('active');
-    	            $(this).find('.dropdown-menu').slideToggle(300);
-    	        });
-    	        $('.dropdown').focusout(function () {
-    	            $(this).removeClass('active');
-    	            $(this).find('.dropdown-menu').slideUp(300);
-    	        });
-    	        $('.dropdown .dropdown-menu li').click(function () {
-    	            $(this).parents('.dropdown').find('span').text($(this).text());
-    	            $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-    	        });
-    	    	/*End Dropdown Menu*/
-
-
-    	    	$('.dropdown-menu li').click(function () {
-    	    	  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-    	    	      msg = '<span class="msg">Hidden input value: ';
-    	    	  $('.msg').html(msg + input + '</span>');
-    	    	}); 
-    	    });
-    	});
-    
-
-    //권한변경 모달안에서 변경하기 버튼 눌렀을 때
-    $(function(){
-    	$("#chCodeBtn").click(function(){
-    		
-	    	var userNo = $(".modalTable td").eq(0).text();
-	    	console.log(userNo);
+    $(document).on('click','#apply',function(e){
+    	//$(".modalTable").empty();
+		var rowData = new Array();
+		var tdArr = new Array();
+		
+		 //체크된 체크박스를 가져온다.
+	    var checkbox = $("input:checkbox[name=chk]:checked");
+	    
+		console.log(checkbox);
+	    //체크된 체크박스의 값을 반복해 불러옴.
+	    checkbox.each(function(i){
 	    	
-	    	var Tcode = $("#tCode").text();
-	    	console.log(Tcode);
 	    	
-	    	var arr = {
-	    			"userNo" : userNo,
-	    			"Tcode" : Tcode
-	    	};
+	    	//checkbox.parent() : checkbox의 부모는 td.
+	    	//checkbox.parent().parent() : td의 부모는 tr.
+	    	var tr = checkbox.parent().parent().eq(i);
+	    	var td = tr.children();
 	    	
-	    	$.ajax({
-	    		url:"<%=request.getContextPath()%>/changeTcode.ad",
-	    		data: arr,
-	    		type: "get",
-	    		traditional:true,
-	    		success: function(data){
-	    			modal.style.display = "none";
-					$tableBody = $("#listTable tbody");
- 					
- 					$tableBody.html('');
- 					
- 					$.each(data, function(index, value){
- 						var $tr = $("<tr>");
- 						var $Td = $("<td>").html("<input type='checkbox'>");
- 						var $noTd = $("<td>").text(value.userNo);
- 						var $TcodeTd = $("<td>").text(decodeURIComponent(value.tCode));
- 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
- 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
- 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
- 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
- 						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
- 						
- 						
- 						
- 						$tr.append($Td);
- 						$tr.append($noTd);
- 						$tr.append($TcodeTd);
- 						$tr.append($userNameTd);
- 						$tr.append($addressTd);
- 						$tr.append($phoneTd);
- 						$tr.append($enrollDateTd);
- 						$tr.append($statusTd);
- 						
- 						
- 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "25px"});
- 						
- 						$tableBody.append($tr);
- 					}); 
- 					
-	    		},
-	    		error:function(data){
-	    			
-	    		}
+	    	var html = "";
+	    	rowData.push(tr.text());
+	    	
+	    	
+	    	var id = td.eq(1).text();
+	    	var name = td.eq(3).text();
+	    	var address = td.eq(4).text();
+	    	var phone = td.eq(5).text();
+	    	var enrolldate = td.eq(6).text();
+	    	var status = td.eq(7).text();
+	   
+	    	
+	    	html += '<tr>';
+	    	html += '<th width="40px !important;"> 사원 </th>';
+	    	html += '<th width="30px !important;"> 직급코드 </th>';
+	    	html += '<th width="70px !important;"> 이름 </th>';
+	    	html += '<th width="400px !important;"> 주소 </th>';
+	    	html += '<th width="200px !important;"> 연락처 </th>';
+	    	html += '<th width="100px !important;"> 입사일 </th>';
+	    	html += '<th width="70px !important;"> 상태 </th>';
+	    	html += '</tr>';
+	    	html += '<tr>';
+	    	html += '<td>' + id + '</td>';
+	    	html += '<td><div class="dropdown"> <div class="select"> <span id="tCode"> 선택  </span> <i class="fa fa-chevron-left"></i> </div>'
+	    	+ '<input type="hidden" name="Tcode"> <ul class="dropdown-menu"> <li id="T4">T4</li> <li id="T5">T5'
+	    	+ '</li> </ul> </div> </td>';
+	    	html += '<td>' + name + '</td>';
+	    	html += '<td>' + address + '</td>';
+	    	html += '<td>' + phone + '</td>';
+	    	html += '<td>' + enrolldate + '</td>';
+	    	html += '<td>' + status + '</td>';
+
+	    	
+	    	$(".modalTable").empty();
+	    	$(".modalTable").append(html);
+	    	
+	    	//드롭다운 
+	    	$('.dropdown').click(function() {
+	    		$(this).attr('tabindex', 1).focus();
+	    		$(this).toggleClass('active');
+	    		$(this).find('.dropdown-menu').slideToggle(300);
 	    	});
+	    	$('.dropdown').focusout(function() {
+	    		$(this).removeClass('active');
+	    		$(this).find('.dropdown-menu').slideUp(300);
+	    	});
+	    	$('.dropdown .dropdown-menu li').click(
+	    		function() {
+	    			$(this).parents('.dropdown').find('span').text(
+	    					$(this).text());
+	    			$(this).parents('.dropdown').find('input').attr('value',
+	    					$(this).attr('id'));
+	    		});
+	    	/*End Dropdown Menu*/
+
+	    	$('.dropdown-menu li').click(function() {
+	    		var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+	    		$('.msg').html(msg + input + '</span>');
+	    	});
+	    	 
 	    	
-	    	
-    	});
+	    });
     });
-	
-	
+    
+    //권한변경 모달안에서 변경하기 버튼 눌렀을 때
+    $(document).on('click','#chCodeBtn',function(e){
+    	modal.style.display = "none";
+
+		
+		var userNo = $('.modalTable td').eq(0).text();
+		console.log(userNo);
+		var Tcode = $('#tCode').text();
+    	console.log(Tcode);
+
+    	var arr = {
+    			"userNo" : userNo,
+    			"Tcode" : Tcode
+    	};
+    	
+    	$.ajax({
+    		url:"<%=request.getContextPath()%>/changeTcode.ad",
+    		data: arr,
+    		type: "get",
+    		traditional:true,
+    		success: function(data){
+    			
+    			$.ajax({
+    				url:"<%=request.getContextPath()%>/adminEmpSelect.ad",
+    				type:"get",
+    				success: function(data){
+    					
+    					location.reload(true);
+    					
+	 					
+		    		},
+		    		error:function(data){
+		    			
+		    		}
+		    		
+    				});
+    				
+    				}	
+    		});
+    	});
+  
+    
 	</script>
 	
 </body>

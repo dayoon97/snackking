@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.awt.*"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.snackking.board.model.vo.*" %>
+<%
+	Map<String, Object> boardMap = (HashMap<String, Object>) request.getAttribute("boardMap");
+	Board board = (Board) boardMap.get("Board");
+	ArrayList<Attachment> atlist = (ArrayList<Attachment>) boardMap.get("Attachment");
+	
+	Attachment[] atArr = new Attachment[4];
+	/* for(int i = 0; i < atlist.size(); i++) {
+		atArr[i] = atlist.get(i);
+	} */
+	
+	Reply reply = (Reply) boardMap.get("Reply");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,8 +74,12 @@
 	border: 1px solid gray;
 	border-radius: 6px;
 }
-.article_header, .article_container{
-	border: 1px solid black;
+.article_header{
+	border-bottom: 1px solid black;
+	margin: 10px 10px;
+	padding: 10px;
+}
+.article_container{
 	margin: 10px 10px;
 	padding: 10px;
 }
@@ -95,9 +111,15 @@
 .content-img-box{
 	text-align: -webkit-center;
 	border-bottom: 1px solid black;
+	padding: 15px;
+}
+.imgBox {
+	margin: 10px auto;
 }
 .content-text-box {
 	border-bottom: 1px solid black;
+	font-size: 20px;
+	padding: 10px;
 }
 .content-img-box div{
 	margin: 10px 10px;
@@ -110,6 +132,7 @@
 	font-weight: 600;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	padding-left: 10px;
 }
 .writeReply {
 	margin-top: 10px;
@@ -142,6 +165,17 @@
 	padding-right: 10px;
 	padding-left: 10px;
 }
+#reply-btn {
+	background-color: #FFC700;
+	border: 0;
+	outline: 0;
+	font-weight: 400;
+	border-radius: 5px;
+}
+#reply-btn:hover {
+	cursor: pointer;
+	color: white;
+}
 </style>
 </head>
 <body style="overflow-x: hidden;">
@@ -170,58 +204,69 @@
 				
 					<div class="article_header">
 						<div class="ArticleTitle">
-							<div id="categoryArea">[기타문의]</div>
-							<div id="boardTitleArea">글 제목 입니다.</div>
+							<div id="categoryArea">[<%= board.getBtName() %>]</div>
+							<div id="boardTitleArea"><%= board.getbTitle() %></div>
 						</div>	<!-- ArticleTitle -->
 						<div class="WriterInfo">
-							<div id="writerName">이재형</div>
-							<span id="writeDate">2020.07.16. 12:00</span>
-							<span id="boardCount">조회수 : 0</span>
-							<span id="replyCount">댓글 : 0</span>
+							<div id="writerName"><%= board.getUserName() %></div>
+							<span id="writeDate"><%= board.getbDate() %></span>
+							<span id="boardCount">조회수 : <%= board.getbCount() %></span>
+							<span id="replyCount"><%= board.getAnswerCheck() %></span>
 						</div>
 					</div>	<!-- article_header -->
 					
 					<div class="article_container">
 						<div class="article_content">
 							<!-- 사진 올라가는 공간 -->
+							<% if(atlist.size() > 0) { %>
 							<div class="content-img-box">
-								<div style="width: 600px; height: 400px; background: lightgray;">사진</div>
-								<div style="width: 300px; height: 150px; background: lightgray;">사진</div>
-								<div style="width: 200px; height: 300px; background: lightgray;">사진</div>
+								<% for(int i = 0; i < atlist.size(); i++) {
+										atArr[i] = atlist.get(i);
+								%>
+										<img class="imgBox" style="max-width: 80%" alt="picture" src="<%=request.getContextPath()%>/board_uploadImages/<%=atArr[i].getChangeName()%>">
+								<% } %>
 							</div>
+							<% } %>
 							
 							<!-- 텍스트 올라가는 공간 -->
 							<div class="content-text-box">
-								<p>얄라리 얄라리 얄라리</p>
+								<!-- <p>얄라리 얄라리 얄라리</p> -->
+								<%= board.getbContent() %>
 							</div>
 							
 						</div>	<!-- article_content -->
 						
 						<div class="reply-box">
 							<div class="reply-box-title">댓글</div>
-							<table border="1">
+							<% if(reply != null) { %>
+							<table>
 								<tr>
-									<td class="reply-box-writer">최고미소</td>
+									<td class="reply-box-writer"><%= reply.getUserName() %></td>
 								</tr>
 								<tr>
-									<td class="reply-box-content">시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~시러용~</td>
+									<td class="reply-box-content"><%= reply.getrContent() %></td>
 								</tr>
 								<tr>
-									<td class="reply-box-date">2020.07.16. 14:52</td>
+									<td class="reply-box-date"><%= reply.getrDate() %></td>
 								</tr>
 							</table>
+							<% } else { %>
+							<div style="padding-left: 10px; font-size: 15px;">댓글이 없습니다.</div>
+							<% } %>
+							<% if(loginUser.gettCode().equals("T3") || loginUser.gettCode().equals("T4")) { %>
 							<div class="writeReply">
 								<div class="replyWriter">
-									<span id="replyTname">큐레이터</span>&nbsp;&nbsp;
-									<span id="replyName">큐레미소</span>
+									<span id="replyTname"><%= loginUser.gettName() %></span>&nbsp;&nbsp;
+									<span id="replyName"><%= loginUser.getUserName() %></span>
 								</div>
 								<div style="margin-top: 5px;">
-									<textarea class="reply-area" rows="2" cols="140" placeholder="댓글을 입력해주세요." style="overflow: hidden; resize: none; border: 0;"></textarea>
+									<textarea onkeydown="resize(this)" onkeyup="resize(this)" class="reply-area" rows="2" cols="140" placeholder="댓글을 입력해주세요." style="overflow: hidden; resize: none; border: 0;"></textarea>
 								</div>
 								<div style="height:25px; margin-top: 5px;">
 									<div style="display: inline-block; float: right;"><input type="button" id="reply-btn" value="등록"></div>
 								</div>
 							</div>
+							<% } %>
 						</div>	<!-- reply-box -->
 					</div>	<!-- article_container -->
 					
@@ -238,7 +283,31 @@
 	/* $(".listBtn-top").onclick(function() {
 		
 	}); */
-	
+	function resize(obj) {
+		obj.style.height = "1px";
+		obj.style.height = (12+obj.scrollHeight)+"px";
+	}
+	$("#reply-btn").click(function() {
+		var bid = <%= board.getBid()%>;
+		var rContent = $(".reply-area").val();
+		var rWriter = <%= loginUser.getUserNo() %>;
+		
+		$.ajax({
+			url: "<%= request.getContextPath() %>/insertReply.bo",
+			type: "post",
+			data: {
+				bid: bid,
+				rContent: rContent,
+				rWriter: rWriter
+			},
+			success: function(data) {
+				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + bid;
+			},
+			error: function() {
+				alert("Error!");
+			}
+		});
+	});
 </script>
 	
 </body>

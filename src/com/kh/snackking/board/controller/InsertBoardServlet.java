@@ -43,9 +43,9 @@ public class InsertBoardServlet extends HttpServlet {
 			
 			int maxSize = 1024 * 1024 * 10;
 			
-//			String root = request.getSession().getServletContext().getRealPath("/");
+			String root = request.getSession().getServletContext().getRealPath("/");
 //			System.out.println(root);
-			String root = "C:/KH/images/";
+//			String root = "C:/KH/images/";
 //			System.out.println("root : " + root);
 			
 			String savePath = root + "board_uploadImages/";
@@ -115,8 +115,7 @@ public class InsertBoardServlet extends HttpServlet {
 					
 					failedFile.delete();
 				}
-				
-				request.setAttribute("msg", "사진게시판 등록 실패!");
+				request.setAttribute("errorCode", "insertBoard");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 			

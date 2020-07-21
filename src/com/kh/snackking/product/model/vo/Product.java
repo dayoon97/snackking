@@ -16,11 +16,11 @@ public class Product implements Serializable{
 	private String taste; //맛
 	private String allergy; //알레르기
 	private String age; //나이 (20, 30, 40, 50, 60 대 문자열로 합쳐서 받을 예정)
-	private Product() {
+	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	private Product(String pCode, String pName, int pExp, String pVendor, String ptCode, String ptName, int price,
+	public Product(String pCode, String pName, int pExp, String pVendor, String ptCode, String ptName, int price,
 			String search_YN, String delete_YN, String flavor, String taste, String allergy, String age) {
 		super();
 		this.pCode = pCode;

@@ -50,10 +50,13 @@ public class UserService {
 
 
 
-	public ArrayList<User> selectUserNameList(String userName, int nno) {
+	public ArrayList<User> selectUserNameList(User user, int nno) {
 		Connection con = getConnection();
 		
-		ArrayList<User> list = new UserDao().selectUserNameList(userName, nno, con);
+		ArrayList<User> list = new UserDao().selectUserNameList(user, nno, con);
+		
+		System.out.println(user);
+		System.out.println(nno);
 		
 		close(con);
 		
@@ -134,36 +137,6 @@ public class UserService {
 		return responseUser;
 	}
 	
-	public ArrayList<User> selectUserCompanyList(String userCompany, int nno) {
-		Connection con = getConnection();
-		
-		ArrayList<User> list = new UserDao().selectUserCompanyList(userCompany, nno, con);
-		
-		close(con);
-		
-		return list;
-		
-	}
-
-	public ArrayList<User> selectUserIdList(String userId, int nno) {
-		Connection con = getConnection();
-		
-		ArrayList<User> list = new UserDao().selectUserIdList(userId, nno, con);
-		
-		close(con);
-		
-		return list;
-	}
-
-	public ArrayList<User> selectUserPhoneList(String userPhone, int nno) {
-		Connection con = getConnection();
-		
-		ArrayList<User> list = new UserDao().selectUserPhoneList(userPhone, nno, con);
-		
-		close(con);
-		
-		return list;
-	}
 
 	public ArrayList<User> adminUserList() {
 		Connection con = getConnection();
@@ -205,12 +178,9 @@ public class UserService {
 		Connection con = getConnection();
 		int result = 0;
 		
-		System.out.println("service userNo : " + userNo);
-		ArrayList<Adjustment> list = new UserDao().deleteUserSelect(con, userNo);
+		result = new UserDao().deleteUser(con, userNo);
 		
-		
-		if(list != null) {
-			result = new UserDao().deleteUser(con, userNo);
+		if(result > 0) {
 			commit(con);
 		} else {
 			rollback(con);
@@ -218,5 +188,27 @@ public class UserService {
 		
 		return result;
 	}
+
+	public ArrayList<User> searchUserList(User user) {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().searchUserList(user, con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<User> selectEmpSearch(User user) {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().searchEmpSearch(user, con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	
 
 }

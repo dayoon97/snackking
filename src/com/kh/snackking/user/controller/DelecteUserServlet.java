@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.snackking.user.model.service.UserService;
 
 /**
@@ -36,12 +37,13 @@ public class DelecteUserServlet extends HttpServlet {
 		
 		int result = new UserService().deleteUserSelect(userNo);
 		
-		
 		if(result > 0) {
 			request.getSession().invalidate();
 	    	response.sendRedirect("index.jsp");
 		} else {
-			
+			request.setAttribute("msg", "탈퇴실패");
+			request.getRequestDispatcher("views/common/userUpdateInfo.jsp").forward(request, response);
+
 		}
 	}
 

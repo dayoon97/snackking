@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference"%>
-<% Preference insertPre = (Preference) request.getAttribute("insertPre"); %>
+    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference, com.kh.snackking.product.model.vo.Product, java.util.*"%>
+<% Preference insertPre = (Preference) request.getAttribute("insertPre"); 
+	ArrayList<Product> Product = (ArrayList<Product>) request.getAttribute("Product");
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -187,6 +191,7 @@ right:90px;
 border-collapse:collapse;
 position: absolute;
 text-align:center;
+width: 900px;
 }
 
 
@@ -242,6 +247,91 @@ height: 25px;
 	margin-top: 50px;
 }
 </style>
+
+<script>
+function amountclick(am){
+    var obj = document.getElementsByName("perstyle");
+    for(var i=0; i<obj.length; i++){
+        if(obj[i] != am){
+            obj[i].checked = false;
+        }
+    }
+}
+
+function deliveryclick(de){
+    var obj = document.getElementsByName("delivery");
+    for(var i=0; i<obj.length; i++){
+        if(obj[i] != de){
+            obj[i].checked = false;
+        }
+    }
+}
+function packingclick(pack){
+    var obj = document.getElementsByName("packing");
+    for(var i=0; i<obj.length; i++){
+        if(obj[i] != pack){
+            obj[i].checked = false;
+        }
+    }
+}
+
+$(function(){
+	var ProductTypes = '<%=insertPre.getPreProductTypes()%>'.split(",");
+	var flavor = '<%=insertPre.getPreTaste()%>'.split(",");
+	var smell = '<%=insertPre.getPreFlavor()%>'.split(",");
+	var allergy = '<%=insertPre.getPreAlName()%>'.split(",");
+	var perstyle = '<%=insertPre.getPreStyle()%>'.split(",");
+	var equipment = '<%=insertPre.getPreEquipment()%>'.split(",");
+	
+	$("input[name=kinds]").each(function(){ //상품 종류
+		for(var i = 0; i < ProductTypes.length; i++){
+			if($(this).val() === ProductTypes[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=flavor]").each(function(){ //맛
+		for(var i = 0; i < flavor.length; i++){
+			if($(this).val() === flavor[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=smell]").each(function(){ //향
+		for(var i = 0; i < smell.length; i++){
+			if($(this).val() === smell[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=allergy]").each(function(){ //알레르기
+		for(var i = 0; i < allergy.length; i++){
+			if($(this).val() === allergy[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=perstyle]").each(function(){ //구성스타일
+		for(var i = 0; i < perstyle.length; i++){
+			if($(this).val() === perstyle[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+	
+	$("input[name=equipment]").each(function(){ //설비
+		for(var i = 0; i < equipment.length; i++){
+			if($(this).val() === equipment[i]){
+				$(this).attr("checked", true);
+			} 
+		}
+	});
+});
+</script>
 </head>
 <body>
 <!-- mainWrapper start -->
@@ -267,9 +357,11 @@ height: 25px;
 					<div id="searchBox">
 					<!-- 조회 제목 -->
 						<div id="subSubTitle1"><h2>선호도 입력 정보</h2></div>
-						<form id="searchForm" action="<%= request.getContextPath() %>/insertPer.per" method="post">
+						<form id="searchForm" action="<%= request.getContextPath() %>/curatingSelectProduct.pro" method="post">
 							<%-- <input type="hidden" id="userid" name="userid" value="<%=loginUser.getUserNo()%>">
 							<input type="hidden" id="username" name="userName" value="<%=loginUser.getUserName()%>"> --%>
+							<input type="hidden" id="userNo" name="userNo" value="<%=insertPre.getUserNo()%>">
+							<input type="hidden" id="preNo" name="preNo" value="<%=insertPre.getPreNo()%>">
 							<table class="memberTable">
 								<tr>
 									<!-- 검색 내용 타이핑하는 부분 -->
@@ -485,32 +577,38 @@ height: 25px;
 				<div id="snackList">
 				<br>
 				<h3 style="margin-left: 50px;">과자 리스트</h3>
-               <table id="listTable">
+               <table id="listTable" class="snackTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
-                     <th width="20px"><input type="checkbox" id="checkall"></th>
+                     <th width="130px">상품코드</th>
                      <th width="70px">상품명</th>
+                     <th width="70px">업체명</th>
                      <th width="150px">상품 종류</th>
                      <th width="150px">상품 맛</th>
                      <th width="150px">상품 향</th>
                      <th width="150px">알레르기</th>
                      <th width="50px">갯수</th>
+                     <th width="50px">가격</th>
                      <th width="50px">추가</th>
                   </tr>
                  
                   <!-- 리스트 바디  -->
-<%-- 				<% for(Preference n : List) { %>
+                  <tbody id="tbody">
+ 				<% for(Product n : Product) { %>
                   <tr class="listBody">
-						<td><input type="checkbox"></td>
-						<td><%= n.getPreNo() %></td>
-						<td><%= n.getUserCom() %></td>
-						<td><%= n.getUserName()%></td>
-						<td><%= n.getPreDate() %></td>
-						<td><%= n.getStatus() %></td>
-						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="/snackkking/resources/image/search.png" width="15px" alt="My Image"></a></td>
-						<td><button onclick="location.href='<%= request.getContextPath()%>/delicatePre.pre?num=<%=n.getPreNo()%>'">삭제</button></td>
+						<td><%= n.getpCode() %></td>
+						<td><%= n.getpName() %></td>
+						<td><%= n.getpVendor() %></td>
+						<td><%= n.getPtName() %></td>
+						<td><%= n.getTaste()%></td>
+						<td><%= n.getFlavor() %></td>
+						<td><%= n.getAllergy() %></td>
+						<td></td>
+						<td><%= n.getPrice() %></td>
+						<td><button id="proAdd" value="<%= n.getpCode() %>" >추가</button></td>
 					</tr>
-				<%} %> --%>
+				<%} %>
+				</tbody>
                </table>
                 </div>
                 
@@ -523,7 +621,7 @@ height: 25px;
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
-                     <th width="20px"><input type="checkbox" id="checkall"></th>
+                     <th width="100px">상품코드</th>
                      <th width="70px">상품명</th>
                      <th width="150px">상품 종류</th>
                      <th width="150px">상품 맛</th>
@@ -558,88 +656,7 @@ height: 25px;
 </div>	<!-- mainWrapper end -->
 
 <script type="text/javascript">
-function amountclick(am){
-    var obj = document.getElementsByName("perstyle");
-    for(var i=0; i<obj.length; i++){
-        if(obj[i] != am){
-            obj[i].checked = false;
-        }
-    }
-}
 
-function deliveryclick(de){
-    var obj = document.getElementsByName("delivery");
-    for(var i=0; i<obj.length; i++){
-        if(obj[i] != de){
-            obj[i].checked = false;
-        }
-    }
-}
-function packingclick(pack){
-    var obj = document.getElementsByName("packing");
-    for(var i=0; i<obj.length; i++){
-        if(obj[i] != pack){
-            obj[i].checked = false;
-        }
-    }
-}
-
-$(function(){
-	var ProductTypes = '<%=insertPre.getPreProductTypes()%>'.split(",");
-	var flavor = '<%=insertPre.getPreTaste()%>'.split(",");
-	var smell = '<%=insertPre.getPreFlavor()%>'.split(",");
-	var allergy = '<%=insertPre.getPreAlName()%>'.split(",");
-	var perstyle = '<%=insertPre.getPreStyle()%>'.split(",");
-	var equipment = '<%=insertPre.getPreEquipment()%>'.split(",");
-	
-	$("input[name=kinds]").each(function(){ //상품 종류
-		for(var i = 0; i < ProductTypes.length; i++){
-			if($(this).val() === ProductTypes[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-	
-	$("input[name=flavor]").each(function(){ //맛
-		for(var i = 0; i < flavor.length; i++){
-			if($(this).val() === flavor[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-	
-	$("input[name=smell]").each(function(){ //향
-		for(var i = 0; i < smell.length; i++){
-			if($(this).val() === smell[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-	
-	$("input[name=allergy]").each(function(){ //알레르기
-		for(var i = 0; i < allergy.length; i++){
-			if($(this).val() === allergy[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-	
-	$("input[name=perstyle]").each(function(){ //구성스타일
-		for(var i = 0; i < perstyle.length; i++){
-			if($(this).val() === perstyle[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-	
-	$("input[name=equipment]").each(function(){ //설비
-		for(var i = 0; i < equipment.length; i++){
-			if($(this).val() === equipment[i]){
-				$(this).attr("checked", true);
-			} 
-		}
-	});
-});
 
 function preference(){
 	var userId = $("#userid").val();
@@ -648,6 +665,414 @@ function preference(){
 	
 	$("#searchForm").submit();
 }
+
+$(function(){
+	
+	var preNo = $("#preNo").val();
+	var userNo = $("#userNo").val();
+	console.log(preNo);
+	console.log(userNo);
+	//상품 체크하면 리스트 바뀌는 구문
+	$("input[name=kinds]").click(function(){
+		var kinds = "";
+		var flavor = "";
+		var smell = "";
+		var allergy = "";
+		if( $(this).prop("checked")){
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}else{
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}else{
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}else{
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}else{
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}
+		
+		
+		$.ajax({
+			url: "curatingSelectProduct.pro",
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
+			success:function(data){
+				
+				console.log(data);
+				$tableBody = $(".snackTable #tbody");
+				$tableBody.html('');
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr>").attr('class', 'listBody');
+					var $pCodeTd = $("<td>").text(decodeURIComponent(value.pCode)); //상품 코드
+					var $pNameTd = $("<td>").text(decodeURIComponent(value.pName)); //상품명
+					var $ptNameTd = $("<td>").text(decodeURIComponent(value.ptName)); //상품 종류명
+					var $pVendorTd = $("<td>").text(decodeURIComponent(value.pVendor)); //업체명
+					var $priceTd = $("<td>").text(decodeURIComponent(value.price)); //가격
+					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
+					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
+					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
+					var $CountTd = $("<td>"); //개수
+					
+					
+					var $button = $("<button>").attr('id','proAdd').html("추가");
+					$button.val(decodeURIComponent(value.pCode));
+					var $inputTd = $("<td>");
+					$inputTd.append($button);
+					
+					$tr.append($pCodeTd);
+					$tr.append($pNameTd);
+					$tr.append($pVendorTd);
+					$tr.append($ptNameTd);
+					$tr.append($taste);
+					$tr.append($flavor);
+					$tr.append($allergy);
+					$tr.append($CountTd);
+					$tr.append($priceTd);
+					$tr.append($inputTd);
+					$tableBody.append($tr);
+					
+						if(){
+							$("#proAdd").click(function(){
+								$.ajax({
+									url: "curatingBasket.pro",
+									data: {proCode:$("#proAdd").val()},
+									success:function(data){
+										console.log("성공");
+										console.log(data);
+								
+									},
+									error:function(){
+										console.log("실패!");
+									}
+								});	
+							});
+						}
+					
+				});
+				
+				
+				/* 
+				$.each(data, function(index, value){
+					var $tr = $("<tr>");
+					var $noTd = $("<td>").text(value.userNo);
+					var $nameTd = $("<td>").text(decodeURIComponent(value.userName));
+					var $nationTd = $("<td>").text(decodeURIComponent(value.userNation)); */
+				
+				console.log("성공!");
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		
+	});
+	
+	$("input[name=flavor]").click(function(){
+		var kinds = "";
+		var flavor = "";
+		var smell = "";
+		var allergy = "";
+		if( $(this).prop("checked")){
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}else{
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}else{
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}else{
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}else{
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}
+		
+		
+		$.ajax({
+			url: "curatingSelectProduct.pro",
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
+			success:function(data){
+
+				console.log(data);
+				$tableBody = $(".snackTable #tbody");
+				$tableBody.html('');
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr>").attr('class', 'listBody');
+					var $pCodeTd = $("<td>").text(decodeURIComponent(value.pCode)); //상품 코드
+					var $pNameTd = $("<td>").text(decodeURIComponent(value.pName)); //상품명
+					var $ptNameTd = $("<td>").text(decodeURIComponent(value.ptName)); //상품 종류명
+					var $pVendorTd = $("<td>").text(decodeURIComponent(value.pVendor)); //업체명
+					var $priceTd = $("<td>").text(decodeURIComponent(value.price)); //가격
+					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
+					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
+					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
+					var $CountTd = $("<td>"); //개수
+					
+					var $inputTd = $("<td>").html("<input type='button' value='추가' id='proAdd'>");
+					
+					$tr.append($pCodeTd);
+					$tr.append($pNameTd);
+					$tr.append($pVendorTd);
+					$tr.append($ptNameTd);
+					$tr.append($taste);
+					$tr.append($flavor);
+					$tr.append($allergy);
+					$tr.append($CountTd);
+					$tr.append($priceTd);
+					$tr.append($inputTd);
+					$tableBody.append($tr);
+					
+					
+				});
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		
+	});
+	
+
+	$("input[name=smell]").click(function(){
+		var kinds = "";
+		var flavor = "";
+		var smell = "";
+		var allergy = "";
+		if( $(this).prop("checked")){
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}else{
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}else{
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}else{
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}else{
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 향
+		}
+		
+		
+		$.ajax({
+			url: "curatingSelectProduct.pro",
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
+			success:function(data){
+
+				console.log(data);
+				$tableBody = $(".snackTable #tbody");
+				$tableBody.html('');
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr>").attr('class', 'listBody');
+					var $pCodeTd = $("<td>").text(decodeURIComponent(value.pCode)); //상품 코드
+					var $pNameTd = $("<td>").text(decodeURIComponent(value.pName)); //상품명
+					var $ptNameTd = $("<td>").text(decodeURIComponent(value.ptName)); //상품 종류명
+					var $pVendorTd = $("<td>").text(decodeURIComponent(value.pVendor)); //업체명
+					var $priceTd = $("<td>").text(decodeURIComponent(value.price)); //가격
+					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
+					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
+					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
+					var $CountTd = $("<td>"); //개수
+					
+					var $inputTd = $("<td>").html("<input type='button' value='추가' id='proAdd'>");
+					
+					$tr.append($pCodeTd);
+					$tr.append($pNameTd);
+					$tr.append($pVendorTd);
+					$tr.append($ptNameTd);
+					$tr.append($taste);
+					$tr.append($flavor);
+					$tr.append($allergy);
+					$tr.append($CountTd);
+					$tr.append($priceTd);
+					$tr.append($inputTd);
+					$tableBody.append($tr);
+					
+					
+				});
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		
+	});
+	
+	$("input[name=allergy]").click(function(){
+		var kinds = "";
+		var flavor = "";
+		var smell = "";
+		var allergy = "";
+		if( $(this).prop("checked")){
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}else{
+			$("input[name=kinds]:checked").each(function() { 
+				kinds += $(this).val() + ","; 
+			});// 과자 종류
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}else{
+			$("input[name=flavor]:checked").each(function() { 
+				flavor += $(this).val() + ","; 
+			});// 맛
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}else{
+			$("input[name=smell]:checked").each(function() { 
+				smell += $(this).val() + ","; 
+			});// 향
+		}
+		
+		if( $(this).prop("checked")){
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 알레르기
+		}else{
+			$("input[name=allergy]:checked").each(function() { 
+				allergy += $(this).val() + ",";
+			});// 알레르기
+		}
+
+		$.ajax({
+			url: "curatingSelectProduct.pro",
+			data: {kinds:kinds, flavor:flavor, smell:smell, allergy:allergy, preNo:preNo, userNo:userNo},
+			success:function(data){
+
+				console.log(data);
+				$tableBody = $(".snackTable #tbody");
+				$tableBody.html('');
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr>").attr('class', 'listBody');
+					var $pCodeTd = $("<td>").text(decodeURIComponent(value.pCode)); //상품 코드
+					var $pNameTd = $("<td>").text(decodeURIComponent(value.pName)); //상품명
+					var $ptNameTd = $("<td>").text(decodeURIComponent(value.ptName)); //상품 종류명
+					var $pVendorTd = $("<td>").text(decodeURIComponent(value.pVendor)); //업체명
+					var $priceTd = $("<td>").text(decodeURIComponent(value.price)); //가격
+					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
+					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
+					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
+					var $CountTd = $("<td>"); //개수
+					
+					var $inputTd = $("<td>").html("<input type='button' value='추가' id='proAdd'>");
+					
+					$tr.append($pCodeTd);
+					$tr.append($pNameTd);
+					$tr.append($pVendorTd);
+					$tr.append($ptNameTd);
+					$tr.append($taste);
+					$tr.append($flavor);
+					$tr.append($allergy);
+					$tr.append($CountTd);
+					$tr.append($priceTd);
+					$tr.append($inputTd);
+					$tableBody.append($tr);
+					
+					
+				});
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		});
+		
+	});
+});
+
+	
 </script>
 
 	

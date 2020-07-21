@@ -43,30 +43,43 @@ public class ContractDao {
 		
 		String query = prop.getProperty("insertContract");
 		
+//		System.out.println("query : " + query);
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			
+//			System.out.println("pstmt : " + pstmt);
+			
 			//String썼다가 Date로 고침
-			pstmt.setString(1, contract.getCorpName());
-			pstmt.setString(2, contract.getConCode());
-			pstmt.setDate(3, contract.getConDate());
-			pstmt.setDate(4, contract.getStartDate());
-			pstmt.setDate(5, contract.getEndDate());
-			pstmt.setInt(6, contract.getDelivCount());
-			pstmt.setInt(7, contract.getAmountPDeliv());
-			pstmt.setInt(8, contract.getTtlAmount());
+			//오라클 데이터베이스 테이블 순서와 자바 이클립스 preparedstatement ?의 순서가 일치해야한다
+			//쿼리문에서 USER_NO 를 CORP_NAME 회사명으로 다른 테이블과 서브쿼리 조인했음
+			//?에 들어갈 값이 회사명이므로 ?에 들어가는 값 기준으로 작성해줬다.
+			//corpName 회사명을  디비에 등록된 것으로 써야 함 
+			pstmt.setString(1, contract.getConCode());
+			pstmt.setString(2, contract.getStartDate());
+			pstmt.setString(3, contract.getEndDate());
+			pstmt.setString(4, contract.getConDate());
+			pstmt.setInt(5, contract.getDelivCount());
+			pstmt.setInt(6, contract.getAmountPDeliv());
+			pstmt.setString(7, contract.getCorpName());
+			pstmt.setString(8, contract.getCorpName());
+			pstmt.setInt(9, contract.getTtlAmount());
 			
 			result = pstmt.executeUpdate();
 			
-			/* String corpName = request.getParameter("corpName");
-			String conCode = request.getParameter("conCode");
-			String conDate = request.getParameter("conDate");
-			String startDate = request.getParameter("startDate"); 
-			String endDate = request.getParameter("endDate");
-			int delivCount = Integer.parseInt(request.getParameter("delivCount"));
-			int amountPDeliv = Integer.parseInt(request.getParameter("amountPDeliv"));
-			int ttlAmount = Integer.parseInt(request.getParameter("ttlAmout")); */
+		
+			
+			/*private String conCode;    //계약코드
+			private String startDate;    //계약시작일
+			private String endDate;      //계약종료일 
+			private String conDate;      //계약일
+			private int delivCount;    //월배송횟수
+			private int amountPDeliv;  //회차당 금액
+			private String denYN;      //계약종료여부YN. 체크 제약조건
+			private int userNo;        //회원번호. foriegn key
+			private String corpName;   //거래처명 
+			private int ttlAmount;     //월 계약금액
+			private int conNo;*/
 		
 			
 		} catch (SQLException e) {
@@ -76,7 +89,7 @@ public class ContractDao {
 			
 		}
 		
-		System.out.println("insert dao result : " +  result);
+//		System.out.println("insert dao result : " +  result);
 		
 		return result;
 	}
@@ -85,6 +98,7 @@ public class ContractDao {
 	//페이징 처리 하기 전 게시물 목록 조회용 메소드
 	//아직 넘길 값 없어서 statement로 씀?
 	public ArrayList<Contract> selectList(Connection con) {
+//		System.out.println(con);
 		
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -93,23 +107,30 @@ public class ContractDao {
 		
 		String query = prop.getProperty("selectList");
 		
+//		System.out.println(query);
+		
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
 			
 			list = new ArrayList<Contract>();
 			
+//			System.out.println("dd");
 			while(rset.next()) {
+				
+//				System.out.println("넹");
 				Contract c = new Contract();
 				
 				c.setConCode(rset.getString("CONTRACT_CODE"));
 				c.setCorpName(rset.getString("CORP_NAME"));
-				c.setConDate(rset.getDate("CONTRACT_DATE"));
-				c.setStartDate(rset.getDate("START_DATE"));
-				c.setEndDate(rset.getDate("END_DATE"));
+				c.setConDate(rset.getString("CONTRACT_DATE"));
+				c.setStartDate(rset.getString("START_DATE"));
+				c.setEndDate(rset.getString("END_DATE"));
 				c.setDelivCount(rset.getInt("DELIV_COUNT"));
 				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVE"));
 				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));
+				
+//				System.out.println("contract : " + c);
 				
 				list.add(c);
 				
@@ -122,7 +143,7 @@ public class ContractDao {
 			close(rset);
 		}
 		
-		System.out.println("dao list : " + list);
+//		System.out.println("select dao list : " + list);
 		
 		return list;
 	}

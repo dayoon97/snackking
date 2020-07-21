@@ -29,6 +29,7 @@
 					movePath = "<%= request.getContextPath() %>";
 					break;
 				
+				
 			}
 			alert(successMessage);
 			

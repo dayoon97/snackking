@@ -583,7 +583,7 @@
 							<p class="title2">회원 관리</p>
 								<ul class="con">
 									<li><a href="<%=request.getContextPath()%>/adminUserSelect.ad?num=<%=loginUser.getUserNo()%>">회원 리스트</a></li>
-									<li><a href="../question/cmquestion.jsp">문의 게시판 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/cmBoardList.bo">문의 게시판 관리</a></li>
 									<li><a href="../chiefManager/cmContractMember.jsp">계약 회원 관리</a></li>
 								</ul>
 						</li>
@@ -630,7 +630,7 @@
 						<li>
 							<p class="title2">정산 관리</p>
 								<ul class="con">
-									<li><a href="../adjustment/adjustment.jsp">정산 내역 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/views/adjustment/adjustment.jsp">정산 내역 관리</a></li>
 								</ul>
 						</li>
 						<li>
@@ -689,7 +689,7 @@
 							<p class="title">회원 관리</p>
 								<ul class="con">
 									<li><a href="<%=request.getContextPath()%>/selectUserList.us?num=<%=loginUser.getUserNo()%>">담당회원 리스트</a></li>
-									<li><a href="">회원 문의 내역</a></li>
+									<li><a href="<%=request.getContextPath()%>/cuBoardList.bo?num=<%=loginUser.getUserNo()%>">회원 문의 내역</a></li>
 								</ul>
 						</li>
 						<li>
@@ -713,8 +713,8 @@
 									<li><a href="">교환 관리</a></li>
 									<li><a href="">회수 관리</a></li>
 									<li><a href="<%=request.getContextPath()%>/views/equipment/equipmentList.jsp">설비 관리</a></li>
-									<li><a href="">거래명세서 관리</a></li>
-									<li><a href="">정산 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/views/order/cmTransactionSearch.jsp">거래명세서 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/views/adjustment/adjustment.jsp">정산 관리</a></li>
 								</ul>
 						</li>
 						<li>

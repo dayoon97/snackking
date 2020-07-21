@@ -483,7 +483,7 @@ height: 25px;
 
     <%int j = 1;%>
     <%while(j <= slist.get(0).getDelivCount()) {%>
-    <div class="fc-event"><%=j%>회차</div>
+    <%-- <div class="fc-event"><%=j%>회차</div> --%>
     <% j++; }%>
    
    <%--   <%for(int i=0; i < slist.size(); i++) { %>
@@ -508,7 +508,11 @@ height: 25px;
 	<tr class="userlist">
 	<td><input type="checkbox">전체일정</td>
 	<%for(int i=0; i< slist.size(); i++) { %>
+<<<<<<< web/views/calen2.jsp
 	<td><input type="checkbox" value="check<%=i%>" name = "ccc" class="ccc" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
+=======
+	<td><input type="checkbox" value="check<%=i%>" class="ccc" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
+>>>>>>> web/views/calen2.jsp
 	<%} %>
 
 	</tr>
@@ -531,6 +535,7 @@ height: 25px;
 <!-- 유저 리스트 체크 이벤트 -->
 <script>
 function check(box) {
+<<<<<<< web/views/calen2.jsp
 
 /* 	for(int i=0; i < slist.size(); i++) { 
 		int j = 1; 
@@ -562,21 +567,42 @@ function check(box) {
 	else{
 		console.log(box.value + "체크박스 해제")
 		
+=======
+	if(box.checked == true){
+		console.log(box.value + "체크박스 클릭")
+		 
+		if(box.value == "check0"){
+			 console.log("1번 클릭!")
+			 $('#external-events' ).show(); 
+		} 
+}		
+	else{
+		console.log(box.value + "체크박스 해제")
+		
+>>>>>>> web/views/calen2.jsp
 		if(box.value == "check0"){
 			console.log("1번 해제")
 		$('#external-events').hide();
 		check == true
 		}
+<<<<<<< web/views/calen2.jsp
 	} 
 	 
 	
 	
+=======
+	}
+>>>>>>> web/views/calen2.jsp
 }
 
 $(function() {
 
+<<<<<<< web/views/calen2.jsp
     $(document).on("click", ".ccc", function() {
     	alert("클릭!");
+=======
+    $(".ccc").on("click", function() {
+>>>>>>> web/views/calen2.jsp
     	
     	var member = {
     			"email":"test@naver.com",
@@ -584,7 +610,11 @@ $(function() {
     	}
 	
         $.ajax({
+<<<<<<< web/views/calen2.jsp
         	  url: "/getinfo.da", // 클라이언트가 요청을 보낼 서버의 URL 주소
+=======
+        	  url: "getinfo.da", // 클라이언트가 요청을 보낼 서버의 URL 주소
+>>>>>>> web/views/calen2.jsp
         	    dataType: 'json',                
         	    type: "POST",                             // HTTP 요청 방식(GET, POST)
         	    data: JSON.stringify(member), //json을 String으로 파싱
@@ -608,9 +638,13 @@ $(function() {
     });
 
 });
+<<<<<<< web/views/calen2.jsp
 </script>  
    <script>
   
    </script>        
+=======
+</script>          
+>>>>>>> web/views/calen2.jsp
           
 </html>

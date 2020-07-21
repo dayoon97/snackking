@@ -75,10 +75,10 @@ public class EquipmentDao {
 		}else {
 			query = "SELECT * FROM EQUIPMENT WHERE ";
 		
-			if(equipment.getEquipType() != null && equipment.getEquipType() != "") { query += "EQUIP_TYPE = '" + equipment.getEquipType() + "' AND ";}
-			if(equipment.getEquipName() != null && equipment.getEquipName() != "") { query += "EQUIP_NAME = '" + equipment.getEquipName() + "' AND ";}
-			if(equipment.getPossible() != null && equipment.getPossible() != "") { query += "POSSIBLE = '" + equipment.getPossible() + "' AND ";}
-			if(equipment.getEquipMake() != null && equipment.getEquipMake() != "") { query += "EQUIP_MAKE = '" + equipment.getEquipMake() + "' AND ";}
+			if(equipment.getEquipType() != null && equipment.getEquipType() != "") { query += "EQUIP_TYPE LIKE '%'||'" + equipment.getEquipType() + "'||'%' AND ";}
+			if(equipment.getEquipName() != null && equipment.getEquipName() != "") { query += "EQUIP_NAME LIKE '%'||'" + equipment.getEquipName() + "'||'%' AND ";}
+			if(equipment.getPossible() != null && equipment.getPossible() != "") { query += "POSSIBLE LIKE '%'||'" + equipment.getPossible() + "'||'%' AND ";}
+			if(equipment.getEquipMake() != null && equipment.getEquipMake() != "") { query += "EQUIP_MAKE LIKE '%'||'" + equipment.getEquipMake() + "'||'%' AND ";}
 
 			//if(query.substring(query.length()-5).equals(" AND ")) {
 				//query = query.substring(0, query.length()-5);

@@ -44,11 +44,17 @@
 					errorsMessage = "게시판을 읽어오는데 실패했습니다!!";
 					movePath = "<%= request.getContextPath() %>/index.jsp";
 					break;
+				case "insertBoard" : 
+					errorsMessage = "게시물을 등록하는데 실패했습니다!!";
+					movePath = "<%= request.getContextPath() %>/index.jsp";
+					break;
 					
 				case "selectContractList" : 
 					errorsMessage = "계약 내역 조회에 실패했습니다!!";
 					movePath = "<%= request.getContextPath() %>/views/chiefManager/cmContractSelect.jsp";
+					break;
 					
+			
 			}
 			alert(errorsMessage);
 			

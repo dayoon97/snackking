@@ -152,7 +152,19 @@
 		border-radius: 33.5px;
 	}
 	
-	
+	#searchBox1{
+		position: absolute;
+		width: 980px;
+		height: 100px;
+		left: 40px;
+		right: 40px;
+		margin: 0 auto;
+		top: 190px;
+		border: 1px solid rgba(75, 75, 75, 0.23);
+		box-sizing: border-box;
+		border-radius: 33.5px;
+	}
+
 	
 	
 	/*폼 기본 서식*/
@@ -555,7 +567,10 @@ border: 2px dashed #E7E7E7;
 background:#F6F1F1;
 vertical-align: middle;
 }
-
+#searchBox1{
+	height: 100px;
+	
+}
 
 .hover:hover{
 	cursor:pointer;
@@ -757,16 +772,16 @@ margin: 20px;
 #listTable11 td:nth-of-type(11){width:110px; important!}
 
 /*열 12개짜리 테이블*/
-#listTable12 th:nth-of-type(1), #listTable12 td:nth-of-type(1){width:60px; important!}
-#listTable12 th:nth-of-type(2), #listTable12 td:nth-of-type(2){width:80px; important!}
-#listTable12 th:nth-of-type(3), #listTable12 td:nth-of-type(3){width:80px; important!}
-#listTable12 th:nth-of-type(4), #listTable12 td:nth-of-type(4){width:85px; important!}
-#listTable12 th:nth-of-type(5), #listTable12 td:nth-of-type(5){width:85px; important!}
+#listTable12 th:nth-of-type(1), #listTable12 td:nth-of-type(1){width:30px; important!}
+#listTable12 th:nth-of-type(2), #listTable12 td:nth-of-type(2){width:30px; important!}
+#listTable12 th:nth-of-type(3), #listTable12 td:nth-of-type(3){width:100px; important!}
+#listTable12 th:nth-of-type(4), #listTable12 td:nth-of-type(4){width:100px; important!}
+#listTable12 th:nth-of-type(5), #listTable12 td:nth-of-type(5){width:120px; important!}
 #listTable12 th:nth-of-type(6), #listTable12 td:nth-of-type(6){width:85px; important!}
 #listTable12 th:nth-of-type(7), #listTable12 td:nth-of-type(7){width:85px; important!}
-#listTable12 th:nth-of-type(8), #listTable12 td:nth-of-type(8){width:85px; important!}
-#listTable12 th:nth-of-type(9), #listTable12 td:nth-of-type(9){width:85px; important!}
-#listTable12 th:nth-of-type(10), #listTable12 td:nth-of-type(10){width:85px; important!}
+#listTable12 th:nth-of-type(8), #listTable12 td:nth-of-type(8){width:75px; important!}
+#listTable12 th:nth-of-type(9), #listTable12 td:nth-of-type(9){width:75px; important!}
+#listTable12 th:nth-of-type(10), #listTable12 td:nth-of-type(10){width:100px; important!}
 #listTable12 th:nth-of-type(11), #listTable12 td:nth-of-type(11){width:85px; important!}
 #listTable12 th:nth-of-type(12){width:100px; important!}
 #listTable12 td:nth-of-type(12){width:80px; important!}

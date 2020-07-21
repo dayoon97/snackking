@@ -184,10 +184,8 @@ right:90px;
 
 #listTable{
 border-collapse:collapse;
-position: absolute;
-top:350px;
-left:45px;
 text-align:center;
+width: 1000px;
 }
 
 
@@ -228,6 +226,85 @@ height: 25px;
 	display: table;
 }
 
+.table-scroll{
+	height:300px;
+	position: absolute;
+	margin-top: 200px;
+	margin-left: 30px;
+}
+/*Styling Selectbox*/
+.dropdown {
+  width: 90px;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 0 2px rgb(204, 204, 204);
+  transition: all .5s ease;
+  position: relative;
+  font-size: 14px;
+  color: #474747;
+  height: 100%;
+  text-align: left;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.dropdown .select {
+    cursor: pointer;
+    display: block;
+    padding: 10px
+}
+.dropdown .select > i {
+    font-size: 13px;
+    color: #888;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    float: right;
+    line-height: 20px
+}
+.dropdown:hover {
+    box-shadow: 0 0 4px rgb(204, 204, 204)
+}
+.dropdown:active {
+    background-color: #f8f8f8
+}
+.dropdown.active:hover,
+.dropdown.active {
+    box-shadow: 0 0 4px rgb(204, 204, 204);
+    border-radius: 2px 2px 0 0;
+    background-color: #f8f8f8
+}
+.dropdown.active .select > i {
+    transform: rotate(-90deg)
+}
+.dropdown .dropdown-menu {
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    left: 0;
+    margin-top: 1px;
+    box-shadow: 0 1px 2px rgb(204, 204, 204);
+    border-radius: 0 1px 2px 2px;
+    overflow: hidden;
+    display: none;
+    max-height: 144px;
+    overflow-y: auto;
+    z-index: 9
+}
+.dropdown .dropdown-menu li {
+    padding: 10px;
+    transition: all .2s ease-in-out;
+    cursor: pointer
+} 
+.dropdown .dropdown-menu {
+    padding: 0;
+    list-style: none
+}
+.dropdown .dropdown-menu li:hover {
+    background-color: #f2f2f2
+}
+.dropdown .dropdown-menu li:active {
+    background-color: #e2e2e2
+}
 </style>
 </head>
 <body>
@@ -272,6 +349,19 @@ height: 25px;
 									<td>전화번호  :</td>										
 									<td><input type="text" class="searchTextBox" size="10" name="member" onfocus="this.value=''; return true" id="memberPhone"></td>
 									
+									<td>회원 구분 :</td>										
+									<td><div class="dropdown">
+        										<div class="select">
+          											<span id="userCode">선택</span>
+										          <i class="fa fa-chevron-left"></i>
+										        </div>
+										        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
+										        <ul class="dropdown-menu">
+										          <li id="T1">일반회원</li>
+										          <li id="T2">계약회원</li>
+										        </ul>
+										      </div></td>
+									
 									<td><input type="hidden" id="mngNo" value="<%=loginUser.getUserNo()%>"><input type="button" class="searchBtn" value="검색하기" id="submit" name="searchBtn"></td>
 									
 								</tr>
@@ -286,15 +376,13 @@ height: 25px;
 					<div id="subSubTitle2">회원 리스트</div>
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
-					<span id="apply">조회 결과 수 :</span>
 					
 					<!-- 조회 리스트 테이블 -->
+					<div class="table-scroll" style="overflow: auto;">
 					<table id="listTable" name="listTable">
 						<!-- 테이블 헤드 -->
 						<thead>
 						<tr id="listHead">
-						
-							<th width="20px"><input type="checkbox" id="checkall"></th>
 							<th width="30px">번호</th>
 							<th width="80px">아이디</th>
 							<th width="80px">회사</th>
@@ -302,13 +390,15 @@ height: 25px;
 							<th width="250px">주소</th>
 							<th width="100px">연락처</th>
 							<th width="80px">가입일</th>
+							<%if(loginUser.gettCode().equals("T3")){ %>
+							<th width="80px">회원구분</th>
+							<%} %>
 						</tr>
 						</thead>
 						<!-- 리스트 바디  -->
 						<tbody>
 							<% for(User u : list) {%>
 						<tr class="listBody">
-							<td><input type="checkbox" name="chk"></td>
 							<td><%= u.getUserNo() %></td>
 							<td><%= u.getUserId() %></td>
 							<td><%= u.getCompany() %></td>
@@ -316,18 +406,51 @@ height: 25px;
 							<td><%= u.getAddress() %></td>
 							<td><%= u.getPhone() %></td>
 							<td><%= u.getEnrollDate() %></td>
+							
+							<%if(loginUser.gettCode().equals("T3")){ %>
+							<td><% if(u.gettCode().equals("T1")) { %>
+								일반회원
+								<% } else { %>
+								계약회원
+								<% } %>
+							</td>
+							<%} %>
 						</tr> 
 						<% } %>
 					</tbody>
-						
 					</table>
+					</div>
 				</div>
 		
 		</div>	<!-- background-box end -->
 	</div>	<!-- outer end -->
 </div>	<!-- mainWrapper end -->
 	<script>
-	<!-- check박스 전체선택 -->
+	<!-- 드롭다운  -->
+	$('.dropdown').click(function() {
+		$(this).attr('tabindex', 1).focus();
+		$(this).toggleClass('active');
+		$(this).find('.dropdown-menu').slideToggle(300);
+	});
+	$('.dropdown').focusout(function() {
+		$(this).removeClass('active');
+		$(this).find('.dropdown-menu').slideUp(300);
+	});
+	$('.dropdown .dropdown-menu li').click(
+		function() {
+			$(this).parents('.dropdown').find('span').text(
+					$(this).text());
+			$(this).parents('.dropdown').find('input').attr('value',
+					$(this).attr('id'));
+		});
+	/*End Dropdown Menu*/
+
+	$('.dropdown-menu li').click(function() {
+		var input = '<strong>'+ $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+		$('.msg').html(msg + input + '</span>');
+	});
+	
+	//check박스 전체선택
       
       $(document).ready(function(){
    	   /*  //최상단 체크박스 클릭 */
@@ -346,15 +469,23 @@ height: 25px;
    	});
    	
 	
+	//회원 구분 검색(최고관리자만 보이게 하기)
+	if(<%=loginUser.gettCode().equals("T4")%>){
+		$("#searchForm td").eq(8).hide();
+		$("#searchForm td").eq(9).hide();
+	} else {
+		$("#searchForm td").eq(8).show();
+		$("#searchForm td").eq(9).show();
+	}
+	
+	
+	
+	
+	//큐레이터 회원 조건 검색
+	if(<%=loginUser.gettCode().equals("T4")%>){
 	$(function(){
-		$("#searchCondition").keyup(function(){
-			$(this).css({"color":"black"});
-		});
-	});
-	
-	
-	
-	$(function(){
+		
+		
 		$("#submit").click(function(){
 		
 			$("#listTable td").remove();
@@ -384,7 +515,6 @@ height: 25px;
 			};
 			
 			console.log(arr);
-			
 			$.ajax({
 				url: "<%=request.getContextPath()%>/selectName.us",
 				data: member,
@@ -399,7 +529,6 @@ height: 25px;
  					
  					$.each(data, function(index, value){
  						var $tr = $("<tr>");
- 						var $Td = $("<td>").html("<input type='checkbox'>");
  						var $noTd = $("<td>").text(value.userNo);
  						var $idTd = $("<td>").text(decodeURIComponent(value.userId));
  						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
@@ -408,7 +537,20 @@ height: 25px;
  						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
  						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
  						
- 						$tr.append($Td);
+ 						
+
+ 						var year = (value.enrollDate).substr(7, 8);
+ 						var mon = (value.enrollDate).substr(0, 1);
+ 						if(mon.indexOf(" ", 0)){
+ 							var mon1 = "0";
+ 						}
+ 						var day = (value.enrollDate).substr(3, 2);
+ 						var code;
+ 						
+ 						var nal = year.concat("-", mon1, mon,"-",day);
+ 						
+ 						$enrollDateTd = $("<td>").text(nal);
+ 						
  						$tr.append($noTd);
  						$tr.append($idTd);
  						$tr.append($companyTd);
@@ -418,7 +560,124 @@ height: 25px;
  						$tr.append($enrollDateTd);
  						
  						
- 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "25px"});
+ 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
+ 						
+ 						$tableBody.append($tr);
+ 					}); 
+ 					
+ 					
+ 				},
+ 				error: function(data){
+ 					console.log("에러!");
+ 				}
+				
+				
+			});
+			
+		});
+	});
+	}
+	//최고관리자 회원 조건검색
+	else {
+	$(function(){
+		 $("#submit").click(function(){
+		
+			$("#listTable td").remove();
+			
+			var arr = [];
+			
+			var name = document.getElementsByName("member")[0].value;
+			var company = document.getElementsByName("member")[1].value;
+			var id = document.getElementsByName("member")[2].value;
+			var phone = document.getElementsByName("member")[3].value;
+			var userTcode = $("span").eq(0).text();
+			
+			console.log(userTcode);
+			
+			if(userTcode == "일반회원"){
+				userTcode = "T1";
+			} else if(userTcode == "계약회원"){
+				userTcode = "T2";
+			}
+			
+			$('input[name="member"]:text').each(function(i){
+				arr.push($(this).val());
+			});
+			
+			for(i in arr){
+				console.log(arr[i])
+				if(arr[i] == null) {
+					
+				} 	
+			}
+			
+			var member = {
+				"user" : $("#mngNo").val(),
+				"list" : arr,
+				userTcode : userTcode
+					
+			};
+			
+			console.log(arr);
+			
+			$.ajax({
+				url: "<%=request.getContextPath()%>/adminSearchList.ad",
+				data: member,
+				type: "get",
+				traditional:true,
+				success: function(data){
+					
+					console.log(data);
+					$tableBody = $("#listTable tbody");
+ 					
+ 					$tableBody.html('');
+ 					
+ 					$.each(data, function(index, value){
+ 						var $tr = $("<tr>");
+ 						var $noTd = $("<td>").text(value.userNo);
+ 						var $idTd = $("<td>").text(decodeURIComponent(value.userId));
+ 						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
+ 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
+ 						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
+ 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
+ 						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
+ 						var $tCodeTd = $("<td>").text(decodeURIComponent(value.tCode));
+ 						
+ 						
+ 						var year = (value.enrollDate).substr(7, 8);
+ 						var mon = (value.enrollDate).substr(0, 1);
+ 						if(mon.indexOf(" ", 0)){
+ 							var mon1 = "0";
+ 						}
+ 						var day = (value.enrollDate).substr(3, 2);
+ 						var code;
+ 						
+ 						var nal = year.concat("-", mon1, mon,"-",day);
+ 						
+ 						
+ 						
+ 						if(value.tCode == "T1"){
+ 							code = '일반회원';
+ 						} else if (value.tCode == "T2"){
+ 							code = '계약회원';
+ 						}
+ 						
+ 						
+ 						
+						$enrollDateTd = $("<td>").text(nal);
+						$tCodeTd = $("<td>").text(code);
+ 						
+ 						$tr.append($noTd);
+ 						$tr.append($idTd);
+ 						$tr.append($companyTd);
+ 						$tr.append($userNameTd);
+ 						$tr.append($addressTd);
+ 						$tr.append($phoneTd);
+ 						$tr.append($enrollDateTd);
+ 						$tr.append($tCodeTd);
+ 						
+ 						
+ 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
  						
  						$tableBody.append($tr);
  					}); 
@@ -433,7 +692,7 @@ height: 25px;
 			});
 		});
 	});
-
+	}
 	
    	</script>
 	
