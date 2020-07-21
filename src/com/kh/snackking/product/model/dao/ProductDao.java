@@ -152,6 +152,7 @@ public class ProductDao {
 				p.setTaste(rset.getString("TASTE"));
 				p.setFlavor(rset.getString("FLAVOR"));
 				p.setAllergy(rset.getString("ALLERGY"));
+				p.setPrice(rset.getInt("PPRICE"));
 				
 				
 				product.add(p);
