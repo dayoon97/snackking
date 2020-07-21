@@ -538,7 +538,7 @@ height: 25px;
  						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
  						
  						
-
+						//가입일 바꾸기
  						var year = (value.enrollDate).substr(7, 8);
  						var mon = (value.enrollDate).substr(0, 1);
  						if(mon.indexOf(" ", 0)){
@@ -594,6 +594,7 @@ height: 25px;
 			
 			console.log(userTcode);
 			
+			
 			if(userTcode == "일반회원"){
 				userTcode = "T1";
 			} else if(userTcode == "계약회원"){
@@ -643,7 +644,7 @@ height: 25px;
  						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
  						var $tCodeTd = $("<td>").text(decodeURIComponent(value.tCode));
  						
- 						
+ 						//가입일 바꾸기
  						var year = (value.enrollDate).substr(7, 8);
  						var mon = (value.enrollDate).substr(0, 1);
  						if(mon.indexOf(" ", 0)){
@@ -655,7 +656,7 @@ height: 25px;
  						var nal = year.concat("-", mon1, mon,"-",day);
  						
  						
- 						
+ 						//T1, T2 -> 일반회원, 계약회원으로 바꾸기
  						if(value.tCode == "T1"){
  							code = '일반회원';
  						} else if (value.tCode == "T2"){

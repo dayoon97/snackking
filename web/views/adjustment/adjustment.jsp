@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.adjustment.model.vo.Adjustment, java.util.*"%>
+<% ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../../resources/css/mine.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/mine.css">
 <style>
 #apply{
 	position:absolute;	
@@ -93,8 +94,8 @@
 							<thead>
 								<!-- 테이블 헤드 -->
 								<tr id="listHead" >
+									<th>번호</th>
 									<th>회사명</th>
-									<th>날짜</th>
 									<th>금액</th>
 									<th>입금일</th>
 									<th>결제여부</th>
@@ -104,15 +105,24 @@
 							</thead>
 							<tbody>
 							<!-- 리스트 바디  -->
-								<tr>
-									<td>내용</td>
-									<td>내용</td>
-									<td>내용</td>
-									<td>내용</td>
-									<td>내용</td>
-									<td><button onclick="" class="approval-btn">변경</button></td>
-									<td><button onclick="" class="btn detail-btn" id="detail">상세</button></td>
+							<% int j = 0; %>
+							<%for (int i = 0; i < list.size(); i++) { %>
+								<tr class="listBody">
+									<td> <% j++; %><%= j %>
+									</td>
+									<td><%= list.get(i).get("company") %></td>
+									<td><%= list.get(i).get("adJustmentAmount") %></td>
+									<td></td>
+									<td><%= list.get(i).get("adJustmentComplete") %></td>
+									<td><% if(list.get(i).get("adJustmentComplete").equals("N")) { %>
+									<button class="approval-btn" id="change">변경</button>
+									<% } else {%>
+									완료
+									<% } %>
+									</td>
+									<td><button class="btn detail-btn" id="detail">상세</button></td>
 								</tr>
+								<% } %>
 							<!-- 리스트 바디  -->
 
 						</tbody>
@@ -410,6 +420,55 @@ $('.dropdown-menu li').click(function () {
    	location.href="<%=request.getContextPath()%>/views/adjustment/adjustmentAdd.jsp";
    });
 
+ 
+ 
+ //지급완료처리
+ $(document).on('click', '#change', function(){
+	 //변경하시겠습니까 모달창 띄우기
+	 
+	 
+	 //어느 회산지 가져오기
+	 var com = $(this).parents('tr').find('td').eq(1).text();
+	 console.log(com);
+	 
+	  $.ajax({
+		 url: "<%=request.getContextPath()%>/adjustmentComplete",
+			data: {com:com},
+			type: "get",
+			success: function(data){
+				console.log(data);
+				$tableBody = $("#listTable tbody");
+					
+					$tableBody.html('');
+					
+					$.each(data, function(index, value){
+						var $tr = $("<tr>");
+						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
+						var $adJustmentAmountTd = $("<td>").text(decodeURIComponent(value.adJustmentAmount));
+						var $adJustmentCompleteTd = $("<td>").text(decodeURIComponent(value.adJustmentComplete));
+						
+						console.log(value.company);
+						console.log(value.adJustmentAmount);
+						console.log(value.adJustmentComplete);
+			
+						$tr.append($companyTd);
+						$tr.append($adJustmentAmountTd);
+						$tr.append($adJustmentCompleteTd);
+						
+						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
+						
+						$tableBody.append($tr);
+						
+						location.reload(true);
+					}); 
+					
+				
+			},
+			error: function(data){
+				
+			}
+	 });
+ });
 
 
 </script>

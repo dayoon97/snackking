@@ -630,7 +630,7 @@
 						<li>
 							<p class="title2">정산 관리</p>
 								<ul class="con">
-									<li><a href="<%=request.getContextPath()%>/views/adjustment/adjustment.jsp">정산 내역 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/adjustmentSelect">정산 내역 관리</a></li>
 								</ul>
 						</li>
 						<li>

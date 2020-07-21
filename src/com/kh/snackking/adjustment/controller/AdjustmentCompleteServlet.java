@@ -10,22 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.snackking.adjustment.model.service.AdjustmentService;
 import com.kh.snackking.adjustment.model.vo.Adjustment;
-import com.kh.snackking.user.model.service.UserService;
-import com.kh.snackking.user.model.vo.User;
 
 /**
- * Servlet implementation class AdjustmentListServlet
+ * Servlet implementation class AdjustmentCompleteServlet
  */
-@WebServlet("/adjustmentSelect")
-public class AdjustmentListServlet extends HttpServlet {
+@WebServlet("/adjustmentComplete")
+public class AdjustmentCompleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdjustmentListServlet() {
+    public AdjustmentCompleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,19 +33,28 @@ public class AdjustmentListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		ArrayList<HashMap<String, Object>> list = new AdjustmentService().adjustmentSelect();
+		String company = request.getParameter("com");
 		
+		System.out.println(company);
+		
+		int result = new AdjustmentService().adjustmentComplete(company);
+		
+		
+		System.out.println(result);
 		String page = "";
-		if(list != null) {
-			page = "views/adjustment/adjustment.jsp";
-			request.setAttribute("list", list);
+		if(result > 0) {
+			ArrayList<HashMap<String, Object>> list = new AdjustmentService().adjustmentSelect();
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson(list, response.getWriter());
 		} else {
-			System.out.println("에러");
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson("에러", response.getWriter());
 		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
-		
 	}
 
 	/**
