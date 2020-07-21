@@ -1,8 +1,9 @@
 package com.kh.snackking.product.model.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class ProductAttachment implements java.io.Serializable {
+public class ProductAttachment implements Serializable {
 	private int fid;
 	private String pCode;
 	private String originName;
@@ -13,7 +14,7 @@ public class ProductAttachment implements java.io.Serializable {
 	
 	public ProductAttachment() {}
 
-	private ProductAttachment(int fid, String pCode, String originName, String changeName, String filePath,
+	public ProductAttachment(int fid, String pCode, String originName, String changeName, String filePath,
 			Date uploadDate, String status) {
 		super();
 		this.fid = fid;
@@ -86,9 +87,6 @@ public class ProductAttachment implements java.io.Serializable {
 		return "ProductAttachment [fid=" + fid + ", pCode=" + pCode + ", originName=" + originName + ", changeName="
 				+ changeName + ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", status=" + status + "]";
 	}
-	
-	
-	
 	
 	
 	

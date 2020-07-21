@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
-import com.kh.snackking.equipment.model.vo.Equipment;
+
 import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.vo.Product;
 import com.kh.snackking.product.model.vo.ProductAttachment;
@@ -352,8 +352,46 @@ public class ProductDao {
 		}
 		return productListRenew;
 	}
-	
-	
+
+	//상품 등록시 사진 등록 메소드
+	public ArrayList<ProductAttachment> selectAttachment(Connection con, String[] pCodeArray) {
+		ArrayList<ProductAttachment> attachmentList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectAttachment");
+		
+		try {
+			attachmentList = new ArrayList<ProductAttachment>();
+			//배열에 받아온 PCODE를 하나씩 꺼내서 PCODE에 해당하는 ATTACHMENT를 다 꺼내고 ARRAYLIST에 담기.
+			for(int i = 0; i < pCodeArray.length; i++) {
+				pstmt = con.prepareStatement(query);
+				//System.out.println("dao" + pCodeArray[i]);
+				pstmt.setString(1, pCodeArray[i]);
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					//하나 꺼내서 객체 생성한 후 객체를  list에 담는다.
+					ProductAttachment a = new ProductAttachment();
+					a.setFid(rset.getInt("FID"));
+					a.setChangeName(rset.getString("CHANGE_NAME"));
+					a.setOriginName(rset.getString("ORIGIN_NAME"));
+					a.setFilePath(rset.getString("FILE_PATH"));
+					a.setUploadDate(rset.getDate("UPLOAD_DATE"));
+					a.setpCode(rset.getString("PCODE"));
+					a.setStatus(rset.getString("STATUS"));
+					//System.out.println("attachment Dao : " + a);
+					attachmentList.add(a);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		//System.out.println("attachmentList" + attachmentList);
+		return attachmentList;
+	}
 }
 	
 
