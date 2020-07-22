@@ -753,7 +753,7 @@ public class BoardDao {
 				+ "FROM (SELECT B.BID , B.BTYPE , BT.BTYPE_NAME , B.BNO , B.BTITLE , B.BCONTENT , B.BWRITER , UI.USER_NAME ,"
 				+ " UI.USER_ID , B.BCOUNT , B.BDATE , B.STATUS , R.RID , NVL2(R.RID, 'Y', 'N') AS ANSWER "
 				+ "FROM BOARD B JOIN BOARD_TYPE BT ON(B.BTYPE = BT.BTYPE) JOIN USER_INFO UI ON(B.BWRITER = UI.USER_NO) "
-				+ "LEFT JOIN REPLY R ON(B.BID = R.BID) AND UI.MANAGER = " + cuNum +  "ORDER BY BID ASC) WHERE STATUS = 'Y' ";
+				+ "LEFT JOIN REPLY R ON(B.BID = R.BID) WHERE UI.MANAGER = " + cuNum +  " ORDER BY BID ASC) WHERE STATUS = 'Y' ";
 		
 		if(!userId.equals("")) {
 			query += " AND USER_ID  = '" +  userId + "'";
