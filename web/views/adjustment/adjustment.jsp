@@ -142,7 +142,8 @@
 									<td></td>
 									<td><%= list.get(i).get("adJustmentComplete") %></td>
 									<td><% if(list.get(i).get("adJustmentComplete").equals("N")) { %>
-									<button class="approval-btn" id="change">변경</button>
+									<input type="button" class="approval-btn" id="change<%=j%>" value="변경">
+									<%-- <button class="approval-btn" value="change<%=j%>" onclick="change();">변경</button> --%>
 									<% } else {%>
 									완료
 									<% } %>
@@ -402,6 +403,20 @@
 
 
 <script>
+var id;
+
+//행의 버튼을 누르면 함수 실행
+$(".approval-btn").click(function(){
+	id = $(this).parent().children("input").attr("id");
+	console.log(id);
+	
+	modal2.style.display = "block";
+});
+
+
+
+
+
 /* 옵션 선택 드롭 다운--------------------------------------------------------------------------- */
 $('.dropdown').click(function () {
     $(this).attr('tabindex', 1).focus();
@@ -437,7 +452,7 @@ $('.dropdown-menu li').click(function () {
    var btn3 = document.getElementById("noBtn");
    var yesBtn = document.getElementById("yesBtn");
    
-   // Get the <span> element that closes the modal
+   
    var span = document.getElementsByClassName("close")[0];
    var span2 = document.getElementsByClassName("close")[1];
 
@@ -446,15 +461,17 @@ $('.dropdown-menu li').click(function () {
      modal.style.display = "block";
    }
    
-   btn2.onclick = function() {
+   /* btn2.onclick = function() {
 	 modal2.style.display = "block";
-   }
+   } */
    $(document).on('click', '#yesBtn', function(){
 	   modal2.style.display = "block";
    });
    yesBtn.onclick = function() {
 	 modal2.style.display = "block";
    }
+  
+   
 
    // When the user clicks on <span> (x), close the modal
    span.onclick = function() {
@@ -481,18 +498,22 @@ $('.dropdown-menu li').click(function () {
    	location.href="<%=request.getContextPath()%>/views/adjustment/adjustmentAdd.jsp";
    });
 
+
  
- 
- //지급완료처리
- $(document).on('click', '#change', function(){
+ $(document).on('click', id, function(){
+	 
 	 //어느 회산지 가져오기
-	 var com = $(this).parents('tr').find('td').eq(1).text();
+	 var com = $(".listBody td").parent().children("td").eq(1).html();
 	 console.log(com);
 	 
-	 //변경하시겠습니까 모달창 띄우기
-	 if($(document).on('click', '#yesBtn', function(){
-		 $.ajax({
-			 url: "<%=request.getContextPath()%>/adjustmentComplete",
+	 //예 버튼을 누르면 데이터 가져가서 업데이트 
+	 $(document).on('click', '#yesBtn', function(){
+		 console.log(com);
+		 console.log(id);
+	 	location.href="<%=request.getContextPath()%>/adjustmentComplete?com="+ com;
+	
+		  <%-- $.ajax({
+			    url: "<%=request.getContextPath()%>/adjustmentComplete",
 				data: {com:com},
 				type: "get",
 				success: function(data){
@@ -501,8 +522,8 @@ $('.dropdown-menu li').click(function () {
 				error: function(data){
 					
 				}
-		 });
-	 }));
+		 });  --%> 
+	 });
  });
 
 

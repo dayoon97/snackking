@@ -45,16 +45,14 @@ public class AdjustmentCompleteServlet extends HttpServlet {
 		if(result > 0) {
 			ArrayList<HashMap<String, Object>> list = new AdjustmentService().adjustmentSelect();
 			
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			
-			new Gson().toJson(list, response.getWriter());
+			page = "views/adjustment/adjustment.jsp";
+			request.setAttribute("list", list);
 		} else {
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
 			
-			new Gson().toJson("에러", response.getWriter());
 		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
+
 	}
 
 	/**
