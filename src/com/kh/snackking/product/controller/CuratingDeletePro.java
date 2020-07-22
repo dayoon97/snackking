@@ -14,16 +14,16 @@ import com.kh.snackking.product.model.service.ProductService;
 import com.kh.snackking.product.model.vo.CuratingProduct;
 
 /**
- * Servlet implementation class CuratingInsertProduct
+ * Servlet implementation class CuratingDeletePro
  */
-@WebServlet("/curatingInsert.pro")
-public class CuratingInsertProduct extends HttpServlet {
+@WebServlet("/curatingDelete.pro")
+public class CuratingDeletePro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CuratingInsertProduct() {
+    public CuratingDeletePro() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +32,19 @@ public class CuratingInsertProduct extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String proAdd = request.getParameter("proAdd");
+		int cuno = Integer.parseInt(request.getParameter("cuno"));
 		int no = Integer.parseInt(request.getParameter("no"));
-		int count = Integer.parseInt(request.getParameter("count"));
-		System.out.println("proAdd : " + proAdd);
-		System.out.println("preNo : " + no);
-		System.out.println("count : " + count);
+		System.out.println("cuno : " + cuno);
+		CuratingProduct cu = new CuratingProduct();
+		cu.setPreNo(no);
+		cu.setCuratingNo(cuno);
 		
-		CuratingProduct cp = new CuratingProduct();
-		cp.setPreNo(no);
-		cp.setProNo(proAdd);
-		cp.setCount(count);
-		
-		ArrayList<CuratingProduct> insertCuraPro = new ProductService().insertCuraPro(cp);
+		ArrayList<CuratingProduct> pro =  new ProductService().curatingdeletePro(cu);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
-		new Gson().toJson(insertCuraPro, response.getWriter());
-		
+		new Gson().toJson(pro, response.getWriter());
 	}
 
 	/**
