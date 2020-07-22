@@ -90,9 +90,6 @@ align-items: center;
 color: #000000;
 }
 
-#cuListTable{
-	width: 1010px;
-}
 
 .listTable{
 	width: 475px;
@@ -134,15 +131,7 @@ height: 25px;
    margin-right: auto;
    display: table;
 }
-#culistTableWrap {
-	margin-top: 10px;
-	margin-bottom: 20px;
-	margin-left: auto;
-	margin-right: auto;
-	display: block;
-}
-
-.tableWrap {
+#listTableWrap {
 	height: 265px;
 	overflow: auto;
 	display: inline-block;
@@ -151,27 +140,11 @@ height: 25px;
 .tableWrap::-webkit-scrollbar {
 		width: 5px;
 		padding-top: 10px;
-}
+	}
 .tableWrap::-webkit-scrollbar-thumb {
 		background-color: #D9D9D9;
 		border-radius: 3px;
-}
-
-.modaltableWrap{
-	height: 265px;
-	overflow: auto;
-	display: inline-block;
-	margin-left: 40px;
-	overflow-x: hidden;
-}
-.modaltableWrap::-webkit-scrollbar {
-		width: 5px;
-		padding-top: 10px;
-}
-.modaltableWrap::-webkit-scrollbar-thumb {
-		background-color: #D9D9D9;
-		border-radius: 3px;
-}
+	}
 #productArea {
 	float: right;
 	width: 475px;
@@ -179,56 +152,11 @@ height: 25px;
 	overflow: auto;
 	display: inline-block;
 	margin-right: 40px;
-	overflow-x: hidden
-}
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 4% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  border-radius: 10px;
-  width: 80%; /* Could be more or less, depending on screen size */
-  height: 80%;
-}
-
-/* The Close Button */
-.close {
-	display: inline-block;
-	color: #aaa;
-	float: right;
-	font-size: 50px;
-	font-weight: bold;
-	margin-top: 6px;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-.modal-header{
-	border-bottom: 2px solid black;
-}
-#modal-title {
-	display: inline-block;
 }
 
 </script>
+   
+
 </style>
 </head>
 <body>
@@ -255,130 +183,14 @@ height: 25px;
                <!-- 조회 결과 리스트 제목 -->
                <div id="subSubTitle2">큐레이팅 리스트</div>
                <!-- 조회 리스트 테이블 -->
-               
-               <div id="culistTableWrap" style="text-align: center;">
-	               <div class="tableWrap" style="margin: 0">
-		               <table id="cuListTable" class="listTable">
-		                  <!-- 테이블 헤드 -->
-		                  <thead>
-			                  <tr id="listHead" class="listHead">
-			                     <th>번호</th>
-			                     <th>큐레이팅ID</th>
-			                     <th>회원명</th>
-			                     <th>회사명</th>
-			                     <th>날짜</th>
-			                  </tr>
-		                  </thead>
-		                  
-		                  <!-- 리스트 바디  -->
-		                  <tbody>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>CURATING01</td>
-			                     <td>남궁보훈</td>
-			                     <td>(주)SNACKKING</td>
-			                     <td>2020-07-22</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-		                  </tbody>
-		               </table>
-	               </div>
-               </div>	<!-- listTableWrap end -->
-            </div>
-      
-      </div>   <!-- background-box end -->
-   </div>   <!-- outer end -->
-</div>   <!-- mainWrapper end -->
-
-	<!-- ***************************출고 리스트 등록 모달******************************* -->
-	<!-- Modal -->
-	<div class="modal" id="find-Modal">
-		
-			<!-- modal content -->
-			<div class="modal-content">
-				<div class="modal-header">
-					<h2 class="modal-title" id="modal-title">출고리스트 등록</h2>
-					<div class="close">&times;</div>
-				</div>	<!-- modal-header end -->
-				<div class="modal-body">
-					<p id="modal-body"></p>
-				</div>	<!-- modal-body end -->
-				<div class="modal-footer">
-				</div>	<!-- modal-footer end -->
-
-				<div id="subSubTitle2" style="display: inline-block;">큐레이팅-상품 리스트</div>
-               <div id="subSubTitle2" style="display: inline-block; margin-left: 385px;">상품-재고 리스트</div>
-               <br>
-               <div id="listTableWrap" class="modaltableWrap">
+               <div id="listTableWrap" class="tableWrap">
 	               <table id="listTable" class="listTable">
 	                  <!-- 테이블 헤드 -->
 	                  <thead>
 		                  <tr id="listHead" class="listHead">
-		                     <th>상품코드</th>
-		                     <th>상품명</th>
-		                     <th>필요수량</th>
+		                     <th>번호</th>
+		                     <th>큐레이팅ID</th>
+		                     <th>회원명</th>
 		                     <th>회사명</th>
 		                     <th>날짜</th>
 		                  </tr>
@@ -461,11 +273,11 @@ height: 25px;
                
                </div>	<!-- listTableWrap end -->
                
-				<div id="productArea" class="modaltableWrap">
+				<div id="productArea" class="tableWrap">
 					<table class="listTable" boder="1">
 						<thead>
 							<tr class="listHead">
-								<th width="120px">상품명</th>
+								<th width="150px">상품명</th>
 								<th>재고 번호</th>
 								<th>로케이션 번호</th>
 								<th>총 수량</th>
@@ -554,56 +366,17 @@ height: 25px;
 						</tbody>
 					</table>
 				</div>
+               
+            </div>
+      
+      </div>   <!-- background-box end -->
+   </div>   <!-- outer end -->
+</div>   <!-- mainWrapper end -->
 
-
-			</div>	<!-- modal-content end -->
-		
-	</div>	<!-- Modal end -->
-<script type="text/javascript">
-var modal = document.getElementById("find-Modal");
-var btn1 = document.getElementById("subTitle");
-var btn2 = document.getElementById("findPwd-btn");
-var span = document.getElementsByClassName("close")[0];
-
-btn1.onclick = function() {
-	var name = $("#findIdName").val();
-	var email = $("#findIdEmail").val();
-
-	$.ajax({
-		url: "<%= request.getContextPath() %>/findId.us",
-		type: "post",
-		data: {
-			name: name,
-			email: email
-		},
-		success: function(data) {
-			//console.log(data);
-			modal.style.display = "block";
-			
-			if(data != null){
-				$("#modal-title").html("아이디 찾기 결과");
-				$("#modal-body").html("아이디 찾기 결과  : " + data);
-			} else {
-				$("#modal-body").html("일치하는 결과가 없습니다.");
-			}
-			
-		},
-		error: function() {
-			alert("Error!");
-		}
-	});
-	
-}
-span.onclick = function() {
-	modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-	if (event.target == modal) {
-		modal.style.display = "none";
-	}
-}
-</script>   
+   <script type="text/javascript">
+      
+      
+   </script>   
    
 </body>
 </html>

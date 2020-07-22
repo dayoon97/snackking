@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference, java.util.*"%>
-<% ArrayList<Preference> List = (ArrayList<Preference>)request.getAttribute("List"); %>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style>
+<style type="text/css">
    #outer {
       margin-left: 265px;
       margin-right: 35px;
@@ -298,9 +297,11 @@ height: 25px;
    margin-right: auto;
    display: table;
 }
+
+</script>
+   
+
 </style>
-
-
 </head>
 <body>
 <!-- mainWrapper start -->
@@ -316,7 +317,7 @@ height: 25px;
          <div id="titleArea">
             <div id="mainTitle">주문 관리</div>
             <div id="line1"></div>
-            <div id="subTitle">선호도 조사 내역</div>
+            <div id="subTitle">출고 리스트 작성</div>
          </div>   <!--title-area end -->
          
          <!-- search-area start -->
@@ -329,10 +330,11 @@ height: 25px;
                      <table class="memberTable">
                         <tr>
                            <!-- 검색 내용 타이핑하는 부분 -->
-                           <td style="width:100px;">계약여부 : </td>
+                           
                           <!--  <td><input type="text" class="searchTextBox" size="7">
                            </td> -->
-                                                      
+                           
+                           <td>결제상태</td>                    
                            <td width="200px">
                               <!-- <select id="searchCondition" name="searchCondition">
                                  <option value="none">==선택==</option>
@@ -341,23 +343,22 @@ height: 25px;
                               </select> -->
                               <div class="dropdown">
                                  <div class="select">
-                                    <span>전체</span>
+                                    <span>선택</span>
                                     <i class="fa fa-chevron-left"></i>
                                  </div>
                                  <input type="hidden" name="Job-code">
                                  <ul class="dropdown-menu">
-                                    <li id="Y">Y</li>
-                                    <li id="N">N</li>
+                                    <li id="payment">결제완료</li>
+                                    <li id="wait payment">결제대기</li>
                                  </ul>
                               </div>
                            </td>
                            
                            
-                           <td width="60px">상호명  :</td>                              
-                           <td><input type="text" class="searchTextBox" size="7"></td>
-                           
-                           <!-- <td style="width: 110px;">대여가능수량  :</td>
-                           <td><input type="text" class="searchTextBox" size="7"></td> -->
+                                                       
+                           <td><input type="date" class="searchTextBox" size="7"></td>
+                           <td width="70px">~</td>  
+                           <td><input type="date" class="searchTextBox" size="7"></td>
                            
                            <td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
                         
@@ -370,7 +371,7 @@ height: 25px;
          <!-- 조회 결과 리스트 부분 -->
             <div id="listArea">
                <!-- 조회 결과 리스트 제목 -->
-               <div id="subSubTitle2">선호도 리스트</div>
+               <div id="subSubTitle2">조회 내역</div>
                <!-- 적용 버튼 -->
                <!-- <button onclick="" class="btn" id="apply">적용</button> -->
                <span id="apply">조회 결과 수 :</span>
@@ -380,47 +381,106 @@ height: 25px;
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
                      <th width="20px"><input type="checkbox" id="checkall"></th>
-                     <th width="30px">작성번호</th>
-                     <th width="60px">상호명</th>
-                     <th width="80px">이름</th>
-                     <th width="80px">선호도 작성일자</th>
-                     <th width="50px">계약여부</th>
-                     <th width="70px">작성내용 상세보기</th>
-                     <th width="50px">삭제</th>
+                     <th width="30px">상호명</th>
+                     <th width="60px">계약코드</th>
+                     <th width="80px">계약일시</th>
+                     <th width="50px">서비스 종류</th>
+                     <th width="80px">담당자</th>
+                     <th width="70px">총금액(월)</th>
+                     <th width="50px">주문번호</th>
+                     <th width="50px">결제상태</th>
                   </tr>
                   
                   <!-- 리스트 바디  -->
-				<% for(Preference n : List) { %>
                   <tr class="listBody">
-						<td><input type="checkbox"></td>
-						<td><%= n.getPreNo() %></td>
-						<td><%= n.getUserCom() %></td>
-						<td><%= n.getUserName()%></td>
-						<td><%= n.getPreDate() %></td>
-						<td><%= n.getStatus() %></td>
-						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="/snackkking/resources/image/search.png" width="15px" alt="My Image"></a></td>
-						<td><button onclick="location.href='<%= request.getContextPath()%>/delicatePre.pre?num=<%=n.getPreNo()%>'">삭제</button></td>
-					</tr>
-				<%} %>
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
                </table>
-               
-               <%-- 				<tr>
-				<th >글번호</th>
-				<th width="300px">글제목</th>
-				<th width="100px">작성자</th>
-				<th>조회수</th>
-				<th width="100px">작성일</th>
-				</tr>
-				<% for(Notice n : list) { %>
-				
-				<tr>
-					<td><%= n.getNno() %></td>
-					<td><%= n.getnTitle() %></td>
-					<td><%= n.getNickName() %></td>
-					<td><%= n.getnCount() %></td>
-					<td><%= n.getnDate() %></td>
-				</tr>
-				<%} %> --%>
             </div>
       
       </div>   <!-- background-box end -->
@@ -456,7 +516,7 @@ height: 25px;
                   });
       
       <!-- check박스 전체선택 -->
-     
+      
       $(document).ready(function(){
    	   /*  //최상단 체크박스 클릭 */
    	    $("#checkall").click(function(){
@@ -471,9 +531,6 @@ height: 25px;
    	        }
    	    })
    	})
-     
-
-      
       
    </script>   
    
