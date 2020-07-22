@@ -246,6 +246,12 @@ height: 25px;
 	border-radius: 33.5px;
 	margin-top: 50px;
 }
+
+/* #Curatingproduct{
+	height: 400px;
+	overflow: auto;
+	background: red;
+} */
 </style>
 
 <script>
@@ -587,7 +593,7 @@ $(function(){
                      <th width="150px">상품 맛</th>
                      <th width="150px">상품 향</th>
                      <th width="150px">알레르기</th>
-                     <th width="50px">갯수</th>
+                     <th width="50px">개수</th>
                      <th width="50px">가격</th>
                      <th width="50px">추가</th>
                   </tr>
@@ -605,7 +611,7 @@ $(function(){
 						<td><%= n.getAllergy() %></td>
 						<td><input type="text" id="count" name="count" value="0" size="3"></td>
 						<td><%= n.getPrice() %></td>
-						<td><button id="proAdd" value="<%= n.getpCode() %>" >추가</button></td>
+						<td><button class="proAdd" value="<%= n.getpCode() %>" >추가</button></td>
 					</tr>
 				<%} %>
 				</tbody>
@@ -618,17 +624,34 @@ $(function(){
                 <div id="productList"> <!-- 큐레이팅  등록 -->
                 <br>
 				<h3 style="margin-left: 50px;">상품 선택 리스트</h3>
-               <table id="listTable">
+				<div id="Curatingproduct">
+               <table id="listTable" class="productTable" >
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
-                     <th width="100px">상품코드</th>
-                     <th width="70px">상품명</th>
-                     <th width="150px">상품 종류</th>
-                     <th width="150px">상품 맛</th>
-                     <th width="150px">상품 향</th>
-                     <th width="150px">알레르기</th>
-                     <th width="50px">갯수</th>
+                  	<th width="50px">순서</th>
+                     <th width="150px">상품코드</th>
+                     <th width="100px">상품명</th>
+                     <th width="50px">개수</th>
+                     <th width="100px">총 가격</th>
+                     <th width="150px">취소</th>
                   </tr>
+                 
+                  <tbody id="tbody2">
+ 				<%-- <% for(Product n : Product) { %>
+                  <tr class="listBody">
+						<td><%= n.getpCode() %></td>
+						<td><%= n.getpName() %></td>
+						<td><%= n.getpVendor() %></td>
+						<td><%= n.getPtName() %></td>
+						<td><%= n.getTaste()%></td>
+						<td><%= n.getFlavor() %></td>
+						<td><%= n.getAllergy() %></td>
+						<td><input type="text" id="count" name="count" value="0" size="3"></td>
+						<td><%= n.getPrice() %></td>
+						<td><button id="proAdd" value="<%= n.getpCode() %>" >추가</button></td>
+					</tr>
+				<%} %> --%>
+				</tbody>
                  
                   <!-- 리스트 바디  -->
 <%-- 				<% for(Preference n : List) { %>
@@ -644,8 +667,9 @@ $(function(){
 					</tr>
 				<%} %> --%>
                </table>
+               </div>
                 </div>
-                
+                <button>저장하기</button>
 						
 						</div>
 					</div> <!-- searchBox end -->
@@ -658,7 +682,7 @@ $(function(){
 <script type="text/javascript">
 console.log(<%=insertPre.getPreNo()%>);
 
-var no = <%=insertPre.getPreNo()%>;
+
 function preference(){
 	var userId = $("#userid").val();
 	
@@ -743,7 +767,7 @@ $(function(){
 					var $CountTd = $("<td>").html("<input type='text' name='count' value='0' size='3'>"); //개수
 					
 					
-					var $button = $("<button>").attr('id','proAdd').html("추가");
+					var $button = $("<button>").attr('class','proAdd').html("추가");
 					$button.val(decodeURIComponent(value.pCode));
 					var $inputTd = $("<td>");
 					$inputTd.append($button);
@@ -847,7 +871,7 @@ $(function(){
 					var $CountTd = $("<td>").html("<input type='text' name='count' value='0' size='3'>"); //개수
 					
 					
-					var $button = $("<button>").attr('id','proAdd').html("추가");
+					var $button = $("<button>").attr('class','proAdd').html("추가");
 					$button.val(decodeURIComponent(value.pCode));
 					var $inputTd = $("<td>");
 					$inputTd.append($button);
@@ -944,7 +968,7 @@ $(function(){
 					var $CountTd = $("<td>").html("<input type='text' name='count' value='0' size='3'>"); //개수
 					
 					
-					var $button = $("<button>").attr('id','proAdd').html("추가");
+					var $button = $("<button>").attr('class','proAdd').html("추가");
 					$button.val(decodeURIComponent(value.pCode));
 					var $inputTd = $("<td>");
 					$inputTd.append($button);
@@ -1040,7 +1064,7 @@ $(function(){
 					var $CountTd = $("<td>").html("<input type='text' name='count' value='0' size='3'>"); //개수
 					
 					
-					var $button = $("<button>").attr('id','proAdd').html("추가");
+					var $button = $("<button>").attr('class','proAdd').html("추가");
 					$button.val(decodeURIComponent(value.pCode));
 					var $inputTd = $("<td>");
 					$inputTd.append($button);
@@ -1067,7 +1091,8 @@ $(function(){
 	});
 });
 
-$(document).on("click", "#proAdd", (function(){
+$(document).on("click", ".proAdd", (function(){
+	var no = <%=insertPre.getPreNo()%>;
 	var proAdd = $(this).val();
 	/* var count = document.getElementById("count").value; */
 	var count = $(this).parent().parent().children().children("input[name=count]").val();
@@ -1081,6 +1106,36 @@ $(document).on("click", "#proAdd", (function(){
 		data: {proAdd:proAdd, no:no, count:count},
 		success: function(data){
 			console.log("성공");
+			
+			console.log(data);
+			
+			$tableBody = $(".productTable #tbody2");
+			$tableBody.html('');
+			
+			$.each(data, function(index, value){
+				var $tr = $("<tr>").attr('class', 'listBody');
+				var $cuNoTd = $("<td>").attr('class', 'cuNo').text(decodeURIComponent(value.curatingNo));
+				var $pCodeTd = $("<td>").text(decodeURIComponent(value.proNo));
+				var $pNameTd = $("<td>").text(decodeURIComponent(value.pName));
+				var $pCountTd = $("<td>").text(decodeURIComponent(value.count));
+				var $priceTd = $("<td>").text(decodeURIComponent(value.price));
+				
+				
+				var $button = $("<button>").attr('class','proDelete').html("삭제");
+				$button.val(decodeURIComponent(value.curatingNo));
+				var $deleteTd = $("<td>");
+				$deleteTd.append($button);
+				
+				$tr.append($cuNoTd);
+				$tr.append($pCodeTd);
+				$tr.append($pNameTd);
+				$tr.append($pCountTd);
+				$tr.append($priceTd);
+				$tr.append($deleteTd);
+				$tableBody.append($tr);
+			});
+			
+			
 		},
 		error: function(data){
 			console.log("실패");
@@ -1089,6 +1144,64 @@ $(document).on("click", "#proAdd", (function(){
 	
 	
 })); 
+
+
+
+$(document).on("click", ".proDelete", (function(){
+	var no = <%=insertPre.getPreNo()%>;
+	/* var count = document.getElementById("count").value; */
+	/* var count2 = $(this).val(); */
+	var cuno = $(this).parent().children().val();
+/* var num = $(this).parent().children("input").val(); */
+	
+	console.log("cuno"+cuno);
+	console.log(no);
+	
+	$.ajax({
+		url: "curatingDelete.pro",
+		data: {cuno:cuno, no:no},
+		success: function(data){
+			console.log("성공");
+			
+			console.log(data);
+			
+			$tableBody = $(".productTable #tbody2");
+			$tableBody.html('');
+			
+			$.each(data, function(index, value){
+				var $tr = $("<tr>").attr('class', 'listBody');
+				var $cuNoTd = $("<td>").attr('class', 'cuNo').text(decodeURIComponent(value.curatingNo));
+				var $pCodeTd = $("<td>").text(decodeURIComponent(value.proNo));
+				var $pNameTd = $("<td>").text(decodeURIComponent(value.pName));
+				var $pCountTd = $("<td>").text(decodeURIComponent(value.count));
+				var $priceTd = $("<td>").text(decodeURIComponent(value.price));
+				
+				no = value.curatingNo;
+				
+				var $button = $("<button>").attr('class','proDelete').html("삭제");
+				$button.val(decodeURIComponent(value.curatingNo));
+				var $deleteTd = $("<td>");
+				$deleteTd.append($button);
+				
+				$tr.append($cuNoTd);
+				$tr.append($pCodeTd);
+				$tr.append($pNameTd);
+				$tr.append($pCountTd);
+				$tr.append($priceTd);
+				$tr.append($deleteTd);
+				$tableBody.append($tr);
+			});
+			
+			
+		},
+		error: function(data){
+			console.log("실패");
+		}
+	});
+	
+	
+})); 
+
 /* 	$.ajax({
 		url: "curatingBasket.pro",
 		data: {proCode:$("#proAdd").val()},
@@ -1102,6 +1215,9 @@ $(document).on("click", "#proAdd", (function(){
 		}
 	});	
 }) */
+
+
+
 
 	
 </script>
