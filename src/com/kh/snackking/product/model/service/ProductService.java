@@ -13,6 +13,7 @@ import com.kh.snackking.board.model.vo.Attachment;
 import com.kh.snackking.equipment.model.dao.EquipmentDao;
 import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.dao.ProductDao;
+import com.kh.snackking.product.model.vo.CuratingProduct;
 import com.kh.snackking.product.model.vo.Product;
 import com.kh.snackking.product.model.vo.ProductAttachment;
 import com.kh.snackking.product.model.vo.ProductStorage;
@@ -131,6 +132,13 @@ public class ProductService {
 	}
 	
 	
-	
+	public ArrayList<CuratingProduct> insertCuraPro(CuratingProduct cp) {
+		Connection con = getConnection();
+		
+		int result = new ProductDao().insertCuraPro(con ,cp);
+		
+		
+		return null;
+	}
 	
 }
