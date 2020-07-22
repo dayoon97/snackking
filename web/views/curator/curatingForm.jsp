@@ -603,7 +603,7 @@ $(function(){
 						<td><%= n.getTaste()%></td>
 						<td><%= n.getFlavor() %></td>
 						<td><%= n.getAllergy() %></td>
-						<td></td>
+						<td><input type="text" id="count" name="count" value="0" size="3"></td>
 						<td><%= n.getPrice() %></td>
 						<td><button id="proAdd" value="<%= n.getpCode() %>" >추가</button></td>
 					</tr>
@@ -740,7 +740,7 @@ $(function(){
 					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
 					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
 					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
-					var $CountTd = $("<td>"); //개수
+					var $CountTd = $("<td>").html("<input type='text' name='count' value='0' size='3'>"); //개수
 					
 					
 					var $button = $("<button>").attr('id','proAdd').html("추가");
@@ -844,7 +844,7 @@ $(function(){
 					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
 					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
 					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
-					var $CountTd = $("<td>"); //개수
+					var $CountTd = $("<td>").html("<input type='text' name='count' value='0' size='3'>"); //개수
 					
 					
 					var $button = $("<button>").attr('id','proAdd').html("추가");
@@ -941,7 +941,7 @@ $(function(){
 					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
 					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
 					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
-					var $CountTd = $("<td>"); //개수
+					var $CountTd = $("<td>").html("<input type='text' name='count' value='0' size='3'>"); //개수
 					
 					
 					var $button = $("<button>").attr('id','proAdd').html("추가");
@@ -1036,7 +1036,8 @@ $(function(){
 					var $taste = $("<td>").text(decodeURIComponent(value.taste)); //맛
 					var $flavor = $("<td>").text(decodeURIComponent(value.flavor)); //향
 					var $allergy = $("<td>").text(decodeURIComponent(value.allergy)); //알레르기
-					var $CountTd = $("<td>"); //개수
+					
+					var $CountTd = $("<td>").html("<input type='text' name='count' value='0' size='3'>"); //개수
 					
 					
 					var $button = $("<button>").attr('id','proAdd').html("추가");
@@ -1068,12 +1069,16 @@ $(function(){
 
 $(document).on("click", "#proAdd", (function(){
 	var proAdd = $(this).val();
+	/* var count = document.getElementById("count").value; */
+	var count = $(this).parent().parent().children().children("input[name=count]").val();
+/* var num = $(this).parent().children("input").val(); */
 	
+	console.log(count);
 	console.log(proAdd);
 	
 	$.ajax({
 		url: "curatingInsert.pro",
-		data: {proAdd:proAdd, no:no},
+		data: {proAdd:proAdd, no:no, count:count},
 		success: function(data){
 			console.log("성공");
 		},
