@@ -695,7 +695,7 @@ height: 25px;
 		});
 	});
 	}
-	
+	//num으로 회원번호 받아옴
 	$(function() {
 		$("#listTable td").click(function() {
 			var num = $(this).parent().children("input").val();

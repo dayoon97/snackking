@@ -27,7 +27,7 @@ public class SelectOneContractServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//		System.out.println("dd");
+//		System.out.println("확인쓰");
 		int num = Integer.parseInt(request.getParameter("num"));
 //		System.out.println(num);
 		

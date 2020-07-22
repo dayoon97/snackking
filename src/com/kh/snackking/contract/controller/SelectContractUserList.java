@@ -13,16 +13,16 @@ import com.kh.snackking.contract.model.service.ContractService;
 import com.kh.snackking.contract.model.vo.Contract;
 
 /**
- * Servlet implementation class EndContractServlet
+ * Servlet implementation class SelectContractUserList
  */
-@WebServlet("/endContract.co")
-public class EndContractServlet extends HttpServlet {
+@WebServlet("/selectContractUserList.co")
+public class SelectContractUserList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EndContractServlet() {
+    public SelectContractUserList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +31,26 @@ public class EndContractServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		ArrayList<Contract> list = new ContractService().endContractList();
 		
-//		System.out.println("select controller list : " + list);
+		//회사명, 사업자등록번호, 계약일, 계약시작일, 계약종료일
+		String corpName = request.getParameter("corpName");
+		String businessNo = request.getParameter("businessNo");
+		String conDate = request.getParameter("conDate");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
 		
-		String page = "";
+		System.out.println("servlet corpName : " + corpName);
+		System.out.println("servlet businessNo :" + businessNo);
+		System.out.println("servlet conDate : " + conDate);
+		System.out.println("servlet startDate : " + startDate);
+		System.out.println("servlet endDate : " + endDate);
+		
+		
+//		ArrayList<Contract> list = new ContractService().selectContractUserList();
+		
+		
+		
+	/*	String page = "";
 		if(list != null) {
 			page = "views/chiefManager/cmContractSearchList.jsp";
 			request.setAttribute("list", list);
@@ -46,6 +60,10 @@ public class EndContractServlet extends HttpServlet {
 		
 		request.getRequestDispatcher(page).forward(request, response);
 		
+	*/	
+		
+		
+
 	}
 
 	/**

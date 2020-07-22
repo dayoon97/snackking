@@ -88,6 +88,15 @@ public class ContractService {
 		return list;
 	}
 
+	//계약내역 조회(select)에서 검색버튼 눌렀을 때 검색조건 부합하는 리스트만 출력
+	public ArrayList<Contract> selectContractUserList() {
+
+		
+		
+		
+		return null;
+	}
+
 
 
 	

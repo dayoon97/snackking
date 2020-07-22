@@ -118,15 +118,17 @@ public class InsertContractServlet extends HttpServlet {
 			//가 있는데 이건 꼭 이 값을 넘겨줘야 한다. 값 넘겨주고 나서 다시 이 페이지로 돌아오면 
 			//값을 또 넘겨줘야 함으로 여기로 돌아올 수 없음. 그래서 계약 조회페이지로 넘긴당.
 			//page = "views/chiefManager/cmContractInsert.jsp";
-			page = "selectContract.co";
-			request.setAttribute("contract", contract);
 			
 			System.out.println("계약 등록 성공쓰!!!");
+			//request는 새로고침 할 때마다 반복하고, response는 반복하지 않는다고 알아두자.
+			//이렇게 쓰니까 새로고침해도 등록 안 된다.
+			response.sendRedirect(request.getContextPath() + "/selectContract.co");
+			
 		} else {
 			System.out.println("계약 등록 실패!");
+			//else 밖에 있던 이 코드를 else 안에 썼다.
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
 		
 	}
 		
