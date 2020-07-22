@@ -1,24 +1,28 @@
 package com.kh.snackking.adjustment.model.vo;
 
+import java.sql.Date;
+
 public class Adjustment implements java.io.Serializable{
 	private int adJustmentAmount;
 	private String adJustmentComplete;
 	private int adJustmentCode;
+	private Date adJustmentDate;
 	private int tradingCode;
 	private int userNo;
 	
 	public Adjustment() {}
 
-	public Adjustment(int adJustmentAmount, String adJustmentComplete, int adJustmentCode, int tradingCode, int userNo) {
+	public Adjustment(int adJustmentAmount, String adJustmentComplete, int adJustmentCode, Date adJustmentDate,
+			int tradingCode, int userNo) {
 		super();
 		this.adJustmentAmount = adJustmentAmount;
 		this.adJustmentComplete = adJustmentComplete;
 		this.adJustmentCode = adJustmentCode;
+		this.adJustmentDate = adJustmentDate;
 		this.tradingCode = tradingCode;
 		this.userNo = userNo;
 	}
-	
-	
+
 	public int getAdJustmentAmount() {
 		return adJustmentAmount;
 	}
@@ -43,6 +47,14 @@ public class Adjustment implements java.io.Serializable{
 		this.adJustmentCode = adJustmentCode;
 	}
 
+	public Date getAdJustmentDate() {
+		return adJustmentDate;
+	}
+
+	public void setAdJustmentDate(Date adJustmentDate) {
+		this.adJustmentDate = adJustmentDate;
+	}
+
 	public int getTradingCode() {
 		return tradingCode;
 	}
@@ -51,7 +63,6 @@ public class Adjustment implements java.io.Serializable{
 		this.tradingCode = tradingCode;
 	}
 
-	
 	public int getUserNo() {
 		return userNo;
 	}
@@ -63,10 +74,10 @@ public class Adjustment implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "Adjustment [adJustmentAmount=" + adJustmentAmount + ", adJustmentComplete=" + adJustmentComplete
-				+ ", adJustmentCode=" + adJustmentCode + ", tradingCode=" + tradingCode + ", userNo=" + userNo + "]";
+				+ ", adJustmentCode=" + adJustmentCode + ", adJustmentDate=" + adJustmentDate + ", tradingCode="
+				+ tradingCode + ", userNo=" + userNo + "]";
 	}
 
-	
 	
 
 }

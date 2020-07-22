@@ -37,6 +37,7 @@ public class AdjustmentListServlet extends HttpServlet {
 	
 		ArrayList<HashMap<String, Object>> list = new AdjustmentService().adjustmentSelect();
 		
+		
 		String page = "";
 		if(list != null) {
 			page = "views/adjustment/adjustment.jsp";
