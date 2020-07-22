@@ -104,51 +104,26 @@
 						<!-- 테이블 시작 -->
 					
 						<!-- 조회 리스트 테이블 -->
-					<table id="listTable10" style="top:365px !important;">
+					<table id="listTable10-1" style="top:365px !important;">
 						<thead>
 							<!-- 테이블 헤드 -->
 							<tr>
 								<th>등록번호</th>
 								<th>상품코드</th>
 								<th>상품명</th>
-								<th>입고일</th>
-								<th>입고 수량</th>
+								<th>등록일</th>
+								<th>수량</th>
 								<th>로케이션</th>
 								<th>제조일</th>
-								<th>입고구분</th>
-								<th>입고구분코드</th>
-								<th>유통기한 색상</th>
+								<th>등록구분</th>
+								<th>구분코드</th>
+								<th>유통기한 구분</th>
 
 								
 							</tr>
 						</thead>
 						<tbody>
 						<!-- 리스트 바디  -->
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-						
 						</tbody>
 					</table>
 					<!-- 테이블 끝 -->
@@ -218,28 +193,39 @@ $(function() {
 			success: function(data){
 				
 				console.log("성공");
-				/* $tableBody = $("#listTable tbody");
+				$tableBody = $("#listTable10-1 tbody");
 				$tableBody.html('');
 				$tableBody.find("tr").remove();
 				
-						for(var key in data){
-							//클래스 속성 추가
-							var $tr =  $("<tr>").attr('class','listBody');
-							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
-							var $td2 = $("<td>").text(data[key].equipCode);
-							var $td3 = $("<td>").text(data[key].equipType);
-							var $td4 = $("<td>").text(data[key].equipName);
-	 						var $td5 = $("<td>").text(data[key].possible);
-	 						var $td6 = $("<td>").text(data[key].equipMake);
+					for(var key in data){
+
+	//private String color;//유통기한 색상
+
+	//private int basicExp; //기본 유통기한 상품 테이블 조인
+							var $tr =  $("<tr>").attr('class','listBody hover');
+							var $td1 = $("<td>").text(data[key].storageCode);
+							var $td2 = $("<td>").text(data[key].pCode);
+							var $td3 = $("<td>").text(data[key].pName);
+							var $td4 = $("<td>").text(data[key].storageDate);
+	 						var $td5 = $("<td>").text(data[key].quantity);
+	 						var $td6 = $("<td>").text(data[key].sLocation);
+	 						var $td7 = $("<td>").text(data[key].mfd);
+	 						var $td8 = $("<td>").text(data[key].Section);
+	 						var $td9 = $("<td>").text(data[key].sectionCode);
+	 						var $td10 = $("<td>").text(data[key].color);
 							$tr.append($td1);
 							$tr.append($td2);
 							$tr.append($td3);
 	 						$tr.append($td4);
 	 						$tr.append($td5);
 	 						$tr.append($td6);
+	 						$tr.append($td7);
+	 						$tr.append($td8);
+	 						$tr.append($td9);
+	 						$tr.append($td10);
 							$tableBody.append($tr);
 							
-						}	 */
+						}	 
 				},
 				error: function(error){
 					console.log("에러!" + error);
@@ -247,6 +233,40 @@ $(function() {
 		});
 	});
 });  
+
+
+
+
+
+//권한변경 모달안에서 변경하기 버튼 눌렀을 때
+$(document).on('click','#chCodeBtn',function(e){
+	modal.style.display = "none";
+
+	
+	var userNo = $('.modalTable td').eq(0).text();
+	console.log(userNo);
+	var Tcode = $('#tCode').text();
+	console.log(Tcode);
+
+	var arr = {
+			"userNo" : userNo,
+			"Tcode" : Tcode
+	};
+	
+	$.ajax({
+		url:"<%=request.getContextPath()%>/selectProductStorage",
+		data: arr,
+		type: "get",
+		traditional:true,
+		success: function(data){
+			location.reload(true);
+		},
+		error: function(data){
+			console.log("에러");
+		}
+		});
+	});
+
 
 
 </script>

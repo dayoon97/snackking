@@ -758,6 +758,18 @@ margin: 20px;
 #listTable10 th:nth-of-type(10){width:140px; important!}
 #listTable10 td:nth-of-type(10){width:120px; important!}
 
+
+#listTable10-1 th:nth-of-type(1), #listTable10-1 td:nth-of-type(1){width:150px; important!}
+#listTable10-1 th:nth-of-type(2), #listTable10-1 td:nth-of-type(2){width:100px; important!}
+#listTable10-1 th:nth-of-type(3), #listTable10-1 td:nth-of-type(3){width:100px; important!}
+#listTable10-1 th:nth-of-type(4), #listTable10-1 td:nth-of-type(4){width:100px; important!}
+#listTable10-1 th:nth-of-type(5), #listTable10-1 td:nth-of-type(5){width:50px; important!}
+#listTable10-1 th:nth-of-type(6), #listTable10-1 td:nth-of-type(6){width:80px; important!}
+#listTable10-1 th:nth-of-type(7), #listTable10-1 td:nth-of-type(7){width:100px; important!}
+#listTable10-1 th:nth-of-type(8), #listTable10-1 td:nth-of-type(8){width:80px; important!}
+#listTable10-1 th:nth-of-type(9), #listTable10-1 td:nth-of-type(9){width:160px; important!}
+#listTable10-1 th:nth-of-type(10){width:90px; important!}
+#listTable10-1 td:nth-of-type(10){width:70px; important!}
 /*열 11개짜리 테이블*/
 #listTable11 th:nth-of-type(1), #listTable11 td:nth-of-type(1){width:60px; important!}
 #listTable11 th:nth-of-type(2), #listTable11 td:nth-of-type(2){width:90px; important!}
@@ -788,13 +800,13 @@ margin: 20px;
 #listTable12 td:nth-of-type(12){width:80px; important!}
 
 /*리스트 컬럼 10,11,12개 짜리  테이블 바디 선 스타일*/
-#listTable5 tbody tr,#listTable7 tbody tr, #listTable6 tbody tr, #listTable10 tbody tr, #listTable11 tbody tr, #listTable12 tbody tr, #listTable13 tbody tr, #listTable tbody tr{
+#listTable5 tbody tr,#listTable10-1 tbody tr,#listTable7 tbody tr, #listTable6 tbody tr, #listTable10 tbody tr, #listTable11 tbody tr, #listTable12 tbody tr, #listTable13 tbody tr, #listTable tbody tr{
 border-bottom:3px solid #EBEAEA;
 height: 36px;
 }
 
 /*리스트 컬럼 10,11, 12개 짜리  테이블  헤더 기본 높이 및 폰트 스타일*/
-#listTable5 thead tr, #listTable6 thead tr,#listTable7 thead tr, #listTable10 thead tr, #listTable11 thead tr, #listTable12 thead tr, #listTable13 thead tr, #listTable thead tr{
+#listTable10-1 thead tr, #listTable5 thead tr, #listTable6 thead tr,#listTable7 thead tr, #listTable10 thead tr, #listTable11 thead tr, #listTable12 thead tr, #listTable13 thead tr, #listTable thead tr{
 width: 1000px;
 height: 32px;
 padding-left:20px;
@@ -806,7 +818,7 @@ line-height:17px;
 }
 
 /*리스트 테이블 컬럼 10,11,12개 짜리  위치 및 설정*/
-#listTable5, #listTable6, #listTable7, #listTable10, #listTable11, #listTable12, #listTable13, #listTable{
+#listTable5,#listTable10-1, #listTable6, #listTable7, #listTable10, #listTable11, #listTable12, #listTable13, #listTable{
 width: 1000px;
 border-collapse:collapse;
 position: absolute;
@@ -818,7 +830,7 @@ display: block;
 }
 
 /*리스트 테이블 컬럼 10,11, 12개 짜리  바디 기본 높이*/
-#listTable5 tbody,#listTable6 tbody,#listTable7 tbody, #listTable10 tbody, #listTable11 tbody, #listTable12 tbody, #listTable13 tbody, #listTable tbody{
+#listTable5 tbody,#listTable10-1 tbody,#listTable6 tbody,#listTable7 tbody, #listTable10 tbody, #listTable11 tbody, #listTable12 tbody, #listTable13 tbody, #listTable tbody{
 display: block;
 height: 280px;
 overflow-y: auto !important;
