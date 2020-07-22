@@ -33,12 +33,15 @@ public class CuratingInsertProduct extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String proAdd = request.getParameter("proAdd");
 		int no = Integer.parseInt(request.getParameter("no"));
+		int count = Integer.parseInt(request.getParameter("count"));
 		System.out.println("proAdd : " + proAdd);
 		System.out.println("preNo : " + no);
+		System.out.println("count : " + count);
 		
 		CuratingProduct cp = new CuratingProduct();
 		cp.setPreNo(no);
 		cp.setProNo(proAdd);
+		cp.setCount(count);
 		
 		ArrayList<CuratingProduct> insertCuraPro = new ProductService().insertCuraPro(cp);
 		
