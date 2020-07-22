@@ -118,7 +118,7 @@ public class InsertContractServlet extends HttpServlet {
 			//가 있는데 이건 꼭 이 값을 넘겨줘야 한다. 값 넘겨주고 나서 다시 이 페이지로 돌아오면 
 			//값을 또 넘겨줘야 함으로 여기로 돌아올 수 없음. 그래서 계약 조회페이지로 넘긴당.
 			//page = "views/chiefManager/cmContractInsert.jsp";
-			page = "views/chiefManager/cmContractSearchList.jsp";
+			page = "selectContract.co";
 			request.setAttribute("contract", contract);
 			
 			System.out.println("계약 등록 성공쓰!!!");

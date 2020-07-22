@@ -618,7 +618,7 @@ overflow-y: auto !important;
 					
 					<div style="margin-top:185px; padding-left:40px;">
 						<button onclick="" class="btn" id="btnValidContract" style="width:130px; top:310px; left:40px;">유효한 계약내역</button>
- 						<button onclick="" class="btn" id="btnFinishContract" style="width:130px; top:310px; left:200px">종료된 계약내역</button>
+ 						<button onclick="" class="btn" id="btnEndContract" style="width:130px; top:310px; left:200px">종료된 계약내역</button>
 					</div>
 					
 					
