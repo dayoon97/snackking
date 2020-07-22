@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -405,6 +406,7 @@ public class ProductDao {
 		ArrayList<ProductStorage> productStorageList = null;
 		Statement stmt = null;
 		ResultSet rset = null;
+		ResultSet urset = null;
 		int count  = 0;
 		String query = "";
 		if(productStorage.getColor() == null || productStorage.getColor() == "") {count += 1;}
@@ -413,11 +415,11 @@ public class ProductDao {
 		if(productStorage.getStorageDate() == null || productStorage.getStorageDate() == "") {count += 1;}
 		if(productStorage.getMfd()== null || productStorage.getMfd() == "") {count += 1;}
 		
-		
+		//현재 날짜 조회해와야 해서 SYSDATE써줌
 		if(count == 5) {
-			query = "SELECT S.PCODE, S.COLOR, S.STORAGE_CODE, S.STORAGE_DATE, S.QUANTITY, S.SLOCATION, S.MFD, S.SECTION, S.SECTION_CODE, P.PNAME, P.PEXP FROM PRODUCT_STORAGE S LEFT JOIN PRODUCT P ON(P.PCODE = S.PCODE) ORDER BY S.STORAGE_CODE";
+			query = "SELECT S.PCODE, S.COLOR, S.STORAGE_CODE, S.STORAGE_DATE, S.QUANTITY, S.SLOCATION, S.MFD, S.SECTION, S.SECTION_CODE, P.PNAME, P.PEXP, SYSDATE FROM PRODUCT_STORAGE S LEFT JOIN PRODUCT P ON(P.PCODE = S.PCODE) ORDER BY S.STORAGE_CODE";
 		}else {
-			query = "SELECT S.PCODE, S.COLOR, S.STORAGE_CODE, S.STORAGE_DATE, S.QUANTITY, S.SLOCATION, S.MFD, S.SECTION, S.SECTION_CODE, P.PNAME, P.PEXP FROM PRODUCT_STORAGE S LEFT JOIN PRODUCT P ON(P.PCODE = S.PCODE) WHERE ";
+			query = "SELECT S.PCODE, S.COLOR, S.STORAGE_CODE, S.STORAGE_DATE, S.QUANTITY, S.SLOCATION, S.MFD, S.SECTION, S.SECTION_CODE, P.PNAME, P.PEXP, SYSDATE FROM PRODUCT_STORAGE S LEFT JOIN PRODUCT P ON(P.PCODE = S.PCODE) WHERE ";
 		
 			if(productStorage.getStorageDate() != "") {
 				//날짜를 그냥 where 조건문에 넣었더니 계속 조회가 안됨
@@ -440,6 +442,7 @@ public class ProductDao {
 			query += " ORDER BY S.STORAGE_CODE";
 		}
 		System.out.println(query);
+
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
@@ -447,7 +450,42 @@ public class ProductDao {
 			productStorageList = new ArrayList<ProductStorage>();
 			while(rset.next()) {
 				ProductStorage p= new ProductStorage();
-				p.setColor(rset.getString("COLOR"));				
+				//잔여 유통기한 계산해서 컬러 넣어 조회
+				String color = "";
+				
+				//현재 날짜 받아옴
+				Date date = rset.getDate("SYSDATE");
+				
+				//제조일 받아와서 Date 타입으로 변환한 후 변수에 담음
+				Date mfd = Date.valueOf(rset.getString("MFD"));// '2020-07-01'
+				
+				// Date로 변환된 두 날짜를 계산한 뒤 그 리턴값으로 long type 변수를 초기화 하고 있다.
+				//시간으로 변환한뒤 빼주고, 다시 일 단위로 변경한다(나누기 해서)
+				//제조일로부터 경과기간
+				long pastDate = (date.getTime() - mfd.getTime())/( 24*60*60*1000);
+				//System.out.println("남은 날짜 : " + remainDate);
+				//남은 날짜를 월단위로 바꾼다 : 일괄적으로 나누기 30함
+				//경과기간
+				long pastMonth = pastDate/30;
+				System.out.println("지난 개월수 :  " + pastMonth);
+				System.out.println("기본 유통기한 : " + rset.getInt("PEXP"));
+				System.out.println("남은 개월수 : " + (rset.getInt("PEXP") - pastMonth) + "개월");
+				if((rset.getInt("PEXP") - pastMonth) <= 1) {
+					color="red";
+					//1개월 이하로 유통기간이 남으면 빨간색 처리
+				}else if((rset.getInt("PEXP") - pastMonth) <= 6) {
+					//6개월 이하로 유통기한이 남으면 노란색 처리
+					color="yellow";
+				}else {
+					//나머지는 회색 처리
+					color="gray";
+				}
+				System.out.println("color : " + color);
+				
+				//기본 유통기한 받아옴( 월 기준  )
+				
+				//오늘날짜 기준으로 color를 담았음. 오늘 날짜 기준으로 계산한 color update해주기!~
+				p.setColor(color);				
 				p.setBasicExp(rset.getInt("PEXP"));
 				p.setMfd(rset.getString("MFD"));
 				p.setpCode(rset.getString("PCODE"));
@@ -459,9 +497,9 @@ public class ProductDao {
 				p.setStorageCode(rset.getString("STORAGE_CODE"));
 				p.setStorageDate(rset.getString("STORAGE_DATE"));
 				productStorageList.add(p);
-				System.out.println("p " + p);
+				System.out.println("p" + p);
 				
-			}	
+				}	
 		} catch (SQLException e) {
 		e.printStackTrace();
 		}finally {
@@ -471,45 +509,95 @@ public class ProductDao {
 		//System.out.println("DAO " + productStorageList);
 		return productStorageList;
 	}
-	
-	public int insertCuraPro(Connection con, CuratingProduct cp) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("insertCuraPro");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, cp.getPreNo());
-			pstmt.setString(2, cp.getProNo());
-			pstmt.setString(3, cp.getProNo());
-			pstmt.setInt(4, cp.getCount());
-			pstmt.setString(5, cp.getProNo());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		
-		
-		return result;
-	}
+
+	   public int insertCuraPro(Connection con, CuratingProduct cp) {
+	      PreparedStatement pstmt = null;
+	      int result = 0;
+	      
+	      String query = prop.getProperty("insertCuraPro");
+	      
+	      try {
+	         pstmt = con.prepareStatement(query);
+	         pstmt.setInt(1, cp.getPreNo());
+	         pstmt.setString(2, cp.getProNo());
+	         pstmt.setString(3, cp.getProNo());
+	         pstmt.setInt(4, cp.getCount());
+	         pstmt.setInt(5, cp.getCount());
+	         pstmt.setString(6, cp.getProNo());
+	         
+	         result = pstmt.executeUpdate();
+	         
+	         System.out.println("result : " + result);
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	      }
+	      
+	      
+	      return result;
+	   }
 
 
-	public ArrayList<CuratingProduct> CuratingSelect(Connection con, CuratingProduct cp) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		ArrayList<CuratingProduct> curatingPro = null;
-		
-		String query = prop.getProperty("");
-		
-		return curatingPro;
-	}
-	
+	   public ArrayList<CuratingProduct> CuratingSelect(Connection con, CuratingProduct cp) {
+	      PreparedStatement pstmt = null;
+	      ResultSet rset = null;
+	      
+	      ArrayList<CuratingProduct> curatingPro = null;
+	      
+	      String query = prop.getProperty("curatingProSelect");
+	      
+	      try {
+	         pstmt = con.prepareStatement(query);
+	         pstmt.setInt(1, cp.getPreNo());
+	         
+	         rset = pstmt.executeQuery();
+	         curatingPro = new ArrayList<CuratingProduct>();
+	         while(rset.next()) {
+	            CuratingProduct curating = new CuratingProduct();
+	            curating.setCuratingNo(rset.getInt("CUPODUCT_NO")); //큐레이팅순서번호
+	            curating.setPreNo(rset.getInt("PRE_NO")); //선호도 번호
+	            curating.setProNo(rset.getString("PCODE")); //상품 번호
+	            curating.setpName(rset.getString("PNAME")); //상품명
+	            curating.setCount(rset.getInt("PRO_COUNT")); //상품 개수
+	            curating.setPrice(rset.getInt("PPRICE")); //상품 총 가격
+	            curatingPro.add(curating);
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	         close(rset);
+	      }
+	      
+	      return curatingPro;
+	   }
+
+
+	   public int curatingDeletePro(Connection con, CuratingProduct cu) {
+	      PreparedStatement pstmt = null;
+	      int result = 0;
+	      
+	      String query = prop.getProperty("curatingDeletePro");
+	      
+	      try {
+	         pstmt = con.prepareStatement(query);
+	         pstmt.setInt(1, cu.getCuratingNo());
+	         
+	         result = pstmt.executeUpdate();
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	         
+	      }
+	      
+	      
+	      return result;
+	   }
+	   
 }
 	
 
