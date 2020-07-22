@@ -14,10 +14,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
-
+import com.kh.snackking.equipment.model.vo.Equipment;
 import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.vo.Product;
 import com.kh.snackking.product.model.vo.ProductAttachment;
+import com.kh.snackking.product.model.vo.ProductStorage;
 
 public class ProductDao {
 	private Properties prop = new Properties();
@@ -393,6 +394,81 @@ public class ProductDao {
 		//System.out.println("attachmentList" + attachmentList);
 		return attachmentList;
 	}
+
+
+	public ArrayList<ProductStorage> selectProductStorage(Connection con, ProductStorage productStorage) {
+		ArrayList<ProductStorage> productStorageList = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		int count  = 0;
+		String query = "";
+		if(productStorage.getColor() == null || productStorage.getColor() == "") {count += 1;}
+		if(productStorage.getpName() == null || productStorage.getpName() == "") {count += 1;}
+		if(productStorage.getStorageCode() == null || productStorage.getStorageCode() == "") {count += 1;}
+		if(productStorage.getStorageDate() == null || productStorage.getStorageDate() == "") {count += 1;}
+		if(productStorage.getMfd()== null || productStorage.getMfd() == "") {count += 1;}
+		
+		
+		if(count == 5) {
+			query = "SELECT S.PCODE, S.COLOR, S.STORAGE_CODE, S.STORAGE_DATE, S.QUANTITY, S.SLOCATION, S.MFD, S.SECTION, S.SECTION_CODE, P.PNAME, P.PEXP FROM PRODUCT_STORAGE S LEFT JOIN PRODUCT P ON(P.PCODE = S.PCODE)";
+		}else {
+			query = "SELECT S.PCODE, S.COLOR, S.STORAGE_CODE, S.STORAGE_DATE, S.QUANTITY, S.SLOCATION, S.MFD, S.SECTION, S.SECTION_CODE, P.PNAME, P.PEXP FROM PRODUCT_STORAGE S LEFT JOIN PRODUCT P ON(P.PCODE = S.PCODE) WHERE ";
+		
+			if(productStorage.getStorageDate() != "") {
+				//날짜를 그냥 where 조건문에 넣었더니 계속 조회가 안됨
+				//날짜 YY/MM/DD 형식으로 바꾸기
+				query += "S.STORAGE_DATE = '" + productStorage.getStorageDate() + "' AND ";
+			}
+			
+			if(productStorage.getMfd() != ""){
+			query += "S.MFD = '" + productStorage.getMfd() + "' AND ";
+			}
+
+				if(productStorage.getColor() != null && productStorage.getColor() != "") { query += "S.COLOR = '" + productStorage.getColor() + "' AND ";}
+				if(productStorage.getpName() != null && productStorage.getpName() != "") { query += "P.PNAME LIKE '%'||'" + productStorage.getpName() + "'||'%' AND ";}
+				if(productStorage.getStorageCode() != null && productStorage.getStorageCode() != "") { query += "S.STORAGE_CODE LIKE '%'||'" + productStorage.getStorageCode() + "'||'%' AND ";}
+				
+				if(query.substring(query.length()-5).equals(" AND ")) {
+					query = query.substring(0, query.length()-5);
+					//query += ";";
+				}
+			//query += "STATUS = 'Y'";
+		}
+		System.out.println(query);
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			productStorageList = new ArrayList<ProductStorage>();
+			while(rset.next()) {
+				ProductStorage p= new ProductStorage();
+				p.setColor(rset.getString("COLOR"));				
+				p.setBasicExp(rset.getInt("PEXP"));
+				p.setMfd(rset.getString("MFD"));
+				p.setpCode(rset.getString("PCODE"));
+				p.setpName(rset.getString("PNAME"));
+				p.setQuantity(rset.getInt("QUANTITY"));
+				p.setSection(rset.getString("SECTION"));
+				p.setSectionCode(rset.getString("SECTION_CODE"));
+				p.setsLocation(rset.getString("SLOCATION"));
+				p.setStorageCode(rset.getString("STORAGE_CODE"));
+				p.setStorageDate(rset.getString("STORAGE_DATE"));
+				productStorageList.add(p);
+				System.out.println("p " + p);
+				
+			}	
+		} catch (SQLException e) {
+		e.printStackTrace();
+		}finally {
+		close(stmt);
+		close(rset);
+		}
+		System.out.println("DAO " + productStorageList);
+		return productStorageList;
+	}
+	
+	
+	
 }
 	
 

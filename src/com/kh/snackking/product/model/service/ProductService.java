@@ -15,6 +15,7 @@ import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.dao.ProductDao;
 import com.kh.snackking.product.model.vo.Product;
 import com.kh.snackking.product.model.vo.ProductAttachment;
+import com.kh.snackking.product.model.vo.ProductStorage;
 
 public class ProductService {
 
@@ -117,6 +118,16 @@ public class ProductService {
 		ArrayList<ProductAttachment> attachmentList = new ProductDao().selectAttachment(con, pCodeArray);
 		close(con);
 		return attachmentList;
+	}
+
+
+
+	public ArrayList<ProductStorage> selectProductStorage(ProductStorage productStorage) {
+		Connection con = getConnection();
+		//System.out.println("service : " + productStorage);
+		ArrayList<ProductStorage> productStorageList = new ProductDao().selectProductStorage(con, productStorage);
+		close(con);
+		return productStorageList;
 	}
 	
 	
