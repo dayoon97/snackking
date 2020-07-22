@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.snackking.user.model.service.UserService;
-import com.kh.snackking.user.model.vo.User;
+import com.kh.snackking.contract.model.service.ContractService;
+import com.kh.snackking.contract.model.vo.Contract;
 
 /**
- * Servlet implementation class InsertContractUserListServlet
+ * Servlet implementation class EndContractServlet
  */
-@WebServlet(name = "SelectContractUserListServlet", urlPatterns = { "/selectContractUserList" })
-public class InsertContractUserListServlet extends HttpServlet {
+@WebServlet("/endContract")
+public class EndContractServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertContractUserListServlet() {
+    public EndContractServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,21 +31,21 @@ public class InsertContractUserListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		ArrayList<Contract> list = new ContractService().endContractList();
 		
-//		System.out.println("유저리스트 서블릿 잘 나오나요~??");
-		ArrayList<User> adminlist = new UserService().adminUserList(); 
-		
-		System.out.println("회원 리스트 : " + adminlist);
+		System.out.println("select controller list : " + list);
 		
 		String page = "";
-		if(adminlist != null) {
-			page = "views/chiefManager/cmContractUserList.jsp";
-			request.setAttribute("list", adminlist);
+		if(list != null) {
+			page = "views/chiefManager/cmContractSearchList.jsp";
+			request.setAttribute("list", list);
 		} else {
-			System.out.println("에러");
+			page = "";
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
+		
 	}
 
 	/**

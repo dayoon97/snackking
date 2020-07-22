@@ -77,17 +77,17 @@ public class ContractDao {
 			
 		
 			
-			/*private String conCode;    //계약코드
-			private String startDate;    //계약시작일
-			private String endDate;      //계약종료일 
-			private String conDate;      //계약일
-			private int delivCount;    //월배송횟수
-			private int amountPDeliv;  //회차당 금액
-			private String denYN;      //계약종료여부YN. 체크 제약조건
-			private int userNo;        //회원번호. foriegn key
-			private String corpName;   //거래처명 
-			private int ttlAmount;     //월 계약금액
-			private int conNo;*/
+			/*BUSINESS_NO			VARCHAR2(60 BYTE)	No		1	사업자등록번호
+			START_DATE			VARCHAR2(30 BYTE)	No		2	계약시작일
+			END_DATE			VARCHAR2(30 BYTE)	No		3	계약종료일
+			CONTRACT_DATE		VARCHAR2(30 BYTE)	No		4	계약일
+			DELIVERY_COUNT		NUMBER(20,0)	No		5		월배송횟수
+			AMOUNT_PER_DELIVERY	NUMBER(30,0)	No		6		회차당 금액
+			END_YN				VARCHAR2(10 BYTE)	No	'Y' 	7	계약종료여부YN
+			USER_NO				NUMBER(30,0)	No		8		회원번호
+			CORP_NAME			VARCHAR2(60 BYTE)	No		9	거래처명
+			TOTAL_AMOUNT		NUMBER(30,0)	No		10		월계약금액
+			CONTRACT_NO			NUMBER(30,0)	No		11		계약번호 */
 		
 			
 		} catch (SQLException e) {
@@ -129,15 +129,17 @@ public class ContractDao {
 //				System.out.println("넹");
 				Contract c = new Contract();
 				
-				/////////진행중ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-				c.setConCode(rset.getString("CONTRACT_CODE"));
-				c.setCorpName(rset.getString("CORP_NAME"));
-				c.setConDate(rset.getString("CONTRACT_DATE"));
+				c.setBusinessNo(rset.getString("BUSINESS_NO"));
 				c.setStartDate(rset.getString("START_DATE"));
 				c.setEndDate(rset.getString("END_DATE"));
-				c.setDelivCount(rset.getInt("DELIV_COUNT"));
-				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVE"));
+				c.setConDate(rset.getString("CONTRACT_DATE"));
+				c.setDelivCount(rset.getInt("DELIVERY_COUNT"));
+				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVERY"));
+				c.setEndYN(rset.getString("END_YN"));
+				c.setUserNo(rset.getInt("USER_NO"));
+				c.setCorpName(rset.getString("CORP_NAME"));
 				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));
+				c.setConNo(rset.getInt("CONTRACT_NO"));
 				
 //				System.out.println("contract : " + c);
 				
@@ -186,6 +188,18 @@ public class ContractDao {
 		
 		
 		return listCount;
+	}
+
+	
+	//계약내역 조회(select)에서 종료된 계약내역 확인 버튼 클릭시 리스트  
+	public ArrayList<Contract> endContractList(Connection con) {
+
+		Statement stmt = null;
+		
+		
+		
+		
+		return null;
 	}
 	
 	
