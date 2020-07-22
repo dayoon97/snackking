@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import com.kh.snackking.equipment.model.vo.Equipment;
 import com.kh.snackking.preference.model.vo.Preference;
+import com.kh.snackking.product.model.vo.CuratingProduct;
 import com.kh.snackking.product.model.vo.Product;
 import com.kh.snackking.product.model.vo.ProductAttachment;
 import com.kh.snackking.product.model.vo.ProductStorage;
@@ -100,7 +101,6 @@ public class ProductDao {
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Product> product = null;
-		int count = 0;
 		String[] taste = curatingProduct.getPreTaste().split(","); //맛
 		String[] flavor = curatingProduct.getPreFlavor().split(",");//향
 		String[] protypes = curatingProduct.getPreProductTypes().split(",");//종류
@@ -108,33 +108,39 @@ public class ProductDao {
 		
 		String query = "SELECT "
 			              	+ "P.PCODE, P.PNAME, P.PVENDOR, PT.PT_NAME, P.TASTE"
-			              + ", P.FLAVOR, P.ALLERGY, P.PPRICE  "
+			              + ", P.FLAVOR, P.ALLERGY, P.PPRICE , P.SEARCH_YN "
 			            + "FROM PRODUCT P JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE) "
-			           + "WHERE";
+			           + "WHERE SEARCH_YN = 'Y' ";
 		
-		for(int i = 0; i < taste.length; i++) {//상품종류
-			if(i == 0) {
-				query += " PT.PT_NAME LIKE '%" + protypes[i] +"%' " ;
-			}else {
-				query += "OR PT.PT_NAME LIKE '%"+ protypes[i] +"%' ";
+		if(protypes != null) {
+			for(int i = 0; i < protypes.length; i++) {//상품종류
+				if(i == 0) {
+					query += "OR PT.PT_NAME LIKE '%" + protypes[i] +"%' " ;
+				}else {
+					query += "OR PT.PT_NAME LIKE '%" + protypes[i] +"%' " ;
+				}
 			}
 		}
-		for(int i = 0; i < taste.length; i++) {//맛
-			if(i == 0) {
-				query += "OR P.TASTE LIKE '%"+ taste[i] +"%' ";
+		
+		
+		if(taste != null) {
+			for(int i = 0; i < taste.length; i++) {//맛
+					query += "OR P.TASTE LIKE '%"+ taste[i] +"%' ";
 			}
-			
 		}
-		for(int i = 0; i < flavor.length; i++) {//향
-			if(i == 0) {
+		
+		if(flavor != null) {
+			for(int i = 0; i < flavor.length; i++) {//향
 				query += "OR P.FLAVOR LIKE '%"+ flavor[i] +"%' ";
+			
 			}
 		}
+		
+		
 		if(alname != null) {
 			for(int i = 0; i < alname.length; i++) {
-				if(i == 0) {
-					query += "OR NOT P.ALLERGY LIKE '%"+ alname[i] +"%' ";
-				}
+					query += "OR P.ALLERGY NOT LIKE '%"+ alname[i] +"%' ";
+				
 			}
 		}
 		
@@ -171,7 +177,6 @@ public class ProductDao {
 		
 		return product;
 	}
-
 
 	//상품 정보 등록 후 자동 생성되는 상품 코드 가져오는 메소드(사진 등록에 상품코드 필요해서 작성)
 	public String selectProductCode(Connection con, Product product) {
@@ -467,7 +472,14 @@ public class ProductDao {
 		return productStorageList;
 	}
 	
-	
+	public int insertCuraPro(Connection con, CuratingProduct cp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertCuraPro");
+		
+		return result;
+	}
 	
 }
 	
