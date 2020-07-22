@@ -349,7 +349,7 @@ span.choose {
 
 /*-----------------------추가한 CSS-----------------------------------------------------*/
 /* 유효한 계약내뎍, 종료된 계약내역 버튼 스타일*/
-.btn {
+#btnValidContract, #btnEndContract {
 	border:0;
 	outline:0;
 	width: 92px;
@@ -365,6 +365,24 @@ span.choose {
 	color: #FFFFFF;
 	
 }
+
+.btn {
+	border:0;
+	background:#F0BB00;
+	display:inline-block;
+	font-family: NanumSquare_ac;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 15px;
+	line-height: 19px;
+	text-align: center;
+	color: black;
+
+
+}
+
+
+
 
 
 
@@ -541,7 +559,7 @@ overflow-y: auto !important;
 									<tr style="height:34px !important;">
 									
 										<td style="width:200px; padding-left: 15px" colspan="2" >거래처명 :
-											<input type="text" class="searchTextBox" size="20" name="" id="corpName">
+											<input type="text" class="searchTextBox" size="20" name="corpName" value="" id="corpName">
 										</td>
 										<td></td>
 										<td style="width:200px"></td>
@@ -549,7 +567,7 @@ overflow-y: auto !important;
 										<td rowspan="3" align="center">
 										<!-- <input type="submit" class="searchBtn" value="검색" id="submit" style="width:85px;"></td> -->
 										<button class="searchBtn" id="submit" style="width:85px;" 
-										<%-- onclick="location.href='<%=request.getContextPath()%>/selectContract.co '" --%>>검색</button>
+										onclick="location.href='<%=request.getContextPath()%>/selectContractUserList.co'">검색</button>
 										
 										<!-- <script>
 											$(function(){
@@ -568,38 +586,29 @@ overflow-y: auto !important;
 														error: function(data) {
 															console.log("실패!");
 														}
-														
-														
 													});
 												});
 											});
-										
-										
 										</script> -->
-										
-										
-										
-										
-										
 									</tr>
 									<tr>
-										<td style="padding-left: 15px;">계약코드 : 
-										<input type="text" class="searchTextBox" size="20" name=""></td>
+										<td style="padding-left: 15px;">사업자등록번호 : 
+										<input type="text" class="searchTextBox" size="20" name="businessNo" value=""></td>
 										<td></td>
 										<td colspan="3" align="center">계약일 : 
-										<input type="date" class="searchTextBox" size="10" name=""></td>
+										<input type="date" class="searchTextBox" size="10" name="conDate" value=""></td>
 									</tr>
 									<tr>
 										<td colspan="3" style="padding-left: 15px;">계약기간 :
-											<button onclick="">오늘</button>
-											<button onclick="">1주일</button>
-											<button onclick="">1개월</button>
-											<button onclick="">3개월</button>
-											<button onclick="">6개월</button>
+											<button onclick="" class="btn">오늘</button>
+											<button onclick="" class="btn">1주일</button>
+											<button onclick="" class="btn">1개월</button>
+											<button onclick="" class="btn">3개월</button>
+											<button onclick="" class="btn">6개월</button>
 										</td>
 										<td colspan="2" style="width:400px;" align="center">
-										<input type="date" class="searchTextBox" name="">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
-										<input type="date" class="searchTextBox" name="">
+										<input type="date" class="searchTextBox" name="startDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
+										<input type="date" class="searchTextBox" name="endDate">
 										</td>
 									</tr>
 										
@@ -617,14 +626,22 @@ overflow-y: auto !important;
 					<!-- <div id="subSubTitle2" style="top:325px !important;">조회 리스트</div> -->
 					
 					<div style="margin-top:185px; padding-left:40px;">
-						<button onclick="" class="btn" id="btnValidContract" style="width:130px; top:310px; left:40px;">유효한 계약내역</button>
- 						<button onclick="" class="btn" id="btnEndContract" style="width:130px; top:310px; left:200px">종료된 계약내역</button>
+					<!-- 버튼 이벤트 속성인 버튼 온클릭 href="" 써도 되고, 버튼 밖에 폼을 또 만들어서 서블릿 연결해줘도 된다. 
+						아래와 같은 코드임 ㅎㅎㅎ :) -->
+					<!-- <button type="submit" class="btn" id="btnValidContract" style="width:130px; top:310px; left:40px;">유효한 계약내역</button>  -->
+					<!-- <form id="searchForm" action="<%= request.getContextPath()%>/endContract.co" method="post">
+	 						<button type="submit" class="btn" id="btnEndContract" style="width:130px; top:310px; left:200px">종료된 계약내역</button>
+						</form> 
+					-->
+						<input type="button" onclick="location.href='selectContract.co'" class="btn" id="btnValidContract" value="유효한 계약내역" style="width:130px; top:310px; left:40px;">
+						<input type="button" onclick="location.href='endContract.co'" class="btn" id="btnEndContract" value="종료된 계약내역" style="width:130px; top:310px; left:200px">
 					</div>
-					
 					
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
-					<span id="apply" style="top:330px !important;">조회 결과 수 :</span>
+					
+					<span id="apply" style="top:330px !important;">조회 결과 수 : </span>
+				
 					<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
 					<table id="listTable10" style="top:365px !important;">

@@ -104,7 +104,7 @@ public class ContractDao {
 
 	
 	//페이징 처리 하기 전 게시물 목록 조회용 메소드
-	//아직 넘길 값 없어서 statement로 씀?
+	//아직 넘길 값 없어서 Statement. 값이 바뀔 수 있는게 아니고 정해진 값만 구할 때 Statement 쓴다.
 	public ArrayList<Contract> selectList(Connection con) {
 //		System.out.println(con);
 		
@@ -195,20 +195,49 @@ public class ContractDao {
 	public ArrayList<Contract> endContractList(Connection con) {
 
 		Statement stmt = null;
+		ResultSet rset = null;
 		
+		ArrayList<Contract> list = null;
 		
+		String query = prop.getProperty("endContractList");
 		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Contract>();
+			
+			while(rset.next()) {
+				
+				Contract c = new Contract();
+				
+				c.setBusinessNo(rset.getString("BUSINESS_NO"));
+				c.setStartDate(rset.getString("START_DATE"));
+				c.setEndDate(rset.getString("END_DATE"));
+				c.setConDate(rset.getString("CONTRACT_DATE"));
+				c.setDelivCount(rset.getInt("DELIVERY_COUNT"));
+				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVERY"));
+				c.setEndYN(rset.getString("END_YN"));
+				c.setUserNo(rset.getInt("USER_NO"));
+				c.setCorpName(rset.getString("CORP_NAME"));
+				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));
+				c.setConNo(rset.getInt("CONTRACT_NO"));
+				
+//				System.out.println("contract : " + c);
+				
+				list.add(c);
+				
+			}	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
 		
-		return null;
+		return list;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 }

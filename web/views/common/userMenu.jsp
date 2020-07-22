@@ -641,7 +641,7 @@
 							<p class="title2">계약 관리</p>
 								<ul class="con">
 									<li><a href="<%=request.getContextPath()%>/selectContract.co">계약 내역 조회</a></li>
-									<li><a href="<%=request.getContextPath()%>/selectContractUserList?num=<%=loginUser.getUserNo()%>">계약 내역 등록</a></li>
+									<li><a href="<%=request.getContextPath()%>/insertContractUserList.co?num=<%=loginUser.getUserNo()%>">계약 내역 등록</a></li>
 								</ul>
 								
 						</li>

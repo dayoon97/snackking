@@ -15,7 +15,7 @@ import com.kh.snackking.user.model.vo.User;
 /**
  * Servlet implementation class InsertContractUserListServlet
  */
-@WebServlet(name = "SelectContractUserListServlet", urlPatterns = { "/selectContractUserList" })
+@WebServlet(name = "insertContractUserListServlet.co", urlPatterns = { "/insertContractUserList.co" })
 public class InsertContractUserListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
