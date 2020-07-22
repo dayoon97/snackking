@@ -22,7 +22,7 @@
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-	<%@ include file="../common/cmMain.jsp" %>
+	<%@ include file="../common/userMenu.jsp" %>
 	
 	<!-- outer start -->
 	<div id="outer">
@@ -210,7 +210,7 @@ $(function() {
 	 						var $td5 = $("<td>").text(data[key].quantity);
 	 						var $td6 = $("<td>").text(data[key].sLocation);
 	 						var $td7 = $("<td>").text(data[key].mfd);
-	 						var $td8 = $("<td>").text(data[key].Section);
+	 						var $td8 = $("<td>").text(data[key].section);
 	 						var $td9 = $("<td>").text(data[key].sectionCode);
 	 						var $td10 = $("<td>").text(data[key].color);
 							$tr.append($td1);

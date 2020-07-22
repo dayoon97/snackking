@@ -7,33 +7,40 @@ public class ProductStorage implements Serializable{
 	private String storageDate;//등록일 (입고 완료 후 등록한 날짜)
 	private String color;//유통기한 색상
 	private String sectionCode;//분류 코드( 발주코드나, 교환 코드 )
-	private String Section;//발주 or 교환
+	private String section;//발주 or 교환
 	private String mfd; //제조일
 	private String sLocation; //위치 L1,L2
 	private int quantity; //수량
 	private String pCode; //상품코드
 	private String pName; //상품이름 상품 테이블 조인
 	private int basicExp; //기본 유통기한 상품 테이블 조인
-	
+	private String sysDate; //쿼리문에서 오늘 날짜 받아오는 변수
 	public ProductStorage() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
 	public ProductStorage(String storageCode, String storageDate, String color, String sectionCode, String section,
-			String mfd, String sLocation, int quantity, String pCode, String pName, int basicExp) {
+			String mfd, String sLocation, int quantity, String pCode, String pName, int basicExp, String sysDate) {
 		super();
 		this.storageCode = storageCode;
 		this.storageDate = storageDate;
 		this.color = color;
 		this.sectionCode = sectionCode;
-		Section = section;
+		this.section = section;
 		this.mfd = mfd;
 		this.sLocation = sLocation;
 		this.quantity = quantity;
 		this.pCode = pCode;
 		this.pName = pName;
 		this.basicExp = basicExp;
+		this.sysDate = sysDate;
 	}
+
+
+
 	public String getStorageCode() {
 		return storageCode;
 	}
@@ -59,10 +66,10 @@ public class ProductStorage implements Serializable{
 		this.sectionCode = sectionCode;
 	}
 	public String getSection() {
-		return Section;
+		return section;
 	}
 	public void setSection(String section) {
-		Section = section;
+		this.section = section;
 	}
 	public String getMfd() {
 		return mfd;
@@ -100,13 +107,27 @@ public class ProductStorage implements Serializable{
 	public void setBasicExp(int basicExp) {
 		this.basicExp = basicExp;
 	}
+	public String getSysDate() {
+		return sysDate;
+	}
+	public void setSysDate(String sysDate) {
+		this.sysDate = sysDate;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "ProductStorage [storageCode=" + storageCode + ", storageDate=" + storageDate + ", color=" + color
-				+ ", sectionCode=" + sectionCode + ", Section=" + Section + ", mfd=" + mfd + ", sLocation=" + sLocation
-				+ ", quantity=" + quantity + ", pCode=" + pCode + ", pName=" + pName + ", basicExp=" + basicExp + "]";
+				+ ", sectionCode=" + sectionCode + ", section=" + section + ", mfd=" + mfd + ", sLocation=" + sLocation
+				+ ", quantity=" + quantity + ", pCode=" + pCode + ", pName=" + pName + ", basicExp=" + basicExp
+				+ ", sysDate=" + sysDate + "]";
 	}
-
+	
+	
+	
+	
+	
 	
 	
 	

@@ -141,4 +141,21 @@ public class ProductService {
 		return null;
 	}
 	
+	
+	   public ArrayList<CuratingProduct> curatingdeletePro(CuratingProduct cu) {
+		      Connection con = getConnection();
+		      ArrayList<CuratingProduct> curatingPro = null;
+		      int result = new ProductDao().curatingDeletePro(con, cu);
+		      
+		      if(result > 0) {
+		         commit(con);
+		         curatingPro = new ProductDao().CuratingSelect(con, cu);
+		      }else {
+		         rollback(con);
+		      }
+		      return curatingPro;
+		   }
+	
+	
+	
 }
