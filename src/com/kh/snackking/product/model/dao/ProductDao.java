@@ -478,7 +478,36 @@ public class ProductDao {
 		
 		String query = prop.getProperty("insertCuraPro");
 		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cp.getPreNo());
+			pstmt.setString(2, cp.getProNo());
+			pstmt.setString(3, cp.getProNo());
+			pstmt.setInt(4, cp.getCount());
+			pstmt.setString(5, cp.getProNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
 		return result;
+	}
+
+
+	public ArrayList<CuratingProduct> CuratingSelect(Connection con, CuratingProduct cp) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<CuratingProduct> curatingPro = null;
+		
+		String query = prop.getProperty("");
+		
+		return curatingPro;
 	}
 	
 }
