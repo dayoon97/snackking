@@ -14,6 +14,33 @@
 	top:310px !important;
 	right:220px !important;
 }
+/* The Modal (background) */
+.modal2 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content2 {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 5px;
+  border: 1px solid #888;
+  width: 30%; /* Could be more or less, depending on screen size */
+  z-index:1;
+}
+#yesBtn{
+	margin-left: 130px;
+}
+
 </style>
 </head>
 <body>
@@ -132,7 +159,19 @@
 		</div>	<!-- outer end -->
 	</div>	<!-- mainWrapper end -->
 
-
+									<!-- The Modal -->
+									<div id="myModal2" class="modal2">
+									  <!-- Modal content -->
+									  <div class="modal-content2">
+									    <span class="close">&times;</span>
+									    <p align="center" class ="modaltitle" style="font-size:30px;">변경하시겠습니까?</p>
+									    <div class="titleLine"></div>
+									   
+									    <button class="searchBtn" id="yesBtn">예</button>
+									    <button class="searchBtn" id="noBtn">아니오</button>
+									  </div>
+									
+									</div>
 
 
 
@@ -390,21 +429,43 @@ $('.dropdown-menu li').click(function () {
 //등록 모달
 // Get the modal
    var modal = document.getElementById("myModal");
+   var modal2 = document.getElementById("myModal2");
    
    // Get the button that opens the modal
    var btn = document.getElementById("detail");
-
+   var btn2 = document.getElementById("change"); 
+   var btn3 = document.getElementById("noBtn");
+   var yesBtn = document.getElementById("yesBtn");
+   
    // Get the <span> element that closes the modal
    var span = document.getElementsByClassName("close")[0];
+   var span2 = document.getElementsByClassName("close")[1];
 
    // When the user clicks on the button, open the modal
    btn.onclick = function() {
      modal.style.display = "block";
    }
+   
+   btn2.onclick = function() {
+	 modal2.style.display = "block";
+   }
+   $(document).on('click', '#yesBtn', function(){
+	   modal2.style.display = "block";
+   });
+   yesBtn.onclick = function() {
+	 modal2.style.display = "block";
+   }
 
    // When the user clicks on <span> (x), close the modal
    span.onclick = function() {
-     modal.style.display = "none";
+     modal2.style.display = "none";
+   }
+   span2.onclick = function() {
+	 modal.style.display = "none";
+   }
+   
+   btn3.onclick = function() {
+	  modal2.style.display = "none";
    }
 
    // When the user clicks anywhere outside of the modal, close it
@@ -424,50 +485,24 @@ $('.dropdown-menu li').click(function () {
  
  //지급완료처리
  $(document).on('click', '#change', function(){
-	 //변경하시겠습니까 모달창 띄우기
-	 
-	 
 	 //어느 회산지 가져오기
 	 var com = $(this).parents('tr').find('td').eq(1).text();
 	 console.log(com);
 	 
-	  $.ajax({
-		 url: "<%=request.getContextPath()%>/adjustmentComplete",
-			data: {com:com},
-			type: "get",
-			success: function(data){
-				console.log(data);
-				$tableBody = $("#listTable tbody");
+	 //변경하시겠습니까 모달창 띄우기
+	 if($(document).on('click', '#yesBtn', function(){
+		 $.ajax({
+			 url: "<%=request.getContextPath()%>/adjustmentComplete",
+				data: {com:com},
+				type: "get",
+				success: function(data){
+					location.reload(true);
+				},
+				error: function(data){
 					
-					$tableBody.html('');
-					
-					$.each(data, function(index, value){
-						var $tr = $("<tr>");
-						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
-						var $adJustmentAmountTd = $("<td>").text(decodeURIComponent(value.adJustmentAmount));
-						var $adJustmentCompleteTd = $("<td>").text(decodeURIComponent(value.adJustmentComplete));
-						
-						console.log(value.company);
-						console.log(value.adJustmentAmount);
-						console.log(value.adJustmentComplete);
-			
-						$tr.append($companyTd);
-						$tr.append($adJustmentAmountTd);
-						$tr.append($adJustmentCompleteTd);
-						
-						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
-						
-						$tableBody.append($tr);
-						
-						location.reload(true);
-					}); 
-					
-				
-			},
-			error: function(data){
-				
-			}
-	 });
+				}
+		 });
+	 }));
  });
 
 
