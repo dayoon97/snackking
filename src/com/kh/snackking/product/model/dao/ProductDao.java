@@ -415,7 +415,7 @@ public class ProductDao {
 		
 		
 		if(count == 5) {
-			query = "SELECT S.PCODE, S.COLOR, S.STORAGE_CODE, S.STORAGE_DATE, S.QUANTITY, S.SLOCATION, S.MFD, S.SECTION, S.SECTION_CODE, P.PNAME, P.PEXP FROM PRODUCT_STORAGE S LEFT JOIN PRODUCT P ON(P.PCODE = S.PCODE)";
+			query = "SELECT S.PCODE, S.COLOR, S.STORAGE_CODE, S.STORAGE_DATE, S.QUANTITY, S.SLOCATION, S.MFD, S.SECTION, S.SECTION_CODE, P.PNAME, P.PEXP FROM PRODUCT_STORAGE S LEFT JOIN PRODUCT P ON(P.PCODE = S.PCODE) ORDER BY S.STORAGE_CODE";
 		}else {
 			query = "SELECT S.PCODE, S.COLOR, S.STORAGE_CODE, S.STORAGE_DATE, S.QUANTITY, S.SLOCATION, S.MFD, S.SECTION, S.SECTION_CODE, P.PNAME, P.PEXP FROM PRODUCT_STORAGE S LEFT JOIN PRODUCT P ON(P.PCODE = S.PCODE) WHERE ";
 		
@@ -437,7 +437,7 @@ public class ProductDao {
 					query = query.substring(0, query.length()-5);
 					//query += ";";
 				}
-			//query += "STATUS = 'Y'";
+			query += " ORDER BY S.STORAGE_CODE";
 		}
 		System.out.println(query);
 		try {
@@ -468,7 +468,7 @@ public class ProductDao {
 		close(stmt);
 		close(rset);
 		}
-		System.out.println("DAO " + productStorageList);
+		//System.out.println("DAO " + productStorageList);
 		return productStorageList;
 	}
 	
