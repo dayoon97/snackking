@@ -27,10 +27,30 @@ public class AdjustmentService {
 		Connection con = getConnection();		
 		
 		int result = new AdjustmentDao().adjustmentComplete(con, company);
+		int result2 = 0;
 		
+		if(result > 0) {
+			result2 = new AdjustmentDao().adjustmentInsertDate(con, company);
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		System.out.println(result);
 		close(con);
 		
-		return result;
+		return result2;
+	}
+
+	public ArrayList<HashMap<String, Object>> adjustmentSearch(HashMap<String, String> hmap) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> searchmember = new AdjustmentDao().adjustmentSearch(con, hmap);
+	
+		close(con);
+		
+		return searchmember;
 	}
 	
 	

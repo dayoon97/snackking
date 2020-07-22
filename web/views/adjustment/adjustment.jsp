@@ -40,7 +40,13 @@
 #yesBtn{
 	margin-left: 130px;
 }
-
+#yesBtn, #noBtn{
+	margin-top: 70px;
+}
+#searchStock1{
+    margin-top: 10px;
+    margin-left: 50px;
+}
 </style>
 </head>
 <body>
@@ -67,30 +73,28 @@
 					<div id="subSubTitle1">정산내역 조회</div>
 						<!-- searchBox start -->
 							<div id="searchBox" style="display: table;">
-								<form id="searchForm" style="display:table-cell; vertical-align:middle">
 									<div >
-									<table id="searchStock" style="align:center;">
+									<table id="searchStock1" style="align:center;">
 										<tr>
 											<!-- 검색 내용 타이핑하는 부분 -->	
 											<td style="width:200px !important;">회사명  :
-											<input type="text" class="searchTextBox" size="6" name=""></td>
+											<input type="text" class="searchTextBox" size="6" id="adjCom"></td>
 									
 		
 											<td style="width:240px">정산월  :
-												<input type="month" class="searchTextBox" size="6" name=""></td>
+												<input type="month" class="searchTextBox" size="6" id="adjMo"></td>
 											
 	                       					
 											<td style="width:220px">결제여부  :
 											<div class="dropdown">
 	        										<div class="select">
-	          											<span>선택</span>
+	          											<span id="adjYN">선택</span>
 											          <i class="fa fa-chevron-left"></i>
 											        </div>
-											        <input type="hidden" name="">
 											        <ul class="dropdown-menu">
-								                           <li id="선택">선택</li>
-								                           <li id="미지급">미지급</li>
-								                           <li id="지급">지급</li>
+								                           <li id="com1">선택</li>
+								                           <li id="noCom">미결제</li>
+								                           <li id="yesCom">결제</li>
 											        </ul>
 											      </div>
 	                        				</td>
@@ -99,7 +103,6 @@
 										</tr>
 									</table>
 									</div>
-								</form>
 							</div>
 					</div><!-- search-area end ---------------------------------------------------------------------------->
 	
@@ -123,7 +126,7 @@
 								<tr id="listHead" >
 									<th>번호</th>
 									<th>회사명</th>
-									<th>금액</th>
+									<th>총금액</th>
 									<th>입금일</th>
 									<th>결제여부</th>
 									<th>지급완료처리</th>
@@ -139,8 +142,17 @@
 									</td>
 									<td><%= list.get(i).get("company") %></td>
 									<td><%= list.get(i).get("adJustmentAmount") %></td>
-									<td></td>
-									<td><%= list.get(i).get("adJustmentComplete") %></td>
+									<td><%if((list.get(i).get("adJustmentDate")) == null) {%>
+									미지급
+									<%} else { %>
+									<%= list.get(i).get("adJustmentDate") %>
+									<% } %></td>
+									<td><% if((list.get(i).get("adJustmentComplete")).equals("Y")) { %>
+									결제
+									<% } else { %>
+									미결제
+									<% } %>
+									</td>
 									<td><% if(list.get(i).get("adJustmentComplete").equals("N")) { %>
 									<input type="button" class="approval-btn" id="change<%=j%>" value="변경">
 									<%-- <button class="approval-btn" value="change<%=j%>" onclick="change();">변경</button> --%>
@@ -404,19 +416,7 @@
 
 <script>
 var id;
-
-//행의 버튼을 누르면 함수 실행
-$(".approval-btn").click(function(){
-	id = $(this).parent().children("input").attr("id");
-	console.log(id);
-	
-	modal2.style.display = "block";
-});
-
-
-
-
-
+var com;
 /* 옵션 선택 드롭 다운--------------------------------------------------------------------------- */
 $('.dropdown').click(function () {
     $(this).attr('tabindex', 1).focus();
@@ -461,9 +461,7 @@ $('.dropdown-menu li').click(function () {
      modal.style.display = "block";
    }
    
-   /* btn2.onclick = function() {
-	 modal2.style.display = "block";
-   } */
+ 
    $(document).on('click', '#yesBtn', function(){
 	   modal2.style.display = "block";
    });
@@ -498,34 +496,88 @@ $('.dropdown-menu li').click(function () {
    	location.href="<%=request.getContextPath()%>/views/adjustment/adjustmentAdd.jsp";
    });
 
-
  
- $(document).on('click', id, function(){
+   var com;
+   $(".approval-btn").click(function(){
+	   id = $(this).parent().children("input").attr("id");
+		console.log(id);
+		
+		modal2.style.display = "block";
+	
+	 	//어느 회산지 가져오기
+		com = $(this).parent().parent().children().eq(1).text();
 	 
-	 //어느 회산지 가져오기
-	 var com = $(".listBody td").parent().children("td").eq(1).html();
-	 console.log(com);
 	 
+	 //아니오 버튼 누르면 데이터 없애기
+	 $(document).on('click', "#noBtn", function(){
+		 com='';
+	 	});
+   	});
+   
 	 //예 버튼을 누르면 데이터 가져가서 업데이트 
 	 $(document).on('click', '#yesBtn', function(){
-		 console.log(com);
-		 console.log(id);
-	 	location.href="<%=request.getContextPath()%>/adjustmentComplete?com="+ com;
-	
-		  <%-- $.ajax({
-			    url: "<%=request.getContextPath()%>/adjustmentComplete",
-				data: {com:com},
-				type: "get",
-				success: function(data){
-					location.reload(true);
-				},
-				error: function(data){
-					
-				}
-		 });  --%> 
-	 });
- });
+		 	  //서블릿
+		location.href="<%=request.getContextPath()%>/adjustmentComplete?com="+com;
+			  
+	});
 
+	 //검색 ajax
+	 $(document).on('click','#searchBtn',function(){
+		var company = document.getElementById("adjCom").value;
+		var money = document.getElementById("adjMo").value;
+		var yn = $("span").eq(0).text();
+	
+		console.log(company);
+		console.log(money);
+		console.log(yn);
+		
+		 
+		 $.ajax({
+			url:"<%=request.getContextPath()%>/adjustmentSearch",
+			data:{company:company, money:money, yn:yn},
+			type:"get",
+			success: function(data){
+				$tableBody = $("#listTable tbody");
+				
+				$tableBody.html('');
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr class='listBody'>");
+					var $Td = $("<td>").html("<input type='checkbox' name='chk'>");
+					var $companyTd = $("<td>").text(value.company);
+					var $adjustmentAmountTd = $("<td>").text(decodeURIComponent(value.adjustmentAmount));
+					var $adjustmentDateTd = $("<td>").text(decodeURIComponent(value.adjustmentDate));
+					var $adjustmentCompleteTd = $("<td>").text(decodeURIComponent(value.adjustmentComplete));
+					var $btn1Td = $("<td>").html("<input type='checkbox' name='chk'>");
+					var $btn2Td = $("<td>").html("<input type='checkbox' name='chk'>");
+					var $endTr = $("</tr>");
+					
+				
+					$tr.append($Td);
+					$tr.append($companyTd);
+					$tr.append($adjustmentAmountTd);
+					$tr.append($adjustmentDateTd);
+					$tr.append($adjustmentCompleteTd);
+					$tr.append($btn1Td);
+					$tr.append($btn2Td);
+					$tr.append($endTr);
+					
+					$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
+					
+					$tableBody.append($tr);
+				});  
+				 
+			},
+			
+			error: function(data){
+				
+			}
+		});
+	 });
+	 
+	 
+	 
 
 </script>
 </html>

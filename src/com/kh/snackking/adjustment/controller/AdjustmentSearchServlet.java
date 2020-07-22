@@ -12,19 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.snackking.adjustment.model.service.AdjustmentService;
-import com.kh.snackking.adjustment.model.vo.Adjustment;
+import com.kh.snackking.user.model.vo.User;
 
 /**
- * Servlet implementation class AdjustmentCompleteServlet
+ * Servlet implementation class AdjustmentSearchServlet
  */
-@WebServlet("/adjustmentComplete")
-public class AdjustmentCompleteServlet extends HttpServlet {
+@WebServlet("/adjustmentSearch")
+public class AdjustmentSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdjustmentCompleteServlet() {
+    public AdjustmentSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,33 +33,35 @@ public class AdjustmentCompleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String company = request.getParameter("com");
-		
-		System.out.println(company);
-		
-		int result = new AdjustmentService().adjustmentComplete(company);
+		String company = request.getParameter("company");
+		String month = request.getParameter("money");
+		String complete = request.getParameter("yn");
 		
 		
-		System.out.println(result);
-		String page = "";
-		if(result > 0) {
-			ArrayList<HashMap<String, Object>> list = new AdjustmentService().adjustmentSelect();
-			
-			page = "views/adjustment/adjustment.jsp";
-			request.setAttribute("list", list);
-			
-			/*
-			 * response.setContentType("application/json");
-			 * response.setCharacterEncoding("UTF-8");
-			 * 
-			 * new Gson().toJson(list, response.getWriter());
-			 */
+		if(complete.equals("결제")) {
+			complete = "Y";
+		} else if(complete.equals("미결제")) {
+			complete = "N";
 		} else {
-			
+			complete = "";
 		}
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		HashMap<String, String> hmap = new HashMap<String, String>();		
+		
+		if(company != "") {hmap.put("company", company);}
+		if(month != "") {hmap.put("month", month);}
+		if(complete != "") {hmap.put("complete", complete);}
+		
+		
+		ArrayList<HashMap<String, Object>> searchMember = null;
+		
+		searchMember = new AdjustmentService().adjustmentSearch(hmap);
 
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		new Gson().toJson(searchMember, response.getWriter());
+		
 	}
 
 	/**
