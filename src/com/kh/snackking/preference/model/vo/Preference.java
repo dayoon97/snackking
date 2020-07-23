@@ -19,12 +19,13 @@ public class Preference implements java.io.Serializable{
 	private String preEquipment; 	  //수요설비
 	private String preDate;			//날짜
 	private String status; //삭제여부
+	private String curaStatus; //큐레이팅 여부
 	
 	public Preference() {}
 
 	public Preference(int userNo, String userName, String userCom, int preNo, int preBudget, int prePersonnel,
 			String preAge, String preProductTypes, String preTaste, String preFlavor, String preEtcFlavor,
-			String preAlName, String preStyle, String preEquipment, String preDate, String status) {
+			String preAlName, String preStyle, String preEquipment, String preDate, String status, String curaStatus) {
 		super();
 		this.userNo = userNo;
 		this.userName = userName;
@@ -42,6 +43,7 @@ public class Preference implements java.io.Serializable{
 		this.preEquipment = preEquipment;
 		this.preDate = preDate;
 		this.status = status;
+		this.curaStatus = curaStatus;
 	}
 
 	/**
@@ -268,6 +270,20 @@ public class Preference implements java.io.Serializable{
 		this.status = status;
 	}
 
+	/**
+	 * @return the curaStatus
+	 */
+	public String getCuraStatus() {
+		return curaStatus;
+	}
+
+	/**
+	 * @param curaStatus the curaStatus to set
+	 */
+	public void setCuraStatus(String curaStatus) {
+		this.curaStatus = curaStatus;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -277,7 +293,8 @@ public class Preference implements java.io.Serializable{
 				+ ", preBudget=" + preBudget + ", prePersonnel=" + prePersonnel + ", preAge=" + preAge
 				+ ", preProductTypes=" + preProductTypes + ", preTaste=" + preTaste + ", preFlavor=" + preFlavor
 				+ ", preEtcFlavor=" + preEtcFlavor + ", preAlName=" + preAlName + ", preStyle=" + preStyle
-				+ ", preEquipment=" + preEquipment + ", preDate=" + preDate + ", status=" + status + "]";
+				+ ", preEquipment=" + preEquipment + ", preDate=" + preDate + ", status=" + status + ", curaStatus="
+				+ curaStatus + "]";
 	}
 
 	

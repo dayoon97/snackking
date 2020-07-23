@@ -1,8 +1,6 @@
 package com.kh.snackking.preference.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,22 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.snackking.preference.model.service.PreferenceService;
-import com.kh.snackking.preference.model.vo.Preference;
-import com.kh.snackking.product.model.service.ProductService;
-import com.kh.snackking.product.model.vo.CuratingProduct;
-import com.kh.snackking.product.model.vo.Product;
 
 /**
- * Servlet implementation class SelectCurating
+ * Servlet implementation class UserCuratingStatus
  */
-@WebServlet("/selectCurating.pre")
-public class SelectCurating extends HttpServlet {
+@WebServlet("/userCuratingStatus.pre")
+public class UserCuratingStatus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectCurating() {
+    public UserCuratingStatus() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,29 +28,18 @@ public class SelectCurating extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String pno = request.getParameter("pno");
+		int preNo = Integer.parseInt(request.getParameter("num"));
 		
-		int num = Integer.parseInt(pno);
-		System.out.println("num : " + num);
-		Preference p = new PreferenceService().selectCurating(num);
+		int result = new PreferenceService().CuartingStatus(preNo);
 		
-		ArrayList<Product> selectProduct = new ProductService().CuratorSelectProduct(p);
-		
-		ArrayList<CuratingProduct> basketProduct = new ProductService().CuratingbasketProduct(num);
-		System.out.println(" selectProduct :" + selectProduct);
-		
-		System.out.println("p : " + p);
 		String page = "";
-		if(p != null) {
-			page = "views/curator/curatingForm.jsp";
-			request.setAttribute("insertPre", p);
-			request.setAttribute("Product", selectProduct);
-			request.setAttribute("cuList", basketProduct);
+		if(result > 0) {
+			
+			page = "curatingList.cu";
 		}else {
 			System.out.println("에러");
 		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
+		request.getRequestDispatcher(page).forward(request, response);;
 	}
 
 	/**

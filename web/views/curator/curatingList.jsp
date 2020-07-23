@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.curatingList , java.util.*"%>
+<% ArrayList<curatingList> list = (ArrayList<curatingList>) request.getAttribute("culist"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -305,7 +306,7 @@ height: 25px;
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-<%@ include file="../common/cmMain.jsp" %> 
+<%@ include file="../common/userMenu.jsp" %> 
    <!-- outer start -->
    <div id="outer">
       <!-- background-box start -->
@@ -328,7 +329,7 @@ height: 25px;
                      <table class="memberTable">
                         <tr>
                            <!-- 검색 내용 타이핑하는 부분 -->
-                           <td style="width:100px;">큐레이팅 여부 : </td>
+                           <td style="width:110px;">큐레이팅 여부 : </td>
                           <!--  <td><input type="text" class="searchTextBox" size="7">
                            </td> -->
                                                       
@@ -369,39 +370,33 @@ height: 25px;
          <!-- 조회 결과 리스트 부분 -->
             <div id="listArea">
                <!-- 조회 결과 리스트 제목 -->
-               <div id="subSubTitle2">큐레이팅 리스트</div>
+               <div id="subSubTitle2">List</div>
                <!-- 적용 버튼 -->
                <!-- <button onclick="" class="btn" id="apply">적용</button> -->
-               <span id="apply">조회 결과 수 :</span>
+               <span id="apply"></span>
                
                <!-- 조회 리스트 테이블 -->
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
-                     <th width="20px"><input type="checkbox" id="checkall"></th>
                      <th width="30px">상호명</th>
                      <th width="60px">이름</th>
                      <th width="80px">선호도조사 보기</th>
                      <th width="80px">큐레이팅 확인</th>
                      <th width="50px">큐레이션 여부</th>
-                     <th width="50px">삭제</th>
                   </tr>
                   
                   <!-- 리스트 바디  -->
-<%-- 				<% for(Preference n : List) { %>
+ 				<% for(curatingList n : list) { %>
                   <tr class="listBody">
-						<td><input type="checkbox"></td>
-						<td><%= n.getPreNo() %></td>
 						<td><%= n.getUserCom() %></td>
-						<td><%= n.getUserName()%></td>
-						<td><%= n.getPreDate() %></td>
+						<td>이름</td>
+						<td><a href=""><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
+						<td><a href=""><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
 						<td><%= n.getStatus() %></td>
-						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="/snackkking/resources/image/search.png" width="15px" alt="My Image"></a></td>
-						<td><button onclick="location.href='<%= request.getContextPath()%>/delicatePre.pre?num=<%=n.getPreNo()%>'">삭제</button></td>
 					</tr>
 				<%} %>
-               </table> --%>
-               
+               </table>
                <%-- 				<tr>
 				<th >글번호</th>
 				<th width="300px">글제목</th>
@@ -454,7 +449,7 @@ height: 25px;
                      $('.msg').html(msg + input + '</span>');
                   });
       
-      <!-- check박스 전체선택 -->
+      /* <!-- check박스 전체선택 --> */
      
       $(document).ready(function(){
    	   /*  //최상단 체크박스 클릭 */

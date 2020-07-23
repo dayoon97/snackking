@@ -398,7 +398,7 @@ height: 25px;
 						<td><%= n.getUserName()%></td>
 						<td><%= n.getPreDate() %></td>
 						<td><%= n.getStatus() %></td>
-						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="/snackkking/resources/image/search.png" width="15px" alt="My Image"></a></td>
+						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
 						<td><button onclick="location.href='<%= request.getContextPath()%>/delicatePre.pre?num=<%=n.getPreNo()%>'">삭제</button></td>
 					</tr>
 				<%} %>

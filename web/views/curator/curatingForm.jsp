@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference, com.kh.snackking.product.model.vo.Product, java.util.*"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference, com.kh.snackking.product.model.vo.Product, java.util.*, com.kh.snackking.product.model.vo.CuratingProduct"%>
 <% Preference insertPre = (Preference) request.getAttribute("insertPre"); 
 	ArrayList<Product> Product = (ArrayList<Product>) request.getAttribute("Product");
+	ArrayList<CuratingProduct> cuList = (ArrayList<CuratingProduct>) request.getAttribute("cuList");
 %>
 
 
@@ -637,20 +638,16 @@ $(function(){
                   </tr>
                  
                   <tbody id="tbody2">
- 				<%-- <% for(Product n : Product) { %>
+ 				 <% for(CuratingProduct c : cuList) { %>
                   <tr class="listBody">
-						<td><%= n.getpCode() %></td>
-						<td><%= n.getpName() %></td>
-						<td><%= n.getpVendor() %></td>
-						<td><%= n.getPtName() %></td>
-						<td><%= n.getTaste()%></td>
-						<td><%= n.getFlavor() %></td>
-						<td><%= n.getAllergy() %></td>
-						<td><input type="text" id="count" name="count" value="0" size="3"></td>
-						<td><%= n.getPrice() %></td>
-						<td><button id="proAdd" value="<%= n.getpCode() %>" >추가</button></td>
+						<td><%= c.getCuratingNo() %></td>
+						<td><%= c.getProNo() %></td>
+						<td><%= c.getpName() %></td>
+						<td><%= c.getCount() %></td>
+						<td><%= c.getPrice()%></td>
+						<td><button class="proDelete" value="<%= c.getCuratingNo() %>" >삭제</button></td>
 					</tr>
-				<%} %> --%>
+				<%} %> 
 				</tbody>
                  
                   <!-- 리스트 바디  -->
@@ -669,7 +666,7 @@ $(function(){
                </table>
                </div>
                 </div>
-                <button>저장하기</button>
+                <button><a href="<%=request.getContextPath()%>/userCuratingStatus.pre?num=<%=insertPre.getPreNo()%>">저장하기</a></button>
 						
 						</div>
 					</div> <!-- searchBox end -->
@@ -1216,7 +1213,11 @@ $(document).on("click", ".proDelete", (function(){
 	});	
 }) */
 
-
+function cuarting(){
+	var preNo = <%=insertPre.getPreNo()%>;
+	
+	location.href="<%=request.getContextPath()%>/userCuratingStatus.pre?num=preNo%>";
+}
 
 
 	

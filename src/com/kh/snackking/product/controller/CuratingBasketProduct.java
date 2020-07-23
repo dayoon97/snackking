@@ -26,9 +26,7 @@ public class CuratingBasketProduct extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String proCode = request.getParameter("proCode");
-		
-		System.out.println("proCode : " + proCode);
+		int preNo = Integer.parseInt(request.getParameter(""));
 	}
 
 	/**
