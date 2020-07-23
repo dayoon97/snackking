@@ -209,6 +209,16 @@ public class UserService {
 		return list;
 	}
 
+	public ArrayList<User> searchCompany(int num) {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().searchCompany(con, num);
+		
+		close(con);
+		
+		return list;
+	}
+
 	
 
 }

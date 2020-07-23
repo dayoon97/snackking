@@ -685,5 +685,36 @@ public class UserDao {
 		return list;
 	}
 
+	public ArrayList<User> searchCompany(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("searchCompany");
+	
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				User u = new User();
+				list = new ArrayList<>();
+				u.setCompany(rset.getString("COMPANY"));
+				
+				list.add(u);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
+	}
+
 
 }
