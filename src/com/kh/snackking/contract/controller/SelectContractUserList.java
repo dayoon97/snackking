@@ -2,6 +2,8 @@ package com.kh.snackking.contract.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,14 +41,33 @@ public class SelectContractUserList extends HttpServlet {
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
 		
-		System.out.println("servlet corpName : " + corpName);
-		System.out.println("servlet businessNo :" + businessNo);
-		System.out.println("servlet conDate : " + conDate);
-		System.out.println("servlet startDate : " + startDate);
-		System.out.println("servlet endDate : " + endDate);
+//		System.out.println("servlet corpName : " + corpName);
+//		System.out.println("servlet businessNo :" + businessNo);
+//		System.out.println("servlet conDate : " + conDate);
+//		System.out.println("servlet startDate : " + startDate);
+//		System.out.println("servlet endDate : " + endDate);
+		
+		//키, 밸류 방식으로 받아와서 쓴다. 해시맵
+		HashMap<String, String> hmap = new HashMap<>();
+		if(corpName != null) {
+			hmap.put("corpName", corpName);
+		}
+		if(businessNo != null) {
+			hmap.put("businessNo", businessNo);
+		}
+		if(conDate != null) {
+			hmap.put("conDate", conDate);
+		}
+		if(startDate != null) {
+			hmap.put("startDate", startDate);
+		}
+		if(endDate != null) {
+			hmap.put("endDate", endDate);
+		}
 		
 		
-//		ArrayList<Contract> list = new ContractService().selectContractUserList();
+		ArrayList<Contract> list = new ContractService().selectContractUserList(hmap);
+		
 		
 		
 		

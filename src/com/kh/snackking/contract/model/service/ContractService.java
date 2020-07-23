@@ -11,6 +11,7 @@ import static com.kh.snackking.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.snackking.contract.model.dao.ContractDao;
 import com.kh.snackking.contract.model.vo.Contract;
@@ -88,15 +89,20 @@ public class ContractService {
 		return list;
 	}
 
-	//계약내역 조회(select)에서 검색버튼 눌렀을 때 검색조건 부합하는 리스트만 출력
-	public ArrayList<Contract> selectContractUserList() {
+	//계약내역 조회(select) 상세검색 
+	public ArrayList<Contract> selectContractUserList(HashMap<String, String> hmap) {
 
+		Connection con = getConnection();
+		
+		ArrayList<Contract> list = new ContractDao().selectContractUserList(con, hmap);
+		
+		close(con);
 		
 		
-		
-		return null;
+		return list;
 	}
 
+	
 
 
 	

@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.snackking.contract.model.vo.Contract;
@@ -208,9 +209,7 @@ public class ContractDao {
 			list = new ArrayList<Contract>();
 			
 			while(rset.next()) {
-				
 				Contract c = new Contract();
-				
 				c.setBusinessNo(rset.getString("BUSINESS_NO"));
 				c.setStartDate(rset.getString("START_DATE"));
 				c.setEndDate(rset.getString("END_DATE"));
@@ -235,6 +234,94 @@ public class ContractDao {
 			close(stmt);
 			close(rset);
 		}
+		
+		return list;
+	}
+
+	public ArrayList<Contract> selectContractUserList(Connection con, HashMap<String, String> hmap) {
+
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Contract> list = null;
+		
+		String corpName = hmap.get("corpName");
+		String businessNo = hmap.get("businessNo");
+		String conDate = hmap.get("conDate");
+		String startDate = hmap.get("startDate");
+		String endDate = hmap.get("endDate");
+		
+		//항상 참인 조건 WHERE 1 = 1을 못쓰니까 WHERE조건 이렇게 써줬음
+		//검색할 항목 값이 일부만 있어도 검색되게 하기 위해서 PreparedStatement ? 안 쓰고 Statement로 쓸 것임
+		//if문으로 값이 있을 때만 쿼리문에 추가돼서 검색하게 하기 위함! 쿼리문이 바뀔 수 있기 때문 그래서 쿼리문을 여기에 적었다.
+		String query =  "SELECT DELIVERY_COUNT, AMOUNT_PER_DELIVERY, END_YN, USER_NO, TOTAL_AMOUNT, CONTRACT_NO FROM CONTRACT WHERE END_YN = 'Y'";
+		
+		//값이 있으면 추가하겠다는 코드
+		//합치는건 문자열 합치기로 썼다.
+		if(!corpName.equals("")) {
+			query += " AND CORP_NAME = '" + corpName + "'";
+		} else {
+			query += "";
+		}
+		
+		if(!businessNo.equals("")) {
+			query += " AND BUSINESS_NO = '" + businessNo + "'";
+		} else {
+			query += "";
+		}
+				
+		if(!conDate.equals("")) {
+			query += " AND CONTRACT_DATE = '" + conDate + "'"; 
+		} else {
+			query += "";
+		}
+		
+		if(!startDate.equals("") ) {
+			query += " AND START_DATE = '" + startDate + "'";
+		} else {
+			query += "";
+		}
+		
+		if(!endDate.equals("")) {
+			query += " AND END_DATE = '" + endDate + "'";
+		} else {
+			query = "";
+		}
+		
+		System.out.println("select query : " + query);
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Contract>();
+			
+			while(rset.next()) {
+				Contract c = new Contract();
+				c.setBusinessNo(rset.getString("BUSINESS_NO"));
+				c.setStartDate(rset.getString("START_DATE"));
+				c.setEndDate(rset.getString("END_DATE"));
+				c.setConDate(rset.getString("CONTRACT_DATE"));
+				c.setDelivCount(rset.getInt("DELIVERY_COUNT"));
+				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVERY"));
+				c.setEndYN(rset.getString("END_YN"));
+				c.setUserNo(rset.getInt("USER_NO"));
+				c.setCorpName(rset.getString("CORP_NAME"));
+				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));
+				c.setConNo(rset.getInt("CONTRACT_NO"));
+				
+//				System.out.println(c);
+				
+				list.add(c);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		System.out.println("dao list : " + list);
 		
 		return list;
 	}

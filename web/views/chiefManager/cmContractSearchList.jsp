@@ -554,7 +554,7 @@ overflow-y: auto !important;
 				<div id="subSubTitle1">계약 조회</div>
 					<!-- searchBox start -->
 						<div id="searchBox" style="height: 120px !important; display: table !important;">
-							<form id="searchForm" style="display:table-cell !important; vertical-align:middle !important; ">
+							<form id="searchForm" action="<%=request.getContextPath()%>/selectContractUserList.co" method="post" style="display:table-cell !important; vertical-align:middle !important;">
 								<table id="searchContract"  style="margin-left: auto !important; margin-right: auto !important; border-spacing: 20px 10px" >
 									<tr style="height:34px !important;">
 									
@@ -566,8 +566,7 @@ overflow-y: auto !important;
 										<td style="width:200px"></td>			
 										<td rowspan="3" align="center">
 										<!-- <input type="submit" class="searchBtn" value="검색" id="submit" style="width:85px;"></td> -->
-										<button class="searchBtn" id="submit" style="width:85px;" 
-										onclick="location.href='<%=request.getContextPath()%>/selectContractUserList.co'">검색</button>
+										<input type="submit" class="searchBtn" id="submit" value="검색" style="width:85px;" >
 										
 										<!-- <script>
 											$(function(){
