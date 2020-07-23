@@ -90,6 +90,19 @@ align-items: center;
 color: #000000;
 }
 
+#subSubTitle3 {
+height: 30px;
+margin: 10px 30px;
+font-family: NanumSquare_ac;
+font-style: normal;
+font-weight: bold;
+font-size: 18px;
+line-height: 20px;
+display: flex;
+align-items: center;
+color: #000000;
+}
+
 #cuListTable{
 	width: 1010px;
 }
@@ -158,10 +171,10 @@ height: 25px;
 }
 
 .modaltableWrap{
-	height: 265px;
+	height: 200px;
 	overflow: auto;
 	display: inline-block;
-	margin-left: 40px;
+	margin-left: 35px;
 	overflow-x: hidden;
 }
 .modaltableWrap::-webkit-scrollbar {
@@ -228,6 +241,26 @@ height: 25px;
 	display: inline-block;
 }
 
+#moSection1 {
+	background: green;
+	display: inline-block;
+	width: 45%;
+	height: 510px;
+}
+#moSection2 {
+	background: skyblue;
+	display: inline-block;
+	width: 48%;
+/* 	float: right; */
+	height: 510px;
+}
+#moSection3 {
+	background: blue;
+	display: inline-block;
+	width: 6%;
+	/* float: right; */
+	height: 510px;
+}
 </script>
 </style>
 </head>
@@ -363,197 +396,202 @@ height: 25px;
 					<div class="close">&times;</div>
 				</div>	<!-- modal-header end -->
 				<div class="modal-body">
-					<p id="modal-body"></p>
+				<div id="moSection1">
+					<div id="subSubTitle3">큐레이팅-상품 리스트</div>
+	               <div id="listTableWrap" class="modaltableWrap">
+		               <table id="listTable" class="listTable">
+		                  <thead>
+			                  <tr id="listHead" class="listHead">
+			                     <th>상품코드</th>
+			                     <th>상품명</th>
+			                     <th>필요수량</th>
+			                     <th>회사명</th>
+			                     <th>날짜</th>
+			                  </tr>
+		                  </thead>
+		                  <tbody>
+			                  <tr class="listBody">
+			                     <td><input type="checkbox" name="chk"></td>
+			                     <td>CURATING01</td>
+			                     <td>남궁보훈</td>
+			                     <td>(주)SNACKKING</td>
+			                     <td>2020-07-22</td>
+			                  </tr>
+			                  <tr class="listBody">
+			                     <td><input type="checkbox" name="chk"></td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                  </tr>
+			                  <tr class="listBody">
+			                     <td><input type="checkbox" name="chk"></td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                  </tr>
+			                  <tr class="listBody">
+			                     <td><input type="checkbox" name="chk"></td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                  </tr>
+			                  <tr class="listBody">
+			                     <td><input type="checkbox" name="chk"></td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                  </tr>
+			                  <tr class="listBody">
+			                     <td><input type="checkbox" name="chk"></td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                  </tr>
+			                  <tr class="listBody">
+			                     <td><input type="checkbox" name="chk"></td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                  </tr>
+			                  <tr class="listBody">
+			                     <td><input type="checkbox" name="chk"></td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                  </tr>
+			                  <tr class="listBody">
+			                     <td><input type="checkbox" name="chk"></td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                  </tr>
+			                  <tr class="listBody">
+			                     <td><input type="checkbox" name="chk"></td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                     <td>내용</td>
+			                  </tr>
+		                  </tbody>
+		               </table>
+	               
+	               </div>	<!-- listTableWrap end -->
+	               <div id="subSubTitle3">상품-재고 리스트</div>
+					<div id="listTableWrap" class="modaltableWrap">
+						<table class="listTable"">
+							<thead>
+								<tr class="listHead">
+									<th width="120px">상품명</th>
+									<th>재고 번호</th>
+									<th>로케이션 번호</th>
+									<th>총 수량</th>
+									<th>선택 수량</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								<tr class="listBody">
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>	<!-- moSection1 -->
+				
+				<div id="moSection3">
+				
+				</div>	<!-- moSection2 end -->
+				
+				<div id="moSection2">
+				
+				</div>	<!-- moSection2 end -->
+				
 				</div>	<!-- modal-body end -->
 				<div class="modal-footer">
 				</div>	<!-- modal-footer end -->
 
-				<div id="subSubTitle2" style="display: inline-block;">큐레이팅-상품 리스트</div>
-               <div id="subSubTitle2" style="display: inline-block; margin-left: 385px;">상품-재고 리스트</div>
-               <br>
-               <div id="listTableWrap" class="modaltableWrap">
-	               <table id="listTable" class="listTable">
-	                  <!-- 테이블 헤드 -->
-	                  <thead>
-		                  <tr id="listHead" class="listHead">
-		                     <th>상품코드</th>
-		                     <th>상품명</th>
-		                     <th>필요수량</th>
-		                     <th>회사명</th>
-		                     <th>날짜</th>
-		                  </tr>
-	                  </thead>
-	                  
-	                  <!-- 리스트 바디  -->
-	                  <tbody>
-		                  <tr class="listBody">
-		                     <td><input type="checkbox" name="chk"></td>
-		                     <td>CURATING01</td>
-		                     <td>남궁보훈</td>
-		                     <td>(주)SNACKKING</td>
-		                     <td>2020-07-22</td>
-		                  </tr>
-		                  <tr class="listBody">
-		                     <td><input type="checkbox" name="chk"></td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                  </tr>
-		                  <tr class="listBody">
-		                     <td><input type="checkbox" name="chk"></td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                  </tr>
-		                  <tr class="listBody">
-		                     <td><input type="checkbox" name="chk"></td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                  </tr>
-		                  <tr class="listBody">
-		                     <td><input type="checkbox" name="chk"></td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                  </tr>
-		                  <tr class="listBody">
-		                     <td><input type="checkbox" name="chk"></td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                  </tr>
-		                  <tr class="listBody">
-		                     <td><input type="checkbox" name="chk"></td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                  </tr>
-		                  <tr class="listBody">
-		                     <td><input type="checkbox" name="chk"></td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                  </tr>
-		                  <tr class="listBody">
-		                     <td><input type="checkbox" name="chk"></td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                  </tr>
-		                  <tr class="listBody">
-		                     <td><input type="checkbox" name="chk"></td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                     <td>내용</td>
-		                  </tr>
-	                  </tbody>
-	               </table>
-               
-               </div>	<!-- listTableWrap end -->
-               
-				<div id="productArea" class="modaltableWrap">
-					<table class="listTable" boder="1">
-						<thead>
-							<tr class="listHead">
-								<th width="120px">상품명</th>
-								<th>재고 번호</th>
-								<th>로케이션 번호</th>
-								<th>총 수량</th>
-								<th>선택 수량</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							<tr class="listBody">
-								<td>초코송이</td>
-								<td>S1</td>
-								<td>L1</td>
-								<td>80</td>
-								<td><input type="text" size="1"></td>
-							</tr>
-							
-						</tbody>
-					</table>
-				</div>
 
 
 			</div>	<!-- modal-content end -->
@@ -580,12 +618,12 @@ btn1.onclick = function() {
 			//console.log(data);
 			modal.style.display = "block";
 			
-			if(data != null){
+			/* if(data != null){
 				$("#modal-title").html("아이디 찾기 결과");
 				$("#modal-body").html("아이디 찾기 결과  : " + data);
 			} else {
 				$("#modal-body").html("일치하는 결과가 없습니다.");
-			}
+			} */
 			
 		},
 		error: function() {
