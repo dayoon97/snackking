@@ -97,8 +97,9 @@
 								                           <li id="yesCom">결제</li>
 											        </ul>
 											      </div>
+											      
 	                        				</td>
-	
+											
 											<td><input type="submit" class="searchBtn" value="검색하기" id="searchBtn" style="float: right;"></td>
 										</tr>
 									</table>
@@ -528,6 +529,7 @@ $('.dropdown-menu li').click(function () {
 			  
 	});
 	
+	 //큐레이터가 로그인 했을 때 검색
 	 <%if(loginUser.gettCode().equals("T3")) {%>
 	 //검색 ajax
 	 $(document).on('click','#searchBtn',function(){
@@ -640,18 +642,19 @@ $('.dropdown-menu li').click(function () {
 		var company = document.getElementById("adjCom").value;
 		var money = document.getElementById("adjMo").value;
 		var yn = $("span").eq(0).text();
-		
-		console.log(company);
+		var num = $("input[type=hidden][name=num]").val();
+ 		console.log(company);
 		console.log(money);
 		console.log(yn);
+		console.log(num);
 		 
 		 $.ajax({
 			url:"<%=request.getContextPath()%>/adjustmentCuSearch",
-			data:{company:company, money:money, yn:yn, num : <%=loginUser.getUserNo()%>},
+			data:{company:company, money:money, yn:yn, num:num},
 			type:"get",
 			success: function(data){
-				console.log("dㅇㅇㅇㅇ");
-				$tableBody = $("#listTable7 tbody");
+				console.log("제바아아알");
+				$tableBody = $("#listTable6 tbody");
 				
 				$tableBody.html('');
 				
@@ -664,7 +667,6 @@ $('.dropdown-menu li').click(function () {
 					var $adjustmentAmountTd = $("<td>").text(decodeURIComponent(value.adJustmentAmount));
 					var $adjustmentDateTd = $("<td>").text(decodeURIComponent(value.adJustmentDate));
 					var $adjustmentCompleteTd = $("<td>").text(decodeURIComponent(value.adJustmentComplete));
-					var $btn1Td = $("<td>").html("<input type='button' class='approval-btn' id='change<%=j%>' value='변경'>");
 					var $btn2Td = $("<td>").html("<button class='btn detail-btn' id='detail'>상세</button>");
 					var $endTr = $("</tr>");
 					
@@ -682,8 +684,6 @@ $('.dropdown-menu li').click(function () {
 					
 					var $adComTd = $("<td>").text(comYN);
 				
-					
-					
 					
 					//입금일 형태 바꾸기
 					var dateY;
@@ -715,17 +715,10 @@ $('.dropdown-menu li').click(function () {
 					} else {
 						$tr.append($adDateTd);
 					}
-					$tr.append($adComTd);
 					
-					//지급완료면 변경버튼 안보이게 하기
-					if(comYN == '결제'){
-						$tr.append($nullTd);
-					} else {
-						$tr.append($btn1Td);
-					}
+					$tr.append($adComTd);
 					$tr.append($btn2Td);
 					$tr.append($endTr);
-					
 					$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "36px"});
 					
 					$tableBody.append($tr);
@@ -741,7 +734,10 @@ $('.dropdown-menu li').click(function () {
 	 });
 	<% } %>
 	 
-	 
+	 $(document).on('click','#addBtn', function(){
+		 
+		 location.href="<%=request.getContextPath()%>/searchCompany?num=<%=loginUser.getUserNo()%>";
+	 });
 
 </script>
 </html>

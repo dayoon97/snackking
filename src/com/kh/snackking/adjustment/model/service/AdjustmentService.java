@@ -63,6 +63,27 @@ public class AdjustmentService {
 		
 		return list;
 	}
+
+	public ArrayList<HashMap<String, Object>> adjustmentCuSearch(HashMap<String, String> hmap, int num) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> searchmember = new AdjustmentDao().adjustmentCuSearch(con, hmap, num);
+	
+		close(con);
+		
+		return searchmember;
+	}
+
+	public HashMap<String, Object> insertAdjustment() {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> list = new AdjustmentDao().insertAdjustment(con);
+		
+		close(con);
+		
+		return list;
+	}
 	
 	
 }
