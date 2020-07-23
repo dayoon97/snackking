@@ -642,10 +642,67 @@ public class ProductDao {
 	   }
 
 
+	public ArrayList<CuratingProduct> CuratingbasketProduct(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 
-
-
+	      ArrayList<CuratingProduct> curatingPro = null;
+	      
+	      String query = prop.getProperty("curatingProSelect");
+	      
+	      try {
+	         pstmt = con.prepareStatement(query);
+	         pstmt.setInt(1, num);
+	         
+	         rset = pstmt.executeQuery();
+	         curatingPro = new ArrayList<CuratingProduct>();
+	         while(rset.next()) {
+	            CuratingProduct curating = new CuratingProduct();
+	            curating.setCuratingNo(rset.getInt("CUPODUCT_NO")); //큐레이팅순서번호
+	            curating.setPreNo(rset.getInt("PRE_NO")); //선호도 번호
+	            curating.setProNo(rset.getString("PCODE")); //상품 번호
+	            curating.setpName(rset.getString("PNAME")); //상품명
+	            curating.setCount(rset.getInt("PRO_COUNT")); //상품 개수
+	            curating.setPrice(rset.getInt("PPRICE")); //상품 총 가격
+	            curatingPro.add(curating);
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	         close(rset);
+	      }
+	      
+	      return curatingPro;
+	}
 	   
+	
+	public int insertProductStorage(Connection con, ProductStorage productStorage) {
+	      PreparedStatement pstmt = null;
+	      int result = 0;
+	      System.out.println("dao : " +  productStorage);
+	      String query = prop.getProperty("insertProductStorage");
+	      try {
+	         pstmt = con.prepareStatement(query);
+	         pstmt.setInt(1, productStorage.getQuantity());
+	         pstmt.setString(2, productStorage.getpName());
+	         pstmt.setString(3, productStorage.getsLocation());
+	         pstmt.setString(4, productStorage.getMfd());
+	         pstmt.setString(5, productStorage.getSection());
+	         pstmt.setString(6, productStorage.getSectionCode());
+	         System.out.println(productStorage);
+	         System.out.println(query);
+	         result = pstmt.executeUpdate();
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	      }
+	      
+	      return result;
+	   }
+
 }
 	
 

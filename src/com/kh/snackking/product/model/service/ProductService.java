@@ -142,12 +142,24 @@ public class ProductService {
 	
 	public ArrayList<CuratingProduct> insertCuraPro(CuratingProduct cp) {
 		Connection con = getConnection();
-		
+		ArrayList<CuratingProduct> insertSelectPro = null;
 		int result = new ProductDao().insertCuraPro(con ,cp);
 		
-		
-		return null;
+		if(result > 0) {
+			insertSelectPro = new ProductDao().CuratingSelect(con, cp);
+			if(insertSelectPro != null) {
+				commit(con);
+			}else {
+				rollback(con);
+				insertSelectPro = null;
+			}
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return insertSelectPro;
 	}
+
 	
 	
 	   public ArrayList<CuratingProduct> curatingdeletePro(CuratingProduct cu) {
@@ -161,9 +173,32 @@ public class ProductService {
 		      }else {
 		         rollback(con);
 		      }
+		      
+		      close(con);
 		      return curatingPro;
 		   }
+
+
+
+	public ArrayList<CuratingProduct> CuratingbasketProduct(int num) {
+		Connection con = getConnection();
+		
+		ArrayList<CuratingProduct> list = new ProductDao().CuratingbasketProduct(con, num);
+		
+		close(con);
+		return list;
+	}
 	
-	
+	public int insertProductStorage(ProductStorage productStorage) {
+		Connection con = getConnection();
+		int result = new ProductDao().insertProductStorage(con, productStorage);
+		if(result > 0) {
+			commit(con);
+		}else { 
+		    rollback(con);
+		}
+		close(con);
+		return result;
+	}
 	
 }

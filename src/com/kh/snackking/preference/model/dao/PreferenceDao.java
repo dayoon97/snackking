@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.snackking.preference.model.vo.Preference;
+import com.kh.snackking.preference.model.vo.curatingList;
+
 import static com.kh.snackking.common.JDBCTemplate.*;
 
 public class PreferenceDao {
@@ -244,6 +246,61 @@ public class PreferenceDao {
 			close(pstmt);
 			
 		}
+		
+		return result;
+	}
+
+	public ArrayList<curatingList> curatingSelect(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<curatingList> list = null;
+		String query = prop.getProperty("curatingSelect");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<curatingList>();
+			while(rset.next()) {
+				curatingList cu = new curatingList();
+				cu.setPreNo(rset.getInt("PRE_NO"));
+				cu.setUserCom(rset.getString("COMPANY"));
+				cu.setStatus(rset.getString("PRE_CURATING"));
+				
+				list.add(cu);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	public int CuratingStatus(Connection con, int preNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("CuratingStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, preNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
+		
 		
 		return result;
 	}

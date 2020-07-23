@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.kh.snackking.preference.model.dao.PreferenceDao;
 import com.kh.snackking.preference.model.vo.Preference;
+import com.kh.snackking.preference.model.vo.curatingList;
 
 public class PreferenceService {
 
@@ -132,5 +133,33 @@ public class PreferenceService {
 		close(con);
 		
 		return p;
+	}
+
+	public ArrayList<curatingList> curatingSelect() {
+		Connection con = getConnection();
+		
+		ArrayList<curatingList> list = new PreferenceDao().curatingSelect(con);
+		
+		if(list != null) {
+			
+		}else {
+			
+		}
+		
+		return list;
+	}
+
+	public int CuartingStatus(int preNo) {
+		Connection con = getConnection();
+		
+		int result = new PreferenceDao().CuratingStatus(con, preNo);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
 	}
 }
