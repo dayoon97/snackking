@@ -52,6 +52,17 @@ public class AdjustmentService {
 		
 		return searchmember;
 	}
+
+	public ArrayList<HashMap<String, Object>> adjustmentCuSelect(int no) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new AdjustmentDao().adjustmentCuSelect(con, no);
+		
+		close(con);
+		
+		return list;
+	}
 	
 	
 }

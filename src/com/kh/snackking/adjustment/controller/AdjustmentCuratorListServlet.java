@@ -11,21 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.snackking.adjustment.model.service.AdjustmentService;
-import com.kh.snackking.adjustment.model.vo.Adjustment;
-import com.kh.snackking.user.model.service.UserService;
-import com.kh.snackking.user.model.vo.User;
 
 /**
- * Servlet implementation class AdjustmentListServlet
+ * Servlet implementation class AdjustmentCuratorListServlet
  */
-@WebServlet("/adjustmentSelect")
-public class AdjustmentListServlet extends HttpServlet {
+@WebServlet("/adjustmentCuList")
+public class AdjustmentCuratorListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdjustmentListServlet() {
+    public AdjustmentCuratorListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,8 +32,9 @@ public class AdjustmentListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<HashMap<String, Object>> list = new AdjustmentService().adjustmentSelect();
+		int no = Integer.parseInt(request.getParameter("num"));
 		
+		ArrayList<HashMap<String, Object>> list = new AdjustmentService().adjustmentCuSelect(no);
 		
 		String page = "";
 		if(list != null) {
@@ -45,8 +43,7 @@ public class AdjustmentListServlet extends HttpServlet {
 		} else {
 			System.out.println("에러");
 		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
+		request.getRequestDispatcher(page).forward(request, response);		
 		
 	}
 

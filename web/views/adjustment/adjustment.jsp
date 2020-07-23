@@ -116,11 +116,16 @@
 						<div id="subSubTitle2" style="top:310px !important; width: 120px;">정산내역 리스트</div>
 						<!-- 적용 버튼 -->
 						<span id="apply">조회 결과 수 :</span>
-						
+						<%if(loginUser.gettCode().equals("T4")) {%>
 						<button class="addBtn btn-position" id="addBtn">추가</button>
+						<% } %>
 							<!-- 테이블 시작 -->
 							<!-- 조회 리스트 테이블 -->
+						<%if(loginUser.gettCode().equals("T3")) { %>
 						<table id="listTable7" align="center">
+						<% } else { %>
+						<table id="listTable6" align="center">
+						<% } %>
 							<thead>
 								<!-- 테이블 헤드 -->
 								<tr id="listHead" >
@@ -129,7 +134,9 @@
 									<th>총금액</th>
 									<th>입금일</th>
 									<th>결제여부</th>
+									<%if (loginUser.gettCode().equals("T3")) { %>
 									<th>지급완료처리</th>
+									<% } %>
 									<th>상세내역확인</th>
 								</tr>
 							</thead>
@@ -153,18 +160,18 @@
 									미결제
 									<% } %>
 									</td>
-									<td><% if(list.get(i).get("adJustmentComplete").equals("N")) { %>
+									<%if (loginUser.gettCode().equals("T3")) { %>
+									<td>
+									<% if(list.get(i).get("adJustmentComplete").equals("N")) { %>
 									<input type="button" class="approval-btn" id="change<%=j%>" value="변경">
-									<%-- <button class="approval-btn" value="change<%=j%>" onclick="change();">변경</button> --%>
 									<% } else {%>
 									완료
 									<% } %>
 									</td>
+									<% } %>
 									<td><button class="btn detail-btn" id="detail">상세</button></td>
 								</tr>
 								<% } %>
-							<!-- 리스트 바디  -->
-
 						</tbody>
 					</table><!-- 테이블 끝 -->
 				</div>
@@ -498,7 +505,7 @@ $('.dropdown-menu li').click(function () {
 
  
    var com;
-   $(".approval-btn").click(function(){
+   $(document).on('click', '.approval-btn', function(){
 	   id = $(this).parent().children("input").attr("id");
 		console.log(id);
 		
@@ -512,15 +519,16 @@ $('.dropdown-menu li').click(function () {
 	 $(document).on('click', "#noBtn", function(){
 		 com='';
 	 	});
-   	});
-   
+   });
+ 
 	 //예 버튼을 누르면 데이터 가져가서 업데이트 
 	 $(document).on('click', '#yesBtn', function(){
 		 	  //서블릿
 		location.href="<%=request.getContextPath()%>/adjustmentComplete?com="+com;
 			  
 	});
-
+	
+	 <%if(loginUser.gettCode().equals("T3")) {%>
 	 //검색 ajax
 	 $(document).on('click','#searchBtn',function(){
 		var company = document.getElementById("adjCom").value;
@@ -545,7 +553,8 @@ $('.dropdown-menu li').click(function () {
 				$.each(data, function(index, value){
 					
 					var $tr = $("<tr class='listBody'>");
-					var $Td = $("<td>").html("<% j++; %><%= j %>");
+					var $Td = $("<td>").text(index+1);
+				
 					var $companyTd = $("<td>").text(value.company);
 					var $adjustmentAmountTd = $("<td>").text(decodeURIComponent(value.adJustmentAmount));
 					var $adjustmentDateTd = $("<td>").text(decodeURIComponent(value.adJustmentDate));
@@ -553,6 +562,10 @@ $('.dropdown-menu li').click(function () {
 					var $btn1Td = $("<td>").html("<input type='button' class='approval-btn' id='change<%=j%>' value='변경'>");
 					var $btn2Td = $("<td>").html("<button class='btn detail-btn' id='detail'>상세</button>");
 					var $endTr = $("</tr>");
+					
+					var $nullTd = $("<td>").text("완료");
+					
+					console.log(value.adJustmentDate);
 					
 					//결제여부 형태 바꾸기
 					var comYN;
@@ -562,18 +575,53 @@ $('.dropdown-menu li').click(function () {
 						comYN = '미결제';
 					}
 					
-					$adjustmentCompleteTd = comYN;
+					var $adComTd = $("<td>").text(comYN);
 				
+					
+					
+					
+					//입금일 형태 바꾸기
+					var dateY;
+					if(value.adJustmentDate == undefined){
+						dateN = '미지급';
+					} else if(value.adJustmentDate != undefined){
+						//입금일 형태 바꾸기
+						var year = (value.adJustmentDate).substr(7, 8);
+						var mon = (value.adJustmentDate).substr(0, 1);
+						if(mon.indexOf(" ", 0)){
+							var mon1 = "0";
+						}
+						var day = (value.adJustmentDate).substr(3, 2);
+						var code;
+						
+						var nal = year.concat("-", mon1, mon,"-",day);
+					} 
+					
+					var $adDateTd = $("<td>").text(dateN);
+					var $adDate2Td = $("<td>").text(nal);
+					
 					$tr.append($Td);
 					$tr.append($companyTd);
 					$tr.append($adjustmentAmountTd);
-					$tr.append($adjustmentDateTd);
-					$tr.append($adjustmentCompleteTd);
-					$tr.append($btn1Td);
+					
+					//지급완료면 입금일 보이게 하기
+					if(comYN == '결제'){
+						$tr.append($adDate2Td);
+					} else {
+						$tr.append($adDateTd);
+					}
+					$tr.append($adComTd);
+					
+					//지급완료면 변경버튼 안보이게 하기
+					if(comYN == '결제'){
+						$tr.append($nullTd);
+					} else {
+						$tr.append($btn1Td);
+					}
 					$tr.append($btn2Td);
 					$tr.append($endTr);
 					
-					$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
+					$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "36px"});
 					
 					$tableBody.append($tr);
 				}); 
@@ -586,7 +634,112 @@ $('.dropdown-menu li').click(function () {
 			}
 		});
 	 });
-	 
+	 <% } else {%>
+	//검색 ajax
+	 $(document).on('click','#searchBtn',function(){
+		var company = document.getElementById("adjCom").value;
+		var money = document.getElementById("adjMo").value;
+		var yn = $("span").eq(0).text();
+		
+		console.log(company);
+		console.log(money);
+		console.log(yn);
+		 
+		 $.ajax({
+			url:"<%=request.getContextPath()%>/adjustmentCuSearch",
+			data:{company:company, money:money, yn:yn, num : <%=loginUser.getUserNo()%>},
+			type:"get",
+			success: function(data){
+				console.log("dㅇㅇㅇㅇ");
+				$tableBody = $("#listTable7 tbody");
+				
+				$tableBody.html('');
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr class='listBody'>");
+					var $Td = $("<td>").text(index+1);
+				
+					var $companyTd = $("<td>").text(value.company);
+					var $adjustmentAmountTd = $("<td>").text(decodeURIComponent(value.adJustmentAmount));
+					var $adjustmentDateTd = $("<td>").text(decodeURIComponent(value.adJustmentDate));
+					var $adjustmentCompleteTd = $("<td>").text(decodeURIComponent(value.adJustmentComplete));
+					var $btn1Td = $("<td>").html("<input type='button' class='approval-btn' id='change<%=j%>' value='변경'>");
+					var $btn2Td = $("<td>").html("<button class='btn detail-btn' id='detail'>상세</button>");
+					var $endTr = $("</tr>");
+					
+					var $nullTd = $("<td>").text("완료");
+					
+					console.log(value.adJustmentDate);
+					
+					//결제여부 형태 바꾸기
+					var comYN;
+					if(value.adJustmentComplete == "Y"){
+						comYN = '결제';
+					} else if(value.adJustmentComplete == "N"){
+						comYN = '미결제';
+					}
+					
+					var $adComTd = $("<td>").text(comYN);
+				
+					
+					
+					
+					//입금일 형태 바꾸기
+					var dateY;
+					if(value.adJustmentDate == undefined){
+						dateN = '미지급';
+					} else if(value.adJustmentDate != undefined){
+						//입금일 형태 바꾸기
+						var year = (value.adJustmentDate).substr(7, 8);
+						var mon = (value.adJustmentDate).substr(0, 1);
+						if(mon.indexOf(" ", 0)){
+							var mon1 = "0";
+						}
+						var day = (value.adJustmentDate).substr(3, 2);
+						var code;
+						
+						var nal = year.concat("-", mon1, mon,"-",day);
+					} 
+					
+					var $adDateTd = $("<td>").text(dateN);
+					var $adDate2Td = $("<td>").text(nal);
+					
+					$tr.append($Td);
+					$tr.append($companyTd);
+					$tr.append($adjustmentAmountTd);
+					
+					//지급완료면 입금일 보이게 하기
+					if(comYN == '결제'){
+						$tr.append($adDate2Td);
+					} else {
+						$tr.append($adDateTd);
+					}
+					$tr.append($adComTd);
+					
+					//지급완료면 변경버튼 안보이게 하기
+					if(comYN == '결제'){
+						$tr.append($nullTd);
+					} else {
+						$tr.append($btn1Td);
+					}
+					$tr.append($btn2Td);
+					$tr.append($endTr);
+					
+					$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "36px"});
+					
+					$tableBody.append($tr);
+				}); 
+			
+				 
+			},
+			
+			error: function(data){
+				
+			}
+		});
+	 });
+	<% } %>
 	 
 	 
 

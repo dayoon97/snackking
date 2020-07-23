@@ -1,31 +1,23 @@
 package com.kh.snackking.adjustment.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.snackking.adjustment.model.service.AdjustmentService;
-import com.kh.snackking.adjustment.model.vo.Adjustment;
-import com.kh.snackking.user.model.service.UserService;
-import com.kh.snackking.user.model.vo.User;
-
 /**
- * Servlet implementation class AdjustmentListServlet
+ * Servlet implementation class AdjustmentCuSearchServlet
  */
-@WebServlet("/adjustmentSelect")
-public class AdjustmentListServlet extends HttpServlet {
+@WebServlet("/adjustmentCuSearch")
+public class AdjustmentCuSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdjustmentListServlet() {
+    public AdjustmentCuSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,19 +26,15 @@ public class AdjustmentListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String company = request.getParameter("company");
+		String month = request.getParameter("money");
+		String complete = request.getParameter("yn");
+		int num = Integer.parseInt(request.getParameter("no"));
 		
-		ArrayList<HashMap<String, Object>> list = new AdjustmentService().adjustmentSelect();
-		
-		
-		String page = "";
-		if(list != null) {
-			page = "views/adjustment/adjustment.jsp";
-			request.setAttribute("list", list);
-		} else {
-			System.out.println("에러");
-		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
+		System.out.println(company);
+		System.out.println(month);
+		System.out.println(complete);
+		System.out.println(num);
 		
 	}
 
