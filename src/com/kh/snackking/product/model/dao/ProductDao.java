@@ -98,87 +98,7 @@ public class ProductDao {
 		return num;
 	}
 
-	public ArrayList<Product> CuratorSelectProduct(Connection con, Preference curatingProduct) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		ArrayList<Product> product = null;
-		String[] taste = curatingProduct.getPreTaste().split(","); //맛
-		String[] flavor = curatingProduct.getPreFlavor().split(",");//향
-		String[] protypes = curatingProduct.getPreProductTypes().split(",");//종류
-		String[] alname = curatingProduct.getPreAlName().split(",");//알레르기
-		
-		String query = "SELECT "
-			              	+ "P.PCODE, P.PNAME, P.PVENDOR, PT.PT_NAME, P.TASTE"
-			              + ", P.FLAVOR, P.ALLERGY, P.PPRICE , P.SEARCH_YN "
-			            + "FROM PRODUCT P JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE) "
-			           + "WHERE SEARCH_YN = 'Y' ";
-		
-		if(protypes != null) {
-			for(int i = 0; i < protypes.length; i++) {//상품종류
-				if(i == 0) {
-					query += "OR PT.PT_NAME LIKE '%" + protypes[i] +"%' " ;
-				}else {
-					query += "OR PT.PT_NAME LIKE '%" + protypes[i] +"%' " ;
-				}
-			}
-		}
-		
-		
-		if(taste != null) {
-			for(int i = 0; i < taste.length; i++) {//맛
-					query += "OR P.TASTE LIKE '%"+ taste[i] +"%' ";
-			}
-		}
-		
-		if(flavor != null) {
-			for(int i = 0; i < flavor.length; i++) {//향
-				query += "OR P.FLAVOR LIKE '%"+ flavor[i] +"%' ";
-			
-			}
-		}
-		
-		
-		if(alname != null) {
-			for(int i = 0; i < alname.length; i++) {
-					query += "OR P.ALLERGY NOT LIKE '%"+ alname[i] +"%' ";
-				
-			}
-		}
-		
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			product = new ArrayList<Product>();
-			
-			while(rset.next()) {
-				Product p = new Product();
-				p.setpCode(rset.getString("PCODE"));
-				p.setpName(rset.getString("PNAME"));
-				p.setpVendor(rset.getString("PVENDOR"));
-				p.setPtName(rset.getString("PT_NAME"));
-				p.setTaste(rset.getString("TASTE"));
-				p.setFlavor(rset.getString("FLAVOR"));
-				p.setAllergy(rset.getString("ALLERGY"));
-				p.setPrice(rset.getInt("PPRICE"));
-				
-				
-				product.add(p);
-				
-				
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(stmt);
-			close(rset);
-			
-		}
-		
-		return product;
-	}
-
+	
 	//상품 정보 등록 후 자동 생성되는 상품 코드 가져오는 메소드(사진 등록에 상품코드 필요해서 작성)
 	public String selectProductCode(Connection con, Product product) {
 		String pCode = "";
@@ -297,6 +217,7 @@ public class ProductDao {
 					p.setpExp(rset.getInt("PEXP"));
 					p.setPtName(rset.getString("PT_NAME"));
 					productList.add(p);
+					//System.out.println("DAO : + " + p );
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -308,7 +229,7 @@ public class ProductDao {
 		return productList;
 	}
 
-
+	//상품정보 삭제 메소드
 	public int deleteProduct(Connection con, String pCode) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -325,6 +246,7 @@ public class ProductDao {
 		return result;
 	}
 	
+	//업뎃
 	public ArrayList<Product> selectProductRenewList(Connection con) {
 		ArrayList<Product> productListRenew = null;
 		Statement stmt = null;
@@ -477,18 +399,18 @@ public class ProductDao {
 				//System.out.println("남은 개월수 : " + (rset.getInt("PEXP") - pastMonth) + "개월");
 				
 				if((rset.getInt("PEXP") - pastMonth) <= 1) {
-					color="red";
+					color="RED";
 					System.out.println("상품 " + num +"번째 잔여 월 red" + (rset.getInt("PEXP") - pastMonth));
 					//1개월 이하로 유통기간이 남으면 빨간색 처리
 					num += 1;
 				}else if((rset.getInt("PEXP") - pastMonth) <= 6) {
 					//6개월 이하로 유통기한이 남으면 노란색 처리
-					color="yellow";
+					color="YELLOW";
 					System.out.println("상품 " + num +"번째 잔여월 yellow" + (rset.getInt("PEXP") - pastMonth));
 					num += 1;
 				}else {
 					//나머지는 회색 처리
-					color="gray";
+					color="GRAY";
 					System.out.println("상품 " + num +"번째 잔여월 gray : " + (rset.getInt("PEXP") - pastMonth));
 					num += 1;
 				}
@@ -509,7 +431,7 @@ public class ProductDao {
 				p.setStorageCode(rset.getString("STORAGE_CODE"));
 				p.setStorageDate(rset.getString("STORAGE_DATE"));
 				productStorageList.add(p);
-				//System.out.println("p" + p);
+				System.out.println("color" + color);
 				
 				}	
 		} catch (SQLException e) {
@@ -521,24 +443,60 @@ public class ProductDao {
 		//System.out.println("DAO " + productStorageList);
 		return productStorageList;
 	}
-
-	//상품 재고 등록 메소드( color db 업데이트용 )
+	
+	//상품 재고 insert 메소드
+	public int insertProductStorage(Connection con, ProductStorage productStorage) {
+	      PreparedStatement pstmt = null;
+	      int result = 0;
+	      System.out.println("dao : " +  productStorage);
+	      String query = prop.getProperty("insertProductStorage");
+	      try {
+	         pstmt = con.prepareStatement(query);
+	         pstmt.setInt(1, productStorage.getQuantity());
+	         pstmt.setString(2, productStorage.getpName());
+	         pstmt.setString(3, productStorage.getsLocation());
+	         pstmt.setString(4, productStorage.getMfd());
+	         pstmt.setString(5, productStorage.getSection());
+	         pstmt.setString(6, productStorage.getSectionCode());
+	         System.out.println(productStorage);
+	         System.out.println(query);
+	         result = pstmt.executeUpdate();
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	      }
+	      
+	      return result;
+	   }
+	
+	
+	
+	//실행이 안됨 ArrayList 쿼리문 반복 돌리는거 실패. 그냥 잔여 기간 날짜 계산한거 color만 보여줌
+	//상품 재고 등록 업데이트용 메소드( color db 업데이트용 )
 	public int updateProductStorageColor(Connection con, ArrayList<ProductStorage> productStorageList) {
 		  PreparedStatement pstmt = null;
 		  int result = 0;
 		  String query = prop.getProperty("updateProductStorageColor");
-		  
+	
 		  try {
-			pstmt = con.prepareStatement(query);
+			  pstmt = con.prepareStatement(query);
+			  //arraylist로 쿼리문 돌리니까 안됨
 			//한바퀴 돌때마다 COLOR 값 오늘날짜 기준으로 업데이트 함.
 			for(int i = 0 ; i < productStorageList.size(); i++) {
+				
 				pstmt.setString(1, productStorageList.get(i).getColor());
-				//System.out.println(productStorageList.get(i).getColor());
+				//System.out.println(i + "번째 : " + productStorageList.get(i).getColor());
+				pstmt.setString(2, productStorageList.get(i).getStorageCode());
+				//System.out.println(i + "번째 : " + productStorageList.get(i).getStorageCode());
 				//퀴리 실행
 				//result에 실행 결과만큼 담음 (누적으로 담음)
 				//나중에 result가 list size 랑 같으면 다 성공한 것.
-				result += pstmt.executeUpdate();
-				//System.out.println(query);
+				result = pstmt.executeUpdate();
+				//System.out.println(result);
+				pstmt.clearParameters();
+				// 반복문으로 쓰려면 클리어 해줘야함
+				
 				//System.out.println("color 업데이트 성공" + i);
 			}
 		} catch (SQLException e) {
@@ -552,7 +510,8 @@ public class ProductDao {
 	
 	
 	
-	
+	//보훈's-----------------------------------------------------------------------------------------------------
+
 	   public int insertCuraPro(Connection con, CuratingProduct cp) {
 	      PreparedStatement pstmt = null;
 	      int result = 0;
@@ -678,30 +637,87 @@ public class ProductDao {
 	}
 	   
 	
-	public int insertProductStorage(Connection con, ProductStorage productStorage) {
-	      PreparedStatement pstmt = null;
-	      int result = 0;
-	      System.out.println("dao : " +  productStorage);
-	      String query = prop.getProperty("insertProductStorage");
-	      try {
-	         pstmt = con.prepareStatement(query);
-	         pstmt.setInt(1, productStorage.getQuantity());
-	         pstmt.setString(2, productStorage.getpName());
-	         pstmt.setString(3, productStorage.getsLocation());
-	         pstmt.setString(4, productStorage.getMfd());
-	         pstmt.setString(5, productStorage.getSection());
-	         pstmt.setString(6, productStorage.getSectionCode());
-	         System.out.println(productStorage);
-	         System.out.println(query);
-	         result = pstmt.executeUpdate();
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      }finally {
-	         close(pstmt);
-	      }
-	      
-	      return result;
-	   }
+	
+	public ArrayList<Product> CuratorSelectProduct(Connection con, Preference curatingProduct) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Product> product = null;
+		String[] taste = curatingProduct.getPreTaste().split(","); //맛
+		String[] flavor = curatingProduct.getPreFlavor().split(",");//향
+		String[] protypes = curatingProduct.getPreProductTypes().split(",");//종류
+		String[] alname = curatingProduct.getPreAlName().split(",");//알레르기
+		
+		String query = "SELECT "
+			              	+ "P.PCODE, P.PNAME, P.PVENDOR, PT.PT_NAME, P.TASTE"
+			              + ", P.FLAVOR, P.ALLERGY, P.PPRICE , P.SEARCH_YN "
+			            + "FROM PRODUCT P JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE) "
+			           + "WHERE SEARCH_YN = 'Y' ";
+		
+		if(protypes != null) {
+			for(int i = 0; i < protypes.length; i++) {//상품종류
+				if(i == 0) {
+					query += "OR PT.PT_NAME LIKE '%" + protypes[i] +"%' " ;
+				}else {
+					query += "OR PT.PT_NAME LIKE '%" + protypes[i] +"%' " ;
+				}
+			}
+		}
+		
+		
+		if(taste != null) {
+			for(int i = 0; i < taste.length; i++) {//맛
+					query += "OR P.TASTE LIKE '%"+ taste[i] +"%' ";
+			}
+		}
+		
+		if(flavor != null) {
+			for(int i = 0; i < flavor.length; i++) {//향
+				query += "OR P.FLAVOR LIKE '%"+ flavor[i] +"%' ";
+			
+			}
+		}
+		
+		
+		if(alname != null) {
+			for(int i = 0; i < alname.length; i++) {
+					query += "OR P.ALLERGY NOT LIKE '%"+ alname[i] +"%' ";
+				
+			}
+		}
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			product = new ArrayList<Product>();
+			
+			while(rset.next()) {
+				Product p = new Product();
+				p.setpCode(rset.getString("PCODE"));
+				p.setpName(rset.getString("PNAME"));
+				p.setpVendor(rset.getString("PVENDOR"));
+				p.setPtName(rset.getString("PT_NAME"));
+				p.setTaste(rset.getString("TASTE"));
+				p.setFlavor(rset.getString("FLAVOR"));
+				p.setAllergy(rset.getString("ALLERGY"));
+				p.setPrice(rset.getInt("PPRICE"));
+				
+				
+				product.add(p);
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+			
+		}
+		
+		return product;
+	}
 
 }
 	

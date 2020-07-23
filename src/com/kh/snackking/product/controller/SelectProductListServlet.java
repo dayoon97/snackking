@@ -47,6 +47,7 @@ public class SelectProductListServlet extends HttpServlet {
 		String allergy = request.getParameter("allergy");
 		String age = request.getParameter("age");
 		Product p1 = new Product();
+		
 		if(pCode != null || pCode != "") {p1.setpCode(pCode);}
 		if(pName != null || pName != "") {p1.setpName(pName);}
 		//숫자
@@ -135,7 +136,7 @@ public class SelectProductListServlet extends HttpServlet {
 		     p.setpVendor(productList.get(i).getpVendor());
 		     p.setSearch_YN(productList.get(i).getSearch_YN());
 		     p.setTaste(productList.get(i).getTaste());
-		     //System.out.println("servlet all vo " + p);
+		     System.out.println("servlet all vo " + p);
 		     totalList.add(p);
 	     }
 	

@@ -55,14 +55,10 @@
 										        <ul class="dropdown-menu">
 							                           <li id="">선택</li>
 							                           <li id="과자">과자</li>
-							                           <li id="캔디">캔디</li>
-							                           <li id="껌">껌</li>
-							                           <li id="초콜릿">초콜릿</li>
-							                           <li id="커피">커피</li>					                         
-							                           <li id="차">차</li>
+							                           <li id="캔디/껌/초콜릿">캔디/껌/초콜릿</li>
+							                           <li id="커피/차">커피/차</li>					                         
 							                           <li id="음료">음료</li>
-							                           <li id="컵라면">컵라면</li>
-							                           <li id="컵밥">컵밥</li>
+							                           <li id="컵라면/컵밥">컵라면/컵밥</li>
 							                           <li id="케이크">케이크</li>  
 										        </ul>
 										      </div>
@@ -290,7 +286,7 @@ $(function() {
 					data: arr,
 					type: "get",
 					success: function(data){
-							//console.log("성공");
+							console.log("상품 검색 성공");
 							$tableBody = $(".productSearchListTable tbody");
 							$tableBody.html('');
 							$tableBody.find("tr").remove();
