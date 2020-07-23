@@ -419,6 +419,7 @@ height: 25px;
 					<td><%= n.getnDate() %></td>
 				</tr>
 				<%} %> --%>
+				</table>
             </div>
       
       </div>   <!-- background-box end -->
