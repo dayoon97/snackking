@@ -323,9 +323,9 @@ input[type='text']{
 						</tr>
 						<% for(CurationList cl : list) { %>
 						<tr class="order-td">
-							<input type="hidden" name="cNum" id="cNum" value="<%= cl.getCuNo()%>">
-							<td class="odNum"><%= cl.getCuNo()%></td>
-							<td><%= cl.getCuDate()%></td>
+							<input type="hidden" name="cNum" id="cNum" value="<%= cl.getCuListNo()%>">
+							<td class="odNum"><%= cl.getCuListNo()%></td>
+							<td><%= cl.getClDate()%></td>
 						</tr>
 						<% } %>
 					</table>
@@ -344,10 +344,7 @@ input[type='text']{
 						</thead>
 						<tbody>
 							<tr class="order-td">
-								<td>초코송이</td>
-								<td>5</td>
-								<td>1000</td>
-								<td>5000</td>
+								<td colspan="4">큐레이팅 리스트를 클릭해주세요.</td>
 							</tr>
 							
 						</tbody>
@@ -369,16 +366,39 @@ input[type='text']{
 
 	$("#listArea  .order-td").click(function() {
 		var num = $(this).children("input").val();
-		/* console.log("check num : " + num); */
+		console.log("check num : " + num);
+		
 		$.ajax({
 			url: "<%= request.getContextPath()%>/selectProduct.cur",
 			type: "post",
 			data: {
 				userNo: num
 			},
-			succecc: function(data) {
-				console.log("success data list : " + data.list);
-				console.log("success data price : " + data.toPrice);
+			success: function(data) {
+				//console.log("success data list : " + data.list);
+				//console.log("success data price : " + data.toPrice);
+				console.log("data : " + data);
+				
+				$tableBody = $("#cuListTable tbody");
+				$tableBody.html('');
+				
+				for(var key in data.list) {
+					var $tr = $("<tr>").attr('class', 'order-td');
+					var $naTd = $("<td>").text(data.list[key].pName);
+					var $countTd = $("<td>").text(data.list[key].pCount);
+					var $upTd = $("<td>").text(data.list[key].unitCount);
+					var $priceTd = $("<td>").text(data.list[key].price);
+					
+					$tr.append($naTd);
+					$tr.append($countTd);
+					$tr.append($upTd);
+					$tr.append($priceTd);
+					
+					$tableBody.append($tr);
+				}
+				
+				$("#totalPrice").text("주문 금액 : " + data.toPrice + " 원");
+				
 			},
 			error: function() {
 				alert("error!!");

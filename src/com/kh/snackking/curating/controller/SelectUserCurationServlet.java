@@ -38,7 +38,7 @@ public class SelectUserCurationServlet extends HttpServlet {
 		int num = reqUser.getUserNo();
 		
 		ArrayList<CurationList> list = new CurationService().selectUserCurationList(num);
-//		System.out.println("list : " + list);
+		System.out.println("list : " + list);
 		
 		String page = "";
 		if(list != null) {
