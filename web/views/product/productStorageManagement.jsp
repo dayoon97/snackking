@@ -140,7 +140,6 @@
 						    	<caption><h2>재고 정보 등록</h2></caption>
 						    	<tr>
 						    		<th>상품명</th>
-						    		<th>상품코드</th>
 						    		<th>수량</th>
 						    		<th>로케이션번호</th>
 						    		<th>제조일자</th>
@@ -149,17 +148,16 @@
 						    	</tr>
 						    	<tr>
 									<td>
-										<input type="text" name="pName">
+										<input type="text" id="pName" class="abc">
 									</td>
-									<td><input type="text" placeholder="PNO-*****" name="pCode"></td>
-									<td><input type="number" name="quantity"></td>
+									<td><input type="number" id="quantity" class="abc"></td>
 						    		<td>
 						    			<div class="dropdown 1">
         										<div class="select">
           											<span>선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
-										        <input type="hidden" name="sLocation" value="">
+										        <input type="hidden" id="sLocation" value="" class="abc">
 										        <ul class="dropdown-menu" value=""> 
 										          <li id="">선택</li>
 										          <li id="L1">L1</li>
@@ -175,14 +173,14 @@
 										        </ul>
 										 </div>
 									</td>
-									<td><input type="date" name="mfd"></td>
+									<td><input type="date" id="mfd"  class="abc"></td>
 									<td>
 									<div class="dropdown">
         										<div class="select">
           											<span>선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
-										        <input type="hidden" name="section" value="">
+										        <input type="hidden" id="section" value=""  class="abc">
 										        <ul class="dropdown-menu" value="">
 										          <li id="">선택</li>
 										          <li id="발주">발주</li>
@@ -190,11 +188,11 @@
 										        </ul>
 										      </div>
 									</td>
-									<td><input type="text" name="sectionCode"></td>
+									<td><input type="text" id="sectionCode"  class="abc"></td>
 						    	</tr>
 						  	<tr>
-						  		<td colspan="7">
-						   			 <button onclick="" class="btn searchBtn" id="chCodeBtn" style="margin-right:40px;">추가하기</button>
+						  		<td colspan="6">
+						   			 <button onclick="" class="btn searchBtn" id="addYesBtn" style="margin-right:40px;">추가하기</button>
 						   			 <button onclick="" class="btn searchBtn" id="noBtn">등록취소</button>
 						  		
 						  		</td>
@@ -315,7 +313,16 @@ $(function() {
 				$tableBody.find("tr").remove();
 				
 					for(var key in data){
-
+							 console.log(data[key].color);
+							if(data[key].color == "RED"){
+	 							name1 = "RED";
+	 						}else if(data[key].color == "YELLOW"){
+	 							name1 = "YELLOW";
+	 						}else{
+	 							name1 = "GRAY";
+	 						}
+						
+						
 							var $tr =  $("<tr>").attr('class','listBody hover');
 							var $td1 = $("<td>").text(data[key].storageCode);
 							var $td2 = $("<td>").text(data[key].pCode);
@@ -363,12 +370,112 @@ $(function() {
 
 
 //모달 창에서 등록 취소 버튼 누르면 데이터 없애기
+
 	 $(document).on('click', "#noBtn", function(){
-		 //com='';
+		 //등록 취소 버튼 누르면 초기화 하기
+		  modal11.style.display = "none";
+		  
 	 	});
-   	});
 	
-	
+	 $(function() {
+			$("#addYesBtn").click(function(){
+				var pName = document.getElementById("pName").value;
+				var mfd = document.getElementById("mfd").value;
+				var section = document.getElementById("section").value;
+				var quantity = document.getElementById("quantity").value;
+				var sectionCode = document.getElementById("sectionCode").value;
+				var sLocation = document.getElementById("sLocation").value;
+				
+				//console.log(pName + mfd + section + quantity + sectionCode + sLocation);
+				var arr1 = {
+						"pName" : pName,
+						"mfd" : mfd,
+						"section": section,
+						"quantity" : quantity,
+						"sectionCode" : sectionCode,
+						"sLocation" : sLocation
+						
+				};
+				
+				$.ajax({
+					url: "<%=request.getContextPath()%>/insertProductStorage",
+					data: arr1,
+					type: "get",
+					success: function(data){
+						//초기화 해주고 창 닫기
+							$('.abc').val('');
+						    $("#sLocation").parents('.dropdown').find('span').text('선택');
+						    $('#section').parents('.dropdown').find('span').text('선택');
+						 	 modal11.style.display = "none";
+						 	 
+						 	 
+						 	 //모달창 닫고 다시한번 갔다오기  (전체 내역 조회)
+						 	var storageDate = "";
+							var mfd = "";
+							var pName = "";
+							var color = "";
+							var storageCode = "";
+								
+							var arr = {
+									"storageDate" : storageDate,
+									"mfd" : mfd,
+									"pName" : pName,
+									"storageCode": storageCode,
+									"color" : color,
+							};
+							
+							$.ajax({
+								url: "<%=request.getContextPath()%>/selectProductStorage",
+								data: arr,
+								type: "get",
+								success: function(data){
+									
+									console.log("성공");
+									$tableBody = $("#listTable10-1 tbody");
+									$tableBody.html('');
+									$tableBody.find("tr").remove();
+									
+										for(var key in data){
+
+												var $tr =  $("<tr>").attr('class','listBody hover');
+												var $td1 = $("<td>").text(data[key].storageCode);
+												var $td2 = $("<td>").text(data[key].pCode);
+												var $td3 = $("<td>").text(data[key].pName);
+												var $td4 = $("<td>").text(data[key].storageDate);
+						 						var $td5 = $("<td>").text(data[key].quantity);
+						 						var $td6 = $("<td>").text(data[key].sLocation);
+						 						var $td7 = $("<td>").text(data[key].mfd);
+						 						var $td8 = $("<td>").text(data[key].section);
+						 						var $td9 = $("<td>").text(data[key].sectionCode);
+						 						var $td10 = $("<td>").text(data[key].color);
+												$tr.append($td1);
+												$tr.append($td2);
+												$tr.append($td3);
+						 						$tr.append($td4);
+						 						$tr.append($td5);
+						 						$tr.append($td6);
+						 						$tr.append($td7);
+						 						$tr.append($td8);
+						 						$tr.append($td9);
+						 						$tr.append($td10);
+												$tableBody.append($tr);
+												
+											}	 
+									},
+									error: function(error){
+										console.log("에러!" + error);
+									}
+							});
+						 	 
+						 	 
+						},
+						error: function(error){
+							console.log("에러!" + error);
+						}
+				});
+			});
+	 });
+			
 	
 
 
@@ -391,34 +498,6 @@ btn11.onclick = function() {
 span11.onclick = function() {
   modal11.style.display = "none";
 }
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal11) {
-    modal11.style.display = "none";
-  }
-}
-
-
-
-
-
-//변경 모달
-
-/*  */
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
