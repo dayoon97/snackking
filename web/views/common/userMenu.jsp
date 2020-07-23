@@ -531,6 +531,7 @@
 								<p class="title">주문관리</p>
 							</div>
 								<ul class="con">
+									<li><a href="<%=request.getContextPath()%>/selectUserCuration.cur">큐레이팅 내역 관리</a></li>
 									<li><a href="/snackking/views/common/userOrderHistory.jsp">주문내역 관리</a></li>
 								</ul>
 						</li>

@@ -1,5 +1,9 @@
+<%@page import="com.kh.snackking.preference.model.vo.curatingList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.awt.*"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.snackking.curating.model.vo.*"%>
+<%
+	ArrayList<CurationList> list = (ArrayList<CurationList>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -162,7 +166,6 @@ span.choose {
 	text-align: center;
 }
 .order-history-table{
-	margin-top: 50px;
 	padding: 1px;
 	width:100%;
 }
@@ -171,7 +174,7 @@ td{
 	height: 50px;
 	text-align: center;
 }
-#order-td:hover{
+.order-td:hover{
 	background: white;
 }
 th{
@@ -187,38 +190,18 @@ th{
 .line{
 	margin:0 auto;
 	margin-top: 5px;
-	width:10%;
+	width:16%;
 	border: 2px solid #FFC700;
 }
 .searchArea{
-	margin-left: 750px;
 	margin-top: 30px;
+	margin-bottom: 15px;
+	margin-left: 893px;
 }
-
-
 
 .box .form-control{
 	max-width: 300px;
 	margin: 0 auto;	
-}
-.datepicker{
-	font-family: 'Exo 2', sans-serif;
-}
-.datepicker--cell.-range-to-{
-	background: rgba(248, 206, 236, 0.4);
-	border-color: rgba(248, 206, 236, 1);
-}
-.datepicker--cell.-current-{}
-.datepicker--cell.-selected-,.datepicker--cell.-selected-.-focus-{
-	background-color: #f8ceec;
-	color: #000000;
-}
-.datepicker--cell.-in-range-{
-	background: rgba(248, 206, 236, 0.2);
-}
-.datepicker--cell-day {
-    font-weight: 500;
-    color: #000000;
 }
 
 .form-control{
@@ -266,7 +249,7 @@ input[type='text']{
 .submit-btn{
 	border:0;
 	outline:0;
-	width: 92px;
+	width: 60px;
 	height: 32px;
 	background: #F0BB00;
 	display:inline-block;
@@ -278,106 +261,103 @@ input[type='text']{
 	text-align: center;
 	color: #FFFFFF;
 }
+.listAreaBox {
+	width: 500px;
+	overflow: auto;
+}
+#listArea {
+	display: inline-block;
+	height: 475px;
+}
+#cuListArea {
+	display: inline-block;
+	height: 475px;
+	float: right;
+}
+#cuListTable {
+	width: 100%;
+}
+.listAreaBox::-webkit-scrollbar {
+		width: 5px;
+		padding-top: 10px;
+}
+.listAreaBox::-webkit-scrollbar-thumb {
+		background-color: #D9D9D9;
+		border-radius: 3px;
+}
+#totalPrice {
+	 float: right;
+	 border-radius: 5px; 
+	 padding: 10px; 
+	 margin-right: 10px; 
+	 margin-top: 5px;
+	 background: #F0BB00;
+	 color: white;
+	 font-weight: 600;
+}
 </style>
 </head>
 <body>
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 	<%@ include file="../common/userMenu.jsp" %>
-	<div class="nav">
+	<div class="nav" style="height: 57.8px">
 			<div class="snack-nav">
-				<div class="snack-logo"><img src="../../resources/image/logo5.png"></div>
 			</div>
 	</div>
 	<div class="outer">
 		<div class="orderArea">
 			<div class="order-table">
-				<p class="order-History">주문 내역</p>
+				<p class="order-History">큐레이팅 내역</p>
 				<div class="line"></div>
 					<div class="searchArea">
-						<input type="date">
-						<input type="text" size="9" value="주문번호 검색">
+						<input type="date" id="searchDate" class="searchDate" name="searchDate">
 						<input type="submit" value="검색" class="submit-btn">
 					</div>
-			<form>
-				<table class="order-history-table" align="center">
-					<tr>
-						<th>주문번호</th>
-						<th>배송일자</th>
-						<th>회차</th>
-						<th>결제상태</th>
-						<th width="200px;">거래명세서</th>
-						<th width="200px;">큐레이팅 리스트</th>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-12</td>
-						<td>1</td>
-						<td>결제완료</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>2</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>3</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>4</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>5</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>6</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>7</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-					<tr id="order-td">
-						<td class="odNum">#12345</td>
-						<td>20-07-19</td>
-						<td>8</td>
-						<td>미결제</td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-						<td><img src="../../resources/image/search.png" width="20px" height="20px"></td>
-					</tr>
-				</table>
-				</form>
-			</div>
-		</div>
-	</div>
+				
+				<div id="listArea" class="listAreaBox">
+					<table class="order-history-table" align="center">
+						<tr>
+							<th width="50%">큐레이팅 번호</th>
+							<th width="50%">작성일자</th>
+						</tr>
+						<% for(CurationList cl : list) { %>
+						<tr class="order-td">
+							<input type="hidden" name="cNum" id="cNum" value="<%= cl.getCuNo()%>">
+							<td class="odNum"><%= cl.getCuNo()%></td>
+							<td><%= cl.getCuDate()%></td>
+						</tr>
+						<% } %>
+					</table>
+				</div>	<!-- listArea end -->
+				
+				<div id="cuListArea" class="listAreaBox">
+					<table id="cuListTable" class="cuListTable" align="center">
+						<!-- <caption>큐레이팅-상품 리스트</caption> -->
+						<thead>
+							<tr>
+								<th>상품명</th>
+								<th>수량</th>
+								<th>단가</th>
+								<th>금액</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="order-td">
+								<td>초코송이</td>
+								<td>5</td>
+								<td>1000</td>
+								<td>5000</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>	<!-- cuListArea end -->
+				<div id="totalPrice">주문 금액 : 125,000 원</div>
+				
+			</div>	<!-- order-table -->
+		</div>	<!-- orderArea -->
+	</div>	<!-- outer end -->
 	
 	
 	<div class="footerArea">
@@ -386,49 +366,27 @@ input[type='text']{
 </div>	<!-- mainWrapper end -->
 
 <script>
-	/* $('.dropdown').click(function () {
-        $(this).attr('tabindex', 1).focus();
-        $(this).toggleClass('active');
-        $(this).find('.dropdown-menu').slideToggle(300);
-    });
-    $('.dropdown').focusout(function () {
-        $(this).removeClass('active');
-        $(this).find('.dropdown-menu').slideUp(300);
-    });
-    $('.dropdown .dropdown-menu li').click(function () {
-        $(this).parents('.dropdown').find('span').text($(this).text());
-        $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-    });
-	/*End Dropdown Menu*/
 
+	$("#listArea  .order-td").click(function() {
+		var num = $(this).children("input").val();
+		/* console.log("check num : " + num); */
+		$.ajax({
+			url: "<%= request.getContextPath()%>/selectProduct.cur",
+			type: "post",
+			data: {
+				userNo: num
+			},
+			succecc: function(data) {
+				console.log("success data list : " + data.list);
+				console.log("success data price : " + data.toPrice);
+			},
+			error: function() {
+				alert("error!!");
+			}
+		});
+	});
 
-	/* $('.dropdown-menu li').click(function () {
-	  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-	      msg = '<span class="msg">Hidden input value: ';
-	  $('.msg').html(msg + input + '</span>');
-	});  */
-	
-	var mindate = new Date();
-	    mindate.setDate(mindate.getDate() - 8);
-	    
-	var maxdate = new Date();
-	    maxdate.setDate(maxdate.getDate() - 1);
-	    
-	  $(document).ready(function(){
-		  $('#minMaxExample').datepicker({
-			    language: 'en',
-					range : true,
-					minDate : mindate,
-			    maxDate : maxdate,
-					multipleDates: true,
-					multipleDatesSeparator: " - "
-			});
-	  });
-	 $(function(){
-		 
-	 });
-	
-	</script>
+</script>
 	
 </body>
 </html>
