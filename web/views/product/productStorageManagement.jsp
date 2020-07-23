@@ -14,6 +14,44 @@
 	right:90px !important;
 	}
 
+/* The Modal (background) */
+.modal11 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content11 {
+  background-color: #fefefe;
+  margin: 13% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  height: 40%;
+}
+
+/* The Close Button */
+.close11 {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close11:hover,
+.close11:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 	
 
 </style>
@@ -56,6 +94,7 @@
 										</td>
 										<td width="150px">상품명  :
 											<input type="text" class="searchTextBox" size="8" name="pName">
+											
 										</td>
 										<td width="185px" colspan="2"><label style="color:purple; font-weight: bold;">COLOR :</label>
 											<div class="dropdown">
@@ -73,7 +112,7 @@
 											 </div>
 										</td>
 										
-										<td rowspan="3"><input type="submit" class="searchBtn" value="검색하기" id="searchBtn" style="float: right;"></td>
+										<td rowspan="3"><input type="submit" class="searchBtn" value="검색하기" id="search" style="float: right;"></td>
 									</tr>
 									<tr>	
 										<td colspan="2">입고일  :
@@ -91,6 +130,82 @@
 						</div>
 				</div><!-- search-area end ---------------------------------------------------------------------------->
 
+<!-- 마라톤 -->
+	<!-- The Modal -->
+						<div id="myModal11" class="modal11">
+						  <!-- Modal content -->
+						  <div class="modal-content11">
+						    <span class="close11">&times;</span>
+						    <table align="center" class="modalTable1">
+						    	<caption><h2>재고 정보 등록</h2></caption>
+						    	<tr>
+						    		<th>상품명</th>
+						    		<th>상품코드</th>
+						    		<th>수량</th>
+						    		<th>로케이션번호</th>
+						    		<th>제조일자</th>
+						    		<th>등록구분</th>
+						    		<th>등록구분코드</th>
+						    	</tr>
+						    	<tr>
+									<td>
+										<input type="text" name="pName">
+									</td>
+									<td><input type="text" placeholder="PNO-*****" name="pCode"></td>
+									<td><input type="number" name="quantity"></td>
+						    		<td>
+						    			<div class="dropdown 1">
+        										<div class="select">
+          											<span>선택</span>
+										          <i class="fa fa-chevron-left"></i>
+										        </div>
+										        <input type="hidden" name="sLocation" value="">
+										        <ul class="dropdown-menu" value=""> 
+										          <li id="">선택</li>
+										          <li id="L1">L1</li>
+										          <li id="L2">L2</li>
+										          <li id="L3">L3</li>
+										          <li id="L4">L4</li>
+										          <li id="L5">L5</li>
+										          <li id="L6">L6</li>
+										          <li id="L7">L7</li>
+										          <li id="L8">L8</li>
+										          <li id="L9">L9</li>
+										          <li id="L10">L10</li>
+										        </ul>
+										 </div>
+									</td>
+									<td><input type="date" name="mfd"></td>
+									<td>
+									<div class="dropdown">
+        										<div class="select">
+          											<span>선택</span>
+										          <i class="fa fa-chevron-left"></i>
+										        </div>
+										        <input type="hidden" name="section" value="">
+										        <ul class="dropdown-menu" value="">
+										          <li id="">선택</li>
+										          <li id="발주">발주</li>
+										          <li id="교환">교환</li>
+										        </ul>
+										      </div>
+									</td>
+									<td><input type="text" name="sectionCode"></td>
+						    	</tr>
+						  	<tr>
+						  		<td colspan="7">
+						   			 <button onclick="" class="btn searchBtn" id="chCodeBtn" style="margin-right:40px;">추가하기</button>
+						   			 <button onclick="" class="btn searchBtn" id="noBtn">등록취소</button>
+						  		
+						  		</td>
+						  	</tr>
+						    </table>
+						  </div>
+						</div>
+
+
+
+
 
 			
 			<!-- 조회 결과 리스트 부분 -->
@@ -100,7 +215,7 @@
 					<div id="subSubTitle2" style="top:325px !important; width: 130px !important;">재고 등록 내역</div>
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
-					<input type="button" class="addBtn btn-position btn" id="myBtndd" value="재고등록">
+					<input type="button" class="addBtn btn-position btn" id="apply11" value="재고등록">
 						<!-- 테이블 시작 -->
 					
 						<!-- 조회 리스트 테이블 -->
@@ -116,7 +231,7 @@
 								<th>로케이션</th>
 								<th>제조일</th>
 								<th>등록구분</th>
-								<th>구분코드</th>
+								<th>등록구분코드</th>
 								<th>유통기한 구분</th>
 
 								
@@ -146,6 +261,8 @@
 <script>
 
 
+
+
 /* 옵션 선택 드롭 다운 */
 $('.dropdown').click(function () {
     $(this).attr('tabindex', 1).focus();
@@ -169,9 +286,9 @@ $('.dropdown-menu li').click(function () {
   $('.msg').html(msg + input + '</span>');
 }); 
 
-//검색 버튼 클릭시 화면 바뀌게 하기
+//검색 버튼 클릭시 검색조건에 따라 검색 내역 가져오기
 $(function() {
-	$(".searchBtn").click(function(){
+	$("#search").click(function(){
 		var storageDate = $("input[name=storageDate]").val();
 		var mfd = $("input[name=mfd]").val();
 		var pName = $("input[name=pName]").val();
@@ -199,9 +316,6 @@ $(function() {
 				
 					for(var key in data){
 
-	//private String color;//유통기한 색상
-
-	//private int basicExp; //기본 유통기한 상품 테이블 조인
 							var $tr =  $("<tr>").attr('class','listBody hover');
 							var $td1 = $("<td>").text(data[key].storageCode);
 							var $td2 = $("<td>").text(data[key].pCode);
@@ -234,38 +348,79 @@ $(function() {
 	});
 });  
 
+/* 	private String storageCode;//식별자
+	private String storageDate;//등록일 (입고 완료 후 등록한 날짜)
+	private String color;//유통기한 색상
+	private String sectionCode;//분류 코드( 발주코드나, 교환 코드 )
+	private String section;//발주 or 교환
+	private String mfd; //제조일
+	private String sLocation; //위치 L1,L2
+	private int quantity; //수량
+	private String pCode; //상품코드
+	private String pName; //상품이름 상품 테이블 조인
+	private int basicExp; //기본 유통기한 상품 테이블 조인
+	private String sysDate; //쿼리문에서 오늘 날짜 받아오는 변수 */
 
 
-
-
-//권한변경 모달안에서 변경하기 버튼 눌렀을 때
-$(document).on('click','#chCodeBtn',function(e){
-	modal.style.display = "none";
-
+//모달 창에서 등록 취소 버튼 누르면 데이터 없애기
+	 $(document).on('click', "#noBtn", function(){
+		 //com='';
+	 	});
+   	});
 	
-	var userNo = $('.modalTable td').eq(0).text();
-	console.log(userNo);
-	var Tcode = $('#tCode').text();
-	console.log(Tcode);
-
-	var arr = {
-			"userNo" : userNo,
-			"Tcode" : Tcode
-	};
 	
-	$.ajax({
-		url:"<%=request.getContextPath()%>/selectProductStorage",
-		data: arr,
-		type: "get",
-		traditional:true,
-		success: function(data){
-			location.reload(true);
-		},
-		error: function(data){
-			console.log("에러");
-		}
-		});
-	});
+	
+
+
+
+//Get the modal
+var modal11 = document.getElementById("myModal11");
+
+// Get the button that opens the modal
+var btn11 = document.getElementById("apply11");
+
+// Get the <span> element that closes the modal
+var span11 = document.getElementsByClassName("close11")[0];
+
+// When the user clicks on the button, open the modal
+btn11.onclick = function() {
+  modal11.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span11.onclick = function() {
+  modal11.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal11) {
+    modal11.style.display = "none";
+  }
+}
+
+
+
+
+
+//변경 모달
+
+/*  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

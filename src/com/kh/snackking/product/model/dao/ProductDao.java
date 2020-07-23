@@ -402,11 +402,15 @@ public class ProductDao {
 	}
 
 
+	
+	
+	//상품 재고 등록 메소드( color 계산용 )
 	public ArrayList<ProductStorage> selectProductStorage(Connection con, ProductStorage productStorage) {
 		ArrayList<ProductStorage> productStorageList = null;
 		Statement stmt = null;
 		ResultSet rset = null;
 		ResultSet urset = null;
+		int num = 1;
 		int count  = 0;
 		String query = "";
 		if(productStorage.getColor() == null || productStorage.getColor() == "") {count += 1;}
@@ -467,20 +471,28 @@ public class ProductDao {
 				//남은 날짜를 월단위로 바꾼다 : 일괄적으로 나누기 30함
 				//경과기간
 				long pastMonth = pastDate/30;
-				System.out.println("지난 개월수 :  " + pastMonth);
-				System.out.println("기본 유통기한 : " + rset.getInt("PEXP"));
-				System.out.println("남은 개월수 : " + (rset.getInt("PEXP") - pastMonth) + "개월");
+				
+				//System.out.println("지난 개월수 :  " + pastMonth);
+				//System.out.println("기본 유통기한 : " + rset.getInt("PEXP"));
+				//System.out.println("남은 개월수 : " + (rset.getInt("PEXP") - pastMonth) + "개월");
+				
 				if((rset.getInt("PEXP") - pastMonth) <= 1) {
 					color="red";
+					System.out.println("상품 " + num +"번째 잔여 월 red" + (rset.getInt("PEXP") - pastMonth));
 					//1개월 이하로 유통기간이 남으면 빨간색 처리
+					num += 1;
 				}else if((rset.getInt("PEXP") - pastMonth) <= 6) {
 					//6개월 이하로 유통기한이 남으면 노란색 처리
 					color="yellow";
+					System.out.println("상품 " + num +"번째 잔여월 yellow" + (rset.getInt("PEXP") - pastMonth));
+					num += 1;
 				}else {
 					//나머지는 회색 처리
 					color="gray";
+					System.out.println("상품 " + num +"번째 잔여월 gray : " + (rset.getInt("PEXP") - pastMonth));
+					num += 1;
 				}
-				System.out.println("color : " + color);
+				//System.out.println("color : " + color);
 				
 				//기본 유통기한 받아옴( 월 기준  )
 				
@@ -497,7 +509,7 @@ public class ProductDao {
 				p.setStorageCode(rset.getString("STORAGE_CODE"));
 				p.setStorageDate(rset.getString("STORAGE_DATE"));
 				productStorageList.add(p);
-				System.out.println("p" + p);
+				//System.out.println("p" + p);
 				
 				}	
 		} catch (SQLException e) {
@@ -510,6 +522,37 @@ public class ProductDao {
 		return productStorageList;
 	}
 
+	//상품 재고 등록 메소드( color db 업데이트용 )
+	public int updateProductStorageColor(Connection con, ArrayList<ProductStorage> productStorageList) {
+		  PreparedStatement pstmt = null;
+		  int result = 0;
+		  String query = prop.getProperty("updateProductStorageColor");
+		  
+		  try {
+			pstmt = con.prepareStatement(query);
+			//한바퀴 돌때마다 COLOR 값 오늘날짜 기준으로 업데이트 함.
+			for(int i = 0 ; i < productStorageList.size(); i++) {
+				pstmt.setString(1, productStorageList.get(i).getColor());
+				//System.out.println(productStorageList.get(i).getColor());
+				//퀴리 실행
+				//result에 실행 결과만큼 담음 (누적으로 담음)
+				//나중에 result가 list size 랑 같으면 다 성공한 것.
+				result += pstmt.executeUpdate();
+				//System.out.println(query);
+				//System.out.println("color 업데이트 성공" + i);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+	
+	
+	
 	   public int insertCuraPro(Connection con, CuratingProduct cp) {
 	      PreparedStatement pstmt = null;
 	      int result = 0;
@@ -597,6 +640,11 @@ public class ProductDao {
 	      
 	      return result;
 	   }
+
+
+
+
+
 	   
 }
 	

@@ -83,7 +83,6 @@ public class ProductService {
 
 
 	public ArrayList<Product> selectProductAllList(HashMap<String, Product> conditionList) {
-		// TODO Auto-generated method stub
 		Connection con = getConnection();
 		ArrayList<Product> productList = new ProductDao().selectProductAllList(con, conditionList);
 		close(con);
@@ -127,6 +126,15 @@ public class ProductService {
 		Connection con = getConnection();
 		//System.out.println("service : " + productStorage);
 		ArrayList<ProductStorage> productStorageList = new ProductDao().selectProductStorage(con, productStorage);
+		if(productStorageList != null) {
+			//color 계산해서 가져온거 db에 업데이트 한다
+			int result = new ProductDao().updateProductStorageColor(con, productStorageList);
+			if(result == productStorageList.size()) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
 		close(con);
 		return productStorageList;
 	}
