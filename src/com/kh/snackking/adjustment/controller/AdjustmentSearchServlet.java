@@ -57,10 +57,14 @@ public class AdjustmentSearchServlet extends HttpServlet {
 		
 		searchMember = new AdjustmentService().adjustmentSearch(hmap);
 
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
+		System.out.println(searchMember);
 		
-		new Gson().toJson(searchMember, response.getWriter());
+		if(searchMember != null) {
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson(searchMember, response.getWriter());
+		}
 		
 	}
 

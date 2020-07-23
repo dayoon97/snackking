@@ -125,9 +125,9 @@ public class AdjustmentDao {
 		HashMap<String, Object> map = null;
 		
 		String query = "";
-		if(hmap.get("company") == "") {count += 1;}
+		if(hmap.get("company") == null) {count += 1;}
 		if(hmap.get("month") == "") {count += 1;}
-		if(hmap.get("complete") == "") {count += 1;}
+		if(hmap.get("complete") == null) {count += 1;}
 		
 		if(count == 3) {
 			query = "SELECT COMPANY , ADJUSTMENT_AMOUNT , ADJUSTMENT_DATE, ADJUSTMENT_COMPLETE FROM ADJUSTMENT A JOIN USER_INFO U ON(U.USER_NO = A.USER_NO) ";
@@ -135,7 +135,7 @@ public class AdjustmentDao {
 			query = "SELECT COMPANY , ADJUSTMENT_AMOUNT , ADJUSTMENT_DATE, ADJUSTMENT_COMPLETE FROM ADJUSTMENT A JOIN USER_INFO U ON(U.USER_NO = A.USER_NO) WHERE ";
 		
 			
-			if(hmap.get("company") != "") {
+			if(hmap.get("company") != null) {
 				//날짜를 그냥 where 조건문에 넣었더니 계속 조회가 안됨
 				//날짜 YY/MM/DD 형식으로 바꾸기
 				
@@ -143,9 +143,10 @@ public class AdjustmentDao {
 			
 			if(hmap.get("month") != "") { 
 				String date = hmap.get("month").substring(2).replace("-", "/");
+				System.out.println(date);
 				query += "ADJUSTMENT_DATE LIKE '" + date + "'||'%' AND ";}
 			
-			if(hmap.get("complete") != "") { query += "ADJUSTMENT_COMPLETE = '" + hmap.get("complete") + "' AND ";}
+			if(hmap.get("complete") != null) { query += "ADJUSTMENT_COMPLETE = '" + hmap.get("complete") + "' AND ";}
 
 			
 			if(query.substring(query.length()-5).equals(" AND ")) {
@@ -159,10 +160,10 @@ public class AdjustmentDao {
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
-			hList = new ArrayList<HashMap<String,Object>>();
+			hList = new ArrayList<>();
 			
 			while(rset.next()) {
-				map = new HashMap<String, Object>();
+				map = new HashMap<>();
 				map.put("company", rset.getString("COMPANY"));
 				map.put("adJustmentAmount", rset.getInt("ADJUSTMENT_AMOUNT"));
 				map.put("adJustmentDate", rset.getDate("ADJUSTMENT_DATE"));

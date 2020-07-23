@@ -133,7 +133,7 @@
 									<th>상세내역확인</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody >
 							<!-- 리스트 바디  -->
 							<% int j = 0; %>
 							<%for (int i = 0; i < list.size(); i++) { %>
@@ -537,22 +537,32 @@ $('.dropdown-menu li').click(function () {
 			data:{company:company, money:money, yn:yn},
 			type:"get",
 			success: function(data){
-				$tableBody = $("#listTable tbody");
+				console.log("dㅇㅇㅇㅇ");
+				$tableBody = $("#listTable7 tbody");
 				
 				$tableBody.html('');
 				
 				$.each(data, function(index, value){
 					
 					var $tr = $("<tr class='listBody'>");
-					var $Td = $("<td>").html("<input type='checkbox' name='chk'>");
+					var $Td = $("<td>").html("<% j++; %><%= j %>");
 					var $companyTd = $("<td>").text(value.company);
-					var $adjustmentAmountTd = $("<td>").text(decodeURIComponent(value.adjustmentAmount));
-					var $adjustmentDateTd = $("<td>").text(decodeURIComponent(value.adjustmentDate));
-					var $adjustmentCompleteTd = $("<td>").text(decodeURIComponent(value.adjustmentComplete));
-					var $btn1Td = $("<td>").html("<input type='checkbox' name='chk'>");
-					var $btn2Td = $("<td>").html("<input type='checkbox' name='chk'>");
+					var $adjustmentAmountTd = $("<td>").text(decodeURIComponent(value.adJustmentAmount));
+					var $adjustmentDateTd = $("<td>").text(decodeURIComponent(value.adJustmentDate));
+					var $adjustmentCompleteTd = $("<td>").text(decodeURIComponent(value.adJustmentComplete));
+					var $btn1Td = $("<td>").html("<input type='button' class='approval-btn' id='change<%=j%>' value='변경'>");
+					var $btn2Td = $("<td>").html("<button class='btn detail-btn' id='detail'>상세</button>");
 					var $endTr = $("</tr>");
 					
+					//결제여부 형태 바꾸기
+					var comYN;
+					if(value.adJustmentComplete == "Y"){
+						comYN = '결제';
+					} else if(value.adJustmentComplete == "N"){
+						comYN = '미결제';
+					}
+					
+					$adjustmentCompleteTd = comYN;
 				
 					$tr.append($Td);
 					$tr.append($companyTd);
@@ -566,7 +576,8 @@ $('.dropdown-menu li').click(function () {
 					$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
 					
 					$tableBody.append($tr);
-				});  
+				}); 
+			
 				 
 			},
 			
