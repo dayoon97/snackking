@@ -253,7 +253,9 @@ public class ContractDao {
 		//항상 참인 조건 WHERE 1 = 1을 못쓰니까 WHERE조건 이렇게 써줬음
 		//검색할 항목 값이 일부만 있어도 검색되게 하기 위해서 PreparedStatement ? 안 쓰고 Statement로 쓸 것임
 		//if문으로 값이 있을 때만 쿼리문에 추가돼서 검색하게 하기 위함! 쿼리문이 바뀔 수 있기 때문 그래서 쿼리문을 여기에 적었다.
-		String query =  "SELECT DELIVERY_COUNT, AMOUNT_PER_DELIVERY, END_YN, USER_NO, TOTAL_AMOUNT, CONTRACT_NO FROM CONTRACT WHERE END_YN = 'Y'";
+		//select 할 것 쿼리문에 전체 다 적어준다! 아래 합치기 쓴 건 조건이다. 
+		//아래서 while문에 있는 오라클 디비 컬럼 개수랑 여기 쿼리문 개수랑 안 맞아서 부적합한 열 인덱스~~ 에러 났었다. 쿼리문 수정 후 에러해결.
+		String query = "SELECT BUSINESS_NO, START_DATE, END_DATE, CONTRACT_DATE, DELIVERY_COUNT, AMOUNT_PER_DELIVERY, END_YN, USER_NO, CORP_NAME, TOTAL_AMOUNT, CONTRACT_NO FROM CONTRACT WHERE END_YN = 'Y'";
 		
 		//값이 있으면 추가하겠다는 코드
 		//합치는건 문자열 합치기로 썼다.
@@ -284,10 +286,10 @@ public class ContractDao {
 		if(!endDate.equals("")) {
 			query += " AND END_DATE = '" + endDate + "'";
 		} else {
-			query = "";
+			query += "";
 		}
 		
-		System.out.println("select query : " + query);
+//		System.out.println("select query : " + query);
 		
 		try {
 			stmt = con.createStatement();
@@ -321,7 +323,7 @@ public class ContractDao {
 			close(stmt);
 			close(rset);
 		}
-		System.out.println("dao list : " + list);
+//		System.out.println("dao list : " + list);
 		
 		return list;
 	}

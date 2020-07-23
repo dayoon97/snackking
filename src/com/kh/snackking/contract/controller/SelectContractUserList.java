@@ -3,7 +3,6 @@ package com.kh.snackking.contract.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.snackking.contract.model.service.ContractService;
 import com.kh.snackking.contract.model.vo.Contract;
 
@@ -69,6 +69,16 @@ public class SelectContractUserList extends HttpServlet {
 		ArrayList<Contract> list = new ContractService().selectContractUserList(hmap);
 		
 		
+		HashMap<String, Object> ajaxMap = new HashMap<>();
+		ajaxMap.put("list", list);
+		
+		//이렇게 코드 3줄로 간단하게 작성 할 수 있당! Gson 사용코드
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		new Gson().toJson(ajaxMap, response.getWriter());
+        
+
 		
 		
 	/*	String page = "";

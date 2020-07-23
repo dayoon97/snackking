@@ -381,6 +381,20 @@ span.choose {
 
 }
 
+#updateBtn {
+	border:0;
+	background:white;
+	display:inline-block;
+	font-family: NanumSquare_ac;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 25px;
+	text-align: center;
+	color: black;
+
+}
+
 
 
 
@@ -565,6 +579,7 @@ overflow-y: auto !important;
 										<td style="width:200px"></td>
 										<td style="width:200px"></td>			
 										<td rowspan="3" align="center">
+									<!-- 검색 버튼 --> 
 										<!-- <input type="submit" class="searchBtn" value="검색" id="submit" style="width:85px;"></td> -->
 										<input type="submit" class="searchBtn" id="submit" value="검색" style="width:85px;" >
 										
@@ -591,23 +606,29 @@ overflow-y: auto !important;
 										</script> -->
 									</tr>
 									<tr>
-										<td style="padding-left: 15px;">사업자등록번호 : 
-										<input type="text" class="searchTextBox" size="20" name="businessNo" value=""></td>
+										<td style="padding-left: 15px;">사업자 등록번호 : 
+										<input type="text" class="searchTextBox" size="20" name="businessNo" value="" id="businessNo"></td>
 										<td></td>
 										<td colspan="3" align="center">계약일 : 
-										<input type="date" class="searchTextBox" size="10" name="conDate" value=""></td>
+										<input type="date" class="searchTextBox" size="10" name="conDate" value="" id="conDate"></td>
 									</tr>
 									<tr>
 										<td colspan="3" style="padding-left: 15px;">계약기간 :
-											<button onclick="" class="btn">오늘</button>
+										<!--  <button onclick="" class="btn">오늘</button>
 											<button onclick="" class="btn">1주일</button>
 											<button onclick="" class="btn">1개월</button>
 											<button onclick="" class="btn">3개월</button>
-											<button onclick="" class="btn">6개월</button>
+											<button onclick="" class="btn">6개월</button> -->
+											<input type="button" class="btn" value="오늘" id="todayBtn" onclick="todayBtn_click();">	
+											<input type="button" class="btn" value="1주일" id="WeekBtn" onclick="WeekBtn_click();">	
+											<input type="button" class="btn" value="1개월" id="monthBtn" onclick="monthBtn_click();">	
+											<input type="button" class="btn" value="3개월" id="threeMonthBtn" onclick="threeMonthBtn_click();">	
+											<input type="button" class="btn" value="6개월" id="sixMonthBtn" onclick="sixMonthBtn_click();">	
+											
 										</td>
 										<td colspan="2" style="width:400px;" align="center">
-										<input type="date" class="searchTextBox" name="startDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
-										<input type="date" class="searchTextBox" name="endDate">
+											<input type="date" class="searchTextBox" name="startDate" id="startDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp; 
+											<input type="date" class="searchTextBox" name="endDate" id="endDate">
 										</td>
 									</tr>
 										
@@ -675,7 +696,7 @@ overflow-y: auto !important;
 								<td><%= c.getDelivCount() %></td>
 								<td><%= c.getAmountPDeliv() %></td>
 								<td><%= c.getTtlAmount() %></td>
-								<td>수정</td>
+								<td><input type="button" value="수정" id="updateBtn"></td>
 							</tr>
 						 <% } %>
 							 <!-- <tr class="hover">
@@ -702,90 +723,7 @@ overflow-y: auto !important;
 								<td>내용</td>
 								<td></td>
 							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td></td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td></td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td></td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td></td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td></td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td></td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td></td>
-							</tr>
+							
 						 -->
 						</tbody>
 					</table>
@@ -796,7 +734,7 @@ overflow-y: auto !important;
 </div>	<!-- mainWrapper end -->
 
 	<!-- 페이징 처리 버튼 -->
-	<div class="pageingArea" align="center">
+	<!--<div class="pageingArea" align="center">
 		<button onclick="lacation.href='<%=request.getContextPath()%>/selectContract.co?currentPage=1'"><<</button>
 	
 		<%-- <%if(currentPage <= 1) { %> --%>
@@ -836,7 +774,7 @@ overflow-y: auto !important;
  
 <p><a href="#ex1" rel="modal:open" >모달창 띄우기</a></p>
 
-
+  -->
 
 </body>
 
@@ -864,6 +802,90 @@ $('.dropdown-menu li').click(function () {
       msg = '<span class="msg">Hidden input value: ';
   $('.msg').html(msg + input + '</span>');
 }); 
+
+
+/* 검색 버튼 클릭 시  조회 검색 */
+$("#submit").click(function(){
+	//확인 차 변수에 담아봤습니당. input 입력 받는 것들 5개
+	var corpName = $("#corpName").val();
+	var businessNo = $("#businessNo").val();
+	var conDate = $("#conDate").val();
+	var startDate = $("#startDate").val();
+	var endDate = $("#endDate").val();
+	
+	if(corpName == "" && businessNo == "" && conDate == "" && startDate == "" && endDate == "") {
+		alert("일치하는 검색 결과가 없습니다.");
+	} else {
+		$.ajax({
+			url: "<%= request.getContextPath()%>/selectContractUserList.co",
+			contentType: 'text/html',
+			type: "get",
+			data: {
+				//키 밸류 방식으로 작성
+				//여기서는 변수명(담긴 값)을 그대로 썼지만 # 아이디 를 바로 적어도 된다. 아이디가 값이니까.
+				corpName: corpName,
+				businessNo: businessNo,
+				conDate: conDate,
+				startDate: startDate,
+				endDate: endDate
+			},
+			success: function(data) {
+				console.log(data);
+				
+				//테이블을 새로 만든다
+				$tableBody = $("#listTable10 tbody");
+				//전에 있던 화면 html 테이블 있던 데이터 날려준다
+				$tableBody.html('');
+				
+				//위에서 만든 테이블 형태와 동일하게 작성해준다.
+				for(var key in data.list) {
+					var $tr = $("<tr>").attr('class', 'hover');
+					var $numTd = $("<td>").text(key + 1);
+					var $businessNoTd = $("<td>").text(data.list[key].businessNo);
+					var $corpNameTd = $("<td>").text(data.list[key].corpName);
+					var $conDateTd = $("<td>").text(data.list[key].conDate);
+					var $startDateTd = $("<td>").text(data.list[key].startDate);
+					var $endDateTd = $("<td>").text(data.list[key].endDate);
+					var $delivCountTd = $("<td>").text(data.list[key].delivCount);
+					var $amountPDelivTd = $("<td>").text(data.list[key].amountPDeliv);
+					var $ttlAmountTd = $("<td>").text(data.list[key].ttlAmount);
+					var $updateBtnTd = $("<input>").attr('type', 'button').attr('value','수정').attr('id','updateBtn');
+					
+					//위에서 쓴 변수명을 써준다.
+					$tr.append($numTd);
+					$tr.append($businessNoTd);
+					$tr.append($corpNameTd);
+					$tr.append($conDateTd);
+					$tr.append($startDateTd);
+					$tr.append($endDateTd);
+					$tr.append($delivCountTd);
+					$tr.append($amountPDelivTd);
+					$tr.append($ttlAmountTd);
+					$tr.append($updateBtnTd);
+					
+					$tableBody.append($tr);
+				}
+					
+			},
+			error: function() {
+				alert("Error!");
+			}
+				
+		});
+		
+		return false;
+		
+	}
+	
+});
+
+/* 오늘, 1주일, 1개월, 3개월, 6개월 버튼 눌렀을 때 날짜 자동 입력 */
+function todayBtn_click() {
+	alert("오늘 버튼을 누르셨습니다.");
+	
+	
+}
+
 
 
 
