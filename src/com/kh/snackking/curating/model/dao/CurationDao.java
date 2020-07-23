@@ -4,6 +4,7 @@ import static com.kh.snackking.common.JDBCTemplate.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,18 +35,24 @@ public class CurationDao {
 		ArrayList<CurationList> list = null;
 		
 		String query = prop.getProperty("selectUserCurationList");
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, num);
-			
+			System.out.println("dao pstmt check : " + pstmt);
 			rset = pstmt.executeQuery();
-			
+			System.out.println("dao rset check : " + rset);
 			list = new ArrayList<CurationList>();
 			while(rset.next()) {
 				CurationList cl = new CurationList();
-				cl.setCuNo(rset.getInt("PRE_NO"));
-				cl.setCuDate(rset.getDate("PRE_DATE"));
-				
+				cl.setCuListNo(rset.getInt("CU_LIST_NO"));
+				cl.setPreNo(rset.getInt("PRE_NO"));
+				cl.setClDate(rset.getDate("CL_DATE"));
+				cl.setPrice(rset.getInt("PRICE"));
+				cl.setAmount(rset.getInt("AMOUNT"));
+				cl.setStatus(rset.getString("STATUS"));
+				cl.setUserNo(rset.getInt("USER_NO"));
+				System.out.println("curating list : " + cl);
 				list.add(cl);
 			}
 			
@@ -55,6 +62,7 @@ public class CurationDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println("dao list check : " + list);
 		return list;
 	}
 
@@ -80,7 +88,7 @@ public class CurationDao {
 				c.setpName(rset.getString("PNAME"));
 				c.setpCount(rset.getInt("PRO_COUNT"));
 				c.setUnitCount(rset.getInt("UNIT_PRICE"));
-				c.setpCount(rset.getInt("PRICE"));
+				c.setPrice(rset.getInt("PRICE"));
 				
 				list.add(c);
 			}

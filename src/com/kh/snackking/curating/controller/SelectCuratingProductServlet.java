@@ -1,7 +1,7 @@
 package com.kh.snackking.curating.controller;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,15 +34,14 @@ public class SelectCuratingProductServlet extends HttpServlet {
 		
 		int num = Integer.parseInt(request.getParameter("userNo"));
 //		System.out.println("ajax userNo : " + num);
-//		ArrayList<CurationProduct> list = new CurationService().selectCuratingProduct(num);
-		Map<String, Object> map = new CurationService().selectCuratingProduct(num);
-		System.out.println("curating product list : " + map.get("list"));
-		System.out.println("curating product total price : " + map.get("toPrice"));
+		HashMap<String, Object> hmap = new CurationService().selectCuratingProduct(num);
+		System.out.println("curating product list : " + hmap.get("list"));
+//		System.out.println("curating product total price : " + hmap.get("toPrice"));
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
-		new Gson().toJson(map, response.getWriter());
+		new Gson().toJson(hmap, response.getWriter());
 		
 	}
 

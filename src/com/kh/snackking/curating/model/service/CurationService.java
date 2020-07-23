@@ -25,7 +25,7 @@ public class CurationService {
 		return list;
 	}
 
-	public Map<String, Object> selectCuratingProduct(int num) {
+	public HashMap<String, Object> selectCuratingProduct(int num) {
 		
 		Connection con = getConnection();
 		HashMap<String, Object> hmap = null;
@@ -38,7 +38,10 @@ public class CurationService {
 			hmap.put("list", list);
 			result = new CurationDao().curatingProductPrice(con, num);
 			if(result > 0) {
-				hmap.put("toPrice", result);
+//				System.out.println("service result : " + result);
+				String total = String.format("%,d", result);
+//				System.out.println("service result format : " + total);
+				hmap.put("toPrice", total);
 			}
 		}
 		
