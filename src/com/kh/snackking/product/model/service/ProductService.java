@@ -19,7 +19,8 @@ import com.kh.snackking.product.model.vo.ProductAttachment;
 import com.kh.snackking.product.model.vo.ProductStorage;
 
 public class ProductService {
-
+	
+	//미소's-----------------------------------------------------------------------------------------------------
 	public int insertProduct(Product product) {
 		Connection con = getConnection();
 		// Dao에서  등록 하고 오기
@@ -139,6 +140,27 @@ public class ProductService {
 		return productStorageList;
 	}
 	
+
+	public int insertProductStorage(ProductStorage productStorage) {
+		Connection con = getConnection();
+		int result = new ProductDao().insertProductStorage(con, productStorage);
+		if(result > 0) {
+			commit(con);
+		}else { 
+		    rollback(con);
+		}
+		close(con);
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	//보훈's-----------------------------------------------------------------------------------------------------
+
 	
 	public ArrayList<CuratingProduct> insertCuraPro(CuratingProduct cp) {
 		Connection con = getConnection();
@@ -189,16 +211,5 @@ public class ProductService {
 		return list;
 	}
 	
-	public int insertProductStorage(ProductStorage productStorage) {
-		Connection con = getConnection();
-		int result = new ProductDao().insertProductStorage(con, productStorage);
-		if(result > 0) {
-			commit(con);
-		}else { 
-		    rollback(con);
-		}
-		close(con);
-		return result;
-	}
 	
 }
