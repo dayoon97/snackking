@@ -37,6 +37,11 @@ public class AdjustmentSearchServlet extends HttpServlet {
 		String month = request.getParameter("money");
 		String complete = request.getParameter("yn");
 		
+		System.out.println(company);
+		System.out.println(month);
+		System.out.println(complete);
+		
+		
 		
 		if(complete.equals("결제")) {
 			complete = "Y";
@@ -48,9 +53,9 @@ public class AdjustmentSearchServlet extends HttpServlet {
 		
 		HashMap<String, String> hmap = new HashMap<String, String>();		
 		
-		if(company != "") {hmap.put("company", company);}
-		if(month != "") {hmap.put("month", month);}
-		if(complete != "") {hmap.put("complete", complete);}
+		hmap.put("company", company);
+		hmap.put("month", month);
+		hmap.put("complete", complete);
 		
 		
 		ArrayList<HashMap<String, Object>> searchMember = null;
