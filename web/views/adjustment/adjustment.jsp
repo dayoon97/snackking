@@ -736,7 +736,7 @@ $('.dropdown-menu li').click(function () {
 	 
 	 $(document).on('click','#addBtn', function(){
 		 
-		 location.href="<%=request.getContextPath()%>/searchCompany?num=<%=loginUser.getUserNo()%>";
+		 location.href="<%=request.getContextPath()%>/views/adjustment/adjustmentAdd.jsp";
 	 });
 
 </script>
