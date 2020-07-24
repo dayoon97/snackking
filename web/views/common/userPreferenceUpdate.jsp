@@ -325,8 +325,8 @@ text-align:center;
 										<td width="90px;"><input type="checkbox" id="salty" name="flavor" value="짭짤">
 										<label for="salty">짭짤</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" id="plain" name="flavor" value="단백">
-										<label for="plain">단백</label></td>
+										<td width="90px;"><input type="checkbox" id="plain" name="flavor" value="담백">
+										<label for="plain">담백</label></td>
 										<td width="20px;"></td>
 										<td width="90px;"><input type="checkbox" id="sue" name="flavor" value="고소">
 										<label for="sue">고소</label></td>
@@ -352,8 +352,8 @@ text-align:center;
 										<td width="90px;"><input type="checkbox" id="soda" name="smell" value="소다">
 										<label for="soda">소다</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" id="coffee" name="smell" value="커피">
-										<label for="coffee">커피</label></td>
+										<td width="90px;"><input type="checkbox" id="coffee2" name="smell" value="커피">
+										<label for="coffee2">커피</label></td>
 										<td width="20px;"></td>
 										<td width="90px;"><input type="checkbox" id="cinnamon" name="smell" value="시나몬">
 										<label for="cinnamon">시나몬</label></td>
