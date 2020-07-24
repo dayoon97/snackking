@@ -380,20 +380,22 @@ height: 25px;
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
+                     <th width="80px">큐레이팅번호</th>
                      <th width="30px">상호명</th>
                      <th width="60px">이름</th>
                      <th width="80px">선호도조사 보기</th>
                      <th width="80px">큐레이팅 확인</th>
-                     <th width="50px">큐레이션 여부</th>
+                     <th width="50px">유저 확인여부</th>
                   </tr>
                   
                   <!-- 리스트 바디  -->
  				<% for(curatingList n : list) { %>
                   <tr class="listBody">
+                  		<td><%= n.getCuNo() %></td>
 						<td><%= n.getUserCom() %></td>
 						<td><%= n.getUserName() %></td>
 						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
-						<td><a href="<%= request.getContextPath() %>/selectCurating.pre?pno=<%=n.getPreNo() %>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
+						<td><a href="<%= request.getContextPath() %>/selectCurating.pre?pno=<%=n.getCuNo()%>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
 						<td><%= n.getStatus() %></td>
 					</tr>
 				<%} %>

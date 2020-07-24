@@ -265,11 +265,17 @@ public class PreferenceDao {
 			list = new ArrayList<curatingList>();
 			while(rset.next()) {
 				curatingList cu = new curatingList();
+				cu.setCuNo(rset.getInt("CU_LIST_NO"));
 				cu.setPreNo(rset.getInt("PRE_NO"));
+				cu.setStatus(rset.getString("STATUS"));
 				cu.setUserCom(rset.getString("COMPANY"));
-				cu.setStatus(rset.getString("PRE_CURATING"));
 				cu.setUserName(rset.getString("USER_NAME"));
 				
+//				private int cuNo; //큐레이팅 번호
+//				private int preNo; //선호도번호
+//				private String userName; //유저이름
+//				private String userCom; //유저 회사명
+//				private String status; // 큐레이팅 유저 확인 여부
 				list.add(cu);
 				
 			}
@@ -330,6 +336,49 @@ public class PreferenceDao {
 		
 		
 		return result;
+	}
+
+	public Preference UpdateCuratingSelect(Connection con, int cuNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Preference p = null;
+		
+		String query = prop.getProperty("UpdateCuratingSelect");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cuNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Preference();
+				p.setUserNo(rset.getInt("USER_NO"));
+				p.setPreNo(rset.getInt("PRE_NO"));
+				p.setPreBudget(rset.getInt("PRE_BUDGET"));
+				p.setPrePersonnel(rset.getInt("PRE_PERSONNEL"));
+				p.setPreAge(rset.getString("PRE_AGE"));
+				p.setPreProductTypes(rset.getString("PRE_PROTYPES"));
+				p.setPreTaste(rset.getString("PRE_TASTE"));
+				p.setPreFlavor(rset.getString("PRE_FLAVOR"));
+				p.setPreEtcFlavor(rset.getString("PRE_ETCFLAVOR"));
+				p.setPreAlName(rset.getString("PRE_ALNAME"));
+				p.setPreStyle(rset.getString("PRE_STYLE"));
+				p.setPreEquipment(rset.getString("PRE_EQUIPMENT"));
+				p.setPreDate(rset.getString("PRE_DATE"));
+				p.setStatus(rset.getString("PRE_STATUS"));
+				p.setCuraStatus(rset.getString("PRE_CURATING"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return p;
 	}
 
 
