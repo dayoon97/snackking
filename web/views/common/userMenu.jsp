@@ -585,7 +585,7 @@
 								<ul class="con">
 									<li><a href="<%=request.getContextPath()%>/adminUserSelect.ad?num=<%=loginUser.getUserNo()%>">회원 리스트</a></li>
 									<li><a href="<%=request.getContextPath()%>/cmBoardList.bo">문의 게시판 관리</a></li>
-									<li><a href="../chiefManager/cmContractMember.jsp">계약 회원 관리</a></li>
+									<li><a href="views/chiefManager/cmContractUserManagement.jsp">계약 회원 관리</a></li>
 								</ul>
 						</li>
 						<li>
@@ -593,7 +593,7 @@
 								<ul class="con">
 									<li><a href="../employee/employeeSchedule.jsp">스케줄 확인</a></li>
 									<li><a href="<%=request.getContextPath()%>/adminEmpSelect.ad?num=<%=loginUser.getUserNo()%>">권한 변경</a></li>
-									<li><a href="../employee/employeeMatching.jsp">고객-큐레이터<br>매칭 관리</a></li>
+									<li><a href="views/employee/employeeMatching.jsp">고객-큐레이터<br>매칭 관리</a></li>
 								</ul>
 						</li>
 						<li>
