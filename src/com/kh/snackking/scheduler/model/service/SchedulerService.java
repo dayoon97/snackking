@@ -31,6 +31,22 @@ public class SchedulerService {
 		return null;
 	}
 
+	public static ArrayList<Scheduler> updateDate(SchedulerInfo cal) {
+		Connection conn = getConnection();
+		
+		ArrayList<Scheduler> slist = new SchedulerDao().updateDate(conn, cal);
+		
+		if(!(slist == null)) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return slist;
+	}
+
 	
 
 	

@@ -15,10 +15,11 @@ public class Scheduler implements java.io.Serializable {
 	private int zipNo;
 	private String address;
 	private int mngId;
-	private Date enrollDate;
+	private String enrollDate;
 	private Date withdrawalDate;
 	private String status;
 	private int delivCount;
+	private Date scheduleDate;
 	
 	public Scheduler() {}
 	
@@ -32,8 +33,8 @@ public class Scheduler implements java.io.Serializable {
 
 
 	public Scheduler(int userNo, String tCode, String userId, String userPwd, String userName, String company,
-			String phone, String email, int zipNo, String address, int mngId, Date enrollDate, Date withdrawalDate,
-			String status, int delivCount) {
+			String phone, String email, int zipNo, String address, int mngId, String enrollDate, Date withdrawalDate,
+			String status, int delivCount, Date scheduleDate) {
 		super();
 		this.userNo = userNo;
 		this.tCode = tCode;
@@ -50,6 +51,7 @@ public class Scheduler implements java.io.Serializable {
 		this.withdrawalDate = withdrawalDate;
 		this.status = status;
 		this.delivCount = delivCount;
+		this.scheduleDate = scheduleDate;
 	}
 
 
@@ -186,13 +188,13 @@ public class Scheduler implements java.io.Serializable {
 
 
 
-	public Date getEnrollDate() {
+	public String getEnrollDate() {
 		return enrollDate;
 	}
 
 
 
-	public void setEnrollDate(Date enrollDate) {
+	public void setEnrollDate(String enrollDate) {
 		this.enrollDate = enrollDate;
 	}
 
@@ -232,15 +234,29 @@ public class Scheduler implements java.io.Serializable {
 		this.delivCount = delivCount;
 	}
 
+	
+	public Date getScheduleDate() {
+		return scheduleDate;
+	}
 
+
+
+	public void setScheduleDate(Date scheduleDate) {
+		this.scheduleDate = scheduleDate;
+	}
 
 	@Override
 	public String toString() {
 		return "Scheduler [userNo=" + userNo + ", tCode=" + tCode + ", userId=" + userId + ", userPwd=" + userPwd
 				+ ", userName=" + userName + ", company=" + company + ", phone=" + phone + ", email=" + email
 				+ ", zipNo=" + zipNo + ", address=" + address + ", mngId=" + mngId + ", enrollDate=" + enrollDate
-				+ ", withdrawalDate=" + withdrawalDate + ", status=" + status + ", delivCount=" + delivCount + "]";
+				+ ", withdrawalDate=" + withdrawalDate + ", status=" + status + ", delivCount=" + delivCount
+				+ ", scheduleDate=" + scheduleDate + "]";
 	}
+
+
+
+	
 
 
 

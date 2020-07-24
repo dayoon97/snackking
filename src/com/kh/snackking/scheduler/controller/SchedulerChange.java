@@ -1,9 +1,13 @@
 package com.kh.snackking.scheduler.controller;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,18 +16,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.snackking.scheduler.model.service.SchedulerService;
 import com.kh.snackking.scheduler.model.vo.Scheduler;
+import com.kh.snackking.scheduler.model.vo.SchedulerInfo;
 
 /**
- * Servlet implementation class InsertDateServlet
+ * Servlet implementation class calendarChangeServlet
  */
-@WebServlet("/search.da")
-public class SchedulerSearchServlet extends HttpServlet {
+@WebServlet("/change.ca")
+public class SchedulerChange extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SchedulerSearchServlet() {
+    public SchedulerChange() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +37,28 @@ public class SchedulerSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mana = request.getParameter("manager");
-		System.out.println("manager aaa" + mana);
 		
-		int manager = 0;
-		if(mana != "" && mana != null) {
-			manager = Integer.parseInt(mana);
-		}
-		
-		System.out.println("manager abc" +manager);
-		ArrayList<Scheduler> sList = new ArrayList<>();
-	
-		sList = new SchedulerService().schedulerSearch(manager);
-		
-		
-		
+		int rId = Integer.valueOf(request.getParameter("rId"));
+		Date date = Date.valueOf(request.getParameter("date"));
 
-		request.setAttribute("sList", sList);
-		request.getRequestDispatcher("views/calen3.jsp").forward(request, response);
 		
-		System.out.println("servlet schedulersearch " + sList); 
+		System.out.println("sdate값 :" +date);
+		System.out.println("rId값 :" +rId);
+		
+		SchedulerInfo cal = new SchedulerInfo(date, rId);
+
+		ArrayList<Scheduler> slist = SchedulerService.updateDate(cal);
+		
+		System.out.println("servletChange " +slist);
+		RequestDispatcher view = null;
+		if(!slist.isEmpty()) {
+			view = request.getRequestDispatcher("views/calen3.jsp");
+			request.setAttribute("slist", slist);
+			view.forward(request, response);
+		}else {
+			PrintWriter out = response.getWriter();
+			out.print("1");
+		}
 		
 	}
 
