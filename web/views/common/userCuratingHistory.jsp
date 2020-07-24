@@ -321,14 +321,16 @@ input[type='text']{
 				<div id="listArea" class="listAreaBox">
 					<table class="order-history-table" align="center">
 						<tr>
-							<th width="50%">큐레이팅 번호</th>
-							<th width="50%">작성일자</th>
+							<th width="30%">큐레이팅 번호</th>
+							<th width="40%">작성일자</th>
+							<th width="30%">큐레이팅 승인 여부</th>
 						</tr>
 						<% for(CurationList cl : list) { %>
 						<tr class="order-td">
 							<input type="hidden" name="cNum" id="cNum" value="<%= cl.getCuListNo()%>">
 							<td class="odNum"><%= cl.getCuListNo()%></td>
 							<td><%= cl.getClDate()%></td>
+							<td><%= cl.getStatus()%></td>
 						</tr>
 						<% } %>
 					</table>
@@ -373,6 +375,9 @@ input[type='text']{
 	$("#listArea  .order-td").click(function() {
 		var num = $(this).children("input").val();
 		console.log("check num : " + num);
+		
+		var c1 = $(this).children("td").eq(2).text();
+		console.log("c1 : " + c1);
 		
 		$.ajax({
 			url: "<%= request.getContextPath()%>/selectProduct.cur",
@@ -439,6 +444,7 @@ input[type='text']{
 				},
 				success: function(data) {
 					console.log(data);
+					
 				},
 				error: function() {
 					alert("error!!");
