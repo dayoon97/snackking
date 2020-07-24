@@ -47,19 +47,7 @@
                                     <td></td>
                                  </tr>
                                
-                                <tr>
-                                    <td></td>
-                                    <td>정산월 :</td>
-                                    <td><input type="month" class="InputBox2" id="month"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                 </tr>
+                                
                                   <tr>
                                     <td></td>
                                     <td></td>
@@ -111,30 +99,18 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
                                  </tr>
+                               
                                  <tr>
                                     <td></td>
-                                    <td>정산금액 : </td>
-                                    <td><input type="text" class="InputBox1" id="money"></td>
-                                    <td><button onclick="" class="amountSearch-btn" id="detail">조회</button></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td colspan="2"><input type="submit" class="addBtn btn" id="addBtn" value="등록하기"></td>
-                                    <td></td>
-                                 </tr>
-                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
                                     <td></td>
                                     <td></td>
                                  </tr>
@@ -209,23 +185,17 @@ $(function(){
 
 //정산내역 등록하기
 $(document).on('click', '#addBtn', function(){
-	//정산월 가져오기
-	var mon = document.getElementById("month").value;
 	//회사명 가져오기
 	var company = document.getElementById("company").value;
-	//정산금액 가져오기
-	var money = document.getElementById("money").value;
 	
-	console.log(mon);
 	console.log(company);
-	console.log(money);
 	
 	$.ajax({
 		url:"<%=request.getContextPath()%>/insertAdjustment",
-		data: {mon:mon, company:company, money:money},
+		data: {company:company},
 		type:"get",
 		success:function(data){
-			console.log("성공");
+			location.href="<%=request.getContextPath()%>/adjustmentSelect";
 		},
 		error:function(data){
 			
