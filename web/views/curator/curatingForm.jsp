@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference, com.kh.snackking.product.model.vo.Product, java.util.*, com.kh.snackking.product.model.vo.CuratingProduct"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.Preference, com.kh.snackking.product.model.vo.Product, java.util.*, com.kh.snackking.product.model.vo.CuratingProduct, com.kh.snackking.curating.model.vo.curating"%>
 <% Preference insertPre = (Preference) request.getAttribute("insertPre"); 
 	ArrayList<Product> Product = (ArrayList<Product>) request.getAttribute("Product");
 	ArrayList<CuratingProduct> cuList = (ArrayList<CuratingProduct>) request.getAttribute("cuList");
+	curating cu = (curating) request.getAttribute("cu");
 %>
 
 
@@ -190,7 +191,6 @@ right:90px;
 
 #listTable{
 border-collapse:collapse;
-position: absolute;
 text-align:center;
 width: 900px;
 }
@@ -253,6 +253,11 @@ height: 25px;
 	overflow: auto;
 	background: red;
 } */
+
+#Curatingproduct{
+	height: 400px;
+	overflow: scroll;
+}
 </style>
 
 <script>
@@ -584,6 +589,7 @@ $(function(){
 				<div id="snackList">
 				<br>
 				<h3 style="margin-left: 50px;">과자 리스트</h3>
+				<div class="table-scroll" style="overflow: auto; height: 400px;">
                <table id="listTable" class="snackTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
@@ -617,6 +623,7 @@ $(function(){
 				<%} %>
 				</tbody>
                </table>
+               </div>
                 </div>
                 
                 
@@ -625,7 +632,7 @@ $(function(){
                 <div id="productList"> <!-- 큐레이팅  등록 -->
                 <br>
 				<h3 style="margin-left: 50px;">상품 선택 리스트</h3>
-				<div id="Curatingproduct">
+				<div class="table-scroll" style="overflow: auto; height: 400px;">
                <table id="listTable" class="productTable" >
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
@@ -666,7 +673,7 @@ $(function(){
                </table>
                </div>
                 </div>
-                <button><a href="<%=request.getContextPath()%>/userCuratingStatus.pre?num=<%=insertPre.getPreNo()%>">저장하기</a></button>
+                <button class="searchBtn"><a href="<%=request.getContextPath()%>/curatingUpdateList.cu?num=<%=cu.getCuNo()%>">저장하기</a></button>
 						
 						</div>
 					</div> <!-- searchBox end -->
@@ -1089,7 +1096,7 @@ $(function(){
 });
 
 $(document).on("click", ".proAdd", (function(){
-	var no = <%=insertPre.getPreNo()%>;
+	var no = <%=cu.getCuNo()%>;
 	var proAdd = $(this).val();
 	/* var count = document.getElementById("count").value; */
 	var count = $(this).parent().parent().children().children("input[name=count]").val();
@@ -1145,7 +1152,7 @@ $(document).on("click", ".proAdd", (function(){
 
 
 $(document).on("click", ".proDelete", (function(){
-	var no = <%=insertPre.getPreNo()%>;
+	var no = <%=cu.getCuNo()%>;
 	/* var count = document.getElementById("count").value; */
 	/* var count2 = $(this).val(); */
 	var cuno = $(this).parent().children().val();

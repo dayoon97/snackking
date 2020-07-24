@@ -162,4 +162,18 @@ public class PreferenceService {
 		close(con);
 		return result;
 	}
+
+	public int PreCuSratus(int cuNo) {
+		Connection con = getConnection();
+		
+		int result = new PreferenceDao().PreCuSratus(con, cuNo);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
 }

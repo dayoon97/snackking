@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.snackking.contract.model.service.ContractService;
+import com.kh.snackking.curating.model.service.CurationService;
+import com.kh.snackking.curating.model.vo.curating;
 import com.kh.snackking.preference.model.service.PreferenceService;
 import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.service.ProductService;
@@ -40,9 +43,15 @@ public class SelectCurating extends HttpServlet {
 		System.out.println("num : " + num);
 		Preference p = new PreferenceService().selectCurating(num);
 		
+		curating cu = new CurationService().insertCuratingList(num);
+		int cuNo = cu.getCuNo();
+		
+		
 		ArrayList<Product> selectProduct = new ProductService().CuratorSelectProduct(p);
 		
-		ArrayList<CuratingProduct> basketProduct = new ProductService().CuratingbasketProduct(num);
+		
+		
+		ArrayList<CuratingProduct> basketProduct = new ProductService().CuratingbasketProduct(cuNo);
 		System.out.println(" selectProduct :" + selectProduct);
 		
 		System.out.println("p : " + p);
@@ -52,6 +61,7 @@ public class SelectCurating extends HttpServlet {
 			request.setAttribute("insertPre", p);
 			request.setAttribute("Product", selectProduct);
 			request.setAttribute("cuList", basketProduct);
+			request.setAttribute("cu", cu);
 		}else {
 			System.out.println("에러");
 		}

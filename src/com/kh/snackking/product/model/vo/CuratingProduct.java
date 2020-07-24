@@ -2,7 +2,7 @@ package com.kh.snackking.product.model.vo;
 
 public class CuratingProduct implements java.io.Serializable{
 	private int curatingNo; //큐레이팅상품순서번호
-	private int preNo;	//선호도 번호
+	private int cuNo; //큐레이팅 번호
 	private String proNo; // 상품 번호
 	private String pName; //상품명
 	private String pVendor; //상품업체명 (ex 오리온, 매일유업)
@@ -12,11 +12,11 @@ public class CuratingProduct implements java.io.Serializable{
 	
 	public CuratingProduct() {}
 
-	public CuratingProduct(int curatingNo, int preNo, String proNo, String pName, String pVendor, String ptCode,
+	public CuratingProduct(int curatingNo, int cuNo, String proNo, String pName, String pVendor, String ptCode,
 			int price, int count) {
 		super();
 		this.curatingNo = curatingNo;
-		this.preNo = preNo;
+		this.cuNo = cuNo;
 		this.proNo = proNo;
 		this.pName = pName;
 		this.pVendor = pVendor;
@@ -40,17 +40,17 @@ public class CuratingProduct implements java.io.Serializable{
 	}
 
 	/**
-	 * @return the preNo
+	 * @return the cuNo
 	 */
-	public int getPreNo() {
-		return preNo;
+	public int getCuNo() {
+		return cuNo;
 	}
 
 	/**
-	 * @param preNo the preNo to set
+	 * @param cuNo the cuNo to set
 	 */
-	public void setPreNo(int preNo) {
-		this.preNo = preNo;
+	public void setCuNo(int cuNo) {
+		this.cuNo = cuNo;
 	}
 
 	/**
@@ -142,8 +142,8 @@ public class CuratingProduct implements java.io.Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "CuratingProduct [curatingNo=" + curatingNo + ", preNo=" + preNo + ", proNo=" + proNo + ", pName="
-				+ pName + ", pVendor=" + pVendor + ", ptCode=" + ptCode + ", price=" + price + ", count=" + count + "]";
+		return "CuratingProduct [curatingNo=" + curatingNo + ", cuNo=" + cuNo + ", proNo=" + proNo + ", pName=" + pName
+				+ ", pVendor=" + pVendor + ", ptCode=" + ptCode + ", price=" + price + ", count=" + count + "]";
 	}
 
 	

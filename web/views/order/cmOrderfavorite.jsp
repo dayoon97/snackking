@@ -160,7 +160,7 @@
 /*조회 결과 리스트 제목 스타일*/
 #subSubTitle2{
 position: absolute;
-width: 90px;
+width: 100px;
 height: 30px;
 left: 40px;
 top: 300px;
@@ -325,7 +325,7 @@ height: 25px;
             <div id="subSubTitle1">내역 조회</div>
                <!-- searchBox start -->
                <div id="searchBox">
-                  <form id="searchForm">
+                  <form id="searchForm" action="<%=request.getContextPath() %>/prefernceSearchSelect.pre" method="get">
                      <table class="memberTable">
                         <tr>
                            <!-- 검색 내용 타이핑하는 부분 -->
@@ -354,7 +354,7 @@ height: 25px;
                            
                            
                            <td width="60px">상호명  :</td>                              
-                           <td><input type="text" class="searchTextBox" size="7"></td>
+                           <td><input type="text" class="searchTextBox" size="7" name="userCom"></td>
                            
                            <!-- <td style="width: 110px;">대여가능수량  :</td>
                            <td><input type="text" class="searchTextBox" size="7"></td> -->
@@ -376,6 +376,7 @@ height: 25px;
                <span id="apply">조회 결과 수 :</span>
                
                <!-- 조회 리스트 테이블 -->
+               <div class="table-scroll" style="overflow: auto; height: 400px;">
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
@@ -384,7 +385,7 @@ height: 25px;
                      <th width="60px">상호명</th>
                      <th width="80px">이름</th>
                      <th width="80px">선호도 작성일자</th>
-                     <th width="50px">계약여부</th>
+                     <th width="50px">큐레이팅 여부</th>
                      <th width="70px">작성내용 상세보기</th>
                      <th width="50px">삭제</th>
                   </tr>
@@ -397,13 +398,13 @@ height: 25px;
 						<td><%= n.getUserCom() %></td>
 						<td><%= n.getUserName()%></td>
 						<td><%= n.getPreDate() %></td>
-						<td><%= n.getStatus() %></td>
+						<td><%= n.getCuraStatus() %></td>
 						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
 						<td><button onclick="location.href='<%= request.getContextPath()%>/delicatePre.pre?num=<%=n.getPreNo()%>'">삭제</button></td>
 					</tr>
 				<%} %>
                </table>
-               
+               </div>
                <%-- 				<tr>
 				<th >글번호</th>
 				<th width="300px">글제목</th>

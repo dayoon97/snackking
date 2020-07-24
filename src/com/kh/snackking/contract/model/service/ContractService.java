@@ -101,9 +101,5 @@ public class ContractService {
 		
 		return list;
 	}
-
-	
-
-
 	
 }

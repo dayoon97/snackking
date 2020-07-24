@@ -520,7 +520,7 @@ public class ProductDao {
 	      
 	      try {
 	         pstmt = con.prepareStatement(query);
-	         pstmt.setInt(1, cp.getPreNo());
+	         pstmt.setInt(1, cp.getCuNo());
 	         pstmt.setString(2, cp.getProNo());
 	         pstmt.setString(3, cp.getProNo());
 	         pstmt.setInt(4, cp.getCount());
@@ -551,14 +551,14 @@ public class ProductDao {
 	      
 	      try {
 	         pstmt = con.prepareStatement(query);
-	         pstmt.setInt(1, cp.getPreNo());
+	         pstmt.setInt(1, cp.getCuNo());
 	         
 	         rset = pstmt.executeQuery();
 	         curatingPro = new ArrayList<CuratingProduct>();
 	         while(rset.next()) {
 	            CuratingProduct curating = new CuratingProduct();
 	            curating.setCuratingNo(rset.getInt("CUPODUCT_NO")); //큐레이팅순서번호
-	            curating.setPreNo(rset.getInt("PRE_NO")); //선호도 번호
+	            curating.setCuNo(rset.getInt("LIST_NO"));   //큐레이팅 번호
 	            curating.setProNo(rset.getString("PCODE")); //상품 번호
 	            curating.setpName(rset.getString("PNAME")); //상품명
 	            curating.setCount(rset.getInt("PRO_COUNT")); //상품 개수
@@ -618,7 +618,7 @@ public class ProductDao {
 	         while(rset.next()) {
 	            CuratingProduct curating = new CuratingProduct();
 	            curating.setCuratingNo(rset.getInt("CUPODUCT_NO")); //큐레이팅순서번호
-	            curating.setPreNo(rset.getInt("PRE_NO")); //선호도 번호
+	            curating.setCuNo(rset.getInt("LIST_NO"));   //큐레이팅 번호
 	            curating.setProNo(rset.getString("PCODE")); //상품 번호
 	            curating.setpName(rset.getString("PNAME")); //상품명
 	            curating.setCount(rset.getInt("PRO_COUNT")); //상품 개수
