@@ -301,7 +301,7 @@ $(function() {
 		 							var $td4 = $("<td>").text(data[key].pName);
 		 							var imageName = data[key].changeName;
 		 							console.log("이미지 이름 : " + imageName);
-		 							var $td5 = $("<td>").html('<img src="<%=request.getContextPath()%>/product_uploadImages/' + imageName + '" width="20px" height="auto">');
+		 							var $td5 = $("<td>").html('<img src="<%=request.getContextPath()%>/product_uploadImages/' + imageName + '" width="60px" height="auto">');
 		 							var $td6 = $("<td>").text(data[key].ptName);
 		 	 						var $td7 = $("<td>").text(data[key].price);
 		 	 						var $td8 = $("<td>").text(data[key].flavor);
