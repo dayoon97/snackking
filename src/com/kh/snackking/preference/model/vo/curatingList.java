@@ -1,19 +1,35 @@
 package com.kh.snackking.preference.model.vo;
 
 public class curatingList implements java.io.Serializable {
+	private int cuNo; //큐레이팅 번호
 	private int preNo; //선호도번호
 	private String userName; //유저이름
 	private String userCom; //유저 회사명
-	private String status; // 큐레이팅 여부
+	private String status; // 큐레이팅 유저 확인 여부
 	
 	public curatingList(){}
 
-	public curatingList(int preNo, String userName, String userCom, String status) {
+	public curatingList(int cuNo, int preNo, String userName, String userCom, String status) {
 		super();
+		this.cuNo = cuNo;
 		this.preNo = preNo;
 		this.userName = userName;
 		this.userCom = userCom;
 		this.status = status;
+	}
+
+	/**
+	 * @return the cuNo
+	 */
+	public int getCuNo() {
+		return cuNo;
+	}
+
+	/**
+	 * @param cuNo the cuNo to set
+	 */
+	public void setCuNo(int cuNo) {
+		this.cuNo = cuNo;
 	}
 
 	/**
@@ -77,8 +93,9 @@ public class curatingList implements java.io.Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "curatingList [preNo=" + preNo + ", userName=" + userName + ", userCom=" + userCom + ", status=" + status
-				+ "]";
+		return "curatingList [cuNo=" + cuNo + ", preNo=" + preNo + ", userName=" + userName + ", userCom=" + userCom
+				+ ", status=" + status + "]";
 	}
+
 	
 }
