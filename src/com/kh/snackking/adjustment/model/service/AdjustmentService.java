@@ -75,10 +75,19 @@ public class AdjustmentService {
 		return searchmember;
 	}
 
-	public HashMap<String, Object> insertAdjustment() {
+	public ArrayList<HashMap<String, Object>> insertAdjustment(String company) {
 		Connection con = getConnection();
 		
-		HashMap<String, Object> list = new AdjustmentDao().insertAdjustment(con);
+		int result = new AdjustmentDao().insertAdjustment(con, company);
+		
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		if(result > 0) {
+			list = new AdjustmentDao().adjustmentSelect(con);
+			commit(con);
+		} else {
+			rollback(con);
+		}
 		
 		close(con);
 		

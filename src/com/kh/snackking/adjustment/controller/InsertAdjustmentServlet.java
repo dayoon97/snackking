@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.snackking.adjustment.model.service.AdjustmentService;
 
 /**
@@ -32,17 +33,23 @@ public class InsertAdjustmentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String month = request.getParameter("mon"); 
 		String company = request.getParameter("company"); 
-		int money = Integer.parseInt(request.getParameter("money"));
 		
-		System.out.println(month);
 		System.out.println(company);
-		System.out.println(money);
+			
 		
-		HashMap<String, Object> list = new AdjustmentService().insertAdjustment();
+		ArrayList<HashMap<String, Object>> list  = new AdjustmentService().insertAdjustment(company);
 		
-		
+		String page = "";
+		if(list != null) {
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson(list, response.getWriter());
+		} else {
+			System.out.println("에러");
+		}
+		request.getRequestDispatcher(page).forward(request, response);	
 		
 	}
 

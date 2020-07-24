@@ -302,15 +302,24 @@ public class AdjustmentDao {
 		
 	}
 
-	public HashMap<String, Object> insertAdjustment(Connection con) {
-		Statement stmt = null;
+	public int insertAdjustment(Connection con, String company) {
+		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertAdjustment");
 		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, company);
+			pstmt.setString(2, company);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		
-		
-		
-		return null;
+		return result;
 	}
 }
