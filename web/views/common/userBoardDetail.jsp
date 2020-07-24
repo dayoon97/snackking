@@ -194,7 +194,7 @@
 		</div>
 		<div class="line"></div>
 		
-		<div class="Article">
+		<div class="Article" style="margin-bottom: 50px;">
 			<div class="article_wrap">
 				<div class="topBtnWrap">
 					<div class="listBtn-top">목록</div>
