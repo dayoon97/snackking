@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.snackking.curating.model.service.CurationService;
+
 /**
  * Servlet implementation class ChangeCuratingStatusServlet
  */
@@ -30,6 +32,8 @@ public class ChangeCuratingStatusServlet extends HttpServlet {
 		int listNo = Integer.parseInt(request.getParameter("listNo"));
 		System.out.println("listNo : " + listNo);
 		
+		int result = new CurationService().changeCuratingStatus(listNo);
+		System.out.println("result servlet : " + result);
 		
 	}
 
