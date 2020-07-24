@@ -400,7 +400,7 @@ td {
 				<!-- 본문 영역 제목 밑에있는 선 -->
 				<div id="line1"></div>
 				<!-- 본문 영역 소제목 -->
-				<div id="subTitle">직원 리스트</div>
+				<div id="subTitle">직원 권한변경</div>
 			</div>
 			<!-- 본문영역 상단부 끝 -->
 			
@@ -463,7 +463,7 @@ td {
 				<!-- 조회 결과 리스트 부분 -->
 				<div id="listArea">
 					<!-- 조회 결과 리스트 제목 -->
-					<div id="subSubTitle2">직원 리스트</div>
+					<div id="subSubTitle2">회원 리스트</div>
 					<!-- 적용 버튼 -->
 					<button onclick="" class="searchBtn" id="apply">권한변경</button>
 						<!-- Trigger/Open The Modal -->
