@@ -295,6 +295,9 @@ input[type='text']{
 	 color: white;
 	 font-weight: 600;
 }
+#cuCheckBtn:hover {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -350,7 +353,10 @@ input[type='text']{
 						</tbody>
 					</table>
 				</div>	<!-- cuListArea end -->
-				<div id="totalPrice">주문 금액 : 125,000 원</div>
+				<div id="totalPrice">
+					<span id="priceArea">주문 금액 : 0 원</span>
+					<span id="cuCheckBtn">주문 진행하기</span>
+				</div>
 				
 			</div>	<!-- order-table -->
 		</div>	<!-- orderArea -->
@@ -377,18 +383,22 @@ input[type='text']{
 			success: function(data) {
 				//console.log("success data list : " + data.list);
 				//console.log("success data price : " + data.toPrice);
-				console.log("data : " + data);
+				console.log("data : " + data.listNo);
 				
 				$tableBody = $("#cuListTable tbody");
 				$tableBody.html('');
 				
 				for(var key in data.list) {
 					var $tr = $("<tr>").attr('class', 'order-td');
+					
+					var $hiddenId = $("<input>").attr('name', 'listNo').attr('type', 'hidden').attr('value', data.listNo);
 					var $naTd = $("<td>").text(data.list[key].pName);
 					var $countTd = $("<td>").text(data.list[key].pCount);
 					var $upTd = $("<td>").text(data.list[key].unitCount);
 					var $priceTd = $("<td>").text(data.list[key].price);
 					
+					
+					$tr.append($hiddenId);
 					$tr.append($naTd);
 					$tr.append($countTd);
 					$tr.append($upTd);
@@ -397,7 +407,9 @@ input[type='text']{
 					$tableBody.append($tr);
 				}
 				
-				$("#totalPrice").text("주문 금액 : " + data.toPrice + " 원");
+				$("#cuCheckBtn").hide();
+				$("#priceArea").show();
+				$("#priceArea").text("주문 금액 : " + data.toPrice + " 원");
 				
 			},
 			error: function() {
@@ -405,7 +417,36 @@ input[type='text']{
 			}
 		});
 	});
-
+	
+	$("#cuCheckBtn").hide();
+	
+	$("#totalPrice").mouseover(function() {
+		$("#cuCheckBtn").show();
+		$("#priceArea").hide();
+	}).mouseout(function(){
+		$("#cuCheckBtn").hide();
+		$("#priceArea").show();
+	}).click(function() {
+		var num = $(this).parent().children("#cuListArea").children().children("tbody").find("input").val();
+		console.log(num);
+		var check = window.confirm("큐레이팅을 진행하시겠습니까?");
+		if(check){
+			$.ajax({
+				url: "<%= request.getContextPath()%>/changeCuStatus.cur",
+				type: "get",
+				data: {
+					listNo: num
+				},
+				success: function(data) {
+					console.log(data);
+				},
+				error: function() {
+					alert("error!!");
+				}
+			});
+		}
+	});
+	
 </script>
 	
 </body>
