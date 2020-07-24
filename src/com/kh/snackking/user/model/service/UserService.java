@@ -219,6 +219,60 @@ public class UserService {
 		return list;
 	}
 
+	public ArrayList<User> matchingSelect() {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().matchingSelect(con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<User> matchingEmpSelect() {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().matchingEmpSelect(con);
+		
+		close(con);
+		
+		return list;
+		
+		
+	}
+
+	public ArrayList<User> matchingUserSelect() {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().matchingUserSelect(con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int updateMatching(String uName, String emName) {
+		Connection con = getConnection();
+		
+		int result = new UserDao().updateMatching(con, uName, emName);
+		
+		close(con);
+		
+		
+		return result;
+	}
+
+	public ArrayList<User> matchingSearch(User user) {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().matchingSearch(con, user);
+		
+		close(con);
+		
+		return list;
+	}
+
+	
 	
 
 }

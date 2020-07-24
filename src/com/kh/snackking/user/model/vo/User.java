@@ -19,12 +19,13 @@ public class User implements java.io.Serializable {
 	private Date enrollDate;
 	private Date withdrawalDate;
 	private String status;
+	private String manager;
 	
 	public User() {}
 
 	public User(int userNo, String tCode, String tName, String userId, String userPwd, String userName, String company,
 			String phone, String email, int zipNo, String address, int mngId, Date enrollDate, Date withdrawalDate,
-			String status) {
+			String status, String manager) {
 		super();
 		this.userNo = userNo;
 		this.tCode = tCode;
@@ -41,6 +42,17 @@ public class User implements java.io.Serializable {
 		this.enrollDate = enrollDate;
 		this.withdrawalDate = withdrawalDate;
 		this.status = status;
+		this.manager = manager;
+	}
+
+	
+	
+	public String getManager() {
+		return manager;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
 	}
 
 	public int getUserNo() {
@@ -168,7 +180,9 @@ public class User implements java.io.Serializable {
 		return "User [userNo=" + userNo + ", tCode=" + tCode + ", tName=" + tName + ", userId=" + userId + ", userPwd="
 				+ userPwd + ", userName=" + userName + ", company=" + company + ", phone=" + phone + ", email=" + email
 				+ ", zipNo=" + zipNo + ", address=" + address + ", mngId=" + mngId + ", enrollDate=" + enrollDate
-				+ ", withdrawalDate=" + withdrawalDate + ", status=" + status + "]";
+				+ ", withdrawalDate=" + withdrawalDate + ", status=" + status + ", manager=" + manager + "]";
 	}
+
+	
 	
 }

@@ -716,5 +716,199 @@ public class UserDao {
 		return list;
 	}
 
+	public ArrayList<User> matchingSelect(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("matchingSelect");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<User> ();
+			while(rset.next()) {
+				User u = new User();
+				u.setManager(rset.getString("EMP_NAME"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setCompany(rset.getString("COMPANY"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setAddress(rset.getString("ADDRESS"));
+				
+				list.add(u);
+				
+			}
+			System.out.println("매칭 리스트 : " + list);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList<User> matchingEmpSelect(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("matchingEmpSelect");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<User> ();
+			while(rset.next()) {
+				User u = new User();
+				u.setUserName(rset.getString("USER_NAME"));
+			
+				list.add(u);
+				
+			}
+			System.out.println("직원 리스트 : " + list);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList<User> matchingUserSelect(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("matchingUserSelect");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<User> ();
+			while(rset.next()) {
+				User u = new User();
+				u.setUserName(rset.getString("USER_NAME"));
+			
+				list.add(u);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public int updateMatching(Connection con, String uName, String emName) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateMatching");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, emName);
+			pstmt.setString(2, uName);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public ArrayList<User> matchingSearch(Connection con, User user) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		ArrayList<User> list = null;
+		String query = "";
+		if(user.getUserName() == "") {count += 1;}
+		if(user.getCompany() == "") {count += 1;}
+		if(user.getPhone() == "") {count += 1;}
+		
+		if(count == 3) {
+			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE FROM USER_INFO WHERE MANAGER = ?";
+		}else {
+			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE FROM USER_INFO WHERE MANAGER = ? AND ";
+		
+			
+			if(user.getUserName() != "") {
+				//날짜를 그냥 where 조건문에 넣었더니 계속 조회가 안됨
+				//날짜 YY/MM/DD 형식으로 바꾸기
+				
+				query += "USER_NAME LIKE '%'||'" + user.getUserName() + "'||'%' AND ";}
+			
+			if(user.getCompany() != "") { query += "COMPANY LIKE '%'||'" + user.getCompany() + "'||'%' AND ";}
+			if(user.getPhone() != null) { query += "PHONE LIKE '%'||'" + user.getPhone() + "'||'%' AND ";}
+
+			if(query.substring(query.length()-4).equals(" AND ")) {
+				query = query.substring(0, query.length()-4);
+				//query += ";";
+			}
+			//query += "STATUS = 'Y'";
+		}
+		//쿼리문 실행
+		System.out.println(query);
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<User>();
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setManager(rset.getString("EMP_NAME"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setCompany(rset.getString("COMPANY"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setAddress(rset.getString("ADDRESS"));
+				
+				list.add(u);
+				
+				System.out.println("회원  검색:" + list);
+			}	
+			
+		} catch (SQLException e) {
+		e.printStackTrace();
+		}finally {
+		close(stmt);
+		close(rset);
+		}
+		//System.out.println("DAO: " + list);
+		return list;
+		
+		
+	}
+
+
 
 }
