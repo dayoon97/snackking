@@ -199,7 +199,7 @@
 										<button onclick="addProduct();" class="searchBtn" id="btnAddProduct">추가</button>
 									</td>
 									<td>
-										<button onclick="" class="searchBtn" id="btnUpdateProduct">수정</button>
+										<button onclick="updateProduct();" class="searchBtn" id="btnUpdateProduct">수정</button>
 									</td>
 									<td>
 										<button class="searchBtn" id="btnDeleteProduct">삭제</button>
@@ -344,7 +344,10 @@ $(function() {
 		location.href="<%=request.getContextPath() %>/views/product/productAdd.jsp";
 	};
 
-
+	//수정 버튼 클릭시
+	function updateProduct() {
+		location.href="<%=request.getContextPath() %>/views/product/productUpdate.jsp";
+	};
 	
 	
 /***************************************************************************************/
