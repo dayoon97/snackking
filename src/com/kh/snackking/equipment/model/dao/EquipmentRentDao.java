@@ -54,6 +54,8 @@ public class EquipmentRentDao {
 				//날짜를 그냥 where 조건문에 넣었더니 계속 조회가 안됨
 				//날짜 YY/MM/DD 형식으로 바꾸기
 				String rentDate = equipmentRent.getRentDate().substring(2).replace("-", "/");
+				//String rentDate = equipmentRent.getRentDate().replace("-", "/");
+				System.out.println(rentDate);
 				query += "R.RENT_DATE = '" + rentDate + "' AND ";}
 			
 			if(equipmentRent.getEquipCode() != "") { query += "R.EQUIP_CODE LIKE '%'||'" +  equipmentRent.getEquipCode() + "'||'%' AND ";}
