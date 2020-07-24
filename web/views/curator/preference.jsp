@@ -18,7 +18,7 @@
 	#background-box2 {
 		position: relative;
 		width: 1092px;
-		height: 2600px;
+		height: 2300px;
 		top: 15px;
 		background: white;
 		border-radius: 12px;
@@ -94,7 +94,7 @@
 	#searchBox{
 		position: absolute;
 		width: 980px;
-		height: 2300px;
+		height: 2000px;
 		left: 40px;
 		right: 40px;
 		margin: 0 auto;
@@ -156,7 +156,7 @@
 		line-height: 19px;
 		text-align: center;
 		color: #FFFFFF;
-		margin-top: 80px;
+		margin-top: 50px;
 		margin-left: 300px;
 	}
 
@@ -228,6 +228,7 @@ text-align:center;
 					<div id="searchBox">
 					<!-- 조회 제목 -->
 						<div id="subSubTitle1"><h2>기본 정보 입력</h2></div>
+						<br>
 						<form id="searchForm" action="<%= request.getContextPath() %>/insertPer.per" method="post">
 							<input type="hidden" id="userid" name="userid" value="<%=loginUser.getUserNo()%>">
 							<input type="hidden" id="username" name="userName" value="<%=loginUser.getUserName()%>">
@@ -465,17 +466,15 @@ text-align:center;
 										<td width="40px;"></td>
 										<td width="200px;"><input type="checkbox" id="sFrige" name="equipment" value="냉장고(소형)">
 										<label for="sFrige">냉장고(소형)</label></td>
+										<td></td>
 									</tr>
 									
 									<tr>
 										<td></td>
-										<td><img src=""></td>
-										<td></td>
-										<td><img src=""></td>
-										<td></td>
-										<td><img src=""></td>
-										<td></td>
-										<td><img src=""></td>
+										<td colspan="2"><img src="<%=request.getContextPath()%>/resources/image/snack_big.png"></td>
+										<td colspan="2"><img src="<%=request.getContextPath()%>/resources/image/snack_small.png"></td>
+										<td colspan="2"><img src="<%=request.getContextPath()%>/resources/image/refrigerator_big.png"></td>
+										<td colspan="2"><img src="<%=request.getContextPath()%>/resources/image/refrigerator_small.png"></td>
 									</tr>
 								</table>
 							</div>

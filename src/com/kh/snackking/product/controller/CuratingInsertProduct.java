@@ -40,7 +40,7 @@ public class CuratingInsertProduct extends HttpServlet {
 		System.out.println("count : " + count);
 		
 		CuratingProduct cp = new CuratingProduct();
-		cp.setPreNo(no);
+		cp.setCuNo(no);
 		cp.setProNo(proAdd);
 		cp.setCount(count);
 		

@@ -1,29 +1,23 @@
-package com.kh.snackking.product.controller;
+package com.kh.snackking.contract.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.snackking.product.model.service.ProductService;
-import com.kh.snackking.product.model.vo.CuratingProduct;
-
 /**
- * Servlet implementation class CuratingDeletePro
+ * Servlet implementation class InsertCuratingList
  */
-@WebServlet("/curatingDelete.pro")
-public class CuratingDeletePro extends HttpServlet {
+@WebServlet("/insertCuratingList.cl")
+public class InsertCuratingList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CuratingDeletePro() {
+    public InsertCuratingList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,19 +26,8 @@ public class CuratingDeletePro extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cuno = Integer.parseInt(request.getParameter("cuno"));
-		int no = Integer.parseInt(request.getParameter("no"));
-		System.out.println("cuno : " + cuno);
-		CuratingProduct cu = new CuratingProduct();
-		cu.setCuNo(no);			//큐레이팅 번호
-		cu.setCuratingNo(cuno); //순서
+		int preNo = Integer.parseInt(request.getParameter("num"));
 		
-		ArrayList<CuratingProduct> pro =  new ProductService().curatingdeletePro(cu);
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		
-		new Gson().toJson(pro, response.getWriter());
 	}
 
 	/**
