@@ -32,7 +32,7 @@ public class CuratingListSelect extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<curatingList> list = new PreferenceService().curatingSelect();
-		
+		System.out.println("list : " + list);
 		String page = "";
 		if(list != null) {
 			page = "views/curator/curatingList.jsp";

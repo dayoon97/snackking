@@ -86,7 +86,7 @@ public class CurationService {
 			rollback(con);
 		}
 		close(con);
-		return 0;
+		return result;
 	}
 
 }

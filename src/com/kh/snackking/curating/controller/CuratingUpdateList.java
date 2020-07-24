@@ -30,14 +30,15 @@ public class CuratingUpdateList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cuNo = Integer.parseInt(request.getParameter("num"));
-		
+		System.out.println("cuNo : " + cuNo);
 		int result = new CurationService().UpdateCuratingList(cuNo);
 		int preCuStatus = new PreferenceService().PreCuSratus(cuNo);
 		
-		System.out.println("preCuStatus" + preCuStatus);
+		System.out.println("result" + result);
+		System.out.println("preCuStatus : " + preCuStatus);
 		if(result > 0) {
 			if(preCuStatus > 0) {
-				request.getRequestDispatcher("curatingList.cu");
+				response.sendRedirect("curatingList.cu");
 			}else {
 				System.out.println("에러");
 			}

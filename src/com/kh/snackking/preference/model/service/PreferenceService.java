@@ -145,7 +145,7 @@ public class PreferenceService {
 		}else {
 			
 		}
-		
+		close(con);
 		return list;
 	}
 
