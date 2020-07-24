@@ -101,6 +101,7 @@ public class CurationDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println("selectCuratingProduct dao list : " + list);
 		return list;
 	}
 
