@@ -251,7 +251,7 @@ text-align:center;
 								</tr>
 								<tr>
 								<td>
-									<input type="text" name="personnel" class="" size="100" style="height:40px;" placeholder="예시: 500000">
+									<input type="text" name="personnel" class="" size="100" style="height:40px;" placeholder="예시: 30">
 								</td>
 								</tr>
 							</table>
@@ -323,7 +323,7 @@ text-align:center;
 										<td width="90px;"><input type="checkbox" id="salty" name="flavor" value="짭짤">
 										<label for="salty">짭짤</label></td>
 										<td width="20px;"></td>
-										<td width="90px;"><input type="checkbox" id="plain" name="flavor" value="단백">
+										<td width="90px;"><input type="checkbox" id="plain" name="flavor" value="담백">
 										<label for="plain">담백</label></td>
 										<td width="20px;"></td>
 										<td width="90px;"><input type="checkbox" id="sue" name="flavor" value="고소">
