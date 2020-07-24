@@ -10,9 +10,11 @@ public class SchedulerInfo implements java.io.Serializable{
 	private int cu_no;//큐레이터 회원번호
 	private int con_no;//계약회원 회원번호
 	private int s_count;//월회차번호
-	public SchedulerInfo() {
-		super();
-		// TODO Auto-generated constructor stub
+	
+	
+	public SchedulerInfo(Date date, int con_no) {
+		this.s_date = date;
+		this.con_no = con_no;
 	}
 	public SchedulerInfo(int s_code, Date s_date, Time s_time, int cu_no, int con_no, int s_count) {
 		super();

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, com.kh.snackking.scheduler.model.vo.*" %>
-<% ArrayList<Scheduler> slist = (ArrayList)request.getAttribute("sList"); %>/
+<% ArrayList<Scheduler> slist = (ArrayList)request.getAttribute("sList"); %>
 <% ArrayList<SchedulerInfo> silist = (ArrayList)request.getAttribute("slist"); %>
 <!DOCTYPE html>
 <html>
@@ -57,28 +57,13 @@ document.addEventListener('DOMContentLoaded', function() {
     selectable: true,   // 선택가능 옵션
     editable: true,
     droppable: true, // this allows things to be dropped onto the calendar
-    
     drop: function(info) {
       // is the "remove after drop" checkbox checked?
       if (checkbox.checked) {
         // if so, remove the element from the "Draggable Events" list
         info.draggedEl.parentNode.removeChild(info.draggedEl);
-        console.log("일정 드랍(인서트)")
+        
       }
-     /*  var date = info.dateStr;
-      var name = info.draggedEl.innerText;
-      //to update data using ajax
-      $.ajax({
-    	  type: 'POST',
-      	  url: '/getinfo.da',
-      	  data: '{date : "' + info.dateStr + '",name:"' + name +'"}',
-      	  contentType: 'application/json; charset=utf-8',
-      	  dateType: 'json',
-      	  success: function (result) {
-      		  alert(result.d);
-      	  }
-      }); */
-      
     },
  
     //일정 변경 할때 alert
@@ -87,27 +72,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!confirm("일정을 변경하시겠습니까?")) {
           info.revert();//취소했을때 이전으로 돌림.
-        } else {
-        	console.log(info.event.title + " 변경성공!")
         }
-        
       },
     
     locale: 'ko',
     events: [
-    	//값 들어가는지 확인용
-         <%-- <%for(int i=0;i< slist.size(); i++) { %>
-	        {
-	        title : '<%=slist.get(i).getUserName()%>',
-	        start : '2020-07-16',
-	        }
-        <%}%>  --%>
+
+    	 
+    		
     ],
     
-    //일정 클릭시 이벤트
     eventClick: function(info){
          alert('Event: ' + info.event.title);
-  		//모달창 추가 해서 정보 가져와야함....ㅁㄴㅇㄻㄴㅇㄹㄴㅁㅇㄻㄴㄻㄴㅇㄻㄴㄹㅇ
+        //모달창 추가 해서 정보 가져와야함....ㅁㄴㅇㄻㄴㅇㄹㄴㅁㅇㄻㄴㄻㄴㅇㄻㄴㄹㅇ
     }
 
   });
@@ -177,7 +154,6 @@ function getCalendarDataInDB(){
         }
     });
     
-    
     return arr;
 }
  
@@ -187,153 +163,153 @@ function getCalendarDataInDB(){
  
  /* 레이아웃 구성 */
 #outer {
-		margin-left: 265px;
-		margin-right: 35px;
-		/* width: auto; */
-		height: 100vh;
-		position: relative;
-	}
-	#background-box {
-		position: relative;
-		width: 1092px;
-		/* width: auto; */
-		height: 700px;
-		top: 15px;
-		background: white;
-		border-radius: 12px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-			
-	/*본문영역 상단부*/
-	#titleArea {
-		position: relative;
-		height: 20%;
-	
-	}
-	/*본문 영역 제목*/
-	#mainTitle {
-		position: absolute;
-		width: 250px;
-		height: 100px;
-		left: 30px;
-		font-family: NanumSquare_ac;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 35px;
-		line-height: 53px;
-		display: flex;
-		align-items: center;
-		color: #232323;	
-	}
-	
-	/*본문 영역 제목 밑에있는 선*/
-	#line1 {
-		position: absolute;
-		width: 170px;
-		height: 0px;
-		left: 30px;
-		top: 80px;
-		border: 1px solid #666666;
-	}
-	
-	/*본문 영역 소제목*/
-	#subTitle {
-		position: absolute;
-		width: 250px;
-		height: 50px;
-		left: 30px;
-		top: 78px;
-		font-family: NanumSquare_ac;
-		font-style: normal;
-		font-size: 25px;
-		line-height: 40px;
-		display: flex;
-		align-items: center;
-		color: #343434;
-	}
-	/*조회 제목 스타일*/
-	#subSubTitle1{
-		position: absolute;
-		/* width: 69px; */
-		height: 30px;
-		left: 40px;
-		top: 150px;
-		/* font-family: NanumSquare_ac; */
-		font-style: normal;
-		font-weight: bold;
-		font-size: 18px;
-		/* line-height: 20px; */
-		display: flex;
-		align-items: center;
-		/* color: #000000; */
-	}
-	/*조회 상자 테두리*/
-	#searchBox{
-		position: absolute;
-		width: 980px;
-		height: 60px;
-		left: 40px;
-		right: 40px;
-		margin: 0 auto;
-		top: 190px;
-		border: 1px solid rgba(75, 75, 75, 0.23);
-		box-sizing: border-box;
-		border-radius: 33.5px;
-	}
-	/*폼 기본 서식*/
-	#searchForm{
-		height:100%;
-		margin: 0 auto;
-		padding-left:20px;
-	}
-	/*테이블 기본 서식*/
-	.memberTable, #listTable{
-		width: 950px;
-		margin-top: 10px;
-		margin-left: 10px;
-	}
+      margin-left: 265px;
+      margin-right: 35px;
+      /* width: auto; */
+      height: 100vh;
+      position: relative;
+   }
+   #background-box {
+      position: relative;
+      width: 1092px;
+      /* width: auto; */
+      height: 700px;
+      top: 15px;
+      background: white;
+      border-radius: 12px;
+      margin-left: auto;
+      margin-right: auto;
+   }
+         
+   /*본문영역 상단부*/
+   #titleArea {
+      position: relative;
+      height: 20%;
+   
+   }
+   /*본문 영역 제목*/
+   #mainTitle {
+      position: absolute;
+      width: 250px;
+      height: 100px;
+      left: 30px;
+      font-family: NanumSquare_ac;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 35px;
+      line-height: 53px;
+      display: flex;
+      align-items: center;
+      color: #232323;   
+   }
+   
+   /*본문 영역 제목 밑에있는 선*/
+   #line1 {
+      position: absolute;
+      width: 170px;
+      height: 0px;
+      left: 30px;
+      top: 80px;
+      border: 1px solid #666666;
+   }
+   
+   /*본문 영역 소제목*/
+   #subTitle {
+      position: absolute;
+      width: 250px;
+      height: 50px;
+      left: 30px;
+      top: 78px;
+      font-family: NanumSquare_ac;
+      font-style: normal;
+      font-size: 25px;
+      line-height: 40px;
+      display: flex;
+      align-items: center;
+      color: #343434;
+   }
+   /*조회 제목 스타일*/
+   #subSubTitle1{
+      position: absolute;
+      /* width: 69px; */
+      height: 30px;
+      left: 40px;
+      top: 150px;
+      /* font-family: NanumSquare_ac; */
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      /* line-height: 20px; */
+      display: flex;
+      align-items: center;
+      /* color: #000000; */
+   }
+   /*조회 상자 테두리*/
+   #searchBox{
+      position: absolute;
+      width: 980px;
+      height: 60px;
+      left: 40px;
+      right: 40px;
+      margin: 0 auto;
+      top: 190px;
+      border: 1px solid rgba(75, 75, 75, 0.23);
+      box-sizing: border-box;
+      border-radius: 33.5px;
+   }
+   /*폼 기본 서식*/
+   #searchForm{
+      height:100%;
+      margin: 0 auto;
+      padding-left:20px;
+   }
+   /*테이블 기본 서식*/
+   .memberTable, #listTable{
+      width: 950px;
+      margin-top: 10px;
+      margin-left: 10px;
+   }
 
-	/*td 글자 스타일 지정*/
-  	.memberTable>td{
-		height: 30px;
-		font-family: NanumSquare_ac;
-		font-style: normal;
-		font-weight: normal;
-		font-size: 15px;
-		color: #000000;
-		padding-top:5px;
-		padding-left:0;	
-	}
-	 
-	
-	
-	/*검색 내용 타이핑하는 부분, input 태그*/
- 	.searchTextBox{
-		border:0;
-		outline:0;
-		height: 20px;
-		padding:0;
-		margin:0;
-		background: #F6F1F1;
-	}
-	
-	/*노란 버튼 공통 스타일*/
- 	.searchBtn{
-		border:0;
-		outline:0;
-		width: 92px;
-		height: 32px;
-		background: #F0BB00;
-		display:inline-block;
-		font-family: NanumSquare_ac;
-		font-style: normal;
-		font-weight: 300;
-		font-size: 17px;
-		line-height: 19px;
-		text-align: center;
-		color: #FFFFFF;
-	}
+   /*td 글자 스타일 지정*/
+     .memberTable>td{
+      height: 30px;
+      font-family: NanumSquare_ac;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 15px;
+      color: #000000;
+      padding-top:5px;
+      padding-left:0;   
+   }
+    
+   
+   
+   /*검색 내용 타이핑하는 부분, input 태그*/
+    .searchTextBox{
+      border:0;
+      outline:0;
+      height: 20px;
+      padding:0;
+      margin:0;
+      background: #F6F1F1;
+   }
+   
+   /*노란 버튼 공통 스타일*/
+    .searchBtn{
+      border:0;
+      outline:0;
+      width: 92px;
+      height: 32px;
+      background: #F0BB00;
+      display:inline-block;
+      font-family: NanumSquare_ac;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 19px;
+      text-align: center;
+      color: #FFFFFF;
+   }
 
 /*조회 결과 리스트 제목 스타일*/
 #subSubTitle2{
@@ -354,7 +330,7 @@ color: #000000;
 
 /*적용 버튼*/
 #apply{
-position:absolute;	
+position:absolute;   
 top:300px;
 right:90px;
 }
@@ -392,17 +368,17 @@ height: 25px;
 }
 
 .listBody:hover{
-	cursor:pointer;
-	background: #F0BB00;
+   cursor:pointer;
+   background: #F0BB00;
 }
 
 .searchBtn:hover {
-	cursor: pointer;
+   cursor: pointer;
 }
 #mainWrapper {
-	margin-left: auto;
-	margin-right: auto;
-	display: table;
+   margin-left: auto;
+   margin-right: auto;
+   display: table;
 }
  
  
@@ -459,43 +435,32 @@ height: 25px;
 <!--  mainWrapper start -->
 <div id="mainWrapper">
 
-	<!--  -->
-	<%@ include file ="common/userMenu.jsp" %>
-	
-	<!--  outer start -->
-	<div id="outer">
-		<!-- background-box start -->
-		<div id="background-box">
-	<!-- draagle box -->
+   <!--  -->
+   <%@ include file ="common/userMenu.jsp" %>
+   
+   <!--  outer start -->
+   <div id="outer">
+      <!-- background-box start -->
+      <div id="background-box">
+   <!-- draagle box -->
 <div id="external-events">
     <p>
       <strong><%-- <%for(int i=0;i< slist.size(); i++) { %>
-      		  <%=slist.get(i).getUserName()%>
-      		  <%}%> --%>
-      		  <%for(int i=0;i<slist.size(); i++) { %>
-      		  <% } %>
-      		  <%-- <%=slist.get(0).getUserName() %> --%>
+              <%=slist.get(i).getUserName()%>
+              <%}%> --%>
+              <%for(int i=0;i<slist.size(); i++) { %>
+              <% } %>
+              <%-- <%=slist.get(0).getUserName() %> --%>
       </strong>
     </p>
     <%System.out.println(loginUser.getUserNo()); %>
     <%-- <div class="content-count" /* 월배송회차 가져올 것 */ ><%=(slist.get(0).getDelivCount())%></div> --%>
-   
-
-    <%int j = 1;%>
+     <%int j = 1;%>
     <%while(j <= slist.get(0).getDelivCount()) {%>
-    <%-- <div class="fc-event"><%=j%>회차</div> --%>
-    <% j++; }%>
-   
-   <%--   <%for(int i=0; i < slist.size(); i++) { %>
-   		<%int j = 1; %>
-   		<%while(j <= slist.get(i).getDelivCount()) {%>
-   		<div class="fc-event"><%=j%>회차</div>
-   		<% j++; }%>
-   	<% } %>   --%>
-   	
+    <div class="fc-event"><%=j%>회차</div> 
+    <% j++; }%> 
+    <div id="a"></div>
 
-   	<div id="a"></div>
-	
     <p>
       <input type="checkbox" id="drop-remove" checked="checked">
       <label for="drop-remove">remove after drop</label>
@@ -505,22 +470,19 @@ height: 25px;
 <div id='calendar'>
 
 <table>
-	<tr class="userlist">
-	<td><input type="checkbox">전체일정</td>
-	<%for(int i=0; i< slist.size(); i++) { %>
-<<<<<<< web/views/calen2.jsp
-	<td><input type="checkbox" value="check<%=i%>" name = "ccc" class="ccc" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
-=======
-	<td><input type="checkbox" value="check<%=i%>" class="ccc" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
->>>>>>> web/views/calen2.jsp
-	<%} %>
+   <tr class="userlist">
+   <td><input type="checkbox">전체일정</td>
+   <%for(int i=0; i< slist.size(); i++) { %>
+   <!-- 계약 회원 체크박스 -->
+   <td><input type="checkbox" value="<%=i%>" class="ccc" name="box" onclick="check(this)"><%=(slist.get(i).getUserName()) %></td>
+   <%} %>
 
-	</tr>
+   </tr>
 </table>
 </div>
 
-		</div> <!-- background-box end -->
-	</div> <!-- outer end -->
+      </div> <!-- background-box end -->
+   </div> <!-- outer end -->
 </div> <!-- mainWrapper end -->
 
 </body>
@@ -534,102 +496,114 @@ height: 25px;
           
 <!-- 유저 리스트 체크 이벤트 -->
 <script>
+
+//체크 박스 클릭시 회색 일정 박스 보이게 함
 function check(box) {
-<<<<<<< web/views/calen2.jsp
-
-/* 	for(int i=0; i < slist.size(); i++) { 
-		int j = 1; 
-		while(j <= slist.get(i).getDelivCount()) {
-		<div class="fc-event">=j회차</div>
-		 j++; }
-	    }   */ 
-		
-		/* var [] Array = new Arraynum();
-		
-	
-	 	var nums = $("input:checkbox[name=ccc]:checked").val();
-	   	console.log(nums); */
-
-		
-	
-  	if(box.checked == true){
-		console.log(box.value + "체크박스 클릭")
-		
-		
-		if(box.value == "check0"){
-			 console.log("1번 유저정보 클릭!")
-			 $('#external-events' ).show(); 
-		} else if(box.value == "check1") {
-			console.log("2번 유저정보 클릭!")
-			$("#external-events").show();
-		}
-}		
-	else{
-		console.log(box.value + "체크박스 해제")
-		
-=======
-	if(box.checked == true){
-		console.log(box.value + "체크박스 클릭")
-		 
-		if(box.value == "check0"){
-			 console.log("1번 클릭!")
-			 $('#external-events' ).show(); 
-		} 
-}		
-	else{
-		console.log(box.value + "체크박스 해제")
-		
->>>>>>> web/views/calen2.jsp
-		if(box.value == "check0"){
-			console.log("1번 해제")
-		$('#external-events').hide();
-		check == true
-		}
-<<<<<<< web/views/calen2.jsp
-	} 
-	 
-	
-	
-=======
-	}
->>>>>>> web/views/calen2.jsp
+if(box.checked == true){
+   if(box.value == "0"){
+       $('#external-events').show(); 
+   } else if(box.value == "1"){
+	   $('#external-events').show();
+   } else if(box.value == "2"){
+	   $('#external-events').show();
+   } else if(box.value == "3"){
+	   $('#external-events').show();
+   }
+}      
+else{
+   if(box.value == "0"){
+   $('#external-events').hide();
+   } else if(box.value == "1"){
+	   $('external-events').hide();
+   } else if(box.value == "2"){
+	   $('external-events').hide();
+   } else if(box.value == "3"){
+	   $('external-events').hide();
+   }
 }
+}
+
+<%-- function check(box) {
+   /************************************************************************************/
+   //계약 회원 체크박스 한개만 선택되게 하기
+   //이름이 chk 인 애들만 배열에 담음
+      var obj = document.getElementsByName("box");
+   //배열 반복문 돌리면서,  
+      var number = 0;  //체크박스에 선택된 회원의 index (= 리스트 순번)
+      for(var i=0; i<obj.length; i++){
+           if(obj[i] != box){ //현재 선택되지 않은 애들은 체크 해제하고
+               obj[i].checked = false;
+           }else{
+              number = i; //선택된 체크박스의 순번을 찾아낸다.
+           }
+       }
+       
+   /************************************************************************************/
+  
+   
+   /************************************************************************************/
+   //현재 선택된 계약 회원의 월 배송횟수 확인한다. 자바의 arraylist를 자바 스크립트에서 바로 쓸 수 없어서
+   //ArrayList 를 javaScript 배열에 새로 담은다음 가져다 쓴다.
+   var jsArray = [];
+   <%for(int i = 0; i < slist.size(); i++) {%>
+      jsArray.push("<%= slist.get(i).getDelivCount()%>");
+   <%}%>
+   //출력
+   console.log("나의 계약 회원들의 배송 횟수 리스트 " + jsArray);
+   //내가 체크박스에서 선택한 회원 index는 number에 담겨 있는데 jsArray에서 이 index 회원의 정보를 가져온다
+   console.log("내가 체크박스 선택한 회원의 배송 횟수 " + jsArray[number] + "회");
+
+   /************************************************************************************/
+   //선택된 체크 박스에 해당하는 유저의 월배송횟수만큼 박스 만들어줌
+
+    
+   for(var i = 0; i < jsArray[number]; i++){
+      if(i == 0){
+        var $a = $("#a");
+         $a.attr('class','fc-event'); //박스에 파란색 한줄
+         $a.html('횟수 : ' + (i + 1 ) + "번째 방문"); //파란색 한줄에 글씨쓰기
+      } else{
+         $b = $("<div>").attr('class','fc-event');
+         $b.html('횟수 : ' + (i + 1 ) + "번째 방문");
+         $a.append($b);
+            if(i = jsArray[number] - 1){
+                $b.before($a); 
+            }
+         
+      }
+   }
+   
+   
+}
+ --%>
+
+
 
 $(function() {
 
-<<<<<<< web/views/calen2.jsp
-    $(document).on("click", ".ccc", function() {
-    	alert("클릭!");
-=======
     $(".ccc").on("click", function() {
->>>>>>> web/views/calen2.jsp
-    	
-    	var member = {
-    			"email":"test@naver.com",
-    			"password":"1234"
-    	}
-	
+       var member = {
+             "email":"test@naver.com",
+             "password":"1234"
+       }
+   
         $.ajax({
-<<<<<<< web/views/calen2.jsp
-        	  url: "/getinfo.da", // 클라이언트가 요청을 보낼 서버의 URL 주소
-=======
-        	  url: "getinfo.da", // 클라이언트가 요청을 보낼 서버의 URL 주소
->>>>>>> web/views/calen2.jsp
-        	    dataType: 'json',                
-        	    type: "POST",                             // HTTP 요청 방식(GET, POST)
-        	    data: JSON.stringify(member), //json을 String으로 파싱
-        	    contentType: "<%=request.getContextPath()%>apllication/json; charset=UTF-8",
-        	    success: function(result) {
-        	    	if (result) {
-        	    		alert("저장되었습니다.");
-        	    		console.log(result);
-        	    	} else {
-        	    		alert("잠시 후에 시도해주세요.");
-        	    	}
-        	    },
-        	    error: function() {
-        	    	alert("에러 발생");
-        	    }
+             url: "getinfo.da", // 클라이언트가 요청을 보낼 서버의 URL 주소
+               dataType: 'json',                
+               type: "POST",                             // HTTP 요청 방식(GET, POST)
+               data: JSON.stringify(member), //json을 String으로 파싱
+               contentType: "<%=request.getContextPath()%>apllication/json; charset=UTF-8",
+               success: function(result) {
+                  if (result) {
+                     alert("저장되었습니다.");
+                     console.log(result);
+                  } else {
+                     alert("잠시 후에 시도해주세요.");
+                  }
+               },
+               error: function() {
+                  alert("에러 발생");
+               }
         })
 
         
@@ -638,13 +612,13 @@ $(function() {
     });
 
 });
-<<<<<<< web/views/calen2.jsp
-</script>  
-   <script>
-  
-   </script>        
-=======
+
+
+
+
+   
+
+
 </script>          
->>>>>>> web/views/calen2.jsp
           
-</html>
+</html>\
