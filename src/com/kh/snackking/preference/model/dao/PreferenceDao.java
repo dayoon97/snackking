@@ -169,6 +169,7 @@ public class PreferenceDao {
 				p.setPreEquipment(rset.getString("PRE_EQUIPMENT"));
 				p.setPreDate(rset.getString("PRE_DATE"));
 				p.setStatus(rset.getString("PRE_STATUS"));
+				p.setCuraStatus(rset.getString("PRE_CURATING"));
 				
 				List.add(p);
 				
@@ -214,6 +215,7 @@ public class PreferenceDao {
 				p.setPreEquipment(rset.getString("PRE_EQUIPMENT"));
 				p.setPreDate(rset.getString("PRE_DATE"));
 				p.setStatus(rset.getString("PRE_STATUS"));
+				p.setCuraStatus(rset.getString("PRE_CURATING"));
 			}
 			
 			
@@ -266,6 +268,7 @@ public class PreferenceDao {
 				cu.setPreNo(rset.getInt("PRE_NO"));
 				cu.setUserCom(rset.getString("COMPANY"));
 				cu.setStatus(rset.getString("PRE_CURATING"));
+				cu.setUserName(rset.getString("USER_NAME"));
 				
 				list.add(cu);
 				
@@ -300,6 +303,30 @@ public class PreferenceDao {
 			close(pstmt);
 			
 		}
+		
+		
+		return result;
+	}
+
+	public int PreCuSratus(Connection con, int cuNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("PreCuStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cuNo);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		
 		
 		return result;

@@ -376,6 +376,7 @@ height: 25px;
                <span id="apply"></span>
                
                <!-- 조회 리스트 테이블 -->
+               <div class="table-scroll" style="overflow: auto; height: 400px;">
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
@@ -390,13 +391,14 @@ height: 25px;
  				<% for(curatingList n : list) { %>
                   <tr class="listBody">
 						<td><%= n.getUserCom() %></td>
-						<td>이름</td>
-						<td><a href=""><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
-						<td><a href=""><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
+						<td><%= n.getUserName() %></td>
+						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
+						<td><a href="<%= request.getContextPath() %>/selectCurating.pre?pno=<%=n.getPreNo() %>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
 						<td><%= n.getStatus() %></td>
 					</tr>
 				<%} %>
                </table>
+               </div>
                <%-- 				<tr>
 				<th >글번호</th>
 				<th width="300px">글제목</th>

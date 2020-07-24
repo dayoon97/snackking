@@ -7,12 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.snackking.board.model.vo.Board;
 import com.kh.snackking.curating.model.vo.CurationList;
 import com.kh.snackking.curating.model.vo.CurationProduct;
+import com.kh.snackking.curating.model.vo.curating;
 
 public class CurationDao {
 	private Properties prop = new Properties();
@@ -122,6 +124,80 @@ public class CurationDao {
 	}
 	
 	
+	public int insertCuratingList(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertCurating");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public curating SelectCuratingListOne(Connection con, int num) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		curating cu = null;
+		
+		String query = prop.getProperty("SelectCuratingListOne");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				cu = new curating();
+				cu.setCuNo(rset.getInt("CU_LIST_NO"));
+				cu.setPreNo(rset.getInt("PRE_NO"));
+				cu.setCuPrice(rset.getInt("PRICE"));
+				cu.setProCount(rset.getInt("AMOUNT"));
+				cu.setUserYN(rset.getString("STATUS"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return cu;
+	}
+
+	public int UpdateCuratingList(Connection con, int cuNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("CuratingUpdate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cuNo);
+			pstmt.setInt(2, cuNo);
+			pstmt.setInt(3, cuNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 }

@@ -1,16 +1,20 @@
 package com.kh.snackking.curating.model.service;
 
 import static com.kh.snackking.common.JDBCTemplate.close;
+import static com.kh.snackking.common.JDBCTemplate.commit;
 import static com.kh.snackking.common.JDBCTemplate.getConnection;
+import static com.kh.snackking.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kh.snackking.contract.model.dao.ContractDao;
 import com.kh.snackking.curating.model.dao.CurationDao;
 import com.kh.snackking.curating.model.vo.CurationList;
 import com.kh.snackking.curating.model.vo.CurationProduct;
+import com.kh.snackking.curating.model.vo.curating;
 
 public class CurationService {
 
@@ -45,6 +49,41 @@ public class CurationService {
 		close(con);
 		
 		return hmap;
+	}
+	
+	public curating insertCuratingList(int num) {
+		Connection con = getConnection();
+		curating cu = null;
+		int result = new CurationDao().insertCuratingList(con, num);
+		System.out.println("result : " + result);
+		if(result > 0) {
+			commit(con);
+			cu = new CurationDao().SelectCuratingListOne(con, num);
+//			if(cu != null) {
+//				
+//			}else {
+//				rollback(con);
+//				cu = null;
+//			}
+		}else {
+			rollback(con);;
+		}
+		close(con);
+		return cu;
+	}
+
+	public int UpdateCuratingList(int cuNo) {
+		Connection con = getConnection();
+		
+		int result = new CurationDao().UpdateCuratingList(con, cuNo);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return 0;
 	}
 
 }

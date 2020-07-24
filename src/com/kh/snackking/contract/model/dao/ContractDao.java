@@ -325,6 +325,4 @@ public class ContractDao {
 		
 		return list;
 	}
-	
-
 }
