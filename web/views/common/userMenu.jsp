@@ -601,7 +601,7 @@
 								<ul class="con">
 									<li><a href="<%=request.getContextPath()%>/views/product/productManagement.jsp">상품 정보 확인</a></li>
 									<li><a href="../product/productStockManagement.jsp">상품 재고 확인</a></li>
-									<li><a href="../product/productOrderManagement.jsp">발주 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/views/product/productOrderManagement.jsp">발주 관리</a></li>
 									<!-- 재고 등록 페이지는 나중에 물류관리자로 옮길것임. -->
 									<!-- 작업할 때 불편해서 여기다 임시로 놓음 -->
 									<li><a href="<%=request.getContextPath()%>/views/product/productStorageManagement.jsp">재고 등록</a></li>
@@ -713,7 +713,7 @@
 						<li>
 							<p class="title">주문 관리</p>
 								<ul class="con">
-									<li><a href="<%= request.getContextPath()%>/selectList.pre">선호도 조사 내역</a></li>
+									<li><a href="<%= request.getContextPath()%>/selectList.pre?pno=<%=loginUser.getUserNo()%>">선호도 조사 내역</a></li>
 									<li><a href="<%= request.getContextPath()%>/curatingList.cu">큐레이팅 관리</a></li>
 									<li><a href="">교환 관리</a></li>
 									<li><a href="">회수 관리</a></li>

@@ -31,7 +31,10 @@ public class SelectListPreference extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Preference> List = new PreferenceService().selectPreference();
+		int pno = Integer.parseInt(request.getParameter("pno"));
+		
+		
+		ArrayList<Preference> List = new PreferenceService().selectPreference(pno);
 		
 		System.out.println("List : " + List);
 		String page="";
