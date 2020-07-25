@@ -32,7 +32,7 @@ public class MatchingSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("EmpName");
+		String name = request.getParameter("name");
 		String company = request.getParameter("company");
 		String phone = request.getParameter("phone");
 		

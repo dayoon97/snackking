@@ -150,7 +150,7 @@ border-radius: 999px;
       			if(loginUser.gettCode().equals("T1") || loginUser.gettCode().equals("T2")) {%>
       		    <button class="loginName" id="login1" onclick="location.href='<%= request.getContextPath()%>/selectPre.pre?num=<%=loginUser.getUserNo()%>'"><%=loginUser.getUserName() %>님</button>
       		    <%}if(loginUser.gettCode().equals("T3")){ %>
-      		    <button class="loginName" id="login2" onclick="location.href='<%= request.getContextPath()%>/adminUserSelect.ad?num=<%=loginUser.getUserNo()%>'"><%=loginUser.getUserName() %>님</button>
+      		    <button class="loginName" id="login2" onclick="location.href='<%= request.getContextPath()%>/mainNewUser'"><%=loginUser.getUserName() %>님</button>
       		    <%}if(loginUser.gettCode().equals("T4")) {%>
       		     <button class="loginName" id="login3"  onclick="location.href='<%= request.getContextPath()%>/selectUserList.us?num=<%=loginUser.getUserNo()%>'"><%=loginUser.getUserName() %>님</button>
       		    <%}if(loginUser.gettCode().equals("T5")) {%>

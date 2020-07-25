@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.*, java.util.*"%>
-<% ArrayList<User> list = (ArrayList<User>) request.getAttribute("list"); %>
+<% ArrayList<User> Alist = (ArrayList<User>) request.getAttribute("Alist"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,16 +68,13 @@
                                     <td>
                                     <div class="dropdown">
                                          <div class="select">
-                                              <span>선택</span>
+                                              <span id="comSelect">선택</span>
                                            <i class="fa fa-chevron-left"></i>
                                          </div>
                                          <ul class="dropdown-menu">
-                                                   <li id="ch"></li>
-                                                   <!-- <li id="">여기다가</li>
-                                                   <li id="">검색한거</li>
-                                                   <li id="">불러오기</li>
-                                                   <li id="">불러오기</li>
-                                                   <li id="">불러오기</li> -->
+                                         <%for(User u : Alist) { %>
+                                                <li><%=u.getCompany() %></li>
+                                          <% } %>
                                          </ul>
                                        </div>
                                     </td>
@@ -116,24 +113,6 @@
                                  </tr>
                               </table>
                      </div>
-<!-- 금액 조회  모달 시작 --------------------------------------------------------------------------->
-                  <!-- The Modal -->
-                  <div id="myModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                      <span class="close">&times;</span>
-                      ssd
-					</div>
-					</div>
-<!-- 금액 조회 모달 끝 --------------------------------------------------------------------------->                           
-                         
-               </div><!-- search-area end ---------------------------------------------------------------------------->
-         </div>   <!-- background-box end -->
-      </div>   <!-- outer end -->
-   </div>   <!-- mainWrapper end -->
-                                
-
-   
 
 
 </body>
@@ -161,27 +140,15 @@ $('.dropdown-menu li').click(function () {
   var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
       msg = '<span class="msg">Hidden input value: ';
   $('.msg').html(msg + input + '</span>');
+  
+  var com = $('#comSelect').text();
+  
+  var company = document.getElementById("company");
+  
+  $(company).attr('value', com);
 }); 
 
-//회사 검색하기
-$(function(){
-	$("#searchBtn").click(function(){
-		var company = document.getElementById("company").value;
-		console.log(company);
-		
-		$.ajax({
-			url: "<%=request.getContextPath()%>/searchCompany",
-			data:{company:company},
-			type:"get",
-			success: function(data){
-				
-			},
-			error: function(data){
-				console.log("에러");
-			}
-		});
-	});
-});
+
 
 //정산내역 등록하기
 $(document).on('click', '#addBtn', function(){
@@ -195,7 +162,7 @@ $(document).on('click', '#addBtn', function(){
 		data: {company:company},
 		type:"get",
 		success:function(data){
-			location.href="<%=request.getContextPath()%>/adjustmentSelect";
+			location.href="<%=request.getContextPath()%>/adjustmentSelect?num=<%=loginUser.getUserNo()%>";
 		},
 		error:function(data){
 			

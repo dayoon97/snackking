@@ -34,14 +34,17 @@ public class AdjustmentListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int no = Integer.parseInt(request.getParameter("num"));
 		
 		ArrayList<HashMap<String, Object>> list = new AdjustmentService().adjustmentSelect();
 		
+		ArrayList<HashMap<String, Object>> Clist = new AdjustmentService().adjustmentCuSelect(no);
 		
 		String page = "";
-		if(list != null) {
+		if((list != null) && (Clist != null)) {
 			page = "views/adjustment/adjustment.jsp";
 			request.setAttribute("list", list);
+			request.setAttribute("Clist", Clist);
 		} else {
 			System.out.println("에러");
 		}

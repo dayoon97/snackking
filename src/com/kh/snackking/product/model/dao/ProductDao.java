@@ -719,6 +719,42 @@ public class ProductDao {
 		return product;
 	}
 
+
+	public ArrayList<Product> selectTotalProduct(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Product> list = null;
+		
+		String query = prop.getProperty("selectTotalProduct");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Product>();
+			while(rset.next()) {
+				Product p = new Product();
+				p.setpCode(rset.getString("PCODE"));
+				p.setPtCode(rset.getString("PT_CODE"));
+				p.setpName(rset.getString("PNAME"));
+				p.setpVendor(rset.getString("PVENDOR"));
+				p.setTotal(rset.getInt("TOTAL"));
+				
+				list.add(p);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
 }
 	
 

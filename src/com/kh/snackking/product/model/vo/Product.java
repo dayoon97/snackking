@@ -16,12 +16,14 @@ public class Product implements Serializable{
 	private String taste; //맛
 	private String allergy; //알레르기
 	private String age; //나이 (20, 30, 40, 50, 60 대 문자열로 합쳐서 받을 예정)
+	private int total;
+	
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Product(String pCode, String pName, int pExp, String pVendor, String ptCode, String ptName, int price,
-			String search_YN, String delete_YN, String flavor, String taste, String allergy, String age) {
+			String search_YN, String delete_YN, String flavor, String taste, String allergy, String age, int total) {
 		super();
 		this.pCode = pCode;
 		this.pName = pName;
@@ -36,6 +38,15 @@ public class Product implements Serializable{
 		this.taste = taste;
 		this.allergy = allergy;
 		this.age = age;
+		this.total = total;
+	}
+	
+	
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	public String getpCode() {
 		return pCode;
@@ -119,6 +130,9 @@ public class Product implements Serializable{
 	public String toString() {
 		return "Product [pCode=" + pCode + ", pName=" + pName + ", pExp=" + pExp + ", pVendor=" + pVendor + ", ptCode="
 				+ ptCode + ", ptName=" + ptName + ", price=" + price + ", search_YN=" + search_YN + ", delete_YN="
-				+ delete_YN + ", flavor=" + flavor + ", taste=" + taste + ", allergy=" + allergy + ", age=" + age + "]";
+				+ delete_YN + ", flavor=" + flavor + ", taste=" + taste + ", allergy=" + allergy + ", age=" + age
+				+ ", total=" + total + "]";
 	}
+	
+	
 }

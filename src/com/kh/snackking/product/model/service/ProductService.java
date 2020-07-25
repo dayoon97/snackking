@@ -5,6 +5,7 @@ import static com.kh.snackking.common.JDBCTemplate.commit;
 import static com.kh.snackking.common.JDBCTemplate.getConnection;
 import static com.kh.snackking.common.JDBCTemplate.rollback;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -208,6 +209,18 @@ public class ProductService {
 		ArrayList<CuratingProduct> list = new ProductDao().CuratingbasketProduct(con, num);
 		
 		close(con);
+		return list;
+	}
+
+
+
+	public ArrayList<Product> selectTotalProduct() {
+		Connection con = getConnection();
+		
+		ArrayList<Product> list = new ProductDao().selectTotalProduct(con);
+		
+		close(con);
+		
 		return list;
 	}
 	

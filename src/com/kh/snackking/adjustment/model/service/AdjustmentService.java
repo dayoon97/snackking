@@ -93,6 +93,16 @@ public class AdjustmentService {
 		
 		return list;
 	}
+
+	public ArrayList<Adjustment> newAdjustmentSelect() {
+		Connection con = getConnection();
+		
+		ArrayList<Adjustment> list = new AdjustmentDao().newAdjustmentSelect(con);
+		
+		close(con);
+		
+		return list;
+	}
 	
 	
 }
