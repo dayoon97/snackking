@@ -32,7 +32,7 @@ public class ProductInsertServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-
+    //ProductAdd 폼에서 데이터 가져옴. 사진이랑 같이~!
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//폼전송을 multipart/form-data로 전송하는 경우에는 
@@ -88,12 +88,64 @@ public class ProductInsertServlet extends HttpServlet {
 			int pExp = Integer.parseInt(multiRequest.getParameter("pExp"));
 			String pVendor = multiRequest.getParameter("pVendor");
 			String ptName = multiRequest.getParameter("ptName");
-			String flavor = multiRequest.getParameter("flavor");
-			String taste = multiRequest.getParameter("taste");
-			String allergy = multiRequest.getParameter("allergy");
-			String age = multiRequest.getParameter("age");
 			int price = Integer.parseInt(multiRequest.getParameter("price"));
+
+			
+			//향 배열에 있는것 하나씩 꺼내서 String 타입 한줄로 만들기
+			String[] f = multiRequest.getParameterValues("flavor");
+			String flavor = "";
+			if(flavor != null) {
+				//넘어온 값이 null이 아니라면, 
+				for(int i = 0; i < f.length; i++) {
+					if(i != 0) {
+						flavor += ",";
+					}
+					flavor += f[i];
+				}
+			}
+			
+			//String flavor = multiRequest.getParameter("flavor");
+			//System.out.println("servlet : " + flavor);
+			//맛 배열에 있는것 하나씩 꺼내서 String 타입 한줄로 만들기
+			String [] t = multiRequest.getParameterValues("taste");
+			String taste= "";
+			if(t != null) {
+				for(int i = 0; i < t.length; i++) {
+					if(i != 0) {
+						taste += ",";
+					}
+					taste += t[i]; 
+				}
+			}
+			
+			//알레르기 배열에 있는것 하나씩 꺼내서 String 타입 한줄로 만들기
+			String []a = multiRequest.getParameterValues("allergy");
+			String allergy = "";
+			if(a != null) {
+				for(int i = 0; i < a.length; i++) {
+					if(i != 0) {
+						allergy += ",";
+					}
+					allergy += a[i];
+				}
+			}
+			
+			
+			String[] ag = multiRequest.getParameterValues("age");
+			String age = "";
+			if(ag != null) {
+				for( int i = 0; i < ag.length; i++) {
+					if(i != 0) {
+						age += ",";
+					}
+					age += ag[i];
+				}
+			}
+			
+			
 			Product product = new Product();
+			
+			
 			if(pName != null) {product.setpName(pName);}
 			if(pExp != 0) {product.setpExp(pExp);}
 			if(pVendor != null) {product.setpVendor(pVendor);}
@@ -107,7 +159,7 @@ public class ProductInsertServlet extends HttpServlet {
 			//System.out.println("servlet product 다 담음: " + product);
 			//0이 돌아오면 이름이 이미 있는거고, 1이 오면 insert 성공
 			
-			
+			///////////////////////////////////////////////////////////////////////////////
 			//1.먼저 입력한 상품명이 기존에 등록된 것인지 중복확인한다. 한번 DAO 갔다옴.
 			//num = 1인 경우 상품이름이 중복이 아니고 num = -1인경우 상품 이름 중복이므로
 			//num = 1일때만 다시 

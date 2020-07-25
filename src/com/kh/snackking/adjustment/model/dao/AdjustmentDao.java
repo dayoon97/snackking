@@ -55,7 +55,6 @@ public class AdjustmentDao {
 				
 				list.add(hmap);
 				
-				System.out.println("최고관리자 정산리스트 " + list);
 			}
 			
 			
@@ -321,5 +320,38 @@ public class AdjustmentDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Adjustment> newAdjustmentSelect(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Adjustment> list = null;
+		
+		String query = prop.getProperty("newAdjustmentSelect");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Adjustment>();
+			
+			while(rset.next()) {
+				Adjustment a = new Adjustment();
+				a.setCompany(rset.getString("COMPANY"));
+				a.setAdJustmentComplete(rset.getString("ADJUSTMENT_COMPLETE"));
+				
+				list.add(a);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
 	}
 }

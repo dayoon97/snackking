@@ -272,6 +272,16 @@ public class UserService {
 		return list;
 	}
 
+	public ArrayList<User> newUserSelect() {
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new UserDao().matchingSearch(con);
+		
+		close(con);
+		
+		return list;
+	}
+
 	
 	
 

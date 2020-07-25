@@ -698,14 +698,14 @@ public class UserDao {
 			
 			rset = pstmt.executeQuery();
 			
+			list = new ArrayList<>();
 			while(rset.next()) {
 				User u = new User();
-				list = new ArrayList<>();
 				u.setCompany(rset.getString("COMPANY"));
 				
 				list.add(u);
 			}
-			
+			System.out.println("회사 드롭박스 리스트 : " + list);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -851,7 +851,7 @@ public class UserDao {
 		int count = 0;
 		ArrayList<User> list = null;
 		String query = "";
-		if(user.getUserName() == null) {count += 1;}
+		if(user.getUserName() == "") {count += 1;}
 		if(user.getCompany() == "") {count += 1;}
 		if(user.getPhone() == "") {count += 1;}
 		
@@ -861,17 +861,17 @@ public class UserDao {
 			query = "SELECT U2.USER_NAME AS EMP_NAME, U1.USER_NAME, U1.COMPANY, U1.PHONE, U1.ADDRESS FROM USER_INFO U1, USER_INFO U2 WHERE U1.MANAGER = U2.USER_NO AND ";
 		
 			
-			if(user.getUserName() != null) {
+			if(user.getUserName() != "") {
 				//날짜를 그냥 where 조건문에 넣었더니 계속 조회가 안됨
 				//날짜 YY/MM/DD 형식으로 바꾸기
 				
-				query += "USER_NAME LIKE '%'||'" + user.getUserName() + "'||'%' AND ";}
+				query += "U2.USER_NAME LIKE '%'||'" + user.getUserName() + "'||'%' AND ";}
 			
-			if(user.getCompany() != "") { query += "COMPANY LIKE '%'||'" + user.getCompany() + "'||'%' AND ";}
-			if(user.getPhone() != "") { query += "PHONE LIKE '%'||'" + user.getPhone() + "'||'%' AND ";}
+			if(user.getCompany() != "") { query += "U1.COMPANY LIKE '%'||'" + user.getCompany() + "'||'%' AND ";}
+			if(user.getPhone() != "") { query += "U1.PHONE LIKE '%'||'" + user.getPhone() + "'||'%' AND ";}
 
-			if(query.substring(query.length()-4).equals(" AND ")) {
-				query = query.substring(0, query.length()-4);
+			if(query.substring(query.length()-5).equals(" AND ")) {
+				query = query.substring(0, query.length()-5);
 				//query += ";";
 			}
 			//query += "STATUS = 'Y'";
@@ -907,6 +907,37 @@ public class UserDao {
 		return list;
 		
 		
+	}
+
+	public ArrayList<User> matchingSearch(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("SelectNewUser");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<User>();
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				
+				list.add(u);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
 	}
 
 

@@ -47,7 +47,10 @@ public class InsertAdjustmentServlet extends HttpServlet {
 			
 			new Gson().toJson(list, response.getWriter());
 		} else {
-			System.out.println("에러");
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson(list, response.getWriter());
 		}
 		request.getRequestDispatcher(page).forward(request, response);	
 		

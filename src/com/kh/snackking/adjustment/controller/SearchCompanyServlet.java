@@ -36,13 +36,17 @@ public class SearchCompanyServlet extends HttpServlet {
 		
 		System.out.println(num);
 		
-		ArrayList<User> list = new UserService().searchCompany(num);
-		
+		ArrayList<User> Alist = new UserService().searchCompany(num);
+	
+		System.out.println(Alist);
 		
 		String page = "";
-		if(list != null) {
+		if(Alist != null) {
+			System.out.println("서블릿 확인");
 			page = "views/adjustment/adjustmentAdd.jsp";
-			request.setAttribute("list", list);
+			request.setAttribute("Alist", Alist);
+		} else {
+			System.out.println("흑흑");
 		}
 		request.getRequestDispatcher(page).forward(request, response);		
 

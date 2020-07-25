@@ -137,17 +137,17 @@ public class PreferenceDao {
 		return p;
 	}
 
-	public ArrayList<Preference> selectPreference(Connection con) {
-		Statement stmt = null;
+	public ArrayList<Preference> selectPreference(Connection con, int pno) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Preference> List = null;
 		
 		String query = prop.getProperty("selectPreference");
 		
 		try {
-			stmt = con.createStatement();
-			
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pno);
+			rset = pstmt.executeQuery();
 			
 			List = new ArrayList<Preference>();
 			while(rset.next()) {
@@ -178,7 +178,7 @@ public class PreferenceDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		return List;
@@ -382,6 +382,53 @@ public class PreferenceDao {
 	}
 
 
+	public ArrayList<Preference> selectPreference2(Connection con, int pno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Preference> List = null;
+		
+		String query = prop.getProperty("selectPreference2");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pno);
+			
+			rset = pstmt.executeQuery();
+			
+			List = new ArrayList<Preference>();
+			while(rset.next()) {
+				Preference p = new Preference();
+				
+				p.setUserNo(rset.getInt("USER_NO"));
+				p.setUserName(rset.getString("USER_NAME"));
+				p.setUserCom(rset.getString("COMPANY"));
+				p.setPreNo(rset.getInt("PRE_NO"));
+				p.setPreBudget(rset.getInt("PRE_BUDGET"));
+				p.setPrePersonnel(rset.getInt("PRE_PERSONNEL"));
+				p.setPreAge(rset.getString("PRE_AGE"));
+				p.setPreProductTypes(rset.getString("PRE_PROTYPES"));
+				p.setPreTaste(rset.getString("PRE_TASTE"));
+				p.setPreFlavor(rset.getString("PRE_FLAVOR"));
+				p.setPreEtcFlavor(rset.getString("PRE_ETCFLAVOR"));
+				p.setPreAlName(rset.getString("PRE_ALNAME"));
+				p.setPreStyle(rset.getString("PRE_STYLE"));
+				p.setPreEquipment(rset.getString("PRE_EQUIPMENT"));
+				p.setPreDate(rset.getString("PRE_DATE"));
+				p.setStatus(rset.getString("PRE_STATUS"));
+				p.setCuraStatus(rset.getString("PRE_CURATING"));
+				
+				List.add(p);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return List;
+	}
 
 
 }

@@ -636,6 +636,7 @@ td {
 					
 					$.each(data, function(index, value){
 						var $tr = $("<tr class='listBody'>");
+						var $numTd = $("<td>").text(index+1);
 						var $managerTd = $("<td>").text(decodeURIComponent(value.manager));
 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
 						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
@@ -644,6 +645,7 @@ td {
 						var $endTr = $("</tr>");
 						
 						
+						$tr.append($numTd);
 						$tr.append($managerTd);
 						$tr.append($userNameTd);
 						$tr.append($companyTd);

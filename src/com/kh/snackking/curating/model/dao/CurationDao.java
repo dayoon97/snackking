@@ -17,7 +17,10 @@ import com.kh.snackking.curating.model.vo.CurationList;
 import com.kh.snackking.curating.model.vo.CurationProduct;
 import com.kh.snackking.curating.model.vo.curating;
 import com.kh.snackking.preference.model.vo.curatingList;
+<<<<<<< src/com/kh/snackking/curating/model/dao/CurationDao.java
 import com.kh.snackking.product.model.vo.CuratingProduct;
+=======
+>>>>>>> src/com/kh/snackking/curating/model/dao/CurationDao.java
 
 public class CurationDao {
 	private Properties prop = new Properties();
@@ -246,6 +249,7 @@ public class CurationDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, cuNo);
 			
+			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				cu = new curating();
 				cu.setCuNo(rset.getInt("CU_LIST_NO"));
@@ -267,6 +271,7 @@ public class CurationDao {
 		return cu;
 	}
 
+<<<<<<< src/com/kh/snackking/curating/model/dao/CurationDao.java
 	public ArrayList<CurationList> selectAllList(Connection con) {
 		
 		Statement stmt = null;
@@ -342,39 +347,85 @@ public class CurationDao {
 		}
 		
 		return list;
+=======
+	public ArrayList<curatingList> CuratingListSearch(Connection con, curatingList cu) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<curatingList> cuList = null;
+		Integer cuNo = cu.getCuNo();
+		
+		String query = "SELECT CU_LIST_NO, PRE_NO, USER_NAME, CL_DATE,PRICE , AMOUNT, STATUS"
+				         + " , COMPANY "
+				       + "FROM (SELECT CL.CU_LIST_NO, CL.PRE_NO, I.USER_NAME, CL.CL_DATE, PRICE "
+				                  + ", CL.AMOUNT, CL.STATUS, I.COMPANY"
+				              + " FROM CURATING_LIST CL "
+				              + " JOIN USER_PRE PRE ON(CL.PRE_NO = PRE.PRE_NO) "
+				              + " JOIN USER_INFO I ON (I.USER_NO = PRE.USER_NO) "
+				             + " WHERE PRE.PRE_STATUS = 'Y' AND PRE.PRE_CURATING = 'Y')";
+		if(cu.getPreNo() > 0 || cu.getUserCom() != null || cu.getUserName() != null || cu.getStatus() != null
+				&& cu.getUserCom() != "" || cu.getUserName() != "" || cu.getStatus() != "") {
+			int count = 0;
+			if (cu.getPreNo() > 0 && count == 0) {
+				query += "WHERE ";
+				query += "PRE_NO = "+ cu.getPreNo() +" ";
+				count++;
+			}
+			
+			if(cu.getUserCom() != null && cu.getUserCom() != "" && count == 0) {
+				query += "WHERE ";
+				query += "COMPANY LIKE '%'||'"+ cu.getUserCom() + "'||'%' ";
+				count++;
+			}else if(cu.getUserCom() != null && cu.getUserCom() != "" && count > 0){
+				query += "OR COMPANY LIKE '%'||'"+ cu.getUserCom() + "'||'%' ";
+			}
+			
+			if(cu.getUserName() != null && cu.getUserName() != "" && count == 0) {
+				query += "WHERE ";
+				query += "USER_NAME LIKE '%'||'"+ cu.getUserName() +"'||'%' ";
+				count++;
+			}else if(cu.getUserName() != null && cu.getUserName() != "" && count > 0){
+				query += "OR USER_NAME LIKE '%'||'"+ cu.getUserName() +"'||'%' ";
+			}
+			
+			if(cu.getStatus() != null && cu.getStatus() != "" && count == 0) {
+				query += "WHERE ";
+				query += "STATUS = '" + cu.getStatus() + "'";
+				count++;
+			}else if(cu.getStatus() != null && cu.getStatus() != "" && count > 0){
+				query += "OR STATUS = '" + cu.getStatus() + "'";
+			}
+		}
+		System.out.println("QUERT : " + query);
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			cuList = new ArrayList<curatingList>();
+			
+			while(rset.next()) {
+				curatingList c = new curatingList();
+				c.setCuNo(rset.getInt("CU_LIST_NO"));
+				c.setPreNo(rset.getInt("PRE_NO"));
+				c.setUserCom(rset.getString("COMPANY"));
+				c.setUserName(rset.getString("USER_NAME"));
+				c.setStatus(rset.getString("STATUS"));
+				
+				cuList.add(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+			
+		}
+		return cuList;
+>>>>>>> src/com/kh/snackking/curating/model/dao/CurationDao.java
 	}
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
