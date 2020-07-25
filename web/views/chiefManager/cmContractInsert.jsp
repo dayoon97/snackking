@@ -313,7 +313,7 @@ height: 25px;
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-	<%@ include file="../common/cmMain.jsp" %>
+	<%@ include file="../common/userMenu.jsp" %>
 	
 	<!-- outer start -->
 	<div id="outer">

@@ -13,16 +13,16 @@ import com.kh.snackking.user.model.service.UserService;
 import com.kh.snackking.user.model.vo.User;
 
 /**
- * Servlet implementation class InsertContractUserListServlet
+ * Servlet implementation class ContractUserManagementServlet
  */
-@WebServlet(name = "insertContractUserListServlet.co", urlPatterns = { "/insertContractUserList.co" })
-public class InsertContractUserListServlet extends HttpServlet {
+@WebServlet("/contractUserManagement.co")
+public class ContractUserManagementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertContractUserListServlet() {
+    public ContractUserManagementServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,22 +32,23 @@ public class InsertContractUserListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		System.out.println("유저리스트 서블릿 잘 나오나요~??");
-		ArrayList<User> adminlist = new UserService().adminUserList(); 
+		//유저 정보 가지고 와야하니까 유저에서 씁니당
+		ArrayList<User> conUserList = new UserService().conUserList();
 		
-//		System.out.println("회원 리스트 : " + adminlist);
+		//확인용으로 적어봅니당
+		System.out.println("계약회원 리스트 : " + conUserList);
 		
 		String page = "";
-		if(adminlist != null) {
-			page = "views/chiefManager/cmContractUserList.jsp";
-			request.setAttribute("list", adminlist);
+		if(conUserList != null) {
+			page = "views/chiefManager/cmContractUserManagement.jsp";
+			
 		} else {
-			System.out.println("에러");
+			
 		}
 		
-		request.getRequestDispatcher(page).forward(request, response);
-	
-	
+		
+		
+		
 	}
 
 	/**
