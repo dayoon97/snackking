@@ -17,10 +17,7 @@ import com.kh.snackking.curating.model.vo.CurationList;
 import com.kh.snackking.curating.model.vo.CurationProduct;
 import com.kh.snackking.curating.model.vo.curating;
 import com.kh.snackking.preference.model.vo.curatingList;
-<<<<<<< src/com/kh/snackking/curating/model/dao/CurationDao.java
 import com.kh.snackking.product.model.vo.CuratingProduct;
-=======
->>>>>>> src/com/kh/snackking/curating/model/dao/CurationDao.java
 
 public class CurationDao {
 	private Properties prop = new Properties();
@@ -271,7 +268,6 @@ public class CurationDao {
 		return cu;
 	}
 
-<<<<<<< src/com/kh/snackking/curating/model/dao/CurationDao.java
 	public ArrayList<CurationList> selectAllList(Connection con) {
 		
 		Statement stmt = null;
@@ -347,7 +343,7 @@ public class CurationDao {
 		}
 		
 		return list;
-=======
+	}
 	public ArrayList<curatingList> CuratingListSearch(Connection con, curatingList cu) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -421,8 +417,40 @@ public class CurationDao {
 			
 		}
 		return cuList;
->>>>>>> src/com/kh/snackking/curating/model/dao/CurationDao.java
 	}
+	
+	public ArrayList<CurationList> newCuratingStatus(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<CurationList> list = null;
+		
+		String query = prop.getProperty("newCuratingStatus");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<CurationList>();
+			
+			while(rset.next()) {
+				CurationList cu = new CurationList();
+				cu.setCompany(rset.getString("COMPANY"));
+				cu.setStatus(rset.getString("STATUS"));
+				
+				list.add(cu);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
 	
 	
 }
