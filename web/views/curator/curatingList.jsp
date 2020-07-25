@@ -332,6 +332,7 @@ height: 25px;
                            <td style="width:110px;">큐레이팅 여부 : </td>
                           <!--  <td><input type="text" class="searchTextBox" size="7">
                            </td> -->
+                                       
                                                       
                            <td width="200px">
                               <!-- <select id="searchCondition" name="searchCondition">
