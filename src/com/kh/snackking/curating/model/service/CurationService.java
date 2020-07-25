@@ -105,7 +105,7 @@ public class CurationService {
 		} else {
 			rollback(con);
 		}
-		
+		close(con);
 		return list;
 	}
 
@@ -119,14 +119,12 @@ public class CurationService {
 		return cu;
 	}
 
-	public ArrayList<CurationList> newCuratingStatus() {
+	public ArrayList<curatingList> CuratingListSearch(curatingList cu) {
 		Connection con = getConnection();
 		
-		ArrayList<CurationList> list = new CurationDao().newCuratingStatus(con);
-		
+		ArrayList<curatingList> cuList = new CurationDao().CuratingListSearch(con, cu);
 		close(con);
-		
-		return list;
+		return cuList;
 	}
 
 }

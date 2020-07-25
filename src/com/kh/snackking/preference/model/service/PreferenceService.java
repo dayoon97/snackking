@@ -65,10 +65,10 @@ public class PreferenceService {
 		return Pre;
 	}
 
-	public ArrayList<Preference> selectPreference() {
+	public ArrayList<Preference> selectPreference(int pno) {
 		Connection con = getConnection();
 		
-		ArrayList<Preference> List = new PreferenceDao().selectPreference(con);
+		ArrayList<Preference> List = new PreferenceDao().selectPreference(con, pno);
 		System.out.println("srtvice List : " + List);
 		if(List != null) {
 			commit(con);
@@ -104,7 +104,7 @@ public class PreferenceService {
 		int result = new PreferenceDao().delicatePreference(con, pno);
 		
 		if(result > 0) {
-			 pre = new PreferenceDao().selectPreference(con);
+			 pre = new PreferenceDao().selectPreference2(con, pno);
 			 if(pre != null) {
 				 commit(con);
 				 

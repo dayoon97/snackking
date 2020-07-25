@@ -11,23 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.snackking.curating.model.service.CurationService;
 import com.kh.snackking.curating.model.vo.curating;
-import com.kh.snackking.preference.model.service.PreferenceService;
-import com.kh.snackking.preference.model.vo.Preference;
-import com.kh.snackking.product.model.service.ProductService;
-import com.kh.snackking.product.model.vo.CuratingProduct;
-import com.kh.snackking.product.model.vo.Product;
+import com.kh.snackking.preference.model.vo.curatingList;
 
 /**
- * Servlet implementation class UpdateCuratingSelect
+ * Servlet implementation class CuratingListSearch
  */
-@WebServlet("/updateCuratingSelect.cu")
-public class UpdateCuratingSelect extends HttpServlet {
+@WebServlet("/curatingListSearch.cu")
+public class CuratingListSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateCuratingSelect() {
+    public CuratingListSearch() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,27 +32,34 @@ public class UpdateCuratingSelect extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cuNo = Integer.parseInt(request.getParameter("pno"));
+		String status = request.getParameter("Job-code"); //유저 확인여부
+		String userCompany = request.getParameter("userCompany"); //회사명
+		String userName= request.getParameter("userName"); //유저이름
+		String preNo = request.getParameter("preNo"); // 선호도 번호
 		
-		Preference pre = new PreferenceService().UpdateCuratingSelect(cuNo);
 		
-		curating cu = new CurationService().UpdateCuratingSelect(cuNo);
+		curatingList cu = new curatingList();
+		cu.setUserCom(userCompany);
+		cu.setUserName(userName);
+		cu.setStatus(status);
 		
-		ArrayList<Product> selectProduct = new ProductService().CuratorSelectProduct(pre);
+		if(preNo != null && preNo != "") {
+			int pno = Integer.parseInt(preNo);
+			cu.setPreNo(pno);
+		}
 		
-		ArrayList<CuratingProduct> basketProduct = new ProductService().CuratingbasketProduct(cuNo);
+		ArrayList<curatingList> cuList = new CurationService().CuratingListSearch(cu);
 		
 		String page = "";
-		if(pre != null) {
-			page = "views/curator/curatingForm.jsp";
-			request.setAttribute("insertPre", pre);
-			request.setAttribute("Product", selectProduct);
-			request.setAttribute("cuList", basketProduct);
-			request.setAttribute("cu", cu);
+		if(cuList != null) {
+			page = "views/curator/curatingList.jsp";
+			request.setAttribute("culist", cuList);
 		}else {
-			System.out.println("에러");
+			page = "views/curator/curatingList.jsp";
+			request.setAttribute("culist", cuList);
 		}
 		request.getRequestDispatcher(page).forward(request, response);
+		
 	}
 
 	/**

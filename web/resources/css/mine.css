@@ -271,6 +271,9 @@
 		text-align: center;
 		color: #FFFFFF;
 	}
+	.abc{
+	margin-left: 45px;
+	}
 	/*긴 노란 버튼*/
 	.btn1{
 		border:0;
@@ -595,9 +598,7 @@ margin-left: auto;
 margin-right: auto;
 border-spacing: 15px 0;
 }
-.productSearchListTable td{
-height: 80px;
-}
+
 .approval-btn, .detail-btn{
 	  width: 80px;
       height: 100%;
@@ -727,8 +728,6 @@ margin: 20px;
 #listTable7 th:nth-of-type(7){width:148px; important!}
 #listTable7 td:nth-of-type(7){width:128px; important!}
 
-
-
 /*열 8개짜리 정산서 테이블*/
 #listTable-adjustment th:nth-of-type(1), #listTable-adjustment td:nth-of-type(1){width:75px; important!}
 #listTable-adjustment th:nth-of-type(2), #listTable-adjustment td:nth-of-type(2){width:75px; important!}
@@ -795,8 +794,8 @@ margin: 20px;
 #listTable11 th:nth-of-type(11){width:130px; important!}
 #listTable11 td:nth-of-type(11){width:110px; important!}
 
-/*열 12개짜리 테이블*/
-#listTable12 th:nth-of-type(1), #listTable12 td:nth-of-type(1){width:30px; important!}
+/* /*열 12개짜리 테이블*/
+#listTable12 th:nth-of-type(1), #listTable12 td:nth-of-type(1){width:80px; important!}
 #listTable12 th:nth-of-type(2), #listTable12 td:nth-of-type(2){width:30px; important!}
 #listTable12 th:nth-of-type(3), #listTable12 td:nth-of-type(3){width:100px; important!}
 #listTable12 th:nth-of-type(4), #listTable12 td:nth-of-type(4){width:100px; important!}
@@ -806,14 +805,15 @@ margin: 20px;
 #listTable12 th:nth-of-type(8), #listTable12 td:nth-of-type(8){width:75px; important!}
 #listTable12 th:nth-of-type(9), #listTable12 td:nth-of-type(9){width:75px; important!}
 #listTable12 th:nth-of-type(10), #listTable12 td:nth-of-type(10){width:100px; important!}
-#listTable12 th:nth-of-type(11), #listTable12 td:nth-of-type(11){width:85px; important!}
+#listTable12 th:nth-of-type(11), #listTable12 td:nth-of-type(11){width:70px; important!}
 #listTable12 th:nth-of-type(12){width:100px; important!}
-#listTable12 td:nth-of-type(12){width:80px; important!}
+#listTable12 td:nth-of-type(12){width:100px; important!} 
 
 /*리스트 컬럼 10,11,12개 짜리  테이블 바디 선 스타일*/
 #listTable5 tbody tr,#listTable10-1 tbody tr,#listTable7 tbody tr, #listTable6 tbody tr, #listTable10 tbody tr, #listTable11 tbody tr, #listTable12 tbody tr, #listTable13 tbody tr, #listTable tbody tr{
 border-bottom:3px solid #EBEAEA;
 height: 36px;
+width: 1000px;
 }
 
 /*리스트 컬럼 10,11, 12개 짜리  테이블  헤더 기본 높이 및 폰트 스타일*/
@@ -841,7 +841,7 @@ display: block;
 }
 
 /*리스트 테이블 컬럼 10,11, 12개 짜리  바디 기본 높이*/
-#listTable5 tbody,#listTable10-1 tbody,#listTable6 tbody,#listTable7 tbody, #listTable10 tbody, #listTable11 tbody, #listTable12 tbody, #listTable13 tbody, #listTable tbody{
+#listTable5 tbody,#listTable10-1 tbody,#listTable6 tbody,#listTable7 tbody, #listTable10 tbody, #listTable11 tbody, #listTable13 tbody, #listTable tbody{
 display: block;
 height: 280px;
 overflow-y: auto !important;

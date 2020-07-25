@@ -13,7 +13,20 @@
 	top:300px !important;
 	right:90px !important;
 	}
-
+.modaltableWrap{
+	height: 200px;
+	overflow: auto;
+	display: inline-block;
+	overflow-x: hidden;
+}
+.modaltableWrap::-webkit-scrollbar {
+		width: 5px;
+		padding-top: 10px;
+}
+.modaltableWrap::-webkit-scrollbar-thumb {
+		background-color: #D9D9D9;
+		border-radius: 3px;
+}
 </style>
 
 </head>
@@ -172,6 +185,7 @@
 					<span id="apply">조회 결과 수 :</span>
 						<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
+					<div>
 					<table id="listTable12" class="productSearchListTable">
 						<thead>
 							<!-- 테이블 헤드 -->
@@ -190,25 +204,19 @@
 								<th>나이</th>
 							</tr>
 						</thead>
-						<tbody style="height: 230px !important;">
+						<tbody style="height: 230px !important;" class="modaltableWrap">
 						<!-- 리스트 바디  -->
 						</tbody>
-							<tfoot style="float: right;">
-								<tr>
-									<td>
-										<button onclick="addProduct();" class="searchBtn" id="btnAddProduct">추가</button>
-									</td>
-									<td>
-										<button onclick="updateProduct();" class="searchBtn" id="btnUpdateProduct">수정</button>
-									</td>
-									<td>
-										<button class="searchBtn" id="btnDeleteProduct">삭제</button>
-									</td>
-								</tr>
-							</tfoot>
 					</table>
-					<!-- 테이블 끝 -->
 				</div>
+					</div>
+					<!-- 테이블 끝 -->
+						<div style="margin-top: 500px; margin-left: 700px;">
+							<button onclick="addProduct();" class="searchBtn" style="margin-right: 15px;" id="btnAddProduct">추가</button>
+							<button onclick="updateProduct();" class="searchBtn" style="margin-right: 15px;" id="btnUpdateProduct">수정</button>
+							<button class="searchBtn" id="btnDeleteProduct">삭제</button>
+						</div>
+				
 		</div>	<!-- background-box end -->
 	</div>	<!-- outer end -->
 </div>	<!-- mainWrapper end -->
@@ -307,7 +315,7 @@ $(function() {
 		 	 						var $td8 = $("<td>").text(data[key].flavor);
 		 	 						var $td9 = $("<td>").text(data[key].taste);
 		 							var $td10 = $("<td>").text(data[key].allergy);
-		 							var $td11 = $("<td>").text(data[key].pExp);
+		 							var $td11 = $("<td>").text(data[key].pExp + '개월');
 		 							var $td12 = $("<td>").text(data[key].age);
 		 							$tr.append($td1);
 		 	 						$tr.append($td2);
@@ -325,7 +333,7 @@ $(function() {
 		 						}	
 		 					
 		 						
-		 					alert("조회에 성공했네욤 ^-^!!");
+		 					alert("조회 성공하셨습니다");
 		 						
 		 						
 	 				},
@@ -344,15 +352,34 @@ $(function() {
 		location.href="<%=request.getContextPath() %>/views/product/productAdd.jsp";
 	};
 
-	//수정 버튼 클릭시
-	function updateProduct() {
-		location.href="<%=request.getContextPath() %>/views/product/productUpdate.jsp";
-	};
+	
+	
+	//수정 버튼 클릭시 상품정보 업데이트
+	$(function updateProduct() {
+		//수정할 대상의 상품 코드가 담길 변수를 만든다.
+		var strUpdate = "";
+		//체크박스 업데이트 변수에 name 이 chk이고 checked 속성인(:) input 타입 요소들을 담는다.
+		var checkboxUpdate = $("input[name=chk]:checked");
+			//각 요소들에 each(function(i){} 을 이용해서 반복문을 실행한다.
+			checkbox.each(function(i){
+				//checkbox 요소인 input type 요소들의 부모인 td, 그리고 td의 부모인 tr 중에서 i번째 순서인 tr을 담는다. 
+				var trUpdate = checkbox.parent().parent().eq(i);
+				//td 변수에는 tr의 자손요소인 td를 담는다. 
+				var tdUpdate = trUpdate.children();
+				//현재 선택된 tr안에 있는 td들 중에서 세번째 td를 선택한 후 그 안에 있는 문자를 가져온다.
+				//$(셀렉터).html() : 하위에 있는 자식 태그들을 태그나 문자 상관없이 다 가져온다. > <  안에 있는 것 전부
+				//$(셀렉터).text() : 하위에 있는 자식 태그들의 문자열만 출력한다.
+				//text()라서 세번째 td의 내용인 상품코드를 가져온다.
+				strUpdate = tdUpdate.eq(2).text();
+			});
+			console.log(strUpdate);
+			//strUpdate가 변수라서 "로 주소 닫아주고 + 해줌.
+		location.href="<%=request.getContextPath() %>/views/product/updateProduct?tCode=" + strUpdate;
+	});
 	
 	
 /***************************************************************************************/
 //삭제 버튼 클릭시 상품 조회 안되게 update 하기
-	$(function() {
 		$("#btnDeleteProduct").click(function(){
 			//체크 된 것 조회 불가능하게 상태 UPDATE
 			var str = "";
@@ -372,60 +399,9 @@ $(function() {
 				//console.log("성공");
 					if(data > 0){
 						alert("삭제 성공!");
-						//조회하러 다시 갔다오기
-						
-						
+						//새로 고침함
+						location.reload();
 						/************************************************************/
-						 //삭제 성공하고 ajax 한번 더 갔다옴
-						$.ajax({
-								url: "<%=request.getContextPath()%>/selectProductRenewList",
-								type: "get",
-								success: function(data){
-									//조회 내용으로 다시 출력해주기
-									//console.log("성공");
-									$tableBody = $(".productSearchListTable tbody");
-									$tableBody.html('');
-									$tableBody.find("tr").remove();
-									var num = 1;
-				 						for(var key in data){
-				 							var $tr =  $("<tr>").attr('class','listBody');
-				 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
-				 							var $td2 = $("<td>").text(num);
-				 							num += 1;
-				 							var $td3 = $("<td>").text(data[key].pCode);
-				 							var $td4 = $("<td>").text(data[key].pName);
-				 							var $td5 = $("<td>").text(" 사진 넣기 ");
-				 							var $td6 = $("<td>").text(data[key].ptName);
-				 	 						var $td7 = $("<td>").text(data[key].price);
-				 	 						var $td8 = $("<td>").text(data[key].flavor);
-				 	 						var $td9 = $("<td>").text(data[key].taste);
-				 							var $td10 = $("<td>").text(data[key].allergy);
-				 							var $td11 = $("<td>").text(data[key].pExp);
-				 							var $td12 = $("<td>").text(data[key].age);
-				 							$tr.append($td1);
-				 	 						$tr.append($td2);
-				 	 						$tr.append($td3);
-				 	 						$tr.append($td4);
-				 	 						$tr.append($td5);
-				 	 						$tr.append($td6);
-				 	 						$tr.append($td7);
-				 	 						$tr.append($td8);
-				 	 						$tr.append($td9);
-				 	 						$tr.append($td10);
-				 	 						$tr.append($td11);
-				 							$tr.append($td12);
-				 							$tableBody.append($tr);
-				 						}	
-					 			},
-				 				error: function(error){
-				 					console.log("에러!" + error);
-				 				}
-							}); 
-					
-						/************************************************************/
-
-						
-						
 					}else{
 						alert("삭제 실패!");
 					}
@@ -435,7 +411,7 @@ $(function() {
  				}
 			}); 
 		});
-	});
+
 
 
 </script>
