@@ -851,24 +851,24 @@ public class UserDao {
 		int count = 0;
 		ArrayList<User> list = null;
 		String query = "";
-		if(user.getUserName() == "") {count += 1;}
+		if(user.getUserName() == null) {count += 1;}
 		if(user.getCompany() == "") {count += 1;}
 		if(user.getPhone() == "") {count += 1;}
 		
 		if(count == 3) {
-			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE FROM USER_INFO WHERE MANAGER = ?";
+			query = "SELECT U2.USER_NAME AS EMP_NAME, U1.USER_NAME, U1.COMPANY, U1.PHONE, U1.ADDRESS FROM USER_INFO U1, USER_INFO U2 WHERE U1.MANAGER = U2.USER_NO ";
 		}else {
-			query = "SELECT USER_NO , USER_ID , COMPANY , USER_NAME , ADDRESS , PHONE , ENROLL_DATE FROM USER_INFO WHERE MANAGER = ? AND ";
+			query = "SELECT U2.USER_NAME AS EMP_NAME, U1.USER_NAME, U1.COMPANY, U1.PHONE, U1.ADDRESS FROM USER_INFO U1, USER_INFO U2 WHERE U1.MANAGER = U2.USER_NO AND ";
 		
 			
-			if(user.getUserName() != "") {
+			if(user.getUserName() != null) {
 				//날짜를 그냥 where 조건문에 넣었더니 계속 조회가 안됨
 				//날짜 YY/MM/DD 형식으로 바꾸기
 				
 				query += "USER_NAME LIKE '%'||'" + user.getUserName() + "'||'%' AND ";}
 			
 			if(user.getCompany() != "") { query += "COMPANY LIKE '%'||'" + user.getCompany() + "'||'%' AND ";}
-			if(user.getPhone() != null) { query += "PHONE LIKE '%'||'" + user.getPhone() + "'||'%' AND ";}
+			if(user.getPhone() != "") { query += "PHONE LIKE '%'||'" + user.getPhone() + "'||'%' AND ";}
 
 			if(query.substring(query.length()-4).equals(" AND ")) {
 				query = query.substring(0, query.length()-4);
