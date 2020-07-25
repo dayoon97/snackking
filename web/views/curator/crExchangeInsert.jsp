@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.snackking.preference.model.vo.curatingList , java.util.*"%>
-<% ArrayList<curatingList> list = (ArrayList<curatingList>) request.getAttribute("culist"); %>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style>
+
+<style type="text/css">
    #outer {
       margin-left: 265px;
       margin-right: 35px;
@@ -298,15 +298,20 @@ height: 25px;
    margin-right: auto;
    display: table;
 }
+
+
+
+</script>
+
 </style>
-
-
 </head>
+
 <body>
+
 <!-- mainWrapper start -->
 <div id="mainWrapper">
 
-<%@ include file="../common/userMenu.jsp" %> 
+<%@ include file="../common/cmMain.jsp" %>
    <!-- outer start -->
    <div id="outer">
       <!-- background-box start -->
@@ -314,9 +319,10 @@ height: 25px;
       
          <!-- title-area start -->
          <div id="titleArea">
-            <div id="mainTitle">주문 관리</div>
+            <div id="mainTitle">주문관리
+            </div>
             <div id="line1"></div>
-            <div id="subTitle">큐레이팅 내역 조회</div>
+            <div id="subTitle">교환 등록</div>
          </div>   <!--title-area end -->
          
          <!-- search-area start -->
@@ -325,15 +331,17 @@ height: 25px;
             <div id="subSubTitle1">내역 조회</div>
                <!-- searchBox start -->
                <div id="searchBox">
-                  <form id="searchForm" action="<%= request.getContextPath() %>/curatingListSearch.cu" method="post">
+                  <form id="searchForm">
                      <table class="memberTable">
                         <tr>
                            <!-- 검색 내용 타이핑하는 부분 -->
-                           <td style="width:110px;">큐레이팅 여부 : </td>
+                           
                           <!--  <td><input type="text" class="searchTextBox" size="7">
                            </td> -->
-                                       
-                                                      
+                           
+                           <td>회원 ID</td>
+                           <td><input type="text" name="회원아이디" size="5"></td>
+                           <td>문의타입</td>                     
                            <td width="100px">
                               <!-- <select id="searchCondition" name="searchCondition">
                                  <option value="none">==선택==</option>
@@ -347,25 +355,38 @@ height: 25px;
                                  </div>
                                  <input type="hidden" name="Job-code">
                                  <ul class="dropdown-menu">
-                                    <li id="Y">Y</li>
-                                    <li id="N">N</li>
+                                    <li id="change-que">교환문의</li>
+                                    <li id="feedback-que">피드백문의</li>
+                                    <li id="one-que">1:1문의</li>
                                  </ul>
                               </div>
                            </td>
                            
                            
-                           <td width="60px">상호명  :</td>                              
-                           <td><input type="text" class="searchTextBox" name="userCompany" size="7"></td>
+                                                       
+                           <td><input type="date" class="searchTextBox" size="7"></td>
+                          
+                          
                            
-                           <td width="60px">이름  :</td>                              
-                           <td><input type="text" class="searchTextBox" name="userName" size="7"></td>
-                           
-                           <td width="100px">선호도 번호  :</td>                              
-                           <td><input type="text" class="searchTextBox" name="preNo" size="7"></td>
-                           
-                           <!-- <td style="width: 110px;">대여가능수량  :</td>
-                           <td><input type="text" class="searchTextBox" size="7"></td> -->
-                           
+                           <td>답변상태</td>
+                           <td width="100px">
+                              <!-- <select id="searchCondition" name="searchCondition">
+                                 <option value="none">==선택==</option>
+                                 <option value="continue">진행중</option>
+                                 <option value="endContract">종료</option>
+                              </select> -->
+                              <div class="dropdown">
+                                 <div class="select">
+                                    <span>전체</span>
+                                    <i class="fa fa-chevron-left"></i>
+                                 </div>
+                                 <input type="hidden" name="Job-code">
+                                 <ul class="dropdown-menu">
+                                    <li id="change-que">답변대기</li>
+                                    <li id="feedback-que">답변완료</li>
+                                 </ul>
+                              </div>
+                           </td>
                            <td><input type="submit" class="searchBtn" value="검색하기" id="submit"></td>
                         
                         </tr>
@@ -377,58 +398,98 @@ height: 25px;
          <!-- 조회 결과 리스트 부분 -->
             <div id="listArea">
                <!-- 조회 결과 리스트 제목 -->
-               <div id="subSubTitle2">List</div>
+               <div id="subSubTitle2">조회 내역</div>
                <!-- 적용 버튼 -->
                <!-- <button onclick="" class="btn" id="apply">적용</button> -->
-               <span id="apply"></span>
+               <span id="apply"><td><input type="submit" class="searchBtn" value="삭제" id="submit"></td></span>
                
                <!-- 조회 리스트 테이블 -->
-               <div class="table-scroll" style="overflow: auto; height: 400px;">
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
-                     <th width="70px">큐레이팅번호</th>
-                     <th width="70px">선호도번호</th>
-                     <th width="50px">상호명</th>
-                     <th width="80px">이름</th>
-                     <th width="80px">선호도조사 보기</th>
-                     <th width="80px">큐레이팅 확인</th>
-                     <th width="50px">유저 확인여부</th>
+                     <th width="20px"><input type="checkbox" id="checkall"></th>
+                     <th width="60px">번호</th>
+                     <th width="60px">회원ID</th>
+                     <th width="80px">제목</th>
+                     <th width="50px">문의타입</th>
+                     <th width="80px">답변상태</th>               
+                     <th width="80px">날짜</th>               
                   </tr>
                   
                   <!-- 리스트 바디  -->
- 				<% for(curatingList n : list) { %>
                   <tr class="listBody">
-                  		<td><%= n.getCuNo() %></td>
-                  		<td><%= n.getPreNo() %></td>
-						<td><%= n.getUserCom() %></td>
-						<td><%= n.getUserName() %></td>
-						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
-						<td><a href="<%= request.getContextPath() %>/updateCuratingSelect.cu?pno=<%=n.getCuNo()%>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
-						<td><%= n.getStatus() %></td>
-					</tr>
-					<%System.out.println("curatingList n : " + n); %>
-				<%} %>
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>                
+                     <td>내용</td>                
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
+                  <tr class="listBody">
+                     <td><input type="checkbox" name="chk"></td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                     <td>내용</td>
+                  </tr>
                </table>
-               </div>
-               <%-- 				<tr>
-				<th >글번호</th>
-				<th width="300px">글제목</th>
-				<th width="100px">작성자</th>
-				<th>조회수</th>
-				<th width="100px">작성일</th>
-				</tr>
-				<% for(Notice n : list) { %>
-				
-				<tr>
-					<td><%= n.getNno() %></td>
-					<td><%= n.getnTitle() %></td>
-					<td><%= n.getNickName() %></td>
-					<td><%= n.getnCount() %></td>
-					<td><%= n.getnDate() %></td>
-				</tr>
-				<%} %> --%>
-				</table>
             </div>
       
       </div>   <!-- background-box end -->
@@ -463,8 +524,8 @@ height: 25px;
                      $('.msg').html(msg + input + '</span>');
                   });
       
-      /* <!-- check박스 전체선택 --> */
-     
+      <!-- check박스 전체선택 -->
+      
       $(document).ready(function(){
    	   /*  //최상단 체크박스 클릭 */
    	    $("#checkall").click(function(){
@@ -479,11 +540,8 @@ height: 25px;
    	        }
    	    })
    	})
-     
-
-      
       
    </script>   
-   
+	
 </body>
 </html>
