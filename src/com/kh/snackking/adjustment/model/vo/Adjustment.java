@@ -9,11 +9,12 @@ public class Adjustment implements java.io.Serializable{
 	private Date adJustmentDate;
 	private int tradingCode;
 	private int userNo;
+	private String company;
 	
 	public Adjustment() {}
 
 	public Adjustment(int adJustmentAmount, String adJustmentComplete, int adJustmentCode, Date adJustmentDate,
-			int tradingCode, int userNo) {
+			int tradingCode, int userNo, String company) {
 		super();
 		this.adJustmentAmount = adJustmentAmount;
 		this.adJustmentComplete = adJustmentComplete;
@@ -21,6 +22,18 @@ public class Adjustment implements java.io.Serializable{
 		this.adJustmentDate = adJustmentDate;
 		this.tradingCode = tradingCode;
 		this.userNo = userNo;
+		this.company = company;
+	}
+
+	
+	
+	
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
 	public int getAdJustmentAmount() {
@@ -75,8 +88,10 @@ public class Adjustment implements java.io.Serializable{
 	public String toString() {
 		return "Adjustment [adJustmentAmount=" + adJustmentAmount + ", adJustmentComplete=" + adJustmentComplete
 				+ ", adJustmentCode=" + adJustmentCode + ", adJustmentDate=" + adJustmentDate + ", tradingCode="
-				+ tradingCode + ", userNo=" + userNo + "]";
+				+ tradingCode + ", userNo=" + userNo + ", company=" + company + "]";
 	}
+
+	
 
 	
 

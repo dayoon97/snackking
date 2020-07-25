@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.*, java.util.*, com.kh.snackking.board.model.vo.*, com.kh.snackking.adjustment.model.vo.*, com.kh.snackking.curating.model.vo.CurationList"%>
+ <% ArrayList<User> list = (ArrayList<User>) request.getAttribute("list"); %>
+ <% ArrayList<Board> Blist = (ArrayList<Board>) request.getAttribute("Blist"); %>
+ <% ArrayList<Adjustment> Alist = (ArrayList<Adjustment>) request.getAttribute("Alist"); %>
+ <% ArrayList<CurationList> Clist = (ArrayList<CurationList>) request.getAttribute("Clist"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -137,107 +141,58 @@
 			<table id="info-table">
 				<tr class="name-tr">
 					<td>게시글 관리</td>
-					<td>재고 상태</td>
+					<td>정산 상태</td>
 				</tr>
 				<tr class="content-tr">
 					<td>
 						<div id="con-board" class="conWrap">
 							<div class="content1">새로운 게시글</div>
-							<div class="alert-circle"><img alt="alert-circle" src="../../resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number">3</div>
+							<div class="alert-circle"><img alt="alert-circle" src="/snackking/resources/image/icon-alert-circle.png"></div>
+							<div class="alert-number"></div>
 							<div class="line"></div>
 							<div class="list-wrap">
 								<table class="list">
 									<tr>
 										<td class="list-log" colspan="4">LOG</td>
 									</tr>
+									<% int j = 0; %>
+									<% for(Board b : Blist) {%>
 									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
+										<td class="list-alert"><img alt="up-alert" src="/snackking/resources/image/up-alert.png"></td>
+										<td class="list-reqNum"><% j++; %><%= j %></td>
+										<td class="list-name"><%=b.getUserName() %></td>
+										<td class="list-date"><%=b.getbDate() %></td>
 									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
+									<% } %>
+									
 								</table>
 							</div>
 						</div>
 					</td>
 					<td>
 						<div id="con-stock" class="conWrap">
-							<div class="content1">부족한 재고 알림</div>
-							<div class="alert-circle"><img alt="alert-circle" src="../../resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number">13</div>
+							<div class="content1">정산 미지급 알림</div>
+							<div class="alert-circle"><img alt="alert-circle" src="/snackking/resources/image/icon-alert-circle.png"></div>
+							<div class="alert-number"></div>
 							<div class="line"></div>
 							<div class="list-wrap">
 								<table class="list">
 									<tr>
 										<td class="list-log" colspan="4">LOG</td>
 									</tr>
+									<% int q = 0; %>
+									<%for(Adjustment a : Alist) {%>
 									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
+										<td class="list-alert"><img alt="up-alert" src="/snackking/resources/image/down-alert.png"></td>
+										<td class="list-reqNum"><% q++; %><%= q %></td>
+										<td class="list-name"><%=a.getCompany() %></td>
+										<td class="list-date"><% if(a.getAdJustmentComplete().equals("N")) {%>
+										미지급
+										</td>
 									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/down-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
-									</tr>
+										<% } %>
+									<% } %>
+									
 									
 								</table>
 							</div>
@@ -246,71 +201,57 @@
 				</tr>
 				<tr class="name-tr">
 					<td>회원관리</td>
-					<td>승인 요청 내역</td>
+					<td>큐레이팅 알림</td>
 				</tr>
 				<tr class="content-tr">
 					<td>
 						<div id="con-member" class="conWrap">
 							<div class="content1">새로운 회원 알림</div>
-							<div class="alert-circle"><img alt="alert-circle" src="../../resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number">3</div>
+							<div class="alert-circle"><img alt="alert-circle" src="/snackking/resources/image/icon-alert-circle.png"></div>
+							<div class="alert-number"></div>
 							<div class="line"></div>
 							<div class="list-wrap">
 								<table class="list">
 									<tr>
 										<td class="list-log" colspan="4">LOG</td>
 									</tr>
+									<% int k = 0; %>
+									<% for(User u : list) {%>
 									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
+										<td class="list-alert"><img alt="up-alert" src="/snackking/resources/image/up-alert.png"></td>
+										<td class="list-reqNum"><% k++; %><%= k %></td>
+										<td class="list-name"><%=u.getUserName() %></td>
+										<td class="list-date"><%=u.getEnrollDate() %></td>
 									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
+									<% } %>
 								</table>
 							</div>
 						</div>
 					</td>
 					<td>
 						<div id="con-approval" class="conWrap">
-							<div class="content1">승인 대기 요청</div>
-							<div class="alert-circle"><img alt="alert-circle" src="../../resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number">3</div>
+							<div class="content1">큐레이팅 완료</div>
+							<div class="alert-circle"><img alt="alert-circle" src="/snackking/resources/image/icon-alert-circle.png"></div>
+							<div class="alert-number"></div>
 							<div class="line"></div>
 							<div class="list-wrap">
 								<table class="list">
 									<tr>
 										<td class="list-log" colspan="4">LOG</td>
 									</tr>
+									<% int a = 0; %>
+									<% for (CurationList cu : Clist) {%>
 									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td class="list-reqNum">1</td>
-										<td class="list-name">이재형</td>
-										<td class="list-date">2020.07.06</td>
+										<td class="list-alert"><img alt="up-alert" src="/snackking/resources/image/up-alert.png"></td>
+										<td class="list-reqNum"><% a++; %> <%= a %></td>
+										<td class="list-name"><%=cu.getCompany() %></td>
+										<td class="list-date"><% if(cu.getStatus().equals("Y")) {%>
+										 큐레이팅 완료
+										</td>
 									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
-									<tr>
-										<td class="list-alert"><img alt="up-alert" src="../../resources/image/up-alert.png"></td>
-										<td>1</td>
-										<td>이재형</td>
-										<td>2020.07.06</td>
-									</tr>
+									<% } %>
+									<% } %>
+								
 								</table>
 							</div>
 						</div>

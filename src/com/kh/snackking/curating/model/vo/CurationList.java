@@ -11,10 +11,11 @@ public class CurationList implements java.io.Serializable {
 	private int amount;
 	private String status;
 	private int userNo;
+	private String company;
 	
 	public CurationList() {}
 
-	public CurationList(int cuListNo, int preNo, Date clDate, int price, int amount, String status, int userNo) {
+	public CurationList(int cuListNo, int preNo, Date clDate, int price, int amount, String status, int userNo, String company) {
 		super();
 		this.cuListNo = cuListNo;
 		this.preNo = preNo;
@@ -23,6 +24,18 @@ public class CurationList implements java.io.Serializable {
 		this.amount = amount;
 		this.status = status;
 		this.userNo = userNo;
+		this.company = company;
+	}
+
+	
+	
+	
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
 	public int getCuListNo() {
@@ -84,7 +97,9 @@ public class CurationList implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "CurationList [cuListNo=" + cuListNo + ", preNo=" + preNo + ", clDate=" + clDate + ", price=" + price
-				+ ", amount=" + amount + ", status=" + status + ", userNo=" + userNo + "]";
+				+ ", amount=" + amount + ", status=" + status + ", userNo=" + userNo + ", company=" + company + "]";
 	}
+
+	
 	
 }

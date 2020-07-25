@@ -15,6 +15,7 @@ import com.kh.snackking.curating.model.dao.CurationDao;
 import com.kh.snackking.curating.model.vo.CurationList;
 import com.kh.snackking.curating.model.vo.CurationProduct;
 import com.kh.snackking.curating.model.vo.curating;
+import com.kh.snackking.preference.model.vo.curatingList;
 
 public class CurationService {
 
@@ -116,6 +117,16 @@ public class CurationService {
 		close(con);
 		
 		return cu;
+	}
+
+	public ArrayList<CurationList> newCuratingStatus() {
+		Connection con = getConnection();
+		
+		ArrayList<CurationList> list = new CurationDao().newCuratingStatus(con);
+		
+		close(con);
+		
+		return list;
 	}
 
 }

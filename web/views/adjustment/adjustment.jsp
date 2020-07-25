@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.snackking.adjustment.model.vo.Adjustment, java.util.*"%>
 <% ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");%>
+<% ArrayList<HashMap<String, Object>> Clist = (ArrayList<HashMap<String, Object>>) request.getAttribute("Clist");%>
+<% String msg = (String) request.getAttribute("msg"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +48,9 @@
 #searchStock1{
     margin-top: 10px;
     margin-left: 50px;
+}
+#delBtn{
+	margin-right: 100px;
 }
 </style>
 </head>
@@ -116,20 +121,24 @@
 						
 						<div id="subSubTitle2" style="top:310px !important; width: 120px;">정산내역 리스트</div>
 						<!-- 적용 버튼 -->
-						<span id="apply">조회 결과 수 :</span>
+						<span id="apply"></span>
 						<%if(loginUser.gettCode().equals("T4")) {%>
 						<button class="addBtn btn-position" id="addBtn">추가</button>
+						<button class="addBtn btn-position" id="delBtn">삭제</button>
 						<% } %>
 							<!-- 테이블 시작 -->
 							<!-- 조회 리스트 테이블 -->
 						<%if(loginUser.gettCode().equals("T3")) { %>
 						<table id="listTable7" align="center">
 						<% } else { %>
-						<table id="listTable6" align="center">
+						<table id="listTable7" align="center">
 						<% } %>
 							<thead>
 								<!-- 테이블 헤드 -->
 								<tr id="listHead" >
+								<%if(loginUser.gettCode().equals("T4")){ %>
+									<th>선택</th>
+									<%} %>
 									<th>번호</th>
 									<th>회사명</th>
 									<th>총금액</th>
@@ -141,8 +150,12 @@
 									<th>상세내역확인</th>
 								</tr>
 							</thead>
+							
+							
+							<% if(loginUser.gettCode().equals("T3")) {%>
 							<tbody >
 							<!-- 리스트 바디  -->
+							
 							<% int j = 0; %>
 							<%for (int i = 0; i < list.size(); i++) { %>
 								<tr class="listBody">
@@ -172,8 +185,47 @@
 									<% } %>
 									<td><button class="btn detail-btn" id="detail">상세</button></td>
 								</tr>
-								<% } %>
+								<%} %>
 						</tbody>
+								<% } else {%>
+								<tbody >
+							<!-- 리스트 바디  -->
+							
+							<% int j = 0; %>
+							<%for (int i = 0; i < Clist.size(); i++) { %>
+								<tr class="listBody">
+									<td><input type="checkbox" id="ch"></td>
+									<td> <% j++; %><%= j %>
+									</td>
+									<td><%= Clist.get(i).get("company") %></td>
+									<td><%= Clist.get(i).get("adJustmentAmount") %></td>
+									<td><%if((Clist.get(i).get("adJustmentDate")) == null) {%>
+									미지급
+									<%} else { %>
+									<%= Clist.get(i).get("adJustmentDate") %>
+									<% } %></td>
+									<td><% if((Clist.get(i).get("adJustmentComplete")).equals("Y")) { %>
+									결제
+									<% } else { %>
+									미결제
+									<% } %>
+									</td>
+									<%if (loginUser.gettCode().equals("T3")) { %>
+									<td>
+									<% if(Clist.get(i).get("adJustmentComplete").equals("N")) { %>
+									<input type="button" class="approval-btn" id="change<%=j%>" value="변경">
+									<% } else {%>
+									완료
+									<% } %>
+									</td>
+									<% } %>
+									<td><button class="btn detail-btn" id="detail">상세</button></td>
+								</tr>
+								<%} %>
+						</tbody>
+								<%} %>
+						
+								
 					</table><!-- 테이블 끝 -->
 				</div>
 			</div>	<!-- background-box end -->
@@ -501,7 +553,7 @@ $('.dropdown-menu li').click(function () {
    
  //정산 내역 추가하기 버튼 누르면 등록 페이지로 이동
    $("#addBtn").click(function() {
-   	location.href="<%=request.getContextPath()%>/views/adjustment/adjustmentAdd.jsp";
+   		location.href="<%=request.getContextPath()%>/searchCompany?num=<%=loginUser.getUserNo()%>";
    });
 
  
@@ -529,7 +581,7 @@ $('.dropdown-menu li').click(function () {
 			  
 	});
 	
-	 //큐레이터가 로그인 했을 때 검색
+	 //최고관리자가 로그인 했을 때 검색
 	 <%if(loginUser.gettCode().equals("T3")) {%>
 	 //검색 ajax
 	 $(document).on('click','#searchBtn',function(){
@@ -561,7 +613,7 @@ $('.dropdown-menu li').click(function () {
 					var $adjustmentAmountTd = $("<td>").text(decodeURIComponent(value.adJustmentAmount));
 					var $adjustmentDateTd = $("<td>").text(decodeURIComponent(value.adJustmentDate));
 					var $adjustmentCompleteTd = $("<td>").text(decodeURIComponent(value.adJustmentComplete));
-					var $btn1Td = $("<td>").html("<input type='button' class='approval-btn' id='change<%=j%>' value='변경'>");
+					var $btn1Td = $("<td>").html("<input type='button' class='approval-btn' value='변경'>");
 					var $btn2Td = $("<td>").html("<button class='btn detail-btn' id='detail'>상세</button>");
 					var $endTr = $("</tr>");
 					
@@ -642,27 +694,26 @@ $('.dropdown-menu li').click(function () {
 		var company = document.getElementById("adjCom").value;
 		var money = document.getElementById("adjMo").value;
 		var yn = $("span").eq(0).text();
-		var num = $("input[type=hidden][name=num]").val();
+		//var num = $("input[type=hidden][name=num]").val();
  		console.log(company);
 		console.log(money);
 		console.log(yn);
-		console.log(num);
 		 
 		 $.ajax({
 			url:"<%=request.getContextPath()%>/adjustmentCuSearch",
-			data:{company:company, money:money, yn:yn, num:num},
+			data:{company:company, money:money, yn:yn, num:<%=loginUser.getUserNo()%>},
 			type:"get",
 			success: function(data){
 				console.log("제바아아알");
-				$tableBody = $("#listTable6 tbody");
+				$tableBody = $("#listTable7 tbody");
 				
 				$tableBody.html('');
 				
 				$.each(data, function(index, value){
 					
 					var $tr = $("<tr class='listBody'>");
+					var $chTd = $("<td>").html("<input type=checkbox>");
 					var $Td = $("<td>").text(index+1);
-				
 					var $companyTd = $("<td>").text(value.company);
 					var $adjustmentAmountTd = $("<td>").text(decodeURIComponent(value.adJustmentAmount));
 					var $adjustmentDateTd = $("<td>").text(decodeURIComponent(value.adJustmentDate));
@@ -672,7 +723,6 @@ $('.dropdown-menu li').click(function () {
 					
 					var $nullTd = $("<td>").text("완료");
 					
-					console.log(value.adJustmentDate);
 					
 					//결제여부 형태 바꾸기
 					var comYN;
@@ -686,6 +736,7 @@ $('.dropdown-menu li').click(function () {
 				
 					
 					//입금일 형태 바꾸기
+					var dateN;
 					var dateY;
 					if(value.adJustmentDate == undefined){
 						dateN = '미지급';
@@ -705,6 +756,7 @@ $('.dropdown-menu li').click(function () {
 					var $adDateTd = $("<td>").text(dateN);
 					var $adDate2Td = $("<td>").text(nal);
 					
+					$tr.append($chTd);
 					$tr.append($Td);
 					$tr.append($companyTd);
 					$tr.append($adjustmentAmountTd);
@@ -733,11 +785,17 @@ $('.dropdown-menu li').click(function () {
 		});
 	 });
 	<% } %>
-	 
-	 $(document).on('click','#addBtn', function(){
-		 
-		 location.href="<%=request.getContextPath()%>/views/adjustment/adjustmentAdd.jsp";
-	 });
 
+	$(document).on('click', 'input[type=checkbox]', function(e){
+		if($(this).prop('checked')){
+			$('input[type=checkbox]').prop("checked",false);
+    		$(this).prop("checked",true);
+    	}
+	});
+	
+	$(document).on('click', '#delBtn', function(){
+
+	});
+	
 </script>
 </html>

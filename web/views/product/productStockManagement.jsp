@@ -77,22 +77,7 @@
 										<td style="width:170px">상품코드  :
 											<input type="text" class="searchTextBox" size="6" name="">
 										</td>
-                       					<td colspan="2">재고기준  :
-											<div class="dropdown">
-        										<div class="select">
-          											<span>선택</span>
-										          <i class="fa fa-chevron-left"></i>
-										        </div>
-										        <input type="hidden" name="stockKinds">
-										        <ul class="dropdown-menu">
-							                           <li id="선택">선택</li>
-							                           <li id="총수량">총수량</li>
-							                           <li id="출고가능">출고가능</li>
-							                           <li id="입고진행">입고진행</li>
-							                           <li id="출고진행">출고진행</li>
-							                           <li id="교환예정">교환예정</li>					                         
-										        </ul>
-										      </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       					<td colspan="2">수량검색 :
 										             					
                        						<input type="text" class="searchTextBox" size="3" name="">&nbsp;&nbsp;~&nbsp;&nbsp;
                        						<input type="text" class="searchTextBox" size="3" name="">&nbsp;&nbsp;개
@@ -169,7 +154,7 @@
 					
 						<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
-					<table id="listTable11" align="center">
+					<table id="listTable5" align="center">
 						<thead>
 							<!-- 테이블 헤드 -->
 							<tr id="listHead" >
@@ -177,13 +162,8 @@
 								<th>상품종류</th>
 								<th>상품명</th>
 								<th>매입처</th>
-								<th>최근입고</th>
-								<th>최근출고</th>
 								<th>총수량</th>
-								<th>출고가능</th>
-								<th>입고진행</th>
-								<th>출고진행</th>
-								<th>교환예정</th>
+								
 							</tr>
 						</thead>
 						<tbody>
@@ -194,39 +174,8 @@
 								<td>내용</td>
 								<td>내용</td>
 								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
 							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>							
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
+							
 						</tbody>
 					</table>
 					<!-- 테이블 끝 -->

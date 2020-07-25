@@ -575,7 +575,7 @@
 					</table> -->
 						<div class="login-name"><%=loginUser.getUserName()%></div>
 						<div id="line" style="border:1px solid #AA8400; width:60%; background-color: #AA8400"></div>
-						<div class="login-jobname">최고 관리자</div>
+						<div class="login-jobname"><a href="<%=request.getContextPath()%>/mainNewUser">최고 관리자</a></div>
 					</div>	<!-- login-info end -->
 				</div>	<!-- aisde-body-header end -->
 				<div class="aside-body-body" id="accodion-box">
@@ -635,7 +635,7 @@
 						<li>
 							<p class="title2">정산 관리</p>
 								<ul class="con">
-									<li><a href="<%=request.getContextPath()%>/adjustmentSelect">정산 내역 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/adjustmentSelect?num=<%=loginUser.getUserNo()%>">정산 내역 관리</a></li>
 								</ul>
 						</li>
 						<li>

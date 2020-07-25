@@ -822,6 +822,39 @@ public class BoardDao {
 		return list;
 	}
 
+	public ArrayList<Board> newBoardSelect(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		
+		String query = prop.getProperty("selectNewBoard");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Board>();
+			
+			while(rset.next()) {
+				Board b = new Board();
+				b.setUserName(rset.getString("USER_NAME"));
+				b.setbDate(rset.getDate("BDATE"));
+				
+				list.add(b);
+			}
+			
+			System.out.println(list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
 
 
 }
