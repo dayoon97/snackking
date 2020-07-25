@@ -8,18 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.snackking.curating.model.service.CurationService;
+import com.kh.snackking.curating.model.vo.curating;
+import com.kh.snackking.preference.model.service.PreferenceService;
+import com.kh.snackking.preference.model.vo.Preference;
 
 /**
- * Servlet implementation class ChangeCuratingStatusServlet
+ * Servlet implementation class UpdateCuratingSelect
  */
-@WebServlet("/changeCuStatus.cur")
-public class ChangeCuratingStatusServlet extends HttpServlet {
+@WebServlet("/updateCuratingSelect.cu")
+public class UpdateCuratingSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChangeCuratingStatusServlet() {
+    public UpdateCuratingSelect() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,13 +31,11 @@ public class ChangeCuratingStatusServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int cuNo = Integer.parseInt(request.getParameter("cuNo"));
 		
-		int listNo = Integer.parseInt(request.getParameter("listNo"));
-		System.out.println("listNo : " + listNo);
+		Preference pre = new PreferenceService().UpdateCuratingSelect(cuNo);
 		
-		int result = new CurationService().changeCuratingStatus(listNo);
-		System.out.println("result servlet : " + result);
-		
+//		curating cu = new CurationService().UpdateCuratingSelect(cuNo);
 	}
 
 	/**

@@ -89,4 +89,19 @@ public class CurationService {
 		return result;
 	}
 
+	public int changeCuratingStatus(int listNo) {
+		
+		Connection con = getConnection();
+		
+		int result = new CurationDao().changeCuratingStatus(con, listNo);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		return result;
+	}
+
 }

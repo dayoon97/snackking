@@ -593,7 +593,7 @@
 								<ul class="con">
 									<li><a href="../employee/employeeSchedule.jsp">스케줄 확인</a></li>
 									<li><a href="<%=request.getContextPath()%>/adminEmpSelect.ad?num=<%=loginUser.getUserNo()%>">권한 변경</a></li>
-									<li><a href="views/employee/employeeMatching.jsp">고객-큐레이터<br>매칭 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/matchingSelect">고객-큐레이터<br>매칭 관리</a></li>
 								</ul>
 						</li>
 						<li>

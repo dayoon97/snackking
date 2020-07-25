@@ -176,4 +176,14 @@ public class PreferenceService {
 		close(con);
 		return result;
 	}
+
+	public Preference UpdateCuratingSelect(int cuNo) {
+		Connection con = getConnection();
+		
+		Preference pre = new PreferenceDao().UpdateCuratingSelect(con, cuNo);
+		
+		close(con);
+		
+		return pre;
+	}
 }

@@ -74,7 +74,7 @@ public class CurationDao {
 		ResultSet rset = null;
 		
 		ArrayList<CurationProduct> list = null;
-		
+		System.out.println("selectCuratingProduct dao num : " + num);
 		String query = prop.getProperty("selectCuratingProduct");
 		
 		try {
@@ -205,6 +205,28 @@ public class CurationDao {
 		}finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int changeCuratingStatus(Connection con, int listNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changeCuratingSutatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, listNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 	
