@@ -440,7 +440,7 @@ td {
 					<!-- 조회 결과 리스트 제목 -->
 					<div id="subSubTitle2">매칭 리스트</div>
 					<!-- 적용 버튼 -->
-					<button onclick="" class="searchBtn" id="apply">추가</button>
+					<button onclick="" class="searchBtn" id="apply">변경/추가</button>
 						<!-- Trigger/Open The Modal -->
 				
 						<!-- The Modal -->
@@ -629,37 +629,31 @@ td {
 			type: "get",
 			success: function(data){
 				
+					console.log("성공");
 				
-				$tableBody = $("#listTable tbody");
-					
+					$tableBody = $("#listTable tbody");
 					$tableBody.html('');
 					
 					$.each(data, function(index, value){
-						
 						var $tr = $("<tr class='listBody'>");
-						var $noTd = $("<td>").text(value.userNo);
-						/* var $tCodeTd = $("<td>").text(decodeURIComponent(value.manager));
+						var $managerTd = $("<td>").text(decodeURIComponent(value.manager));
 						var $userNameTd = $("<td>").text(decodeURIComponent(value.userName));
-						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
+						var $companyTd = $("<td>").text(decodeURIComponent(value.company));
 						var $phoneTd = $("<td>").text(decodeURIComponent(value.phone));
-						var $enrollDateTd = $("<td>").text(decodeURIComponent(value.enrollDate));
-						var $statusTd = $("<td>").text(decodeURIComponent(value.status));
+						var $addressTd = $("<td>").text(decodeURIComponent(value.address));
 						var $endTr = $("</tr>");
 						
 						
-						
-						$tr.append($noTd);
-						$tr.append($tCodeTd);
+						$tr.append($managerTd);
 						$tr.append($userNameTd);
-						$tr.append($addressTd);
+						$tr.append($companyTd);
 						$tr.append($phoneTd);
-						$tr.append($enrollDateTd);
-						$tr.append($statusTd);
+						$tr.append($addressTd);
 						$tr.append($endTr);
 						
 						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "27px"});
 						
-						$tableBody.append($tr); */
+						$tableBody.append($tr);
 					});  
 					 
 				},

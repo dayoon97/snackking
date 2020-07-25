@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.snackking.user.model.service.UserService;
 import com.kh.snackking.user.model.vo.User;
 
@@ -46,6 +47,13 @@ public class MatchingSearchServlet extends HttpServlet {
 		if(phone != null) {user.setPhone(phone);}
 		
 		ArrayList<User> list = new UserService().matchingSearch(user);
+		
+		if(list != null) {
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson(list, response.getWriter());
+		}
 		
 		
 		
