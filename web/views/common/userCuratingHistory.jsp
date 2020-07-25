@@ -298,6 +298,10 @@ input[type='text']{
 #cuCheckBtn:hover {
 	cursor: pointer;
 }
+.cuCheckYN {
+	color: red;
+	font-weight: 600;
+}
 </style>
 </head>
 <body>
@@ -320,19 +324,23 @@ input[type='text']{
 				
 				<div id="listArea" class="listAreaBox">
 					<table class="order-history-table" align="center">
+						<thead>
 						<tr>
 							<th width="30%">큐레이팅 번호</th>
 							<th width="40%">작성일자</th>
 							<th width="30%">큐레이팅 승인 여부</th>
 						</tr>
+						</thead>
+						<tbody>
 						<% for(CurationList cl : list) { %>
 						<tr class="order-td">
 							<input type="hidden" name="cNum" id="cNum" value="<%= cl.getCuListNo()%>">
 							<td class="odNum"><%= cl.getCuListNo()%></td>
 							<td><%= cl.getClDate()%></td>
-							<td><%= cl.getStatus()%></td>
+							<td class="cuCheckYN"><%= cl.getStatus()%></td>
 						</tr>
 						<% } %>
+						</tbody>
 					</table>
 				</div>	<!-- listArea end -->
 				
@@ -434,7 +442,7 @@ input[type='text']{
 	}).click(function() {
 		var num = $(this).parent().children("#cuListArea").children().children("tbody").find("input").val();
 		console.log(num);
-		var check = window.confirm("큐레이팅을 진행하시겠습니까?");
+		var check = window.confirm("큐레이팅을 진행하시겠습니까?\n(해당 상품으로 배송이 시작됩니다.)");
 		if(check){
 			$.ajax({
 				url: "<%= request.getContextPath()%>/changeCuStatus.cur",
@@ -444,6 +452,38 @@ input[type='text']{
 				},
 				success: function(data) {
 					console.log(data);
+					alert("해당 리스트대로 주문을 시작합니다.");
+					
+					$tableBody = $("#order-history-table tbody");
+					$tableBody.html('');
+					
+					<%-- <% for(CurationList cl : list) { %>
+					<tr class="order-td">
+						<input type="hidden" name="cNum" id="cNum" value="<%= cl.getCuListNo()%>">
+						<td class="odNum"><%= cl.getCuListNo()%></td>
+						<td><%= cl.getClDate()%></td>
+						<td class="cuCheckYN"><%= cl.getStatus()%></td>
+					</tr>
+					<% } %> --%>
+					
+					for(var key in data) {
+						var $tr = $("<tr>").attr('class', 'order-td');
+						
+						var $hiddenId = $("<input>").attr('name', 'listNo').attr('type', 'hidden').attr('value', data.listNo);
+						var $naTd = $("<td>").text(data.list[key].pName);
+						var $countTd = $("<td>").text(data.list[key].pCount);
+						var $upTd = $("<td>").text(data.list[key].unitCount);
+						var $priceTd = $("<td>").text(data.list[key].price);
+						
+						
+						$tr.append($hiddenId);
+						$tr.append($naTd);
+						$tr.append($countTd);
+						$tr.append($upTd);
+						$tr.append($priceTd);
+						
+						$tableBody.append($tr);
+					}
 					
 				},
 				error: function() {
