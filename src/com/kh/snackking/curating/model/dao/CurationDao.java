@@ -41,9 +41,9 @@ public class CurationDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, num);
-			System.out.println("dao pstmt check : " + pstmt);
+//			System.out.println("dao pstmt check : " + pstmt);
 			rset = pstmt.executeQuery();
-			System.out.println("dao rset check : " + rset);
+//			System.out.println("dao rset check : " + rset);
 			list = new ArrayList<CurationList>();
 			while(rset.next()) {
 				CurationList cl = new CurationList();
@@ -52,7 +52,11 @@ public class CurationDao {
 				cl.setClDate(rset.getDate("CL_DATE"));
 				cl.setPrice(rset.getInt("PRICE"));
 				cl.setAmount(rset.getInt("AMOUNT"));
-				cl.setStatus(rset.getString("STATUS"));
+				if(rset.getString("STATUS").equals("N")) {
+					cl.setStatus("미승인");
+				} else {
+					cl.setStatus("주문 진행");
+				}
 				cl.setUserNo(rset.getInt("USER_NO"));
 				System.out.println("curating list : " + cl);
 				list.add(cl);
@@ -64,7 +68,7 @@ public class CurationDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("dao list check : " + list);
+//		System.out.println("dao list check : " + list);
 		return list;
 	}
 

@@ -1,13 +1,18 @@
 package com.kh.snackking.curating.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.snackking.curating.model.service.CurationService;
+import com.kh.snackking.curating.model.vo.CurationList;
+import com.kh.snackking.user.model.vo.User;
 
 /**
  * Servlet implementation class ChangeCuratingStatusServlet
@@ -29,11 +34,19 @@ public class ChangeCuratingStatusServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int listNo = Integer.parseInt(request.getParameter("listNo"));
-		System.out.println("listNo : " + listNo);
+		User reqUser = (User) request.getSession().getAttribute("loginUser");
+		int num = reqUser.getUserNo();
 		
-		int result = new CurationService().changeCuratingStatus(listNo);
-		System.out.println("result servlet : " + result);
+		int listNo = Integer.parseInt(request.getParameter("listNo"));
+//		System.out.println("listNo : " + listNo);
+		
+		ArrayList<CurationList> list = new CurationService().changeCuratingStatus(num, listNo);
+		System.out.println("result servlet : " + list);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		new Gson().toJson(list, response.getWriter());
 		
 	}
 
