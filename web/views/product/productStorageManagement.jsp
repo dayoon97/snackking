@@ -300,7 +300,7 @@ $(function() {
 				"storageCode": storageCode,
 				"color" : color,
 		};
-		
+		console.log(arr);
 		$.ajax({
 			url: "<%=request.getContextPath()%>/selectProductStorage",
 			data: arr,
