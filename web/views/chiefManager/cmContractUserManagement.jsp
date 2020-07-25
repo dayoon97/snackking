@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.snackking.user.model.vo.User, java.util.*"%>
- <%-- ArrayList<User> list = (ArrayList<User>) request.getAttribute("list"); --%>
- <%-- ArrayList<User> adminlist = (ArrayList<User>) request.getAttribute("adminlist"); --%>
+ <% ArrayList<User> list = (ArrayList<User>) request.getAttribute("list"); %>
+ <%-- ArrayList<User> conUserList = (ArrayList<User>) request.getAttribute("conUserList"); --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -340,7 +340,7 @@ height: 25px;
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
 					
 					<!-- 조회 리스트 테이블 -->
-					<div class="table-scroll" style="overflow: auto; background:pink;">
+					<div class="table-scroll" style="overflow: auto;">
 					<table id="listTable" name="listTable" >
 						<!-- 테이블 헤드 -->
 						<thead>
@@ -352,35 +352,43 @@ height: 25px;
 							<th width="250px">주소</th>
 							<th width="100px">연락처</th>
 							<th width="80px">가입일</th>
-							<%if(loginUser.gettCode().equals("T3")){ %>
-							<th width="80px">회원구분</th>
-							<%} %>
+						 	<%if(loginUser.gettCode().equals("T3")){ %>
+							<th width="80px">회원구분</th> 
+							<% } %> 
+						 
+							
 						</tr>
 						</thead>
 						<!-- 리스트 바디  -->
 						<tbody>
-							<%-- for(User u : list) {--%>
+							<!-- user타입 list 형식. 
+								반목문은 해당하는 조건만 실행하고 아니면 넘기는데 
+								list 형식이라 리스트 내용을 다 쓴다
+							 -->
+							<% for(User u : list) { %>
 							
 						  <tr class="listBody">
-							<!--  <input type="hidden" value="<%--= u.getUserNo() %>"> -->
-							<td><%--= u.getUserNo() --%></td>
-							<td><%--= u.getUserId() --%></td>
-							<td><%--= u.getCompany() --%></td>
-							<td><%--= u.getUserName() --%></td>
-							<td><%--= u.getAddress() --%></td>
-							<td><%--= u.getPhone() --%></td>
-							<td><%--= u.getEnrollDate() --%></td>
+						  <!-- getUserNo 이런 식으로 가져온 것들은 vo겍체에서 값 가져온 것임 -->
+							<input type="hidden" value="<%= u.getUserNo() %>"> 
+							<td><%= u.getUserNo() %></td>
+							<td><%= u.getUserId() %></td>
+							<td><%= u.getCompany() %></td>
+							<td><%= u.getUserName() %></td>
+							<td><%= u.getAddress() %></td>
+							<td><%= u.getPhone() %></td>
+							<td><%= u.getEnrollDate() %></td>
 							
-							<%--if(loginUser.gettCode().equals("T3")){ --%>
-							<td><%-- if(u.gettCode().equals("T1")) { --%>
+							
+							<%if(loginUser.gettCode().equals("T3")){ %>
+							<td><% if(u.gettCode().equals("T1")) { %>
 								일반회원
-								<%-- } else { --%>
+								<% } else { %>
 								계약회원
-								<%-- } --%>
+								<% } %>
 							</td>
-							<%--} --%>
+							<% } %>
 						</tr> 
-						<%-- } --%>
+						<% } %>
 					</tbody>
 					</table>
 					</div>
@@ -432,6 +440,7 @@ height: 25px;
    	   
    	});
    	
+	
 	
 	//회원 구분 검색(최고관리자만 보이게 하기)
 	if(<%=loginUser.gettCode().equals("T4")%>){
@@ -658,10 +667,11 @@ height: 25px;
 	});
 	}
 	//num으로 회원번호 받아옴
+	//회원리스트에서 클릭하면 보여질 페이지도 location.href으로 설정해둠
 	$(function() {
 		$("#listTable td").click(function() {
 			var num = $(this).parent().children("input").val();
-			location.href="<%=request.getContextPath()%>/selctOneContract?num=" + num;
+			location.href="<%=request.getContextPath()%>/contractUserDetail.co?num=" + num;
 			 console.log("num : " + num); 
 		});
 	});

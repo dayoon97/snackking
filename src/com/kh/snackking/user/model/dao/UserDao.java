@@ -453,6 +453,7 @@ public class UserDao {
 				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
 				u.settCode(rset.getString("TCODE"));
 				
+				//add는 어레이리스트일 때 쓴다
 				list.add(u);
 				
 			}

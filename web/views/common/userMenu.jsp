@@ -585,7 +585,10 @@
 								<ul class="con">
 									<li><a href="<%=request.getContextPath()%>/adminUserSelect.ad?num=<%=loginUser.getUserNo()%>">회원 리스트</a></li>
 									<li><a href="<%=request.getContextPath()%>/cmBoardList.bo">문의 게시판 관리</a></li>
-									<li><a href="views/chiefManager/cmContractUserManagement.jsp">계약 회원 관리</a></li>
+									<!-- 버튼 클릭했을 때 바로 가져온 정보가 보여지게 하려면 서블릿으로 처음 경로를 적어야 함 
+									서블릿에서 DB까지 쭉 넘어갔다가 가져온 그 다음 가져온 정보를 서블릿에서 뷰로 넘기는 순서!
+									경로가 뷰로 바로 적혀있는건 클릭했을 때 에이잭스 씀. 서블릿에 경로가 있다 -->
+									<li><a href="<%=request.getContextPath()%>/contractUserManagement.co">계약 회원 관리</a></li>
 								</ul>
 						</li>
 						<li>

@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.snackking.contract.model.vo.Contract;
+import com.kh.snackking.user.model.vo.User;
 
 
 public class ContractDao {
@@ -176,9 +177,7 @@ public class ContractDao {
 			
 			if(rset.next()) {
 				listCount = rset.getInt(1);
-				
 			}
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -186,7 +185,6 @@ public class ContractDao {
 			close(stmt);
 			close(rset);
 		}
-		
 		
 		return listCount;
 	}
@@ -326,5 +324,85 @@ public class ContractDao {
 //		System.out.println("dao list : " + list);
 		
 		return list;
+	}
+
+	
+	//회원관리 - 계약회원관리 페이지에서 계약회원만 보여지는 리스트
+	public ArrayList<User> conUserList(Connection con) {
+
+		//여기서는 hashmap 안 쓰고 ArrayList로 해봄
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<User> list = null;
+		
+		String query = prop.getProperty("conUserList");
+		
+		try {
+			stmt = con.createStatement();
+			
+			list = new ArrayList<User>();
+			
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				User u = new User();
+				u.setUserNo(rset.getInt("USER_NO"));
+				u.setUserId(rset.getString("USER_ID"));
+				u.setCompany(rset.getString("COMPANY"));
+				u.setUserName(rset.getString("USER_NAME"));
+				u.setAddress(rset.getString("ADDRESS"));
+				u.setPhone(rset.getString("PHONE"));
+				u.setEnrollDate(rset.getDate("ENROLL_DATE"));
+				u.settCode(rset.getString("TCODE"));
+				
+				list.add(u);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+
+	
+	//계약회원 리스트 클릭 후 계약회원들의 계약정보 보여지게 할 떄 회원번호로 계약정보 찾으려고 함
+	public Contract contractUserDetail(Connection con, int num) {
+
+		Statement stmt = null;
+		ResultSet rset = null;
+		Contract c = null;
+		
+		String query = prop.getProperty("contractUserDetail");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				c = new Contract();
+				c.setBusinessNo(rset.getString("BUSINESS_NO"));
+				c.setStartDate(rset.getString("START_DATE"));
+				c.setEndDate(rset.getString("END_DATE"));
+				c.setConDate(rset.getString("CONTRACT_DATE"));
+				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVERY"));
+				c.setCorpName(rset.getString("CORP_NAME"));
+				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));
+				c.setConNo(rset.getInt("CONTRACT_NO"));
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return c;
 	}
 }
