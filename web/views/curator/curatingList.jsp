@@ -325,7 +325,7 @@ height: 25px;
             <div id="subSubTitle1">내역 조회</div>
                <!-- searchBox start -->
                <div id="searchBox">
-                  <form id="searchForm">
+                  <form id="searchForm" action="<%= request.getContextPath() %>/curatingListSearch.cu" method="post">
                      <table class="memberTable">
                         <tr>
                            <!-- 검색 내용 타이핑하는 부분 -->
@@ -334,7 +334,7 @@ height: 25px;
                            </td> -->
                                        
                                                       
-                           <td width="200px">
+                           <td width="100px">
                               <!-- <select id="searchCondition" name="searchCondition">
                                  <option value="none">==선택==</option>
                                  <option value="continue">진행중</option>
@@ -355,7 +355,13 @@ height: 25px;
                            
                            
                            <td width="60px">상호명  :</td>                              
-                           <td><input type="text" class="searchTextBox" size="7"></td>
+                           <td><input type="text" class="searchTextBox" name="userCompany" size="7"></td>
+                           
+                           <td width="60px">이름  :</td>                              
+                           <td><input type="text" class="searchTextBox" name="userName" size="7"></td>
+                           
+                           <td width="100px">선호도 번호  :</td>                              
+                           <td><input type="text" class="searchTextBox" name="preNo" size="7"></td>
                            
                            <!-- <td style="width: 110px;">대여가능수량  :</td>
                            <td><input type="text" class="searchTextBox" size="7"></td> -->
@@ -381,9 +387,10 @@ height: 25px;
                <table id="listTable">
                   <!-- 테이블 헤드 -->
                   <tr id="listHead">
-                     <th width="80px">큐레이팅번호</th>
-                     <th width="30px">상호명</th>
-                     <th width="60px">이름</th>
+                     <th width="70px">큐레이팅번호</th>
+                     <th width="70px">선호도번호</th>
+                     <th width="50px">상호명</th>
+                     <th width="80px">이름</th>
                      <th width="80px">선호도조사 보기</th>
                      <th width="80px">큐레이팅 확인</th>
                      <th width="50px">유저 확인여부</th>
@@ -393,10 +400,11 @@ height: 25px;
  				<% for(curatingList n : list) { %>
                   <tr class="listBody">
                   		<td><%= n.getCuNo() %></td>
+                  		<td><%= n.getPreNo() %></td>
 						<td><%= n.getUserCom() %></td>
 						<td><%= n.getUserName() %></td>
 						<td><a href="<%=request.getContextPath()%>/selectDetail.pre?num=<%=n.getPreNo()%>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
-						<td><a href="<%= request.getContextPath() %>/selectCurating.pre?pno=<%=n.getCuNo()%>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
+						<td><a href="<%= request.getContextPath() %>/updateCuratingSelect.cu?pno=<%=n.getCuNo()%>"><img src="<%=request.getContextPath() %>/resources/image/search.png" width="15px" alt="My Image"></a></td>
 						<td><%= n.getStatus() %></td>
 					</tr>
 				<%} %>
