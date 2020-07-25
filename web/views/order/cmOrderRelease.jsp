@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.snackking.curating.model.vo.*"%>
+<%
+	ArrayList<CurationList> list = (ArrayList<CurationList>) request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,7 +78,7 @@
    }
 
 /*조회 결과 리스트 제목 스타일*/
-#subSubTitle2{
+.subSubTitle2{
 /* width: 90px; */
 height: 30px;
 margin-left: 40px;
@@ -92,7 +95,10 @@ color: #000000;
 
 #subSubTitle3 {
 height: 30px;
-margin: 10px 30px;
+margin-top: 10px;
+margin-bottom: 10px;
+margin-left: 10px;
+margin-right: 30px;
 font-family: NanumSquare_ac;
 font-style: normal;
 font-weight: bold;
@@ -174,7 +180,6 @@ height: 25px;
 	height: 200px;
 	overflow: auto;
 	display: inline-block;
-	margin-left: 35px;
 	overflow-x: hidden;
 }
 .modaltableWrap::-webkit-scrollbar {
@@ -240,26 +245,60 @@ height: 25px;
 #modal-title {
 	display: inline-block;
 }
-
+.modal-body {
+	text-align: center;
+}
 #moSection1 {
 	background: green;
 	display: inline-block;
 	width: 45%;
 	height: 510px;
+	float: left;
 }
 #moSection2 {
 	background: skyblue;
 	display: inline-block;
-	width: 48%;
-/* 	float: right; */
-	height: 510px;
+	width: 49%;
+	float: left;
+	height: 530px;
 }
 #moSection3 {
-	background: blue;
+	background: lightgray;
 	display: inline-block;
 	width: 6%;
-	/* float: right; */
+	float: left;
 	height: 510px;
+}
+#pickingTable {
+	width: 100%;
+	height: 100%;
+}
+#searchBox {
+border:1px solid rgba(75, 75, 75, 0.23); 
+padding:10px; 
+text-align:-webkit-center; 
+width:1000px; 
+margin-left:auto; 
+margin-right:auto; 
+margin-bottom: 40px;
+border-radius: 33.5px;
+height: 30px;
+height: 50px;
+line-height: 2.9;
+}
+#searchBox input[type=text] {
+	padding-left: 10px;
+}
+#searchBtn {
+border:0;
+outline:0;
+background: #F0BB00;
+color: #FFFFFF;	
+padding: 6px;
+border-radius: 8px;
+}
+#searchBtn:hover {
+	cursor: pointer;
 }
 </script>
 </style>
@@ -278,15 +317,29 @@ height: 25px;
          <div id="titleArea">
             <div id="mainTitle">주문 관리</div>
             <div id="line1"></div>
-            <div id="subTitle">출고 리스트 작성</div>
+            <div id="subTitle">출고 리스트 등록</div>
          </div>   <!--title-area end -->
          
-         
-         
+         <div class="subSubTitle2" style="margin-top: 30px;">큐레이팅 리스트 검색</div>
+         <div id="searchBox">
+			<table>
+				<tr>
+					<th>큐레이팅ID</th>
+					<th style="padding-left: 5px; padding-right: 5px;"><input type="text" size="8"></th>
+					<th>회원명</th>
+					<th style="padding-left: 5px; padding-right: 5px;"><input type="text" size="8"></th>
+					<th>회사명</th>
+					<th style="padding-left: 5px; padding-right: 5px;"><input type="text" size="8"></th>
+					<th>검색날짜</th>
+					<th><input type="date"> ~ <input type="date"></th>
+					<th style="padding-left: 15px;"><input id="searchBtn" type="button" value="검색하기"></th>		
+				</tr>
+			</table>
+         </div>
          <!-- 조회 결과 리스트 부분 -->
             <div id="listArea">
                <!-- 조회 결과 리스트 제목 -->
-               <div id="subSubTitle2">큐레이팅 리스트</div>
+               <div id="subSubTitle2" class="subSubTitle2">큐레이팅 리스트</div>
                <!-- 조회 리스트 테이블 -->
                
                <div id="culistTableWrap" style="text-align: center;">
@@ -295,7 +348,6 @@ height: 25px;
 		                  <!-- 테이블 헤드 -->
 		                  <thead>
 			                  <tr id="listHead" class="listHead">
-			                     <th>번호</th>
 			                     <th>큐레이팅ID</th>
 			                     <th>회원명</th>
 			                     <th>회사명</th>
@@ -305,76 +357,22 @@ height: 25px;
 		                  
 		                  <!-- 리스트 바디  -->
 		                  <tbody>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
+		                  <% for(CurationList c : list) { %>
+		                  	<tr class="listBody">
+		                  		<input type="hidden" id="cuListNo" name="cuListNo" value="<%=c.getCuListNo()%>">
+		                  		<td><%= c.getCuListNo() %></td>
+		                  		<td><%= c.getUserName() %></td>
+		                  		<td><%= c.getCompany() %></td>
+		                  		<td><%= c.getClDate() %></td>
+		                  	</tr>	
+		                  <% } %>
+			                  <!-- <tr class="listBody">
 			                     <td>CURATING01</td>
 			                     <td>남궁보훈</td>
 			                     <td>(주)SNACKKING</td>
 			                     <td>2020-07-22</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
+			                  </tr> -->
+			                  
 		                  </tbody>
 		               </table>
 	               </div>
@@ -399,195 +397,83 @@ height: 25px;
 				<div id="moSection1">
 					<div id="subSubTitle3">큐레이팅-상품 리스트</div>
 	               <div id="listTableWrap" class="modaltableWrap">
-		               <table id="listTable" class="listTable">
+		               <table id="proListTable" class="listTable">
 		                  <thead>
 			                  <tr id="listHead" class="listHead">
 			                     <th>상품코드</th>
 			                     <th>상품명</th>
 			                     <th>필요수량</th>
-			                     <th>회사명</th>
-			                     <th>날짜</th>
+			                     <th>제조사</th>
 			                  </tr>
 		                  </thead>
 		                  <tbody>
-			                  <tr class="listBody">
+			                  <!-- <tr class="listBody">
 			                     <td><input type="checkbox" name="chk"></td>
 			                     <td>CURATING01</td>
 			                     <td>남궁보훈</td>
-			                     <td>(주)SNACKKING</td>
 			                     <td>2020-07-22</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
-			                  <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                     <td>내용</td>
-			                  </tr>
+			                  </tr> -->
+			                 
 		                  </tbody>
 		               </table>
 	               
 	               </div>	<!-- listTableWrap end -->
 	               <div id="subSubTitle3">상품-재고 리스트</div>
 					<div id="listTableWrap" class="modaltableWrap">
-						<table class="listTable"">
+						<table id="storageTable" class="listTable">
 							<thead>
 								<tr class="listHead">
+									<th width="5px"><input type="checkbox"></th>
 									<th width="120px">상품명</th>
 									<th>재고 번호</th>
 									<th>로케이션 번호</th>
-									<th>총 수량</th>
+									<th>재고 수량</th>
 									<th>선택 수량</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
-								<tr class="listBody">
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr>
+								<!-- <tr class="listBody">
 								
+									<td>초코송이</td>
+									<td>S1</td>
+									<td>L1</td>
+									<td>80</td>
+									<td><input type="text" size="1"></td>
+								</tr> -->
 							</tbody>
 						</table>
 					</div>
 				</div>	<!-- moSection1 -->
 				
 				<div id="moSection3">
-				
-				</div>	<!-- moSection2 end -->
+					<table style="vertical-align: middle">
+						<thead>
+							<tr>
+								<td>담기</td>
+							</tr>
+						</thead>
+					</table>
+				</div>	<!-- moSection3 end -->
 				
 				<div id="moSection2">
-				
+					<table id="pickingTable" border="1">
+						<thead>
+							<tr>
+								<th>check</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>check</td>
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td><span id="pickingList" name="pickingList" style="border: 1px solid black; float: right;">저장하기</span></td>
+							</tr>
+						</tfoot>
+					</table>
 				</div>	<!-- moSection2 end -->
-				
 				</div>	<!-- modal-body end -->
 				<div class="modal-footer">
 				</div>	<!-- modal-footer end -->
@@ -599,31 +485,40 @@ height: 25px;
 	</div>	<!-- Modal end -->
 <script type="text/javascript">
 var modal = document.getElementById("find-Modal");
-var btn1 = document.getElementById("subTitle");
-var btn2 = document.getElementById("findPwd-btn");
 var span = document.getElementsByClassName("close")[0];
 
-btn1.onclick = function() {
-	var name = $("#findIdName").val();
-	var email = $("#findIdEmail").val();
-
+$(document).on("click", "#cuListTable tr", function() {
+	var num = $(this).children("input").val();
+	console.log("val : " + num);
 	$.ajax({
-		url: "<%= request.getContextPath() %>/findId.us",
+		url: "<%= request.getContextPath() %>/selectProductSelect.or",
 		type: "post",
 		data: {
-			name: name,
-			email: email
+			cuListNo: num
 		},
 		success: function(data) {
-			//console.log(data);
+			console.log(data);
 			modal.style.display = "block";
 			
-			/* if(data != null){
-				$("#modal-title").html("아이디 찾기 결과");
-				$("#modal-body").html("아이디 찾기 결과  : " + data);
-			} else {
-				$("#modal-body").html("일치하는 결과가 없습니다.");
-			} */
+			$tableBody = $("#proListTable tbody");
+			$tableBody.html('');
+			
+			for(var key in data){
+				$tr = $("<tr>").attr('class', 'listBody');
+				$hiddenTd = $("<input>").attr("id", "cuProNo").attr("type", "hidden").attr("value", data[key].pCode);
+				$codeTd = $("<td>").text(data[key].pCode);
+				$nameTd = $("<td>").text(data[key].pName);
+				$amountTd = $("<td>").text(data[key].pCount);
+				$pvendorTd = $("<td>").text(data[key].pvendor);
+				
+				$tr.append($hiddenTd);
+				$tr.append($codeTd);
+				$tr.append($nameTd);
+				$tr.append($amountTd);
+				$tr.append($pvendorTd);
+				
+				$tableBody.append($tr);
+			}
 			
 		},
 		error: function() {
@@ -631,7 +526,8 @@ btn1.onclick = function() {
 		}
 	});
 	
-}
+});
+
 span.onclick = function() {
 	modal.style.display = "none";
 }
@@ -641,6 +537,56 @@ window.onclick = function(event) {
 		modal.style.display = "none";
 	}
 }
+
+$(document).on("click", "#proListTable td", function() {
+	var pNum = $(this).parent().children("input").val();
+	console.log("pNum : " + pNum);
+	$.ajax({
+		url: "<%= request.getContextPath() %>/selectStorageSelect.or",
+		type: "get",
+		data: {
+			pNum: pNum
+		},
+		success: function(data) {
+			console.log(data);
+			
+			$tableBody = $("#storageTable tbody");
+			$tableBody.html('');
+			
+		/* 	<td>초코송이</td>
+			<td>S1</td>
+			<td>L1</td>
+			<td>80</td>
+			<td><input type="text" size="1"></td> */
+			
+			for(var key in data){
+				$tr = $("<tr>").attr('class', 'listBody');
+				$hiddenTd = $("<input>").attr("id", "cuProNo").attr("type", "hidden").attr("value", data[key].sCode);
+				$ckTd = $("<input>").attr("class", "ckBox").attr("type", "checkbox");
+				$nameTd = $("<td>").text(data[key].pName);
+				$codeTd = $("<td>").text(data[key].pCode);
+				$loTd = $("<td>").text(data[key].location);
+				$amountTd = $("<td>").text(data[key].quantity);
+				$amountInputTd = $("<input>").attr("class", "ckBox").attr("type", "text");
+				
+				$tr.append($hiddenTd);
+				$tr.append($ckTd);
+				$tr.append($nameTd);
+				$tr.append($codeTd);
+				$tr.append($loTd);
+				$tr.append($amountTd);
+				$tr.append($amountInputTd);
+				
+				$tableBody.append($tr);
+			}
+			
+		},
+		error: function() {
+			alert("Error!");
+		}
+	});
+	
+});
 </script>   
    
 </body>

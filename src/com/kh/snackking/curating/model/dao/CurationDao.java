@@ -16,6 +16,8 @@ import com.kh.snackking.board.model.vo.Board;
 import com.kh.snackking.curating.model.vo.CurationList;
 import com.kh.snackking.curating.model.vo.CurationProduct;
 import com.kh.snackking.curating.model.vo.curating;
+import com.kh.snackking.preference.model.vo.curatingList;
+import com.kh.snackking.product.model.vo.CuratingProduct;
 
 public class CurationDao {
 	private Properties prop = new Properties();
@@ -49,7 +51,7 @@ public class CurationDao {
 				CurationList cl = new CurationList();
 				cl.setCuListNo(rset.getInt("CU_LIST_NO"));
 				cl.setPreNo(rset.getInt("PRE_NO"));
-				cl.setClDate(rset.getDate("CL_DATE"));
+				cl.setClDate(rset.getString("CL_DATE"));
 				cl.setPrice(rset.getInt("PRICE"));
 				cl.setAmount(rset.getInt("AMOUNT"));
 				if(rset.getString("STATUS").equals("N")) {
@@ -263,6 +265,83 @@ public class CurationDao {
 		
 		
 		return cu;
+	}
+
+	public ArrayList<CurationList> selectAllList(Connection con) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<CurationList> list = null;
+		
+		String query = prop.getProperty("selectAllList");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<>();
+			while(rset.next()) {
+				CurationList cl = new CurationList();
+				cl.setCuListNo(rset.getInt("CU_LIST_NO"));
+				cl.setPreNo(rset.getInt("PRE_NO"));
+				cl.setClDate(rset.getString("CL_DATE"));
+				cl.setPrice(rset.getInt("PRICE"));
+				cl.setAmount(rset.getInt("AMOUNT"));
+				if(rset.getString("STATUS").equals("N")) {
+					cl.setStatus("미승인");
+				} else {
+					cl.setStatus("주문 진행");
+				}
+				cl.setUserNo(rset.getInt("USER_NO"));
+				cl.setUserName(rset.getString("USER_NAME"));
+				cl.setCompany(rset.getString("COMPANY"));
+				System.out.println("curating list : " + cl);
+				list.add(cl);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<CurationProduct> selectOrderCuratingProduct(Connection con, int cuListNo) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<CurationProduct> list = null;
+		
+		String query = prop.getProperty("selectOrderCuratingProduct");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cuListNo);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				CurationProduct c = new CurationProduct();
+				c.setpCode(rset.getString("PCODE"));
+				c.setpName(rset.getString("PNAME"));
+				c.setpCount(rset.getInt("PRO_COUNT"));
+				c.setPvendor(rset.getString("PVENDOR"));
+				
+				list.add(c);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 	
 	

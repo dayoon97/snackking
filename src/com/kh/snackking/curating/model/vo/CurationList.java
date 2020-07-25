@@ -1,20 +1,21 @@
 package com.kh.snackking.curating.model.vo;
 
-import java.sql.Date;
-
 public class CurationList implements java.io.Serializable {
 	
 	private int cuListNo;
 	private int preNo;
-	private Date clDate;
+	private String clDate;
 	private int price;
 	private int amount;
 	private String status;
 	private int userNo;
+	private String userName;
+	private String company;
 	
 	public CurationList() {}
 
-	public CurationList(int cuListNo, int preNo, Date clDate, int price, int amount, String status, int userNo) {
+	public CurationList(int cuListNo, int preNo, String clDate, int price, int amount, String status, int userNo,
+			String userName, String company) {
 		super();
 		this.cuListNo = cuListNo;
 		this.preNo = preNo;
@@ -23,6 +24,8 @@ public class CurationList implements java.io.Serializable {
 		this.amount = amount;
 		this.status = status;
 		this.userNo = userNo;
+		this.userName = userName;
+		this.company = company;
 	}
 
 	public int getCuListNo() {
@@ -41,11 +44,11 @@ public class CurationList implements java.io.Serializable {
 		this.preNo = preNo;
 	}
 
-	public Date getClDate() {
+	public String getClDate() {
 		return clDate;
 	}
 
-	public void setClDate(Date clDate) {
+	public void setClDate(String clDate) {
 		this.clDate = clDate;
 	}
 
@@ -81,10 +84,27 @@ public class CurationList implements java.io.Serializable {
 		this.userNo = userNo;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
 	@Override
 	public String toString() {
 		return "CurationList [cuListNo=" + cuListNo + ", preNo=" + preNo + ", clDate=" + clDate + ", price=" + price
-				+ ", amount=" + amount + ", status=" + status + ", userNo=" + userNo + "]";
+				+ ", amount=" + amount + ", status=" + status + ", userNo=" + userNo + ", userName=" + userName
+				+ ", company=" + company + "]";
 	}
-	
+		
 }

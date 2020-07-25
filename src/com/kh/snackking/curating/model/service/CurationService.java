@@ -105,6 +105,8 @@ public class CurationService {
 			rollback(con);
 		}
 		
+		close(con);
+		
 		return list;
 	}
 
@@ -116,6 +118,28 @@ public class CurationService {
 		close(con);
 		
 		return cu;
+	}
+
+	public ArrayList<CurationList> selectAllList() {
+		
+		Connection con = getConnection();
+		
+		ArrayList<CurationList> list = new CurationDao().selectAllList(con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<CurationProduct> selectOrderCuratingProduct(int cuListNo) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<CurationProduct> list = new CurationDao().selectOrderCuratingProduct(con, cuListNo);
+		
+		close(con);
+		
+		return list;
 	}
 
 }
