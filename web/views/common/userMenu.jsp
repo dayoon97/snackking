@@ -706,7 +706,7 @@
 						<li>
 							<p class="title">상품 관리</p>
 								<ul class="con">
-									<li><a href="">상품 정보</a></li>
+									<li><a href="<%=request.getContextPath()%>/views/product/productManagement.jsp">상품 정보</a></li>
 									<li><a href="">상품 재고</a></li>
 								</ul>
 						</li>
