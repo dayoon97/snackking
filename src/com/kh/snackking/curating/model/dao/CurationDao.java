@@ -233,6 +233,37 @@ public class CurationDao {
 		
 		return result;
 	}
+
+	public curating UpdateCuratingSelect(Connection con,int cuNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		curating cu = null;
+		String query = prop.getProperty("UpdateCuratingSelect");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, cuNo);
+			
+			if(rset.next()) {
+				cu = new curating();
+				cu.setCuNo(rset.getInt("CU_LIST_NO"));
+				cu.setPreNo(rset.getInt("PRE_NO"));
+				cu.setCuPrice(rset.getInt("PRICE"));
+				cu.setProCount(rset.getInt("AMOUNT"));
+				cu.setUserYN(rset.getString("STATUS"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+			
+		}
+		
+		
+		return cu;
+	}
 	
 	
 }

@@ -1,6 +1,8 @@
 package com.kh.snackking.curating.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,9 @@ import com.kh.snackking.curating.model.service.CurationService;
 import com.kh.snackking.curating.model.vo.curating;
 import com.kh.snackking.preference.model.service.PreferenceService;
 import com.kh.snackking.preference.model.vo.Preference;
+import com.kh.snackking.product.model.service.ProductService;
+import com.kh.snackking.product.model.vo.CuratingProduct;
+import com.kh.snackking.product.model.vo.Product;
 
 /**
  * Servlet implementation class UpdateCuratingSelect
@@ -35,7 +40,23 @@ public class UpdateCuratingSelect extends HttpServlet {
 		
 		Preference pre = new PreferenceService().UpdateCuratingSelect(cuNo);
 		
-//		curating cu = new CurationService().UpdateCuratingSelect(cuNo);
+		curating cu = new CurationService().UpdateCuratingSelect(cuNo);
+		
+		ArrayList<Product> selectProduct = new ProductService().CuratorSelectProduct(pre);
+		
+		ArrayList<CuratingProduct> basketProduct = new ProductService().CuratingbasketProduct(cuNo);
+		
+		String page = "";
+		if(pre != null) {
+			page = "views/curator/curatingForm.jsp";
+			request.setAttribute("insertPre", pre);
+			request.setAttribute("Product", selectProduct);
+			request.setAttribute("cuList", basketProduct);
+			request.setAttribute("cu", cu);
+		}else {
+			System.out.println("에러");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

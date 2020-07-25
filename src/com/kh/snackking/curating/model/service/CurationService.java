@@ -108,4 +108,14 @@ public class CurationService {
 		return list;
 	}
 
+	public curating UpdateCuratingSelect(int cuNo) {
+		Connection con = getConnection();
+		
+		curating cu = new CurationDao().UpdateCuratingSelect(con, cuNo);
+		
+		close(con);
+		
+		return cu;
+	}
+
 }
