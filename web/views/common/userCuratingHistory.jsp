@@ -442,6 +442,9 @@ input[type='text']{
 	}).click(function() {
 		var num = $(this).parent().children("#cuListArea").children().children("tbody").find("input").val();
 		console.log(num);
+		/* var changeCheck = $(this).parent().children("#listArea").children().children("tbody").find("td").eq(2).text();
+		console.log("changeCheck : " + changeCheck); */
+		
 		var check = window.confirm("큐레이팅을 진행하시겠습니까?\n(해당 상품으로 배송이 시작됩니다.)");
 		if(check){
 			$.ajax({
@@ -454,33 +457,21 @@ input[type='text']{
 					console.log(data);
 					alert("해당 리스트대로 주문을 시작합니다.");
 					
-					$tableBody = $("#order-history-table tbody");
+					$tableBody = $(".order-history-table tbody");
 					$tableBody.html('');
-					
-					<%-- <% for(CurationList cl : list) { %>
-					<tr class="order-td">
-						<input type="hidden" name="cNum" id="cNum" value="<%= cl.getCuListNo()%>">
-						<td class="odNum"><%= cl.getCuListNo()%></td>
-						<td><%= cl.getClDate()%></td>
-						<td class="cuCheckYN"><%= cl.getStatus()%></td>
-					</tr>
-					<% } %> --%>
-					
+										
 					for(var key in data) {
 						var $tr = $("<tr>").attr('class', 'order-td');
-						
-						var $hiddenId = $("<input>").attr('name', 'listNo').attr('type', 'hidden').attr('value', data.listNo);
-						var $naTd = $("<td>").text(data.list[key].pName);
-						var $countTd = $("<td>").text(data.list[key].pCount);
-						var $upTd = $("<td>").text(data.list[key].unitCount);
-						var $priceTd = $("<td>").text(data.list[key].price);
-						
-						
+	
+						var $hiddenId = $("<input>").attr('id', 'cNum').attr('name', 'cNum').attr('type', 'hidden').attr('value', data[key].cuListNo);
+						var $cuListTd = $("<td>").attr('class', 'odNum').text(data[key].cuListNo);						
+						var $dateTd = $("<td>").text(data[key].clDate);
+						var $statTd = $("<td>").attr('class', 'cuCheckYN').text(data[key].status);
+											
 						$tr.append($hiddenId);
-						$tr.append($naTd);
-						$tr.append($countTd);
-						$tr.append($upTd);
-						$tr.append($priceTd);
+						$tr.append($cuListTd);
+						$tr.append($dateTd);
+						$tr.append($statTd);
 						
 						$tableBody.append($tr);
 					}

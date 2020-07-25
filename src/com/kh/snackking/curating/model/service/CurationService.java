@@ -105,7 +105,13 @@ public class CurationService {
 		} else {
 			rollback(con);
 		}
+<<<<<<< src/com/kh/snackking/curating/model/service/CurationService.java
+		
 		close(con);
+		
+=======
+		close(con);
+>>>>>>> src/com/kh/snackking/curating/model/service/CurationService.java
 		return list;
 	}
 
@@ -119,12 +125,35 @@ public class CurationService {
 		return cu;
 	}
 
+<<<<<<< src/com/kh/snackking/curating/model/service/CurationService.java
+	public ArrayList<CurationList> selectAllList() {
+		
+		Connection con = getConnection();
+		
+		ArrayList<CurationList> list = new CurationDao().selectAllList(con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<CurationProduct> selectOrderCuratingProduct(int cuListNo) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<CurationProduct> list = new CurationDao().selectOrderCuratingProduct(con, cuListNo);
+		
+		close(con);
+		
+		return list;
+=======
 	public ArrayList<curatingList> CuratingListSearch(curatingList cu) {
 		Connection con = getConnection();
 		
 		ArrayList<curatingList> cuList = new CurationDao().CuratingListSearch(con, cu);
 		close(con);
 		return cuList;
+>>>>>>> src/com/kh/snackking/curating/model/service/CurationService.java
 	}
 
 }

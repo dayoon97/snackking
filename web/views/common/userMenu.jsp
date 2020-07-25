@@ -614,7 +614,7 @@
 									<li><a href="../order/cmOrderfavorite.jsp">선호도 조사 내역</a></li>
 									<li><a href="../order/cmOrderCurating.jsp">큐레이팅 관리</a></li>
 									<li>피드백 관리</li>
-									<li><a href="/snackking/views/order/cmOrderRelease.jsp">출고 관리</a></li>
+									<li><a href="<%=request.getContextPath()%>/selectOrderCuList.or">출고 관리</a></li>
 								</ul>
 						</li>
 						<li>
