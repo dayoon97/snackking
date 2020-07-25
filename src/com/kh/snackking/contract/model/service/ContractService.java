@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import com.kh.snackking.contract.model.dao.ContractDao;
 import com.kh.snackking.contract.model.vo.Contract;
+import com.kh.snackking.user.model.vo.User;
 
 public class ContractService {
 
@@ -100,6 +101,30 @@ public class ContractService {
 		
 		
 		return list;
+	}
+
+	//회원관리 - 계약회원관리 페이지에서 계약회원만 보여지는 리스트
+	public ArrayList<User> conUserList() {
+
+		Connection con = getConnection();
+		
+		ArrayList<User> list = new ContractDao().conUserList(con);
+		
+		
+		return list;
+	}
+
+	//계약회원 리스트 클릭 후 계약회원들의 계약정보 보여지게 할 떄 회원번호로 계약정보 찾으려고 함
+	public Contract contractUserDetail(int num) {
+		
+		Connection con =  getConnection();
+		
+		Contract c = new ContractDao().contractUserDetail(con, num);
+		
+		close(con);
+		
+		
+		return c;
 	}
 	
 }

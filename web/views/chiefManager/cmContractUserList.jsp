@@ -696,10 +696,11 @@ height: 25px;
 	});
 	}
 	//num으로 회원번호 받아옴
+	//회원리스트에서 클릭하면 보여질 페이지도 location.href으로 설정해둠
 	$(function() {
 		$("#listTable td").click(function() {
 			var num = $(this).parent().children("input").val();
-			location.href="<%=request.getContextPath()%>/selctOneContract?num=" + num;
+			location.href="<%=request.getContextPath()%>/selctOneContract.co?num=" + num;
 			 console.log("num : " + num); 
 		});
 	});

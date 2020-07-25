@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% int num = (int) request.getAttribute("num"); 
+<% int num = (int) request.getAttribute("num");
+   Contract c = (Contract)request.getAttribute("c");
+
+
 	
 %>    
 <!DOCTYPE html>
@@ -322,27 +325,27 @@ height: 25px;
 		
 			<!-- title-area start -->
 			<div id="titleArea">
-				<div id="mainTitle">계약 관리</div>
+				<div id="mainTitle">회원 관리</div>
 				<div id="line1"></div>
-				<div id="subTitle">계약 내역 등록
+				<div id="subTitle">계약 회원 관리
 				</div>
 			</div>	<!--title-area end -->
 			
 			<!-- search-area start -->
 			<div id="searchArea">
 				<!-- 조회 제목 -->
-				<div id="subSubTitle1">계약 등록</div>
+				<div id="subSubTitle1">계약 정보</div>
 					<!-- searchBox start -->
 					<div id="searchBox">
-					<!-- 등록버튼 누르면 이 서블릿으로 간다. 계약 등록 서블릿. 이때 num 회원정보도 가지고 감 -->
-						<form id="searchForm" action="<%= request.getContextPath()%>/insertContract.co" method="post">
-						<!-- 받아온 회원번호 -->
+					<!-- 등록버튼임 -->
+						<%-- <form id="searchForm" action="<%= request.getContextPath()%>/insertContract.co" method="post"> --%>
 						<input type="hidden" name="userNo" value="<%= num%>">
 							<table class="memberTable">
 							<tr>
 								<td>거래처명 :</td>
 								<!-- 여기 view 페이지에 있는 name=""(값 넘어가는것)하고 다음에 넘어가는 controller의 servlet getParameter("")하고 같아야 함!!! -->
-								<td><input type="text" class="searchTextBox" size="15" name="corpName"> 
+								<td><input type="text" class="searchTextBox" size="15" name="corpName" value="<%= %>"> 
+								
 								</td>
 								<td></td>
 								<td></td>
@@ -378,7 +381,7 @@ height: 25px;
 									
 						</table>
 								
-							<div><button type="submit" class="insertBtn"  id="submit" style="margin-left:860px; top:500px;">등록</button>
+					    <!-- <div><button type="submit" class="insertBtn"  id="submit" style="margin-left:860px; top:500px;">등록</button> -->
 							</div>
 								
 									
@@ -396,7 +399,7 @@ height: 25px;
 							</div>
 							-->
 							
-						</form>
+					<!-- 	</form> -->
 					</div> <!-- searchBox end -->
 			</div>	<!-- search-area end -->
 			
@@ -404,7 +407,6 @@ height: 25px;
 		
 		</div>	<!-- background-box end -->
 	</div>	<!-- outer end -->
-</div>	<!-- mainWrapper end -->
 	
 	<script>
 	   //Get the modal

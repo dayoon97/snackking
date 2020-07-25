@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.snackking.user.model.service.UserService;
+import com.kh.snackking.contract.model.service.ContractService;
 import com.kh.snackking.user.model.vo.User;
 
 /**
@@ -32,21 +32,21 @@ public class ContractUserManagementServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//유저 정보 가지고 와야하니까 유저에서 씁니당
-		ArrayList<User> conUserList = new UserService().conUserList();
+		//유저 정보 가지고 와야함. user 인데 계약 contract에서 넘깁니당
+		ArrayList<User> conUserList = new ContractService().conUserList();
 		
 		//확인용으로 적어봅니당
-		System.out.println("계약회원 리스트 : " + conUserList);
+//		System.out.println("계약회원 리스트 : " + conUserList);
 		
 		String page = "";
 		if(conUserList != null) {
 			page = "views/chiefManager/cmContractUserManagement.jsp";
-			
+			request.setAttribute("list", conUserList);
 		} else {
-			
+			System.out.println("에러");
 		}
 		
-		
+		request.getRequestDispatcher(page).forward(request, response);
 		
 		
 	}

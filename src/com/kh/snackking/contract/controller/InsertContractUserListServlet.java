@@ -35,6 +35,7 @@ public class InsertContractUserListServlet extends HttpServlet {
 //		System.out.println("유저리스트 서블릿 잘 나오나요~??");
 		ArrayList<User> adminlist = new UserService().adminUserList(); 
 		
+		//여기 위까지 쓰고 돌아오는거 확인한 다음 아래 내용 작성해주자
 //		System.out.println("회원 리스트 : " + adminlist);
 		
 		String page = "";
