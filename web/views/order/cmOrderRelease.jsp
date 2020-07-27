@@ -504,33 +504,31 @@ padding: 5px;
 							<td id="pickingCom"></td>
 						</tr>
 					</table>
-					<table id="pickingTable">
-						<thead>
-							<tr>
-								<th width=10%>순번</th>
-								<th width=23%>회사명</th>
-								<th width=25%>제품명</th>
-								<th width=15%>재고ID</th>
-								<th width=10%>수량</th>
-								<th width=17%>로케이션<br>번호</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>check</td>
-								<td>check</td>
-								<td>check</td>
-								<td>check</td>
-								<td>check</td>
-								<td>check</td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="6"><span id="pickingList" class="close" name="pickingList">저장하기</span></td>
-							</tr>
-						</tfoot>
-					</table>
+					<div class="modaltableWrap" style="width: 100%; height: 445px;">
+						<table id="pickingTable">
+							<thead>
+								<tr>
+									<th width=10%>순번</th>
+									<th width=23%>회사명</th>
+									<th width=25%>제품명</th>
+									<th width=15%>재고ID</th>
+									<th width=10%>수량</th>
+									<th width=17%>로케이션<br>번호</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="6">재고를 등록해주세요</td>
+								</tr>
+							</tbody>
+							<!-- <tfoot>
+								<tr>
+									<td colspan="6"><span id="pickingList" class="close" name="pickingList">저장하기</span></td>
+								</tr>
+							</tfoot> -->
+						</table>
+					</div>	<!-- modaltableWrap end -->
+					<span id="pickingList" class="close" name="pickingList">저장하기</span>
 				</div>	<!-- moSection2 end -->
 				</div>	<!-- modal-body end -->
 				<div class="modal-footer">
@@ -544,6 +542,7 @@ padding: 5px;
 <script type="text/javascript">
 var modal = document.getElementById("find-Modal");
 var span = document.getElementsByClassName("close")[0];
+var span2 = document.getElementsByClassName("close")[1];
 
 $(document).on("click", "#cuListTable td", function() {
 	var num = $(this).parent().children("input").val();
@@ -591,6 +590,9 @@ $(document).on("click", "#cuListTable td", function() {
 });
 
 span.onclick = function() {
+	modal.style.display = "none";
+}
+span2.onclick = function() {
 	modal.style.display = "none";
 }
 
