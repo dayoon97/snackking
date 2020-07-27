@@ -27,7 +27,7 @@ public class OrderService {
 		return list;
 	}
 
-	public ArrayList<PickingProduct> insertPickingStockList(int sNum, int amount, int pListNo) {
+	public ArrayList<PickingProduct> insertPickingStockList(String sNum, int amount, int pListNo) {
 		
 		Connection con = getConnection();
 		ArrayList<PickingProduct> list = null;
@@ -77,7 +77,7 @@ public class OrderService {
 		return pList;
 	}
 
-	public StorageProduct selectOneStorage(int sNum) {
+	public StorageProduct selectOneStorage(String sNum) {
 		
 		Connection con = getConnection();
 		

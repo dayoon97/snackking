@@ -35,7 +35,7 @@ public class InsertPickingListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int sNum = Integer.parseInt(request.getParameter("num"));
+		String sNum = request.getParameter("num");
 		int amount = Integer.parseInt(request.getParameter("amount"));
 		int pListNo = Integer.parseInt(request.getParameter("pListNo"));
 		System.out.println("sNum, amount : " + sNum + ", " + amount + ", " + pListNo);
