@@ -515,9 +515,32 @@ span {
 	
 	$(function(){
 		$("#yes-btn").click(function(){
-			location.href="<%=request.getContextPath()%>/deleteUser.us?num=<%=loginUser.getUserNo()%>&Tcode=<%=loginUser.gettCode()%>";
 			
-			alert("탈퇴 불가(관리자에게 문의하세요)");
+		    var tcode = "<%=loginUser.gettCode()%>";
+			var num = <%=loginUser.getUserNo()%>;
+			
+			<%-- location.href="<%=request.getContextPath()%>/deleteUser.us?num=<%=loginUser.getUserNo()%>&tcode=<%=loginUser.gettCode()%>"; --%>
+			
+			$.ajax({
+				url:"<%=request.getContextPath()%>/deleteUser.us",
+				data: {tcode:tcode, num:num},
+				type:"get",
+				success : function(data){
+					console.log(data);
+					if(data == 1){
+						location.href="<%=request.getContextPath()%>/logout";
+					} else if(data == 3) {
+						location.href="<%=request.getContextPath()%>/logout";
+					} else if (data == 0) {
+						alert("탈퇴 불가");
+					}
+				},
+				error: function(){
+					
+				}
+					
+			});
+			
 		});
 	});
 	

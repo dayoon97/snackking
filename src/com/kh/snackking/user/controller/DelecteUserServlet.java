@@ -33,21 +33,47 @@ public class DelecteUserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userNo = Integer.parseInt(request.getParameter("num"));
-		String tcode = request.getParameter("Tcode");
+		String tcode = request.getParameter("tcode");
 		
 		System.out.println("userNo : " + userNo);
+		System.out.println("Tcode : " + tcode);
 		
-		int result = new UserService().deleteUserSelect(userNo, tcode);
+		User user = new User();
+		user.settCode(tcode);
+		user.setUserNo(userNo);
 		
 		
-		if(result > 0) {
-			request.getSession().invalidate();
-	    	response.sendRedirect("index.jsp");
-		} else {
-			request.setAttribute("msg", "탈퇴실패");
-			request.getRequestDispatcher("views/common/userUpdateInfo.jsp").forward(request, response);
-
+		int result = new UserService().deleteUserSelect(user);
+		
+		System.out.println("result : " + result);
+		
+		String page = "";
+		if(result == 3) {
+//			request.getSession().invalidate();//session.invalidate()는 세션을 무효화하는 메서드이다.(소멸은 아니므로 혼동하지 않기로 주의한다.)
+//			response.sendRedirect("index.jsp");
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
+			
+		} else if(result == 1){
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
+			
+//			request.getSession().invalidate();//session.invalidate()는 세션을 무효화하는 메서드이다.(소멸은 아니므로 혼동하지 않기로 주의한다.)
+//			response.sendRedirect("index.jsp");
+			
+		} else if(result == 0) {
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson(result, response.getWriter());
 		}
+		
+
 	}
 
 	/**
