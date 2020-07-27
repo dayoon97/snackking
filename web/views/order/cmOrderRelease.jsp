@@ -336,6 +336,15 @@ border-radius: 8px;
 #pickingTable thead {
 	border-bottom: 2px solid black;
 }
+#pickingList {
+/* border: 1px solid black; */
+float: right;
+background: #F0BB00;
+border-radius: 5px;
+font-size: 15px;
+color: black;
+padding: 5px;
+}
 </script>
 </style>
 </head>
@@ -518,7 +527,7 @@ border-radius: 8px;
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colspan="6"><span id="pickingList" name="pickingList" style="border: 1px solid black; float: right;">저장하기</span></td>
+								<td colspan="6"><span id="pickingList" class="close" name="pickingList">저장하기</span></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -677,32 +686,12 @@ $(document).on("click", "#proListTable td", function() {
 					$tableBody.append($tr);
 				}
 				
-				$amount  = $(this).parent().parent().children("td").eq(2).text();
-				console.log("amount Check : " + amount);
+				$amountCk  = $(this).parent().parent().children("td").eq(3).text();
+				console.log("amount Check : " + $amountCk);
 				
-				/* $tableBody2 = $("#storageTable tbody");
-				$tableBody2.html('');
-				
-				for(var key in data.sList){
-					$tr = $("<tr>").attr('class', 'listBody');
-					$hiddenTd = $("<input>").attr("id", "cuProNo").attr("type", "hidden").attr("value", data.sList[key].sCode);
-					$nameTd = $("<td>").text(data.sList[key].pName);
-					$codeTd = $("<td>").text(data.sList[key].pCode);
-					$loTd = $("<td>").text(data.sList[key].location);
-					$amountTd = $("<td>").attr("class", "amount").text(data.sList[key].quantity);
-					$amountInputTd = $("<td>").append($("<input>").attr("class", "ckBox").attr("type", "text").attr("size","1"));
-					$ckTd = $("<td>").append($("<input>").attr("class", "pickBtn").attr("type", "button").attr("value", "추가"));
-					
-					$tr.append($hiddenTd);
-					$tr.append($nameTd);
-					$tr.append($codeTd);
-					$tr.append($loTd);
-					$tr.append($amountTd);
-					$tr.append($amountInputTd);
-					$tr.append($ckTd);
-					
-					$tableBody2.append($tr);
-				} */
+				$amount  = $(this).parent().parent().children("td").eq(3);
+				$amount.text(data.storage.quantity);
+
 				
 			},
 			error: function() {

@@ -15,7 +15,7 @@
 		
 	}
 	#aside {
-		height: 735px;
+		height: 100vh;
 		/* min-height:100%; */
 		background-color: #F0BB00;
 		position: fixed;
@@ -267,7 +267,7 @@
 		font-family: 'NanumSquare', sans-serif;
 	}
 	#aside {
-		height: 735px;
+		height: 100vh;
 		/* min-height:100%; */
 		background-color: #F0BB00;
 		position: fixed;
@@ -385,7 +385,7 @@
 		font-family: 'NanumSquare', sans-serif;
 	}
 	#aside {
-		height: 735px;
+		height: 100vh;
 		/* min-height:100%; */
 		background-color: #F0BB00;
 		position: fixed;
