@@ -532,7 +532,7 @@
 							</div>
 								<ul class="con">
 									<li><a href="<%=request.getContextPath()%>/selectUserCuration.cur">큐레이팅 내역 관리</a></li>
-									<li><a href="/snackking/views/common/userOrderHistory.jsp">주문내역 관리</a></li>
+									<!-- <li><a href="/snackking/views/common/userOrderHistory.jsp">주문내역 관리</a></li> -->
 								</ul>
 						</li>
 						<li><div class="user-menu-box">
@@ -594,7 +594,7 @@
 						<li>
 							<p class="title2">직원 관리</p>
 								<ul class="con">
-									<li><a href="../employee/employeeSchedule.jsp">스케줄 확인</a></li>
+									<!-- <li><a href="../employee/employeeSchedule.jsp">스케줄 확인</a></li> -->
 									<li><a href="<%=request.getContextPath()%>/adminEmpSelect.ad?num=<%=loginUser.getUserNo()%>">권한 변경</a></li>
 									<li><a href="<%=request.getContextPath()%>/matchingSelect">고객-큐레이터<br>매칭 관리</a></li>
 								</ul>
@@ -614,20 +614,20 @@
 						<li>
 							<p class="title2">주문 관리</p>
 								<ul class="con">
-									<li><a href="../order/cmOrderfavorite.jsp">선호도 조사 내역</a></li>
-									<li><a href="../order/cmOrderCurating.jsp">큐레이팅 관리</a></li>
-									<li>피드백 관리</li>
+									<li><a href="<%= request.getContextPath()%>/selectList.pre?pno=<%=loginUser.getUserNo()%>">선호도 조사 내역</a></li>
+									<li><a href="<%= request.getContextPath()%>/curatingList.cu">큐레이팅 관리</a></li>
+									<!-- <li>피드백 관리</li> -->
 									<li><a href="<%=request.getContextPath()%>/selectOrderCuList.or">출고 관리</a></li>
 								</ul>
 						</li>
-						<li>
+						<!-- <li>
 							<p class="title2">교환 관리</p>
 								<ul class="con">
 									<li>교환 신청 확인</li>
 									<li>회수 내역 관리</li>
 									<li>교환 지급 품목 관리</li>
 								</ul>
-						</li>
+						</li> -->
 						<li>
 							<p class="title2">설비 관리</p>
 								<ul class="con">
@@ -719,18 +719,18 @@
 									<li><a href="<%= request.getContextPath()%>/selectList.pre?pno=<%=loginUser.getUserNo()%>">선호도 조사 내역</a></li>
 									<li><a href="<%= request.getContextPath()%>/curatingList.cu">큐레이팅 관리</a></li>
 									<li><a href="<%= request.getContextPath()%>/views/curator/crExchangeInsert.jsp">교환 관리</a></li>
-									<li><a href="">회수 관리</a></li>
+									<!-- <li><a href="">회수 관리</a></li> -->
 									<li><a href="<%=request.getContextPath()%>/views/equipment/equipmentList.jsp">설비 관리</a></li>
 									<li><a href="<%=request.getContextPath()%>/views/order/cmTransactionSearch.jsp">거래명세서 관리</a></li>
 									<li><a href="<%=request.getContextPath()%>/adjustmentSelect?num=<%=loginUser.getUserNo()%>">정산 관리</a></li>
 								</ul>
 						</li>
-						<li>
+						<!-- <li>
 							<p class="title">계약 관리</p>
 								<ul class="con">
 									<li><a href="">계약 내역 조회</a></li>
 								</ul>
-						</li>
+						</li> -->
 					</ul>
 				</div>	<!-- accodion-box end -->
 			</div>	<!-- aside-body end -->
