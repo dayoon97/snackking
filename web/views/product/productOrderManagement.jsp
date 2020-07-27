@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.balju.model.vo.Balju, java.util.*"%>
+<% ArrayList<Balju> bj = (ArrayList<Balju>) request.getAttribute("bj"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../../resources/css/mine.css">
-<style type="text/css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/mine.css">
+<style>
 #apply{
 	position:absolute;	
 	top:300px !important;
@@ -43,9 +45,9 @@
 							<form id="searchForm" style="display:table-cell !important; vertical-align:middle !important; ">
 								<table id="searchOrder"  style="margin-left: auto !important; margin-right: auto !important; border-spacing: 20px 10px" >
 									<tr style="height:34px !important;">
-										
+										<td></td>
 										<!--------옵션-------------------------------------->
-										<td width="185px">발주구분 :
+										<!-- <td width="185px">발주구분 :
 											<div class="dropdown">
 	        									<div class="select">
 	          										<span>선택</span>
@@ -58,7 +60,7 @@
 								                           <li id="정기">정기</li>
 											        </ul>
 											 </div>
-										</td>
+										</td> -->
 										<!--------옵션-------------------------------------->	
 										
                         				<td width="170px">발주코드  :
@@ -125,14 +127,13 @@
 					<div id="subSubTitle2" style="top:325px !important;">발주 리스트</div>
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
-					<span id="apply" style="top:330px !important;">조회 결과 수 :</span>
+					<span id="apply" style="top:330px !important;"></span>
 						<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
-					<table id="listTable10" style="top:365px !important;">
+					<table id="listTable10" style="top:365px !important; left: 100px;">
 						<thead>
 							<!-- 테이블 헤드 -->
 							<tr>
-								<th>발주구분</th>
 								<th>발주코드</th>
 								<th>상품명</th>
 								<th>상품코드</th>
@@ -147,44 +148,20 @@
 							</tr>
 						</thead>
 						<tbody>
+						<%for(Balju b : bj){ %>
 						<!-- 리스트 바디  -->
 							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td><%= b.getBalCode() %></td>
+								<td><%= b.getpName() %></td>
+								<td><%= b.getpCode() %></td>
+								<td><%= b.getVendor() %></td>
+								<td><%= b.getBaljuDate() %></td>
+								<td><%= b.getUserName() %></td>
+								<td><%= b.getExpectedDate() %></td>
+								<td><%= b.getBalType() %></td>
+								<td><button class="searchBtn" id="searchBtn">승인</button></td>
 							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-							</tr>
-						
+						<%} %>
 						</tbody>
 					</table>
 					<!-- 테이블 끝 -->
