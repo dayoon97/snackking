@@ -227,10 +227,18 @@ height: 25px;
 }
 
 .table-scroll{
-	height:450px;
+	height:400px;
 	position: absolute;
 	margin-top: 50px;
 	margin-left: 30px;
+}
+.table-scroll::-webkit-scrollbar {
+		width: 5px;
+		padding-top: 10px;
+}
+.table-scroll::-webkit-scrollbar-thumb {
+		background-color: #D9D9D9;
+		border-radius: 3px;
 }
 /*Styling Selectbox*/
 .dropdown {
@@ -330,7 +338,7 @@ height: 25px;
 			<!-- search-area start -->
 			<div id="searchArea">
 				<!-- 조회 결과 리스트 제목 -->
-				<div id="subSubTitle1">회원리스트</div>
+				<div id="subSubTitle1">계약회원 리스트</div>
 					
 			</div>	<!-- search-area end -->
 			
