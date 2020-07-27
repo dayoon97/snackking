@@ -130,13 +130,14 @@
 					<span id="apply" style="top:330px !important;"></span>
 						<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
-					<table id="listTable10" style="top:365px !important; left: 100px;">
+					<table id="listTable10" style="top:365px !important;">
 						<thead>
 							<!-- 테이블 헤드 -->
 							<tr>
 								<th>발주코드</th>
 								<th>상품명</th>
 								<th>상품코드</th>
+								<th>개수</th>
 								<th>발주회사명</th>
 								<th>발주일</th>
 								<th>신청자</th>
@@ -154,12 +155,13 @@
 								<td><%= b.getBalCode() %></td>
 								<td><%= b.getpName() %></td>
 								<td><%= b.getpCode() %></td>
+								<td><%= b.getQuantity() %></td>
 								<td><%= b.getVendor() %></td>
 								<td><%= b.getBaljuDate() %></td>
 								<td><%= b.getUserName() %></td>
 								<td><%= b.getExpectedDate() %></td>
 								<td><%= b.getBalType() %></td>
-								<td><button class="searchBtn" id="searchBtn">승인</button></td>
+								<td><button class="searchBtn" id="searchBtn" onclick="">승인</button></td>
 							</tr>
 						<%} %>
 						</tbody>

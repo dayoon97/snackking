@@ -648,7 +648,61 @@ public class ProductDao {
 		String[] protypes = curatingProduct.getPreProductTypes().split(",");//종류
 		String[] alname = curatingProduct.getPreAlName().split(",");//알레르기
 		
-		String query = "SELECT "
+		String query = "SELECT PCODE, PNAME, PVENDOR, PT_NAME, TASTE" 
+		                 + " , FLAVOR, ALLERGY, PPRICE , SEARCH_YN" 
+				      + " FROM (SELECT P.PCODE, P.PNAME, P.PVENDOR, PT.PT_NAME, P.TASTE" 
+		                         + " , P.FLAVOR, P.ALLERGY, P.PPRICE , P.SEARCH_YN" 
+				              + " FROM PRODUCT P " 
+		                      + " JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE)" 
+				             + " WHERE SEARCH_YN = 'Y' ";
+		                      
+				if(protypes != null) { 
+					for(int i = 0; i < protypes.length; i++) {//상품종류
+						if(i == 0) {
+							query += "AND (PT.PT_NAME LIKE '%" + protypes[i] +"%' " ;
+						}else {
+							query += "OR PT.PT_NAME LIKE '%" + protypes[i] +"%' " ;
+						}
+					}
+					query += ") ";
+				}
+				
+				if(taste != null) {
+					for(int i = 0; i < taste.length; i++) {//맛
+						if(i == 0) {
+							query += "AND (P.TASTE LIKE '%" + taste[i] +"%' " ;
+						}else {
+							query += "OR P.TASTE LIKE '%" + taste[i] +"%' " ;
+						}
+					}
+					query += ") ";
+				}
+				
+				if(flavor != null) {
+					for(int i = 0; i < flavor.length; i++) {//향
+						if(i == 0) {
+							query += "AND (P.FLAVOR LIKE '%" + flavor[i] +"%' " ;
+						}else {
+							query += "OR P.FLAVOR LIKE '%" + flavor[i] +"%' " ;
+						}
+					}
+					query += ")";
+				}
+				query += ") ";
+				
+				if(alname != null) { //알레르기
+					for(int i = 0; i < alname.length; i++) {//향
+						if(i == 0) {
+							query += "WHERE ALLERGY NOT LIKE '%" + alname[i]  +"%' " ;
+						}else {
+							query += "AND ALLERGY NOT LIKE '%" + alname[i] +"%' " ;
+						}
+					}
+				}
+				
+		System.out.println("query : " + query);
+				
+		/*String query = "SELECT "
 			              	+ "P.PCODE, P.PNAME, P.PVENDOR, PT.PT_NAME, P.TASTE"
 			              + ", P.FLAVOR, P.ALLERGY, P.PPRICE , P.SEARCH_YN "
 			            + "FROM PRODUCT P JOIN PRODUCT_TYPE PT ON(P.PT_CODE = PT.PT_CODE) "
@@ -679,12 +733,16 @@ public class ProductDao {
 		}
 		
 		
-		if(alname != null) {
+		if(alname != null) { //알레르기
 			for(int i = 0; i < alname.length; i++) {
-					query += "OR P.ALLERGY NOT LIKE '%"+ alname[i] +"%' ";
-				
+				if(i == 0) {
+					query += "OR ( P.ALLERGY NOT LIKE '%"+ alname[i] +"%' ";
+				}else {
+					query += "OR P.ALLERGY NOT LIKE '%" + alname[i] + "%' ";
+				}
 			}
-		}
+			query += ")";
+		}*/
 		
 		try {
 			stmt = con.createStatement();
