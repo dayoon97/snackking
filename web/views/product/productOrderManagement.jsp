@@ -161,7 +161,11 @@
 								<td><%= b.getUserName() %></td>
 								<td><%= b.getExpectedDate() %></td>
 								<td><%= b.getBalType() %></td>
-								<td><button class="searchBtn" id="searchBtn" onclick="">승인</button></td>
+								<%if(b.getBalType().equals("N")){ %>
+								<td><button class="searchBtn" id="searchBtn" onclick="alert('승인하시겠습니까?'); location.href='<%=request.getContextPath()%>/baljuAccept.bj?num=<%= b.getBalCode()%>'">승인</button></td>
+								<%} else{%>
+								<td>승인완료</td>
+								<%} %>
 							</tr>
 						<%} %>
 						</tbody>

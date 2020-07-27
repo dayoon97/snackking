@@ -3,6 +3,7 @@ package com.kh.snackking.balju.model.dao;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -67,6 +68,28 @@ private Properties prop = new Properties();
 		
 		
 		return bj;
+	}
+
+	public int BaljuAccept(Connection con, String bjNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("BaljuAccept");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, bjNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
 	}
 
 	
