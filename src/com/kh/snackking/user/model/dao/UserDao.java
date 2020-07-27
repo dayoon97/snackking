@@ -527,27 +527,49 @@ public class UserDao {
 		return result;
 	}
 
-	public int deleteUser(Connection con, int userNo, String tcode) {
+	public int deleteUser(Connection con, User user) {
 		PreparedStatement pstmt = null;
 		int result = 0;
+		int count = 0;
 		
-		String query = prop.getProperty("deleteUser");
+		String query = "";
+		if(user.gettCode().equals("T1")) {count = 1;}
+		if(user.gettCode().equals("T2")) {count = 2;}
 		
-		
-		
-		
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, userNo);
+		if(count == 1) {
+			query = "UPDATE USER_INFO SET STATUS = 'N' WHERE USER_NO = ?";
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, user.getUserNo());
+				
+				result = pstmt.executeUpdate();
+				if(result > 0) {
+					result = 3;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
 			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
+		} else if(count == 2){
+			query = "UPDATE USER_INFO SET STATUS = 'N' WHERE (USER_NO = (SELECT U.USER_NO FROM USER_INFO U JOIN CONTRACT C ON(U.USER_NO = C.USER_NO) JOIN ADJUSTMENT A ON (U.USER_NO = A.USER_NO) WHERE C.END_YN = 'Y' AND A.ADJUSTMENT_COMPLETE = 'Y' AND U.USER_NO = ?))";
+
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, user.getUserNo());
+				
+				result = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+		} 
+		//쿼리문 실행
+		System.out.println(query);
+	
 		
 		
 		return result;

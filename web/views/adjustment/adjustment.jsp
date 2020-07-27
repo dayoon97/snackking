@@ -264,10 +264,10 @@
 	   			<div id="wrapper" style="width:600px; margin-left: auto; margin-right: auto;">
 	    <!-- 상단 정보 테이블 시작 -->
 	  	 		 <table align="center" border="1" style="width: 600px; height: 180px;" id="adjustment-upper-table">
-					<tr>
+					<tr class="companyTr">
 						<td rowspan="3" style="width: 30%;">
 							<h7>2020년 7월 28일</h7>
-							<h2>(주)최다윤회사</h2><h5>貴中</h5>
+							<h2 class="companyTitle">(주)최다윤회사</h2><h5>貴中</h5>
 				
 						</td>
 						<td>사업자번호</td>
@@ -304,7 +304,7 @@
 					</tr>
 					<tr class="color-box">
 						<td style="width: 120px"><h3>청구 합계</h3></td>
-						<td style="width: 300px;"><h4 class="total-detail1"></h4><h3 class="total-detail2"></h3></td>
+						<td style="width: 300px;"><h4 class="total-detail1"></h4></td>
 						<td style="width: 180px; padding: 10px;"><h3 class="total-detail2">&#8361;</h3></td>
 					</tr>	
 					<tr style="width: 600px; height: 20px;">
@@ -537,37 +537,8 @@ $('.dropdown-menu li').click(function () {
 			type:"get",
 			success: function(data){
 				
-				/* $tableBody2 = $("#adjustment-total-table tbody");
-				
-				$tableBody2.html('');
-				
-				$.each(data, function(index, value){
-					var $tr2 = $("<tr class='color-box'>");
-					var $Td1 = $("<td>").text("청구 합계");
-					var $Td2 = $("<td>").text("");
-					var $Td3 = $("<td>").text(decodeURIComponent(value.total));
-					var $endTr2 = $("</tr>");
-					
-					var to = value.total
-					
-					$tr2.append($tr2);
-					$tr2.append($Td1);
-					$tr2.append($Td2);
-					$tr2.append($Td3);
-					$tr2.append($endTr2);
-					
-					$tr2.append($tr2).css({"border-bottom":"1px solid black0px", "height" : "20px"});
-					
-					/* <td style="width: 120px"><h3>청구 합계</h3></td>
-					<td style="width: 300px;"><h4 class="total-detail1"></h4><h3 class="total-detail2"></h3></td>
-					<td style="width: 180px; padding: 10px;"><h3 class="total-detail2">&#8361;1,650,000</h3></td>
-					</tr> */
-					
-					/* $tableBody2.append($tr2);
-				}); */
-				 
-				
-			
+				var totalDetail = 0;
+				var totalDetail2 = 0;
 				
 				$tableBody = $("#listTable-adjustment tbody");
 				
@@ -610,6 +581,9 @@ $('.dropdown-menu li').click(function () {
 					$delDateTd = $("<td>").text(nal);
 				
 					
+					totalDetail += (value.total);
+					totalDetail2 += (price);
+					
 					$tr.append($Td);
 					$tr.append($delDateTd);
 					$tr.append($t1Td);
@@ -623,8 +597,16 @@ $('.dropdown-menu li').click(function () {
 					
 					$tableBody.append($tr);
 				}); 
+				
+				
+				$(".total-detail1").text("공급가액 : " + '\\' + totalDetail2);
+				
+				$(".total-detail2").text('\\' + totalDetail);
 			
+				$(".companyTitle").text("(주)" + com);
+				
 			},
+			
 			error: function(data){
 				
 			}

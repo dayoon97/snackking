@@ -148,7 +148,8 @@
 						<div id="con-board" class="conWrap">
 							<div class="content1">새로운 게시글</div>
 							<div class="alert-circle"><img alt="alert-circle" src="/snackking/resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number"></div>
+							<% int w = Blist.size(); %>
+							<div class="alert-number"><%=w %></div>
 							<div class="line"></div>
 							<div class="list-wrap">
 								<table class="list">
@@ -173,7 +174,8 @@
 						<div id="con-stock" class="conWrap">
 							<div class="content1">정산 미지급 알림</div>
 							<div class="alert-circle"><img alt="alert-circle" src="/snackking/resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number"></div>
+							<% int e = Alist.size(); %>
+							<div class="alert-number"><%= e %></div>
 							<div class="line"></div>
 							<div class="list-wrap">
 								<table class="list">
@@ -208,7 +210,8 @@
 						<div id="con-member" class="conWrap">
 							<div class="content1">새로운 회원 알림</div>
 							<div class="alert-circle"><img alt="alert-circle" src="/snackking/resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number"></div>
+							<%int p = list.size(); %>
+							<div class="alert-number"><%= p %></div>
 							<div class="line"></div>
 							<div class="list-wrap">
 								<table class="list">
@@ -232,7 +235,8 @@
 						<div id="con-approval" class="conWrap">
 							<div class="content1">큐레이팅 완료</div>
 							<div class="alert-circle"><img alt="alert-circle" src="/snackking/resources/image/icon-alert-circle.png"></div>
-							<div class="alert-number"></div>
+							<%int c = Clist.size(); %>
+							<div class="alert-number"><%= c%></div>
 							<div class="line"></div>
 							<div class="list-wrap">
 								<table class="list">

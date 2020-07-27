@@ -174,16 +174,18 @@ public class UserService {
 		return list;
 	}
 
-	public int deleteUserSelect(int userNo, String tcode) {
+	public int deleteUserSelect(User user) {
 		Connection con = getConnection();
 		int result = 0;
 		
 		
-		result = new UserDao().deleteUser(con, userNo, tcode);
+		result = new UserDao().deleteUser(con, user);
 		
-		if(result > 0) {
+		if(result == 3) {
 			commit(con);
-		} else {
+		} else if(result == 1){
+			commit(con);
+		} else if(result == 0) {
 			rollback(con);
 		}
 		
