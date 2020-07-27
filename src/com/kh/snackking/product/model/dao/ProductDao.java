@@ -745,7 +745,6 @@ public class ProductDao {
 				list.add(p);
 			}
 			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

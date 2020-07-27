@@ -515,7 +515,7 @@ span {
 	
 	$(function(){
 		$("#yes-btn").click(function(){
-			location.href="<%=request.getContextPath()%>/deleteUser.us?num=<%=loginUser.getUserNo()%>";
+			location.href="<%=request.getContextPath()%>/deleteUser.us?num=<%=loginUser.getUserNo()%>&Tcode=<%=loginUser.gettCode()%>";
 			
 			alert("탈퇴 불가(관리자에게 문의하세요)");
 		});

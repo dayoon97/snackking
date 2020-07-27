@@ -1,4 +1,4 @@
-package com.kh.snackking.user.controller;
+package com.kh.snackking.adjustment.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.snackking.user.model.service.UserService;
-import com.kh.snackking.user.model.vo.User;
+import com.kh.snackking.adjustment.model.service.AdjustmentService;
+import com.kh.snackking.adjustment.model.vo.Adjustment;
 
 /**
- * Servlet implementation class DelecteUserServlet
+ * Servlet implementation class SelectAdjustmentDetailServlet
  */
-@WebServlet("/deleteUser.us")
-public class DelecteUserServlet extends HttpServlet {
+@WebServlet("/detailAdjustment")
+public class SelectAdjustmentDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DelecteUserServlet() {
+    public SelectAdjustmentDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,22 +32,19 @@ public class DelecteUserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("num"));
-		String tcode = request.getParameter("Tcode");
+		String com = request.getParameter("com");
 		
-		System.out.println("userNo : " + userNo);
+		ArrayList<Adjustment> list = new AdjustmentService().detailAdjustment(com);
 		
-		int result = new UserService().deleteUserSelect(userNo, tcode);
-		
-		
-		if(result > 0) {
-			request.getSession().invalidate();
-	    	response.sendRedirect("index.jsp");
+		if(list != null) {
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson(list, response.getWriter());
 		} else {
-			request.setAttribute("msg", "탈퇴실패");
-			request.getRequestDispatcher("views/common/userUpdateInfo.jsp").forward(request, response);
-
+			
 		}
+		
 	}
 
 	/**

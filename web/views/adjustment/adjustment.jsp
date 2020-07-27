@@ -266,8 +266,8 @@
 	  	 		 <table align="center" border="1" style="width: 600px; height: 180px;" id="adjustment-upper-table">
 					<tr>
 						<td rowspan="3" style="width: 30%;">
-							<h7>2020년 8월 1일</h7>
-							<h2>(주)그루모아</h2><h5>貴中</h5>
+							<h7>2020년 7월 28일</h7>
+							<h2>(주)최다윤회사</h2><h5>貴中</h5>
 				
 						</td>
 						<td>사업자번호</td>
@@ -304,8 +304,8 @@
 					</tr>
 					<tr class="color-box">
 						<td style="width: 120px"><h3>청구 합계</h3></td>
-						<td style="width: 300px;"><h4 class="total-detail1">일금</h4><h3 class="total-detail2">백육십오만 원정</h3></td>
-						<td style="width: 180px; padding: 10px;"><h3 class="total-detail2">&#8361;1,650,000</h3></td>
+						<td style="width: 300px;"><h4 class="total-detail1"></h4><h3 class="total-detail2"></h3></td>
+						<td style="width: 180px; padding: 10px;"><h3 class="total-detail2">&#8361;</h3></td>
 					</tr>	
 					<tr style="width: 600px; height: 20px;">
 						<td colspan="5" style="text-align: right;">(단위 : 원)</td>
@@ -325,7 +325,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+					
+						<tr class="adjustmentTable">
 							<td>1회차</td>
 							<td>2020.06.01</td>
 							<td>칸쵸 외</td>
@@ -335,26 +336,7 @@
 							<td>550,000</td>
 							<td></td>
 						</tr>
-						<tr>
-							<td>2회차</td>
-							<td>2020.06.11</td>
-							<td>칸쵸 외</td>
-							<td>80개</td>
-							<td>500,000</td>
-							<td>50,000</td>
-							<td>550,000</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>3회차</td>
-							<td>2020.06.21</td>
-							<td>칸쵸 외</td>
-							<td>80개</td>
-							<td>500,000</td>
-							<td>50,000</td>
-							<td>550,000</td>
-							<td></td>
-						</tr>
+					
 						<tr>
 							<td></td>
 							<td></td>
@@ -405,46 +387,7 @@
 							<td>-</td>
 							<td></td>
 						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>-</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>-</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>-</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>-</td>
-							<td></td>
-						</tr>
+					
 					</tbody>	
 					
 				</table><!-- 거래내역 리스트 테이블 끝 -->	
@@ -461,7 +404,7 @@
 						<td style="height:20px; width:75px;">계좌번호</td>
 						<td style="width: 75px;" colspan="2">010-012345-01-010</td>
 						<td style="width: 75px;">청구일시</td>
-						<td style="width: 75px;" colspan="2">2020년 7월 5일</td>
+						<td style="width: 75px;" colspan="2">2020년 7월 28일</td>
 						<td style="width: 75px;" colspan="2"></td>
 					</tr>
 				</table><!-- 하단 계좌 정보 테이블 끝 -->		
@@ -551,7 +494,7 @@ $('.dropdown-menu li').click(function () {
    }
 
    
- //정산 내역 추가하기 버튼 누르면 등록 페이지로 이동
+   //정산 내역 추가하기 버튼 누르면 등록 페이지로 이동
    $("#addBtn").click(function() {
    		location.href="<%=request.getContextPath()%>/searchCompany?num=<%=loginUser.getUserNo()%>";
    });
@@ -572,7 +515,7 @@ $('.dropdown-menu li').click(function () {
 	 $(document).on('click', "#noBtn", function(){
 		 com='';
 	 	});
-   });
+    });
  
 	 //예 버튼을 누르면 데이터 가져가서 업데이트 
 	 $(document).on('click', '#yesBtn', function(){
@@ -580,6 +523,117 @@ $('.dropdown-menu li').click(function () {
 		location.href="<%=request.getContextPath()%>/adjustmentComplete?com="+com;
 			  
 	});
+	 
+	 
+	 //정산 상세내역확인
+	 $(document).on('click', '#detail', function(){
+		com = $(this).parent().parent().children().eq(1).text();
+		
+		modal.style.display = "block";
+		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/detailAdjustment",
+			data: {com:com},
+			type:"get",
+			success: function(data){
+				
+				/* $tableBody2 = $("#adjustment-total-table tbody");
+				
+				$tableBody2.html('');
+				
+				$.each(data, function(index, value){
+					var $tr2 = $("<tr class='color-box'>");
+					var $Td1 = $("<td>").text("청구 합계");
+					var $Td2 = $("<td>").text("");
+					var $Td3 = $("<td>").text(decodeURIComponent(value.total));
+					var $endTr2 = $("</tr>");
+					
+					var to = value.total
+					
+					$tr2.append($tr2);
+					$tr2.append($Td1);
+					$tr2.append($Td2);
+					$tr2.append($Td3);
+					$tr2.append($endTr2);
+					
+					$tr2.append($tr2).css({"border-bottom":"1px solid black0px", "height" : "20px"});
+					
+					/* <td style="width: 120px"><h3>청구 합계</h3></td>
+					<td style="width: 300px;"><h4 class="total-detail1"></h4><h3 class="total-detail2"></h3></td>
+					<td style="width: 180px; padding: 10px;"><h3 class="total-detail2">&#8361;1,650,000</h3></td>
+					</tr> */
+					
+					/* $tableBody2.append($tr2);
+				}); */
+				 
+				
+			
+				
+				$tableBody = $("#listTable-adjustment tbody");
+				
+				$tableBody.html('');
+				
+				$.each(data, function(index, value){
+					
+					var $tr = $("<tr class='adjustmentTable'>");
+					var $Td = $("<td>").text(index+1);
+					var $delDateTd = $("<td>").text(value.delDate);
+					var $t1Td = $("<td>").text("");
+					var $amountTd = $("<td>").text(decodeURIComponent(value.amount));
+					var $totalTd = $("<td>").text(decodeURIComponent(value.total));
+					var $t2Td = $("<td>").text("");
+					var $t3Td = $("<td>").text(decodeURIComponent(value.total));
+					var $t4Td = $("<td>").text("");
+					var $endTr = $("</tr>");
+					
+					
+					var tax = (value.total) * 0.1;
+					console.log(tax);
+					
+					$t2Td = $("<td>").text(tax);
+					
+					var price = (value.total) - tax;
+					console.log(price);
+					
+					$totalTd = $("<td>").text(price);
+					
+					var year = (value.delDate).substr(9, 10);
+					var mon = (value.delDate).substr(0, 1);
+					if(mon.indexOf(" ", 0)){
+						var mon1 = "0";
+					}
+					var day = (value.delDate).substr(3, 2);
+					var code;
+						
+					var nal = year.concat("-", mon1, mon,"-",day);
+						
+					$delDateTd = $("<td>").text(nal);
+				
+					
+					$tr.append($Td);
+					$tr.append($delDateTd);
+					$tr.append($t1Td);
+					$tr.append($amountTd);
+					$tr.append($totalTd);
+					$tr.append($t2Td);
+					$tr.append($t3Td);
+					$tr.append($t4Td);
+					$tr.append($endTr);
+					$tr.append($tr).css({"border-bottom":"1px solid black", "height" : "30px"});
+					
+					$tableBody.append($tr);
+				}); 
+			
+			},
+			error: function(data){
+				
+			}
+		});
+		
+	 });
+	 
+	 
+	 
 	
 	 //최고관리자가 로그인 했을 때 검색
 	 <%if(loginUser.gettCode().equals("T3")) {%>
@@ -599,7 +653,6 @@ $('.dropdown-menu li').click(function () {
 			data:{company:company, money:money, yn:yn},
 			type:"get",
 			success: function(data){
-				console.log("dㅇㅇㅇㅇ");
 				$tableBody = $("#listTable7 tbody");
 				
 				$tableBody.html('');
@@ -632,9 +685,8 @@ $('.dropdown-menu li').click(function () {
 					var $adComTd = $("<td>").text(comYN);
 				
 					
-					
-					
 					//입금일 형태 바꾸기
+					var dateN;
 					var dateY;
 					if(value.adJustmentDate == undefined){
 						dateN = '미지급';
@@ -704,7 +756,6 @@ $('.dropdown-menu li').click(function () {
 			data:{company:company, money:money, yn:yn, num:<%=loginUser.getUserNo()%>},
 			type:"get",
 			success: function(data){
-				console.log("제바아아알");
 				$tableBody = $("#listTable7 tbody");
 				
 				$tableBody.html('');
@@ -786,15 +837,51 @@ $('.dropdown-menu li').click(function () {
 	 });
 	<% } %>
 
-	$(document).on('click', 'input[type=checkbox]', function(e){
-		if($(this).prop('checked')){
-			$('input[type=checkbox]').prop("checked",false);
-    		$(this).prop("checked",true);
-    	}
-	});
-	
 	$(document).on('click', '#delBtn', function(){
-
+		console.log("dddd");
+		var rowData = new Array();
+		var tdArr = new Array();
+		var checkbox = $("input[id=ch]:checked");
+		
+		var company;
+		
+		checkbox.each(function(i) {
+			
+			// checkbox.parent() : checkbox의 부모는 <td>이다.
+			// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
+			var tr = checkbox.parent().parent().eq(i);
+			var td = tr.children();
+			
+			// 체크된 row의 모든 값을 배열에 담는다.
+			rowData.push(tr.text());
+			
+			// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+			company = td.eq(2).text()
+			
+	
+			
+			// 가져온 값을 배열에 담는다.
+			tdArr.push(company);
+	
+		
+			
+			
+		});
+			console.log(company);
+		
+			$.ajax({
+				url:"<%=request.getContextPath()%>/deleteAdjustment",
+				data: {company:company},
+				type: "get",
+				success: function(data){
+					location.reload(true);
+				},
+				error : function(data){
+					
+				}
+				
+			});
+		
 	});
 	
 </script>

@@ -354,4 +354,58 @@ public class AdjustmentDao {
 		
 		return list;
 	}
+
+	public int deleteAdjustment(Connection con, String company) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteAdjustment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, company);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<Adjustment> detailAdjustment(Connection con, String com) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Adjustment> list = null;
+		
+		String query = prop.getProperty("detailAdjustment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, com);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Adjustment> ();			
+			while(rset.next()) {
+				Adjustment ad = new Adjustment();
+				ad.setCompany(rset.getString("COMPANY"));
+				ad.setTotal(rset.getInt("TOTAL"));
+				ad.setDelDate(rset.getDate("CL_DATE"));
+				ad.setAmount(rset.getInt("AMOUNT"));
+				
+				list.add(ad);
+			}
+			System.out.println("정산서 리스트 : " + list);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		} 
+		
+		return list;
+	}
 }

@@ -1,8 +1,6 @@
-package com.kh.snackking.user.controller;
+package com.kh.snackking.adjustment.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,20 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.snackking.user.model.service.UserService;
-import com.kh.snackking.user.model.vo.User;
+import com.kh.snackking.adjustment.model.service.AdjustmentService;
 
 /**
- * Servlet implementation class DelecteUserServlet
+ * Servlet implementation class DeleteAdjustmentServlet
  */
-@WebServlet("/deleteUser.us")
-public class DelecteUserServlet extends HttpServlet {
+@WebServlet("/deleteAdjustment")
+public class DeleteAdjustmentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DelecteUserServlet() {
+    public DeleteAdjustmentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,22 +29,22 @@ public class DelecteUserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("num"));
-		String tcode = request.getParameter("Tcode");
-		
-		System.out.println("userNo : " + userNo);
-		
-		int result = new UserService().deleteUserSelect(userNo, tcode);
+		String company = request.getParameter("company");
 		
 		
+		int result = new AdjustmentService().deleteAdjustment(company);
+		
+		String page = "";
 		if(result > 0) {
-			request.getSession().invalidate();
-	    	response.sendRedirect("index.jsp");
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			new Gson().toJson(response.getWriter());
 		} else {
-			request.setAttribute("msg", "탈퇴실패");
-			request.getRequestDispatcher("views/common/userUpdateInfo.jsp").forward(request, response);
-
+			page = "views/adjustment/adjustment.jsp";
 		}
+		
+		
 	}
 
 	/**
