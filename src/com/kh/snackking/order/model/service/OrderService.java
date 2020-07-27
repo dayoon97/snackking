@@ -27,18 +27,21 @@ public class OrderService {
 		return list;
 	}
 
-	public ArrayList<PickingProduct> insertPickingStockList(int sNum, int amount, int pListNo) {
+	public ArrayList<PickingProduct> insertPickingStockList(String sNum, int amount, int pListNo) {
 		
 		Connection con = getConnection();
 		ArrayList<PickingProduct> list = null;
 		
 		int result = new OrderDao().storageAmount(con, sNum, amount);
+		System.out.println("service result : " + result);
 		if(result > 0) {
 			int quanCheck = new OrderDao().quanCheck(con, sNum, amount);
+			System.out.println("sevice quan : " + quanCheck);
 			if(quanCheck >= 0) {
 				commit(con);
 				
 				int result2 = new OrderDao().pickingStockList(con, pListNo, sNum, amount);
+				System.out.println("service result2 : " + result2);
 				if(result2 > 0) {
 					list = new OrderDao().selectPickingStockList(con, pListNo);
 					commit(con);
@@ -77,7 +80,7 @@ public class OrderService {
 		return pList;
 	}
 
-	public StorageProduct selectOneStorage(int sNum) {
+	public StorageProduct selectOneStorage(String sNum) {
 		
 		Connection con = getConnection();
 		
