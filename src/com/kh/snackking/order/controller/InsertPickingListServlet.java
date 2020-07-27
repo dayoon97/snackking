@@ -11,22 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.snackking.curating.model.service.CurationService;
-import com.kh.snackking.curating.model.vo.CurationProduct;
 import com.kh.snackking.order.model.service.OrderService;
-import com.kh.snackking.order.model.vo.PickingList;
+import com.kh.snackking.order.model.vo.PickingProduct;
+import com.kh.snackking.order.model.vo.StorageProduct;
 
 /**
- * Servlet implementation class SelectCuProductSelect
+ * Servlet implementation class InsertPickingListServlet
  */
-@WebServlet("/selectProductSelect.or")
-public class SelectCuProductSelect extends HttpServlet {
+@WebServlet("/insertPickingList.or")
+public class InsertPickingListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectCuProductSelect() {
+    public InsertPickingListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,23 +35,26 @@ public class SelectCuProductSelect extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int cuListNo = Integer.parseInt(request.getParameter("cuListNo"));
-		System.out.println("cuListno : " + cuListNo);
+		int sNum = Integer.parseInt(request.getParameter("num"));
+		int amount = Integer.parseInt(request.getParameter("amount"));
+		int pListNo = Integer.parseInt(request.getParameter("pListNo"));
+		System.out.println("sNum, amount : " + sNum + ", " + amount + ", " + pListNo);
+		
 		HashMap<String, Object> hmap = new HashMap<>();
 		
-		PickingList pList = new OrderService().insertPickingList(cuListNo);
-		System.out.println("pList : " + pList);
-		hmap.put("pList", pList);
+		ArrayList<PickingProduct> list = new OrderService().insertPickingStockList(sNum, amount, pListNo);
+		System.out.println("list : " + list);
+		hmap.put("list", list);
 		
-		ArrayList<CurationProduct> cuList = new CurationService().selectOrderCuratingProduct(cuListNo);
-		System.out.println("list : " + cuList);
-		hmap.put("cuList", cuList);
+		StorageProduct storage = new OrderService().selectOneStorage(sNum);
+		System.out.println("storage : " + storage.getQuantity());
+		hmap.put("storage", storage);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
 		new Gson().toJson(hmap, response.getWriter());
-		
+			
 	}
 
 	/**
