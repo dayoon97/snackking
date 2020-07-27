@@ -110,7 +110,8 @@ table{
 	<div class="wrapper">
 		<div class="nav">
 			<div class="snack-nav">
-				<div class="snack-logo"><img src="../../resources/image/logo5.png"></div>
+				<div class="snack-logo">
+				<a href="/snackking/index.jsp"><img src="../../resources/image/logo5.png"></a></div>
 			</div>
 		</div>
 		<div class="loginArea">
