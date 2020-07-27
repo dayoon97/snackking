@@ -35,9 +35,7 @@ public class ContractUserDetailOne extends HttpServlet {
 	System.out.println(conNo);
 	
 	Contract contract = new ContractService().contractUserDetailOne(conNo);
-
 	System.out.println("contract : " + contract);
-	
 	
 	String page = "views/chiefManager/cmContractUpdate.jsp";
 	request.setAttribute("contract", contract);
