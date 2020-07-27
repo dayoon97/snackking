@@ -36,6 +36,24 @@ public class Contract implements java.io.Serializable {
 		this.conNo = conNo;
 	}
 
+	
+	public Contract(String businessNo, String startDate, String endDate, String conDate, int delivCount,
+			int amountPDeliv, String corpName, int ttlAmount, int conNo) {
+		super();
+		this.businessNo = businessNo;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.conDate = conDate;
+		this.delivCount = delivCount;
+		this.amountPDeliv = amountPDeliv;
+		this.corpName = corpName;
+		this.ttlAmount = ttlAmount;
+		this.conNo = conNo;
+	}
+
+	
+	
+	
 
 	public String getBusinessNo() {
 		return businessNo;

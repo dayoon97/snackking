@@ -97,6 +97,25 @@
 		/* color: #000000; */
 	}
 	
+	/* 노란색 수정하기 버튼 */
+	.updateBtnClick {
+	border:0;
+	outline:0;
+	width: 90px;
+	height: 35px;
+	background: #F0BB00;
+	display:inline-block;
+	font-family: NanumSquare_ac;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 17px;
+	line-height: 35px;
+	text-align: center;
+	color: #FFFFFF;
+	margin-left:920px;
+	
+	}
+	
 	/*조회 상자 테두리*/
 	 #searchBox{
 		position: absolute;
@@ -326,9 +345,9 @@ height: 25px;
 		
 			<!-- title-area start -->
 			<div id="titleArea">
-				<div id="mainTitle">회원 관리</div>
+				<div id="mainTitle">계약 관리</div>
 				<div id="line1"></div>
-				<div id="subTitle">계약 회원 관리dddd
+				<div id="subTitle">계약 정보 수정
 				</div>
 			</div>	<!--title-area end -->
 			
@@ -336,6 +355,7 @@ height: 25px;
 			<div id="searchArea">
 				<!-- 조회 제목 -->
 				<div id="subSubTitle1">계약 정보</div>
+				<input type="submit" onclick="location.href='contractUpdate.co'" class="updateBtnClick" id="submit" value="수정하기">
 					<!-- searchBox start -->
 					<div id="searchBox">
 					<!-- 등록버튼 삭제함 -->
