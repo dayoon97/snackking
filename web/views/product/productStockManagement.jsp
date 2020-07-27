@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.snackking.product.model.vo.*, java.util.*"%>
+<% ArrayList<Product> list = (ArrayList<Product>) request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../../resources/css/mine.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/mine.css">
 
 <style type="text/css">
 #apply{
@@ -15,6 +16,9 @@
 	right:220px !important;
 	}
 
+#searchStock{
+	margin-top: 10px;
+}
 </style>
 
 </head>
@@ -42,18 +46,17 @@
 				<div id="subSubTitle1">재고 조회</div>
 					<!-- searchBox start -->
 						<div id="searchBox" style="height: 90px !important; display: table;">
-							<form id="searchForm" style="display:table-cell; vertical-align:middle">
 								<div>
 								<table id="searchStock" class="left">
 									<tr style="height:34px !important;">
 										<!-- 검색 내용 타이핑하는 부분 -->	
 										<td>매입처  :
-											<input type="text" class="searchTextBox" size="6" name="">
+											<input type="text" class="searchTextBox" size="6" name="proCom">
 										</td>
 										<td>상품종류  :
 										<div class="dropdown">
         										<div class="select">
-          											<span>선택</span>
+          											<span id="ptSelect">선택</span>
 										          <i class="fa fa-chevron-left"></i>
 										        </div>
 										        <input type="hidden" name="productKinds">
@@ -69,24 +72,23 @@
 										      </div>
                         				</td>	
 										<td style="width:150px">상품명  :
-											<input type="text" class="searchTextBox" size="6" name="">
+											<input type="text" class="searchTextBox" size="6" name="proCom">
 										</td>
-										<td><input type="checkbox" class="a">재고없는 상품 조회</td>
+										<!-- <td><input type="checkbox" class="a">재고없는 상품 조회</td> -->
 									</tr>
 									<tr>	
 										<td style="width:170px">상품코드  :
-											<input type="text" class="searchTextBox" size="6" name="">
+											<input type="text" class="searchTextBox" size="6" name="proCom">
 										</td>
                        					<td colspan="2">수량검색 :
 										             					
-                       						<input type="text" class="searchTextBox" size="3" name="">&nbsp;&nbsp;~&nbsp;&nbsp;
-                       						<input type="text" class="searchTextBox" size="3" name="">&nbsp;&nbsp;개
+                       						<input type="text" class="searchTextBox" size="3" name="proCom">&nbsp;&nbsp;~&nbsp;&nbsp;
+                       						<input type="text" class="searchTextBox" size="3" name="proCom">&nbsp;&nbsp;개
                         				</td>
 										<td rowspan="2"><input type="submit" class="searchBtn" value="검색하기" id="searchBtn" style="float: right;"></td>
 									</tr>
 								</table>
 							</div>
-						</form>
 					</div>
 				</div><!-- search-area end ---------------------------------------------------------------------------->
 
@@ -99,8 +101,8 @@
 					<div id="subSubTitle2" style="top:310px !important;">재고 리스트</div>
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
-					<span id="apply" style="top:310px !important;">조회 결과 수 :</span>
-					<input type="button" class="addBtn btn-position" id="addModalBtn" value="추가요청">
+					<!-- <span id="apply" style="top:310px !important;">조회 결과 수 :</span> -->
+					<!-- <input type="button" class="addBtn btn-position" id="addModalBtn" value="추가요청"> -->
 					
 						<!-- The Modal -->
 						<div id="myModal2" class="modal2">
@@ -140,12 +142,12 @@
 								</tr>
 								
 								<tr style="height: 30px;"></tr>
-								<tr>
+								<!-- <tr>
 									<td colspan="4">
 										<input type="button" class="btn1" id="amountRequestBtn" value="수량 요청하기">
 									</td>
 								
-								</tr>
+								</tr> -->
 						    </table>
 						  </div>
 						</div>
@@ -167,15 +169,31 @@
 							</tr>
 						</thead>
 						<tbody>
+						<% for(Product p : list) { %>
 						<!-- 리스트 바디  -->
 							<tr class="hover">
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
-								<td>내용</td>
+								<td><%=p.getpCode() %></td>
+								<td>
+								<%if(p.getPtCode().equals("PT1")) {%>
+									과자
+								<% } else if(p.getPtCode().equals("PT2")){ %>
+									캔디/껌/초콜릿
+								<% } else if(p.getPtCode().equals("PT3")){ %>
+									커피/차
+								<% } else if(p.getPtCode().equals("PT4")){ %>
+									음료
+								<% } else if(p.getPtCode().equals("PT5")){ %>
+									컵라면/컵밥
+								<% } else if(p.getPtCode().equals("PT6")){ %>
+									케이크
+								<% } %>
+								</td>
+								<td><%=p.getpName() %></td>
+								<td><%=p.getpVendor() %></td>
+								<td><%=p.getTotal() %></td>
 							</tr>
 							
+						<% } %>
 						</tbody>
 					</table>
 					<!-- 테이블 끝 -->
@@ -193,53 +211,107 @@
 
 <script>
 
-
-/* 옵션 선택 드롭 다운 */
-$('.dropdown').click(function () {
-    $(this).attr('tabindex', 1).focus();
-    $(this).toggleClass('active');
-    $(this).find('.dropdown-menu').slideToggle(300);
-});
-$('.dropdown').focusout(function () {
-    $(this).removeClass('active');
-    $(this).find('.dropdown-menu').slideUp(300);
-});
-$('.dropdown .dropdown-menu li').click(function () {
-    $(this).parents('.dropdown').find('span').text($(this).text());
-    $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
-});
-/*End Dropdown Menu*/
-
-
-$('.dropdown-menu li').click(function () {
-  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
-      msg = '<span class="msg">Hidden input value: ';
-  $('.msg').html(msg + input + '</span>');
-}); 
-
-
+	
+	/* 옵션 선택 드롭 다운 */
+	$('.dropdown').click(function () {
+	    $(this).attr('tabindex', 1).focus();
+	    $(this).toggleClass('active');
+	    $(this).find('.dropdown-menu').slideToggle(300);
+	});
+	$('.dropdown').focusout(function () {
+	    $(this).removeClass('active');
+	    $(this).find('.dropdown-menu').slideUp(300);
+	});
+	$('.dropdown .dropdown-menu li').click(function () {
+	    $(this).parents('.dropdown').find('span').text($(this).text());
+	    $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+	});
+	/*End Dropdown Menu*/
+	
+	
+	$('.dropdown-menu li').click(function () {
+	  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
+	      msg = '<span class="msg">Hidden input value: ';
+	  $('.msg').html(msg + input + '</span>');
+	}); 
 
 
-//Get the modal
-var modal = document.getElementById("myModal2");
-
-//Get the button that opens the modal
-var btn = document.getElementById("addModalBtn");
-
-//Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close2")[0];
-
-//When the user clicks on the button, open the modal
-btn.onclick = function() {
-modal.style.display = "block";
-}
-
-//When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-modal.style.display = "none";
-}
-
-
+	
+	//검색ajax
+	$(document).on('click', '#searchBtn', function(){
+		var prCom = document.getElementsByName("proCom")[0].value;
+		var prSelect = $('#ptSelect').eq(0).text();
+		var prName = document.getElementsByName("proCom")[1].value;
+		var prCode = document.getElementsByName("proCom")[2].value;
+		var prnum1 = document.getElementsByName("proCom")[3].value;
+		var prnum2 = document.getElementsByName("proCom")[4].value;
+		
+		console.log(prCom);
+		console.log(prSelect);
+		console.log(prName);
+		console.log(prCode);
+		console.log(prnum1);
+		console.log(prnum2);
+		
+		
+		 $.ajax({
+			url: "<%=request.getContextPath()%>/searchProductStock",
+			data: {prCom:prCom, prSelect:prSelect, prName:prName, prCode:prCode, prnum1:prnum1, prnum2:prnum2},
+			type: "get",
+			success: function(data){
+				
+				console.log("성공");
+				 $tableBody = $("#listTable5 tbody");
+					
+					$tableBody.html('');
+					
+					for(var key in data) {
+						var $tr = $("<tr>");
+						var $prComTd = $("<td>").text(data[key].prCom);
+						var $prSelectTd = $("<td>").text(data[key].prSelect);
+						var $prNameTd = $("<td>").text(data[key].prName);
+						var $prCodeTd = $("<td>").text(data[key].prCode);
+						var $tatalTd = $("<td>").text(data[key].total);
+						
+						var pro;
+						if(data[key].prSelect == "PT1"){
+							pro = "과자";
+						} else if (data[key].prSelect == "PT2"){
+							pro = "캔디/껌/초콜릿";
+						} else if (data[key].prSelect == "PT3"){
+							pro = "커피/차";
+						} else if (data[key].prSelect == "PT4"){
+							pro = "음료";
+						} else if (data[key].prSelect == "PT5"){
+							pro = "컵라면/컵밥";
+						} else if (data[key].prSelect == "PT6"){
+							pro = "케이크";
+						}
+						
+						$prSelectTd = $("<td>").text(pro);
+						
+						
+						$tr.append($prComTd);
+						$tr.append($prSelectTd);
+						$tr.append($prNameTd);
+						$tr.append($prCodeTd);
+						$tr.append($tatalTd);
+				
+						$tr.append($tr).css({"border-bottom":"3px solid #EBEAEA", "height" : "36px"});
+						
+						$tableBody.append($tr);
+					};  
+					
+					
+				},
+				error: function(data){
+					console.log("에러!");
+				}
+			
+			
+		}); 
+		
+	});
 
 
 

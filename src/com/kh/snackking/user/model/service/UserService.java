@@ -174,11 +174,12 @@ public class UserService {
 		return list;
 	}
 
-	public int deleteUserSelect(int userNo) {
+	public int deleteUserSelect(int userNo, String tcode) {
 		Connection con = getConnection();
 		int result = 0;
 		
-		result = new UserDao().deleteUser(con, userNo);
+		
+		result = new UserDao().deleteUser(con, userNo, tcode);
 		
 		if(result > 0) {
 			commit(con);

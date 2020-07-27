@@ -103,6 +103,31 @@ public class AdjustmentService {
 		
 		return list;
 	}
+
+	public int deleteAdjustment(String company) {
+		Connection con = getConnection();
+		
+		int result = new AdjustmentDao().deleteAdjustment(con, company);
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public ArrayList<Adjustment> detailAdjustment(String com) {
+		Connection con = getConnection();
+		
+		ArrayList<Adjustment> list = new AdjustmentDao().detailAdjustment(con, com);
+		
+		close(con);
+		
+		return list;
+	}
 	
 	
 }

@@ -223,6 +223,18 @@ public class ProductService {
 		
 		return list;
 	}
+
+
+
+	public ArrayList<HashMap<String, Object>> SearchProductStock(HashMap<String, Object> hmap) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new ProductDao().SearchProductStock(con, hmap);
+		
+		close(con);
+		
+		return list;
+	}
 	
 	
 }

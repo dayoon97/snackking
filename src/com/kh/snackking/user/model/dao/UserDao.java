@@ -527,11 +527,15 @@ public class UserDao {
 		return result;
 	}
 
-	public int deleteUser(Connection con, int userNo) {
+	public int deleteUser(Connection con, int userNo, String tcode) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("deleteUser");
+		
+		
+		
+		
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -544,7 +548,6 @@ public class UserDao {
 		} finally {
 			close(pstmt);
 		}
-		
 		
 		
 		return result;
