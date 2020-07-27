@@ -1,7 +1,6 @@
 package com.kh.snackking.contract.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.snackking.contract.model.service.ContractService;
 import com.kh.snackking.contract.model.vo.Contract;
+import com.kh.snackking.user.model.vo.User;
 
 /**
  * Servlet implementation class InsertContractServlet
@@ -101,7 +101,8 @@ public class InsertContractServlet extends HttpServlet {
 		//date 타입 날짜 3개를 String으로 바꿨는데 잘 나오는지 확인했다. 잘 나온다.
 //		System.out.println(contract);
 		 
-		int result = new ContractService().insertContract(contract);
+//		int result = new ContractService().insertContract(contract);
+		User reqUser = new ContractService().insertContract(contract);
 		
 		//view - controller - service - dao 갔다가 다시 역순으로 돌아옴
 		//그래서 지금 dao까지 아직 완성 안 했으면 dao에 있는 0 값이 다시 controller까지 역순으로 돌아와서
@@ -111,7 +112,8 @@ public class InsertContractServlet extends HttpServlet {
 		
 		//if문 써서 result > 0  쓰는 부분은 dao 갔다가 돌아올 때 쓰는 부분인 듯.
 		String page = "";
-		if(result > 0) {
+//		if(result > 0) {
+		if(reqUser != null) {
 			//성공했을 때 이 뷰페이지로 넘어오면 
 			//<% int num = (int) request.getAttribute("num"); 
 			//%>    
