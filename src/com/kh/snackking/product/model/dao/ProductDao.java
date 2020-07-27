@@ -332,7 +332,6 @@ public class ProductDao {
 		ArrayList<ProductStorage> productStorageList = null;
 		Statement stmt = null;
 		ResultSet rset = null;
-		ResultSet urset = null;
 		int num = 1;
 		int count  = 0;
 		String query = "";

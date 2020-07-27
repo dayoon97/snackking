@@ -130,13 +130,13 @@ public class ProductService {
 		ArrayList<ProductStorage> productStorageList = new ProductDao().selectProductStorage(con, productStorage);
 		if(productStorageList != null) {
 			//color 계산해서 가져온거 db에 업데이트 한다
-			int result = new ProductDao().updateProductStorageColor(con, productStorageList);
-			if(result == productStorageList.size()) {
-				commit(con);
-			}else {
-				rollback(con);
-			}
+			//int result = new ProductDao().updateProductStorageColor(con, productStorageList);
+			//if(result == productStorageList.size()) {
+			commit(con);
+		}else {
+			rollback(con);
 		}
+		
 		close(con);
 		return productStorageList;
 	}

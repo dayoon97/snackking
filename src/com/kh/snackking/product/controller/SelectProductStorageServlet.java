@@ -44,11 +44,10 @@ public class SelectProductStorageServlet extends HttpServlet {
 		productStorage.setColor(color);
 		productStorage.setpName(pName);
 		productStorage.setMfd(mfd);
-
+		System.out.println(productStorage + "productStorage");
 		//재고 등록에 관련된 VO : ProductStorage
 		ArrayList<ProductStorage> productStorageList = new ProductService().selectProductStorage(productStorage);
-		//System.out.println("servlet  productStorageList : " + productStorageList);
-		
+		System.out.println("servlet  productStorageList : " + productStorageList);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
