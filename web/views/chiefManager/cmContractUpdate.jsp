@@ -355,7 +355,10 @@ height: 25px;
 			<div id="searchArea">
 				<!-- 조회 제목 -->
 				<div id="subSubTitle1">계약 정보</div>
-				<input type="submit" onclick="location.href='contractUpdate.co'" class="updateBtnClick" id="submit" value="수정하기">
+			<form action="<%=request.getContextPath()%>/contractUpdate.co">
+				<input type="submit" class="updateBtnClick" id="submit" value="수정하기">
+				<!-- int conNo = Integer.parseInt(request.getParameter("conNo")); 에 null이 떠서 적어준 input type hidden -->
+				<input type="hidden" class="searchTextBox" name="conNo" value="<%= c.getConNo()%>">
 					<!-- searchBox start -->
 					<div id="searchBox">
 					<!-- 등록버튼 삭제함 -->
@@ -400,7 +403,7 @@ height: 25px;
 							</tr>
 									
 						</table>
-								
+					</form>			
 					    <!-- <div><button type="submit" class="insertBtn"  id="submit" style="margin-left:860px; top:500px;">등록</button> -->
 							</div>
 								

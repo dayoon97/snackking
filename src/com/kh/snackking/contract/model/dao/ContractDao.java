@@ -454,4 +454,56 @@ public class ContractDao {
 		
 		return c;
 	}
+
+	
+	//계약 수정버튼. 수정 Update
+	public int updateContract(Connection con, Contract contract) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		//쿼리문 먼저 작성하고 아래 ?에 맞춰서 쓰도록 합시다
+		String query = prop.getProperty("contractUpdate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, contract.getBusinessNo());
+			pstmt.setString(2, contract.getStartDate());
+			pstmt.setString(3, contract.getEndDate());
+			pstmt.setString(4, contract.getConDate());
+			pstmt.setInt(5, contract.getDelivCount());
+			pstmt.setInt(6, contract.getAmountPDeliv());
+			pstmt.setString(7, contract.getCorpName());
+			pstmt.setInt(8, contract.getTtlAmount());
+			pstmt.setInt(9, contract.getConNo());
+			
+			result = pstmt.executeUpdate();
+			
+			/*
+			if(rset.next()) {
+				c = new Contract();
+				c.setBusinessNo(rset.getString("BUSINESS_NO"));
+				c.setStartDate(rset.getString("START_DATE"));
+				c.setEndDate(rset.getString("END_DATE"));
+				c.setConDate(rset.getString("CONTRACT_DATE"));
+				c.setDelivCount(rset.getInt("DELIVERY_COUNT"));
+				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVERY"));
+				c.setCorpName(rset.getString("CORP_NAME"));
+				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));
+				c.setConNo(rset.getInt("CONTRACT_NO"));
+				
+			} */
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		System.out.println("result : " + result);
+		
+		return result;
+		
+	}
 }
