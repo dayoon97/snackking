@@ -70,11 +70,12 @@ public class FindUserPwdServlet extends HttpServlet {
 		
 		int result = new UserService().findUserPwd(reqUser);
 		
+		String msg = null;
 		if(result > 0) {
 			new TempPwdGmailSend().gmailSend(email, tempPwd);
+			msg = "입력해주신 이메일로 임시 비밀번호를 발송했습니다. \n 바뀐 비밀번호로 로그인 후 비밀번호를 변경해주세요.";
 		}
 		
-		String msg = "입력해주신 이메일로 임시 비밀번호를 발송했습니다. \n 바뀐 비밀번호로 로그인 후 비밀번호를 변경해주세요.";
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

@@ -276,7 +276,7 @@ th {
 				
 				if(data != null){
 					$("#modal-title").html("임시 비밀번호 전송");
-					$("#modal-body").html("입력하신 이메일로 임시 비밀번호를 발송했습니다! 바뀐 비밀번호로 로그인해서 비밀번호를 변경 해주세요!");
+					$("#modal-body").html(data);
 				} else {
 					$("#modal-body").html("일치하는 결과가 없습니다.");
 				}
