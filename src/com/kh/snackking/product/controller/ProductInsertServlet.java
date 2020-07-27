@@ -186,7 +186,6 @@ public class ProductInsertServlet extends HttpServlet {
 						//pCode 가져온거 pAttachment에 붙임
 						pAttachment.setpCode(pCode);
 						//System.out.println("servlet pAttachment 다 담음: " + pAttachment);
-						
 						//성공하면 첨부 pAttachment도 insert 해주기
 						attachmentResult = new ProductService().insertProductAttachment(pAttachment);
 						//메뉴바 위치 자꾸 바뀌어서 sendRedirect로 보냈음.

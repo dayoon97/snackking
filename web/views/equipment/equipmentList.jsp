@@ -199,7 +199,7 @@
 					<%if((loginUser.gettCode().equals("T3"))){%>
 					<!-- 최고 관리자 설비 등록, 삭제, 수정 버튼-->
 					 <button id="del"  class="btn2 btnPosition3">삭제</button> 
-					 <button id="update" class="btn2 btnPosition2">수정</button> 
+					 <button id="update" class="btn2 btnPosition2">YN</button> 
 					 <button style="display:none;" id="updateModalBtn" ></button>
 					 <button id="addModalBtn" class="btn2 btnPosition1">추가</button> 
 					<!-- <span id="apply">조회 결과 수 :</span> -->
@@ -462,11 +462,69 @@
 		
 		
 		
-		$(function() {
-			$("#update").click(function() {
-				alert("업데이트 기능 구현은 차차 생각해보겠습니다.");
+
+	$("#update").click(function() {
+		var str1 = "";
+		var str2 = "";
+           var checkbox1 = $("input[name=chk]:checked");
+			checkbox1.each(function(i){
+				var tr1 = checkbox1.parent().parent().eq(i);
+				var td1 = tr1.children();
+				str1 = td1.eq(1).text();
+				str2 = td1.eq(4).text();
 			});
-		});
+			 //체크박스 값이  null이 아닌 경우만 삭제
+			 if(str1 != null && str1 != ""){
+                 $.ajax({
+						url: "<%=request.getContextPath()%>/updateEquipment.eq",
+						type: "get",
+						data: {"str1" : str1, "str2" : str2},
+						success: function(data){
+							alert("설비 수정에 성공하였습니다");
+							//삭제 성공하고 한번더 갔다옴. 페이지 renew 하려고
+								$.ajax({
+									url: "<%=request.getContextPath()%>/renewPageEquipment",
+									type: "get",
+									success: function(data){
+										/* 다시 업데이트 해줌 */
+										
+										$tableBody = $("#listTable tbody");
+										$tableBody.html('');
+										$tableBody.find("tr").remove();
+										
+					 						for(var key in data){
+					 							//클래스 속성 추가
+					 							var $tr =  $("<tr>").attr('class','listBody');
+					 							var $td1 = $("<td>").html('<input type="checkbox" name="chk" onclick="only(this)">');
+					 							var $td2 = $("<td>").text(data[key].equipCode);
+					 							var $td3 = $("<td>").text(data[key].equipType);
+					 							var $td4 = $("<td>").text(data[key].equipName);
+					 	 						var $td5 = $("<td>").text(data[key].possible);
+					 	 						var $td6 = $("<td>").text(data[key].equipMake);
+					 							$tr.append($td1);
+					 							$tr.append($td2);
+					 							$tr.append($td3);
+					 	 						$tr.append($td4);
+					 	 						$tr.append($td5);
+					 	 						$tr.append($td6);
+					 							$tableBody.append($tr);
+					 						}
+									},
+									error: function(error){
+					 					console.log("equipment 수정 실패!");
+					 				}
+								});
+						},
+						error: function(error){
+		 					console.log("equipment 수정 실패!");
+		 				}
+					});   
+	            }
+			
+		
+		
+	});
+
 		
 		
 		

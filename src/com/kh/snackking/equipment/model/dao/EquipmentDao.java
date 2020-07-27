@@ -128,11 +128,18 @@ public class EquipmentDao {
 		String query = prop.getProperty("updateEquipment");
 		try {
 			//고유 번호는 안바꿔주고 나머지는 업데이트 가능
+			String status = "";
+			System.out.println(equipment);
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, equipment.getEquipType());
-			pstmt.setString(2, equipment.getEquipName());
-			pstmt.setString(3, equipment.getPossible());
-			pstmt.setString(4, equipment.getEquipMake());
+			if(equipment.getPossible().equals("Y")) {
+				status = "N";
+			}else {
+				status = "Y";
+			}
+			pstmt.setString(1, status);
+			pstmt.setString(2, equipment.getEquipCode());
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
