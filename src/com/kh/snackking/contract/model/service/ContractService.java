@@ -15,20 +15,29 @@ import java.util.HashMap;
 
 import com.kh.snackking.contract.model.dao.ContractDao;
 import com.kh.snackking.contract.model.vo.Contract;
+import com.kh.snackking.user.model.dao.UserDao;
 import com.kh.snackking.user.model.vo.User;
 
 public class ContractService {
 
 	//계약 insert
-	public int insertContract(Contract contract) {
+	public User insertContract(Contract contract) {
 
 		Connection con = getConnection();
+		User responseUser = null;
 		
 		int result = new ContractDao().insertContract(con,contract);
 		
 		
 		if(result > 0) {
 			commit(con);
+			int changeTcode = new UserDao().changeTcode(con, contract.getUserNo());
+			if(changeTcode > 0) {
+				commit(con);
+				responseUser = new UserDao().loginCheck(con, contract.getUserNo());
+			} else {
+				rollback(con);
+			}
 		} else {
 			rollback(con);
 		};
@@ -38,7 +47,7 @@ public class ContractService {
 		//dao까지 작성 아직 안 했으면 dao에 있는 return 0 값이 돌아와서 0으로 결과 나온다.
 //		System.out.println("insert service result : " + result);
 		
-		return result;
+		return responseUser;
 	}
 
 	//전체 목록 갯수 조회 (페이징)
