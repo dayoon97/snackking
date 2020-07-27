@@ -603,7 +603,7 @@
 							<p class="title2">상품 관리</p>
 								<ul class="con">
 									<li><a href="<%=request.getContextPath()%>/views/product/productManagement.jsp">상품 정보 확인</a></li>
-									<li><a href="../product/productStockManagement.jsp">상품 재고 확인</a></li>
+									<li><a href="<%=request.getContextPath()%>/totalProduct">상품 재고 확인</a></li>
 									<li><a href="<%=request.getContextPath()%>/baljuSelectList.bj">발주 관리</a></li>
 									<!-- 재고 등록 페이지는 나중에 물류관리자로 옮길것임. -->
 									<!-- 작업할 때 불편해서 여기다 임시로 놓음 -->
