@@ -526,6 +526,7 @@ $('.dropdown-menu li').click(function () {
 	 
 	 
 	 //정산 상세내역확인
+	 <% if(loginUser.gettCode().equals("T3")) {%>
 	 $(document).on('click', '#detail', function(){
 		com = $(this).parent().parent().children().eq(1).text();
 		
@@ -613,7 +614,95 @@ $('.dropdown-menu li').click(function () {
 		});
 		
 	 });
-	 
+	 <% } else {%>
+	 $(document).on('click', '#detail', function(){
+			com = $(this).parent().parent().children().eq(2).text();
+			
+			modal.style.display = "block";
+			
+			$.ajax({
+				url:"<%=request.getContextPath()%>/detailAdjustment",
+				data: {com:com},
+				type:"get",
+				success: function(data){
+					
+					var totalDetail = 0;
+					var totalDetail2 = 0;
+					
+					$tableBody = $("#listTable-adjustment tbody");
+					
+					$tableBody.html('');
+					
+					$.each(data, function(index, value){
+						
+						var $tr = $("<tr class='adjustmentTable'>");
+						var $Td = $("<td>").text(index+1);
+						var $delDateTd = $("<td>").text(value.delDate);
+						var $t1Td = $("<td>").text("");
+						var $amountTd = $("<td>").text(decodeURIComponent(value.amount));
+						var $totalTd = $("<td>").text(decodeURIComponent(value.total));
+						var $t2Td = $("<td>").text("");
+						var $t3Td = $("<td>").text(decodeURIComponent(value.total));
+						var $t4Td = $("<td>").text("");
+						var $endTr = $("</tr>");
+						
+						
+						var tax = (value.total) * 0.1;
+						console.log(tax);
+						
+						$t2Td = $("<td>").text(tax);
+						
+						var price = (value.total) - tax;
+						console.log(price);
+						
+						$totalTd = $("<td>").text(price);
+						
+						var year = (value.delDate).substr(9, 10);
+						var mon = (value.delDate).substr(0, 1);
+						if(mon.indexOf(" ", 0)){
+							var mon1 = "0";
+						}
+						var day = (value.delDate).substr(3, 2);
+						var code;
+							
+						var nal = year.concat("-", mon1, mon,"-",day);
+							
+						$delDateTd = $("<td>").text(nal);
+					
+						
+						totalDetail += (value.total);
+						totalDetail2 += (price);
+						
+						$tr.append($Td);
+						$tr.append($delDateTd);
+						$tr.append($t1Td);
+						$tr.append($amountTd);
+						$tr.append($totalTd);
+						$tr.append($t2Td);
+						$tr.append($t3Td);
+						$tr.append($t4Td);
+						$tr.append($endTr);
+						$tr.append($tr).css({"border-bottom":"1px solid black", "height" : "30px"});
+						
+						$tableBody.append($tr);
+					}); 
+					
+					
+					$(".total-detail1").text("공급가액 : " + '\\' + totalDetail2);
+					
+					$(".total-detail2").text('\\' + totalDetail);
+				
+					$(".companyTitle").text("(주)" + com);
+					
+				},
+				
+				error: function(data){
+					
+				}
+			});
+			
+		 });
+	 <% } %>
 	 
 	 
 	
