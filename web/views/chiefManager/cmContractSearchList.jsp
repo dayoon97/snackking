@@ -381,7 +381,7 @@ span.choose {
 
 }
 
-#updateBtn {
+.updateBtn {
 	border:0;
 	background:white;
 	display:inline-block;
@@ -660,7 +660,7 @@ overflow-y: auto !important;
 					<!-- 적용 버튼 -->
 					<!-- <button onclick="" class="btn" id="apply">적용</button> -->
 					
-					<span id="apply" style="top:330px !important;">조회 결과 수 : </span>
+					<!-- <span id="apply" style="top:330px !important;">조회 결과 수 : </span> -->
 				
 					<!-- 테이블 시작 -->
 						<!-- 조회 리스트 테이블 -->
@@ -683,20 +683,20 @@ overflow-y: auto !important;
 						<tbody>
 						<!-- 리스트 바디  -->
   						<% 
-  						int num = 1;
-  						for(Contract c : list) { %>
+  						//int num = 1;
+  						for(int i = 0; i < list.size(); i++) { %>
 							<tr class="hover">
-								<td><%= num  %></td>
-								<% num += 1; %>
-								<td><%= c.getBusinessNo() %></td>
-								<td><%= c.getCorpName() %></td>
-								<td><%= c.getConDate() %></td>
-								<td><%= c.getStartDate() %></td>
-								<td><%= c.getEndDate() %></td>
-								<td><%= c.getDelivCount() %></td>
-								<td><%= c.getAmountPDeliv() %></td>
-								<td><%= c.getTtlAmount() %></td>
-								<td><input type="button" value="수정" id="updateBtn"></td>
+								<td><%= list.get(i).getConNo()  %></td>
+								<%-- num += 1; --%>
+								<td><%= list.get(i).getBusinessNo() %></td>
+								<td><%= list.get(i).getCorpName() %></td>
+								<td><%= list.get(i).getConDate() %></td>
+								<td><%= list.get(i).getStartDate() %></td>
+								<td><%= list.get(i).getEndDate() %></td>
+								<td><%= list.get(i).getDelivCount() %></td>
+								<td><%= list.get(i).getAmountPDeliv() %></td>
+								<td><%= list.get(i).getTtlAmount() %></td>
+								<td><input type="button" value="수정" class="updateBtn" id="updateBtn<%=i%>"></td>
 							</tr>
 						 <% } %>
 							 <!-- <tr class="hover">
@@ -836,11 +836,10 @@ $("#submit").click(function(){
 				$tableBody = $("#listTable10 tbody");
 				//전에 있던 화면 html 테이블 있던 데이터 날려준다
 				$tableBody.html('');
-				
 				//위에서 만든 테이블 형태와 동일하게 작성해준다.
 				for(var key in data.list) {
 					var $tr = $("<tr>").attr('class', 'hover');
-					var $numTd = $("<td>").text(key + 1);
+					var $numTd = $("<td>").text(data.list[key].conNo);
 					var $businessNoTd = $("<td>").text(data.list[key].businessNo);
 					var $corpNameTd = $("<td>").text(data.list[key].corpName);
 					var $conDateTd = $("<td>").text(data.list[key].conDate);
@@ -849,7 +848,9 @@ $("#submit").click(function(){
 					var $delivCountTd = $("<td>").text(data.list[key].delivCount);
 					var $amountPDelivTd = $("<td>").text(data.list[key].amountPDeliv);
 					var $ttlAmountTd = $("<td>").text(data.list[key].ttlAmount);
-					var $updateBtnTd = $("<input>").attr('type', 'button').attr('value','수정').attr('id','updateBtn');
+					//var $updateBtnTd = $("<input>").attr('type', 'button').attr('value','수정').attr('id','updateBtn').attr('class','updateBtn');
+					var $updateBtnTd = $("<td>").html('<input type="button" value="수정" class="updateBtn">');
+					
 					
 					//위에서 쓴 변수명을 써준다.
 					$tr.append($numTd);
@@ -886,6 +887,23 @@ function todayBtn_click() {
 	
 }
 
+var conNo;
+var id;
+//num으로 회원번호 받아옴
+//회원리스트에서 클릭하면 보여질 페이지도 location.href으로 설정해둠
+$(function() {
+	$(".updateBtn").click(function() {
+		//id = $(this).parent().parent().children("input").attr("id");
+		//console.log(id);
+		
+		//this가 나 부터 parent 하나 위. children해서 다시 나 자신 자식으로 돌아옴.
+		//td 계약번호(0)가 아니라 사업자번호(1) 값 의 안에 있는 문자열. 2번째 열안에 있는 문자열 가져온다.
+		conNo = $(this).parent().parent().children().eq(0).text();
+		console.log("conNo : " + conNo);
+		location.href="<%=request.getContextPath()%>/contractUserDetailOne.co?conNo=" + conNo; 
+		
+	});
+});
 
 
 

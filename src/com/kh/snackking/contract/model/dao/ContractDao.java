@@ -253,7 +253,8 @@ public class ContractDao {
 		//if문으로 값이 있을 때만 쿼리문에 추가돼서 검색하게 하기 위함! 쿼리문이 바뀔 수 있기 때문 그래서 쿼리문을 여기에 적었다.
 		//select 할 것 쿼리문에 전체 다 적어준다! 아래 합치기 쓴 건 조건이다. 
 		//아래서 while문에 있는 오라클 디비 컬럼 개수랑 여기 쿼리문 개수랑 안 맞아서 부적합한 열 인덱스~~ 에러 났었다. 쿼리문 수정 후 에러해결.
-		String query = "SELECT BUSINESS_NO, START_DATE, END_DATE, CONTRACT_DATE, DELIVERY_COUNT, AMOUNT_PER_DELIVERY, END_YN, USER_NO, CORP_NAME, TOTAL_AMOUNT, CONTRACT_NO FROM CONTRACT WHERE END_YN = 'Y'";
+		String query = "SELECT BUSINESS_NO, START_DATE, END_DATE, CONTRACT_DATE, DELIVERY_COUNT, AMOUNT_PER_DELIVERY, END_YN, USER_NO, CORP_NAME, TOTAL_AMOUNT, CONTRACT_NO FROM CONTRACT WHERE END_YN = 'N'";
+		
 		
 		//값이 있으면 추가하겠다는 코드
 		//합치는건 문자열 합치기로 썼다.
@@ -371,16 +372,63 @@ public class ContractDao {
 	
 	//계약회원 리스트 클릭 후 계약회원들의 계약정보 보여지게 할 떄 회원번호로 계약정보 찾으려고 함
 	public Contract contractUserDetail(Connection con, int num) {
-
-		Statement stmt = null;
+		
+		//매개변수로 같이 넘어오는 거 있어서 PreparedStatement썼다
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Contract c = null;
 		
 		String query = prop.getProperty("contractUserDetail");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			//뷰페이지에 보여져아 할 필요한 값이랑 회원번호도 다 가져옴
+			if(rset.next()) {
+				c = new Contract();
+				c.setBusinessNo(rset.getString("BUSINESS_NO"));
+				c.setStartDate(rset.getString("START_DATE"));
+				c.setEndDate(rset.getString("END_DATE"));
+				c.setConDate(rset.getString("CONTRACT_DATE"));
+				c.setDelivCount(rset.getInt("DELIVERY_COUNT"));
+				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVERY"));
+				c.setCorpName(rset.getString("CORP_NAME"));
+				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));
+				c.setConNo(rset.getInt("CONTRACT_NO"));
+				c.setUserNo(rset.getInt("USER_NO"));
+				
+				//list.add(u) 이런식으로 쓰는 건 어레이리스트 쓸 때 쓴다.
+				System.out.println(c);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return c;
+	}
+
+
+	//계약내역 조회 페이지에서 계약 수정 update
+	public Contract contractUserDetailOne(Connection con, int conNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Contract c = null;
+		
+		String query = prop.getProperty("contractUserDetailOne");
 		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, conNo);
+			
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				c = new Contract();
@@ -388,18 +436,19 @@ public class ContractDao {
 				c.setStartDate(rset.getString("START_DATE"));
 				c.setEndDate(rset.getString("END_DATE"));
 				c.setConDate(rset.getString("CONTRACT_DATE"));
+				c.setDelivCount(rset.getInt("DELIVERY_COUNT"));
 				c.setAmountPDeliv(rset.getInt("AMOUNT_PER_DELIVERY"));
 				c.setCorpName(rset.getString("CORP_NAME"));
 				c.setTtlAmount(rset.getInt("TOTAL_AMOUNT"));
 				c.setConNo(rset.getInt("CONTRACT_NO"));
+				c.setUserNo(rset.getInt("USER_NO"));
 				
 			}
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		

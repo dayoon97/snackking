@@ -249,29 +249,31 @@ height: 25px;
 	text-align: center;
 }
 #moSection1 {
-	background: green;
+	/* background: green; */
 	display: inline-block;
-	width: 45%;
+	width: 43%;
 	height: 510px;
 	float: left;
 }
 #moSection2 {
-	background: skyblue;
+	/* background: skyblue; */
 	display: inline-block;
 	width: 49%;
 	float: left;
 	height: 530px;
+	padding-left: 70px;
 }
 #moSection3 {
-	background: lightgray;
+	/* background: lightgray; */
 	display: inline-block;
-	width: 6%;
+	width: 8%;
 	float: left;
 	height: 510px;
+	
 }
 #pickingTable {
 	width: 100%;
-	height: 100%;
+	height: 90%;
 }
 #searchBox {
 border:1px solid rgba(75, 75, 75, 0.23); 
@@ -299,6 +301,40 @@ border-radius: 8px;
 }
 #searchBtn:hover {
 	cursor: pointer;
+}
+#pickingProductBtn {
+	background: #F0BB00;
+	width: 50px;
+	padding: 7px;
+	margin-right: 10px;
+	border-radius: 5px;
+}
+.pickBtn {
+	background: #F0BB00;
+	border-radius: 3px;
+	border:0;
+	outline:0;
+}
+.pickBtn:hover {
+	cursor: pointer;
+}
+#pickingHeader {
+	border-bottom: 2px solid black;
+}
+#pickingHeader .header {
+	width: 50%;
+	font-size: 25px; 
+	text-align: left; 
+	padding-left: 10px;
+}
+#pickingHeader td {
+	text-align: right;
+}
+#pickingHeader th {
+	text-align: left;
+}
+#pickingTable thead {
+	border-bottom: 2px solid black;
 }
 </script>
 </style>
@@ -399,7 +435,7 @@ border-radius: 8px;
 	               <div id="listTableWrap" class="modaltableWrap">
 		               <table id="proListTable" class="listTable">
 		                  <thead>
-			                  <tr id="listHead" class="listHead">
+			                  <tr id="listHead" class="listHead" style="background: #ececec;">
 			                     <th>상품코드</th>
 			                     <th>상품명</th>
 			                     <th>필요수량</th>
@@ -407,13 +443,6 @@ border-radius: 8px;
 			                  </tr>
 		                  </thead>
 		                  <tbody>
-			                  <!-- <tr class="listBody">
-			                     <td><input type="checkbox" name="chk"></td>
-			                     <td>CURATING01</td>
-			                     <td>남궁보훈</td>
-			                     <td>2020-07-22</td>
-			                  </tr> -->
-			                 
 		                  </tbody>
 		               </table>
 	               
@@ -422,54 +451,74 @@ border-radius: 8px;
 					<div id="listTableWrap" class="modaltableWrap">
 						<table id="storageTable" class="listTable">
 							<thead>
-								<tr class="listHead">
-									<th width="5px"><input type="checkbox"></th>
+								<tr class="listHead" style="background: #ececec;">
 									<th width="120px">상품명</th>
 									<th>재고 번호</th>
-									<th>로케이션 번호</th>
-									<th>재고 수량</th>
-									<th>선택 수량</th>
+									<th>로케이션<br>번호</th>
+									<th>재고<br>수량</th>
+									<th>선택<br>수량</th>
+									<th width="10%">추가<br>버튼</th>
 								</tr>
 							</thead>
 							<tbody>
-								<!-- <tr class="listBody">
-								
-									<td>초코송이</td>
-									<td>S1</td>
-									<td>L1</td>
-									<td>80</td>
-									<td><input type="text" size="1"></td>
-								</tr> -->
+								<tr class="listBody">
+									<td colspan="6">상품 리스트를 클릭해주세요.</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>	<!-- moSection1 -->
-				
+				<!-- 
 				<div id="moSection3">
-					<table style="vertical-align: middle">
+					<table style="padding-top: 270px; padding-left: 5px;">
 						<thead>
 							<tr>
-								<td>담기</td>
+								<td><div id="pickingProductBtn">담기 ▶</div></td>
 							</tr>
 						</thead>
 					</table>
-				</div>	<!-- moSection3 end -->
-				
+				</div>	moSection3 end
+				 -->
 				<div id="moSection2">
-					<table id="pickingTable" border="1">
+					<table id="pickingHeader" style="width: 100%; padding-top: 15px;">
+						<tr>
+							<th class="header" rowspan="2" colspan="4">피킹리스트</th>
+							<th>날짜</th>
+							<td id="pickingDate"></td>
+							<th>피킹ID</th>
+							<td id="pickingId"></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td></td>
+							<th>회사명</th>
+							<td id="pickingCom"></td>
+						</tr>
+					</table>
+					<table id="pickingTable">
 						<thead>
 							<tr>
-								<th>check</th>
+								<th width=10%>순번</th>
+								<th width=23%>회사명</th>
+								<th width=25%>제품명</th>
+								<th width=15%>재고ID</th>
+								<th width=10%>수량</th>
+								<th width=17%>로케이션<br>번호</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>check</td>
+								<td>check</td>
+								<td>check</td>
+								<td>check</td>
+								<td>check</td>
+								<td>check</td>
 							</tr>
 						</tbody>
 						<tfoot>
 							<tr>
-								<td><span id="pickingList" name="pickingList" style="border: 1px solid black; float: right;">저장하기</span></td>
+								<td colspan="6"><span id="pickingList" name="pickingList" style="border: 1px solid black; float: right;">저장하기</span></td>
 							</tr>
 						</tfoot>
 					</table>
@@ -487,9 +536,9 @@ border-radius: 8px;
 var modal = document.getElementById("find-Modal");
 var span = document.getElementsByClassName("close")[0];
 
-$(document).on("click", "#cuListTable tr", function() {
-	var num = $(this).children("input").val();
-	console.log("val : " + num);
+$(document).on("click", "#cuListTable td", function() {
+	var num = $(this).parent().children("input").val();
+	/* console.log("val : " + num); */
 	$.ajax({
 		url: "<%= request.getContextPath() %>/selectProductSelect.or",
 		type: "post",
@@ -497,19 +546,19 @@ $(document).on("click", "#cuListTable tr", function() {
 			cuListNo: num
 		},
 		success: function(data) {
-			console.log(data);
+			/* console.log(data); */
 			modal.style.display = "block";
 			
 			$tableBody = $("#proListTable tbody");
 			$tableBody.html('');
 			
-			for(var key in data){
+			for(var key in data.cuList){
 				$tr = $("<tr>").attr('class', 'listBody');
-				$hiddenTd = $("<input>").attr("id", "cuProNo").attr("type", "hidden").attr("value", data[key].pCode);
-				$codeTd = $("<td>").text(data[key].pCode);
-				$nameTd = $("<td>").text(data[key].pName);
-				$amountTd = $("<td>").text(data[key].pCount);
-				$pvendorTd = $("<td>").text(data[key].pvendor);
+				$hiddenTd = $("<input>").attr("id", "cuProNo").attr("type", "hidden").attr("value", data.cuList[key].pCode);
+				$codeTd = $("<td>").text(data.cuList[key].pCode);
+				$nameTd = $("<td>").text(data.cuList[key].pName);
+				$amountTd = $("<td>").text(data.cuList[key].pCount);
+				$pvendorTd = $("<td>").text(data.cuList[key].pvendor);
 				
 				$tr.append($hiddenTd);
 				$tr.append($codeTd);
@@ -519,6 +568,10 @@ $(document).on("click", "#cuListTable tr", function() {
 				
 				$tableBody.append($tr);
 			}
+			
+			$("#pickingDate").html(data.pList.pickDate);
+			$("#pickingId").html(data.pList.pickNo);
+			$("#pickingCom").html(data.pList.company);
 			
 		},
 		error: function() {
@@ -548,34 +601,28 @@ $(document).on("click", "#proListTable td", function() {
 			pNum: pNum
 		},
 		success: function(data) {
-			console.log(data);
+			/* console.log(data); */
 			
 			$tableBody = $("#storageTable tbody");
 			$tableBody.html('');
 			
-		/* 	<td>초코송이</td>
-			<td>S1</td>
-			<td>L1</td>
-			<td>80</td>
-			<td><input type="text" size="1"></td> */
-			
 			for(var key in data){
 				$tr = $("<tr>").attr('class', 'listBody');
 				$hiddenTd = $("<input>").attr("id", "cuProNo").attr("type", "hidden").attr("value", data[key].sCode);
-				$ckTd = $("<input>").attr("class", "ckBox").attr("type", "checkbox");
 				$nameTd = $("<td>").text(data[key].pName);
 				$codeTd = $("<td>").text(data[key].pCode);
 				$loTd = $("<td>").text(data[key].location);
-				$amountTd = $("<td>").text(data[key].quantity);
-				$amountInputTd = $("<input>").attr("class", "ckBox").attr("type", "text");
+				$amountTd = $("<td>").attr("class", "amount").text(data[key].quantity);
+				$amountInputTd = $("<td>").append($("<input>").attr("class", "ckBox").attr("type", "text").attr("size","1"));
+				$ckTd = $("<td>").append($("<input>").attr("class", "pickBtn").attr("type", "button").attr("value", "추가"));
 				
 				$tr.append($hiddenTd);
-				$tr.append($ckTd);
 				$tr.append($nameTd);
 				$tr.append($codeTd);
 				$tr.append($loTd);
 				$tr.append($amountTd);
 				$tr.append($amountInputTd);
+				$tr.append($ckTd);
 				
 				$tableBody.append($tr);
 			}
@@ -587,6 +634,84 @@ $(document).on("click", "#proListTable td", function() {
 	});
 	
 });
+	
+ 	$(document).on("click", "#storageTable .pickBtn", function() {
+		var num = $(this).parent().parent().children("input").val();
+		var amount  = $(this).parent().parent().children("td").eq(4).find("input").val();
+		var pListNo = $("#pickingId").text();
+		/* console.log("num : " + pListNo); */
+		$.ajax({
+			url: "<%= request.getContextPath() %>/insertPickingList.or",
+			type: "get",
+			data: {
+				num: num,
+				amount: amount,
+				pListNo: pListNo
+			},
+			context: this,
+			success: function(data) {
+				console.log(data);
+				
+				$tableBody = $("#pickingTable tbody");
+				$tableBody.html('');
+				
+				for(var key in data.list) {
+					$tr = $("<tr>").attr('class', 'listBody');
+					$hiddenTd = $("<input>").attr("id", "pickNo").attr("type", "hidden").attr("value", data.list[key].pickingProductNo);
+					$numTd = $("<td>").text(data.list[key].rNum);
+					$companyTd = $("<td>").text(data.list[key].company);
+					$nameTd = $("<td>").text(data.list[key].pName);
+					$sCodeTd = $("<td>").text(data.list[key].sCode);
+					$countTd = $("<td>").text(data.list[key].pCount);
+					$locationTd = $("<td>").text(data.list[key].location);
+					
+					
+					$tr.append($hiddenTd);
+					$tr.append($numTd);
+					$tr.append($companyTd);
+					$tr.append($nameTd);
+					$tr.append($sCodeTd);
+					$tr.append($countTd);
+					$tr.append($locationTd);
+					
+					$tableBody.append($tr);
+				}
+				
+				$amount  = $(this).parent().parent().children("td").eq(2).text();
+				console.log("amount Check : " + amount);
+				
+				/* $tableBody2 = $("#storageTable tbody");
+				$tableBody2.html('');
+				
+				for(var key in data.sList){
+					$tr = $("<tr>").attr('class', 'listBody');
+					$hiddenTd = $("<input>").attr("id", "cuProNo").attr("type", "hidden").attr("value", data.sList[key].sCode);
+					$nameTd = $("<td>").text(data.sList[key].pName);
+					$codeTd = $("<td>").text(data.sList[key].pCode);
+					$loTd = $("<td>").text(data.sList[key].location);
+					$amountTd = $("<td>").attr("class", "amount").text(data.sList[key].quantity);
+					$amountInputTd = $("<td>").append($("<input>").attr("class", "ckBox").attr("type", "text").attr("size","1"));
+					$ckTd = $("<td>").append($("<input>").attr("class", "pickBtn").attr("type", "button").attr("value", "추가"));
+					
+					$tr.append($hiddenTd);
+					$tr.append($nameTd);
+					$tr.append($codeTd);
+					$tr.append($loTd);
+					$tr.append($amountTd);
+					$tr.append($amountInputTd);
+					$tr.append($ckTd);
+					
+					$tableBody2.append($tr);
+				} */
+				
+			},
+			error: function() {
+				alert("Error!");
+			}
+		});
+	});
+	 
+	 
 </script>   
    
 </body>

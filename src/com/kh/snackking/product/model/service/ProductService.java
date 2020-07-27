@@ -225,16 +225,43 @@ public class ProductService {
 	}
 
 
-
-	public ArrayList<HashMap<String, Object>> SearchProductStock(HashMap<String, Object> hmap) {
+//추가한 내용---------------------------------------------------------------------------
+	public Product updateProductSelect(String tCode) {
 		Connection con = getConnection();
-		
-		ArrayList<HashMap<String, Object>> list = new ProductDao().SearchProductStock(con, hmap);
-		
+		Product product = new ProductDao().updateProductSelect(con, tCode);
 		close(con);
-		
-		return list;
+		return product;
 	}
-	
-	
+
+
+
+	public ProductAttachment selectOneAttachment(String tCode) {
+		Connection con = getConnection();
+		ProductAttachment attachment = new ProductDao().selectOneAttachment(con, tCode);
+		close(con);
+		return attachment;
+	}
+
+
+
+	public int updateProduct(Product product) {
+		Connection con = getConnection();
+		int result = new ProductDao().updateProduct(con, product);
+		close(con);
+		return result;
+	}
+
+
+
+	public int updateProductAttachment(ProductAttachment pAttachment) {
+		Connection con = getConnection();
+		int result = new ProductDao().updateProductAttachment(con, pAttachment);
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
 }

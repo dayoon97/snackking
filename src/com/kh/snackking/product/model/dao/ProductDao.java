@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.snackking.board.model.vo.Attachment;
 import com.kh.snackking.equipment.model.vo.Equipment;
 import com.kh.snackking.preference.model.vo.Preference;
 import com.kh.snackking.product.model.vo.CuratingProduct;
@@ -754,91 +755,119 @@ public class ProductDao {
 		return list;
 	}
 
-
-	public ArrayList<HashMap<String, Object>> SearchProductStock(Connection con, HashMap<String, Object> hmap) {
-		Statement stmt = null;
+	//추가한 내용---------------------------------------------------------------------------
+	public Product updateProductSelect(Connection con, String tCode) {
+		Product product = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int count = 0;
-		ArrayList<HashMap<String, Object>> hList = null;
-		HashMap<String, Object> map = null;
-		
-		String query = "";
-		if(hmap.get("prCom").equals("")) {count += 1;}
-		if(hmap.get("prSelect").equals("")) {count += 1;}
-		if(hmap.get("prName").equals("")) {count += 1;}
-		if(hmap.get("prCode").equals("")) {count += 1;}
-		if(hmap.get("prnum1").equals("")) {count += 1;}
-		if(hmap.get("prnum2").equals("")) {count += 1;}
-		
-		if(count == 6) {
-			query = "SELECT P.PCODE , SUM(PS.QUANTITY) AS TOTAL , P.PT_CODE , P.PNAME , P.PVENDOR FROM PRODUCT P JOIN PRODUCT_STORAGE PS ON (P.PCODE = PS.PCODE) GROUP BY P.PCODE, P.PT_CODE, P.PNAME, P.PVENDOR ORDER BY 1 ASC ";
-		} else {
-			query = "SELECT P.PCODE , SUM(PS.QUANTITY) AS TOTAL , P.PT_CODE , P.PNAME , P.PVENDOR FROM PRODUCT P JOIN PRODUCT_STORAGE PS ON (P.PCODE = PS.PCODE) GROUP BY P.PCODE, P.PT_CODE, P.PNAME, P.PVENDOR HAVING ";
-		
-			
-			if(!hmap.get("prCom").equals("")) {
-				query += "P.PVENDOR LIKE '%'||'" + hmap.get("prCom") + "'||'%' AND ";}
-			
-			if(!hmap.get("prSelect").equals("")) { 
-				query += "P.PT_CODE = '" + hmap.get("prSelect") + "' AND ";}
-			
-			if(!hmap.get("prName").equals("")) { 
-				query += "P.PNAME LIKE '%'||'" + hmap.get("prName") + "'||'%' AND ";}
-
-			if(!hmap.get("prCode").equals("")) { 
-				query += "P.PCODE = '" + hmap.get("prCode") + "' AND ";}
-			
-			if(!hmap.get("prnum1").equals("")) {
-				
-					query += "SUM(PS.QUANTITY) > " + hmap.get("prnum1") + " AND ";
-			}
-			
-			if(!hmap.get("prnum2").equals("")) { 
-				
-					query += "SUM(PS.QUANTITY) < " + hmap.get("prnum2") + " AND ";
-					
-			}
-			
-			if(query.substring(query.length()-5).equals(" AND ")) {
-				query = query.substring(0, query.length()-5);
-				//query += ";";
-			}
-			//query += "STATUS = 'Y'";
-			System.out.println(query);
-		}
+		String query = prop.getProperty("updateProductSelect");
 		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-			hList = new ArrayList<>();
-			
-			while(rset.next()) {
-				map = new HashMap<>();
-			
-				map.put("prCom", rset.getString("PCODE"));
-				map.put("prSelect", rset.getString("PT_CODE"));
-				map.put("prName", rset.getString("PNAME"));
-				map.put("prCode", rset.getString("PVENDOR"));
-				map.put("total", rset.getInt("TOTAL"));
-				
-				hList.add(map);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1,tCode);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				product = new Product();
+				product.setAge(rset.getString("AGE"));
+				product.setAllergy(rset.getString("ALLERGY"));
+				product.setFlavor(rset.getString("FLAVOR"));
+				product.setpCode(rset.getString("PCODE"));
+				product.setpName(rset.getString("PNAME"));
+				product.setPrice(rset.getInt("PPRICE"));
+				product.setpExp(rset.getInt("PEXP"));
+				product.setPtCode(rset.getString("PT_CODE"));
+				product.setPtName(rset.getString("PT_NAME"));
+				product.setpVendor(rset.getString("PVENDOR"));
+				product.setTaste(rset.getString("TASTE"));
 				
 			}
-			System.out.println(map);
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			close(stmt);
+		}finally {
+			close(pstmt);
 			close(rset);
 		}
-		
-		
-		
-		return hList;
+		return product;
 	}
 
+
+	public ProductAttachment selectOneAttachment(Connection con, String tCode) {
+		PreparedStatement pstmt = null;
+		ProductAttachment attachment = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectOneAttachment");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, tCode);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				attachment = new ProductAttachment();
+				attachment.setChangeName(rset.getString("CHANGE_NAME"));
+				attachment.setFid(rset.getInt("FID"));
+				attachment.setFilePath(rset.getString("FILE_PATH"));
+				attachment.setOriginName(rset.getString("ORIGIN_NAME"));
+				attachment.setpCode(rset.getString("PCODE"));
+				attachment.setStatus(rset.getString("STATUS"));
+				attachment.setUploadDate(rset.getDate("UPLOAD_DATE"));
+				//System.out.println(attachment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return attachment;
+	}
+
+
+	public int updateProduct(Connection con, Product product) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateProduct");
+		//UPDATE PRODUCT SET PEXP = ?, PVENDOR = ?, TASTE = ?, ALLERGY = ?, AGE = ?, FLAVOR = ?, PPRICE = ? WHERE PNAME = ?
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, product.getpExp());
+			pstmt.setString(2, product.getpVendor());
+			pstmt.setString(3, product.getTaste());
+			pstmt.setString(4, product.getAllergy());
+			pstmt.setString(5, product.getAge());
+			pstmt.setString(6, product.getFlavor());
+			pstmt.setInt(7, product.getPrice());
+			pstmt.setString(8, product.getPtName());
+			pstmt.setString(9, product.getpName());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int updateProductAttachment(Connection con, ProductAttachment pAttachment) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateProductAttachment");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, pAttachment.getChangeName());
+			pstmt.setString(2, pAttachment.getFilePath());
+			pstmt.setString(3, pAttachment.getOriginName());
+			pstmt.setString(4, pAttachment.getpCode());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
 	
 
