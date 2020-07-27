@@ -152,7 +152,7 @@ public class OrderDao {
 		return pList;
 	}
 	
-	public int storageAmount(Connection con, int sNum, int amount) {
+	public int storageAmount(Connection con, String sNum, int amount) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -161,7 +161,7 @@ public class OrderDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, amount);
-			pstmt.setInt(2, sNum);
+			pstmt.setString(2, sNum);
 			
 			result = pstmt.executeUpdate();
 			
@@ -173,7 +173,7 @@ public class OrderDao {
 		return result;
 	}
 	
-	public int quanCheck(Connection con, int sNum, int amount) {
+	public int quanCheck(Connection con, String sNum, int amount) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -184,7 +184,7 @@ public class OrderDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, amount);
-			pstmt.setInt(2, sNum);
+			pstmt.setString(2, sNum);
 			
 			rset = pstmt.executeQuery();
 			
@@ -202,7 +202,7 @@ public class OrderDao {
 		return result;
 	}
 
-	public int pickingStockList(Connection con, int pListNo, int sNum, int amount) {
+	public int pickingStockList(Connection con, int pListNo, String sNum, int amount) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -212,7 +212,7 @@ public class OrderDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, pListNo);
-			pstmt.setInt(2, sNum);
+			pstmt.setString(2, sNum);
 			pstmt.setInt(3, amount);
 			
 			result = pstmt.executeUpdate();
@@ -266,7 +266,7 @@ public class OrderDao {
 		return list;
 	}
 
-	public StorageProduct selectOneStorage(Connection con, int sNum) {
+	public StorageProduct selectOneStorage(Connection con, String sNum) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -276,7 +276,7 @@ public class OrderDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, sNum);
+			pstmt.setString(1, sNum);
 			
 			rset = pstmt.executeQuery();
 			
