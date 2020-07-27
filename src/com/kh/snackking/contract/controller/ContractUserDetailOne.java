@@ -12,16 +12,16 @@ import com.kh.snackking.contract.model.service.ContractService;
 import com.kh.snackking.contract.model.vo.Contract;
 
 /**
- * Servlet implementation class ContractUserDetail
+ * Servlet implementation class ContractUserDetailOne
  */
-@WebServlet("/contractUserDetail.co")
-public class ContractUserDetail extends HttpServlet {
+@WebServlet("/contractUserDetailOne.co")
+public class ContractUserDetailOne extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ContractUserDetail() {
+    public ContractUserDetailOne() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,21 +31,19 @@ public class ContractUserDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		int num = Integer.parseInt(request.getParameter("num"));
-		
-		
-		Contract contract = new ContractService().contractUserDetail(num);
-		
-		
-		//dao, DB까지 갔다가 돌아오면서 값 들어왔는지 출력되는지 확인해보기!
-		//그 다음 아래 나머지 작성한다.
-//		request.setAttribute("num", num);
-		
-		//DB까지 갔다가 돌아온 값 내보낼 뷰페이지
-		String page = "views/chiefManager/cmContractUserDetail.jsp";
-		request.setAttribute("contract", contract);
-		request.getRequestDispatcher(page).forward(request, response);
+	int conNo = Integer.parseInt(request.getParameter("conNo"));	
+	System.out.println(conNo);
+	
+	Contract contract = new ContractService().contractUserDetailOne(conNo);
+
+	System.out.println("contract : " + contract);
+	
+	
+	String page = "views/chiefManager/cmContractUpdate.jsp";
+	request.setAttribute("contract", contract);
+	request.getRequestDispatcher(page).forward(request, response);
+	
+	
 	}
 
 	/**
@@ -57,3 +55,11 @@ public class ContractUserDetail extends HttpServlet {
 	}
 
 }
+
+
+
+
+
+
+
+

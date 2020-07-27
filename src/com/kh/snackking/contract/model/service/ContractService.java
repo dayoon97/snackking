@@ -126,5 +126,18 @@ public class ContractService {
 		
 		return c;
 	}
+
+	//계약내역 조회 페이지에서 계약 수정 버튼 클릭 후 계약 회원들 계약정보 보여지게 할 때 
+	public Contract contractUserDetailOne(int conNo) {
+
+		Connection con = getConnection();
+		
+		Contract c = new ContractDao().contractUserDetailOne(con, conNo);
+		
+		close(con);
+		
+		
+		return c;
+	}
 	
 }
