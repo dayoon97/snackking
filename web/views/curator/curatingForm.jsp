@@ -498,7 +498,7 @@ $(function(){
 										<label for="mint">민트</label></td>
 										<td width="20px;"></td>
 										<td width="90px;"><input type="checkbox" id="grape" name="smell" value="포도">
-										<label for="grape">포도</label></td>
+										<label for="grape">청포도</label></td>
 										<td width="20px;"></td>
 										<td width="90px;"><input type="checkbox" id="strawberry" name="smell" value="딸기">
 										<label for="strawberry">딸기</label></td>
@@ -542,7 +542,7 @@ $(function(){
 										<label for="soybean">대두</label></td>
 										<td width="20px;"></td>
 										<td width="90px;"><input type="checkbox" id="crab" name="allergy" value="게">
-										<label for="crab">게</label></td>
+										<label for="crab">갑각류</label></td>
 									</tr>
 									<tr>
 										<td width="50px;"></td>
